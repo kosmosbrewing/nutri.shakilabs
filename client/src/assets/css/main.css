@@ -164,6 +164,14 @@
     @apply font-brand text-xl text-primary;
   }
 
+  .compare-row-label {
+    @apply border-b border-r border-border bg-muted/25 px-4 py-3 text-left text-xs font-semibold text-muted-foreground;
+  }
+
+  .compare-value {
+    @apply border-b border-r border-border px-4 py-3 align-top tabular-nums last:border-r-0;
+  }
+
   .ranking-list > li {
     animation: ranking-rise 420ms ease-out both;
   }

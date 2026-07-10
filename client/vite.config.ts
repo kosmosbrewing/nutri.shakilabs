@@ -25,6 +25,6 @@ export default defineConfig({
     include: ["src/**/*.test.ts"],
   },
   ssgOptions: {
-    includedRoutes: () => ["/", "/404"],
+    includedRoutes: () => ["/", "/compare", "/404"],
   },
 });

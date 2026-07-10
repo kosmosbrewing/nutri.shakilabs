@@ -7,6 +7,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/HomeView.vue"),
   },
   {
+    path: "/compare",
+    name: "Compare",
+    component: () => import("@/views/CompareView.vue"),
+  },
+  {
     path: "/404",
     name: "NotFoundStatic",
     component: () => import("@/views/NotFoundView.vue"),

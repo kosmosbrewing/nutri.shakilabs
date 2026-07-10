@@ -3,7 +3,16 @@ import { computed } from "vue";
 import type { RankingItem } from "@/utils/ranking";
 import { formatScore, formatWon } from "@/utils/ranking";
 
-const props = defineProps<{ item: RankingItem }>();
+const props = withDefaults(defineProps<{
+  item: RankingItem;
+  selected?: boolean;
+  compareDisabled?: boolean;
+}>(), {
+  selected: false,
+  compareDisabled: false,
+});
+
+defineEmits<{ toggleCompare: [productId: string] }>();
 
 const coverageWidth = computed(() => `${Math.min(props.item.score.coverageScore, 100)}%`);
 const capturedAt = computed(() => props.item.offer.capturedAt.replaceAll("-", "."));
@@ -76,14 +85,26 @@ const capturedAt = computed(() => props.item.offer.capturedAt.replaceAll("-", ".
           <p class="metric-label">가격효율지수</p>
           <p class="mt-1 font-brand text-2xl text-primary">{{ formatScore(item.score.valueIndex) }}</p>
         </div>
-        <a
-          class="touch-target inline-flex items-center rounded-lg border border-border px-3 text-xs font-semibold hover:border-primary hover:text-primary lg:mt-2"
-          :href="item.offer.url"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          가격 원문
-        </a>
+        <div class="flex flex-wrap justify-end gap-1.5 lg:mt-2">
+          <a
+            class="touch-target inline-flex items-center rounded-lg border border-border px-2.5 text-xs font-semibold hover:border-primary hover:text-primary"
+            :href="item.offer.url"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            가격 원문
+          </a>
+          <button
+            class="touch-target rounded-lg border px-2.5 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+            :class="selected ? 'border-primary bg-primary text-primary-foreground' : 'border-border hover:border-primary hover:text-primary'"
+            :disabled="compareDisabled"
+            type="button"
+            :aria-pressed="selected"
+            @click="$emit('toggleCompare', item.product.id)"
+          >
+            {{ selected ? '비교 취소' : '비교 담기' }}
+          </button>
+        </div>
       </div>
     </div>
 

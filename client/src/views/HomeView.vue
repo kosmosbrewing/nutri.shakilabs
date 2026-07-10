@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import SiteHeader from "@/components/SiteHeader.vue";
+import ComparisonTray from "@/components/compare/ComparisonTray.vue";
 import RankingCard from "@/components/ranking/RankingCard.vue";
 import RankingFilters from "@/components/ranking/RankingFilters.vue";
+import { useComparison } from "@/composables/useComparison";
 import { useRanking } from "@/composables/useRanking";
 import { formatScore, formatWon } from "@/utils/ranking";
 
@@ -17,6 +19,16 @@ const {
 } = useRanking();
 
 const topItem = allItems[0];
+const {
+  canCompare,
+  clearSelection,
+  compareLocation,
+  isLimitReached,
+  isSelected,
+  selectedItems,
+  selectionError,
+  toggleProduct,
+} = useComparison(allItems);
 </script>
 
 <template>
@@ -77,7 +89,7 @@ const topItem = allItems[0];
         </div>
       </section>
 
-      <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14">
+      <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14" :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p class="eyebrow">Value ranking</p>
@@ -110,7 +122,12 @@ const topItem = allItems[0];
 
         <ol v-else class="ranking-list mt-5 space-y-3">
           <li v-for="item in visibleItems" :key="item.product.id">
-            <RankingCard :item="item" />
+            <RankingCard
+              :compare-disabled="isLimitReached && !isSelected(item.product.id)"
+              :item="item"
+              :selected="isSelected(item.product.id)"
+              @toggle-compare="toggleProduct"
+            />
           </li>
         </ol>
       </section>
@@ -135,6 +152,15 @@ const topItem = allItems[0];
         </div>
       </section>
     </main>
+
+    <ComparisonTray
+      :can-compare="canCompare"
+      :compare-location="compareLocation"
+      :error="selectionError"
+      :items="selectedItems"
+      @clear="clearSelection"
+      @remove="toggleProduct"
+    />
 
     <footer class="container py-8 text-xs leading-5 text-muted-foreground">
       영양만점은 영양정보 비교 도구이며 질환의 진단·치료·예방을 위한 의료 조언을 제공하지 않습니다.
