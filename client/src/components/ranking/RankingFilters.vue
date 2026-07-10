@@ -94,12 +94,20 @@ function updateFromControl(key: RankingFilterKey, event: Event): void {
 
     <div class="border-t border-border/60 bg-muted/35 px-4 py-3 sm:px-5">
       <label class="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm">
-        <input
-          :checked="filters.confidence === 'A'"
-          class="h-4 w-4 accent-primary"
-          type="checkbox"
-          @change="emit('update', 'confidence', filters.confidence === 'A' ? 'all' : 'A')"
-        />
+        <span class="relative grid h-11 w-11 shrink-0 place-items-center">
+          <input
+            :checked="filters.confidence === 'A'"
+            class="peer absolute inset-0 h-11 w-11 cursor-pointer opacity-0"
+            type="checkbox"
+            @change="emit('update', 'confidence', filters.confidence === 'A' ? 'all' : 'A')"
+          />
+          <span
+            aria-hidden="true"
+            class="grid h-5 w-5 place-items-center rounded border border-border text-transparent peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2"
+          >
+            <span class="h-2.5 w-1.5 rotate-45 border-b-2 border-r-2 border-current" />
+          </span>
+        </span>
         <span>제조사 라벨 근거가 있는 신뢰도 A만 보기</span>
       </label>
     </div>

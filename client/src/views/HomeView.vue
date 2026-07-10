@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { ShSurface, ShText } from "@shakilabs/ui";
 import SiteHeader from "@/components/SiteHeader.vue";
 import HomeCategorySection from "@/components/category/HomeCategorySection.vue";
 import ComparisonTray from "@/components/compare/ComparisonTray.vue";
@@ -58,9 +59,9 @@ onMounted(() => {
         <div class="container grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
           <div class="relative z-10 max-w-2xl">
             <p class="eyebrow">공공데이터 + 판매가 근거 · 2026.07.10</p>
-            <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-[1.18] tracking-[-0.035em] sm:text-5xl sm:leading-[1.14]">
+            <ShText as="h1" variant="display" class="mt-4 break-keep">
               영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
-            </h1>
+            </ShText>
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 가격효율로, 나머지는 공식 등록 근거부터 확인하세요.
             </p>
@@ -74,9 +75,8 @@ onMounted(() => {
             </a>
           </div>
 
-          <aside v-if="topItem" class="surface-panel relative overflow-hidden p-5 sm:p-6" aria-label="현재 가격효율 1위">
-            <div class="absolute -right-8 -top-10 h-36 w-36 rounded-full bg-accent" aria-hidden="true" />
-            <div class="relative">
+          <ShSurface v-if="topItem" as="aside" padding="lg" class="relative overflow-hidden" aria-label="현재 가격효율 1위">
+            <div>
               <div class="flex items-center justify-between gap-3">
                 <p class="eyebrow">현재 가격효율 1위</p>
                 <span class="confidence-badge">신뢰도 {{ topItem.product.confidence }}</span>
@@ -103,7 +103,7 @@ onMounted(() => {
                 1위는 일반 성인 기준 가격효율 산식 결과이며, 개인에게 가장 적합하다는 의료적 의미가 아닙니다.
               </p>
             </div>
-          </aside>
+          </ShSurface>
         </div>
       </section>
 
@@ -113,7 +113,7 @@ onMounted(() => {
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p class="eyebrow">Value ranking</p>
-            <h2 class="mt-2 font-brand text-2xl sm:text-3xl">가격당 영양효율 순위</h2>
+            <ShText as="h2" variant="title" class="mt-2">가격당 영양효율 순위</ShText>
           </div>
           <p class="max-w-md break-keep text-xs leading-5 text-muted-foreground sm:text-right">
             기본 정렬은 영양충족도 ÷ 배송비 포함 1일 비용입니다. 가격은 실시간 최저가를 보장하지 않습니다.
