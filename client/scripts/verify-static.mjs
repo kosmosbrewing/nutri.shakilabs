@@ -15,6 +15,7 @@ const clientRoot = resolve(scriptRoot, "..");
 const repositoryRoot = resolve(clientRoot, "..");
 const distRoot = resolve(clientRoot, "dist");
 const siteBase = "https://shakilabs.com/nutri";
+const ogImageUrl = `${siteBase}/og-image.png`;
 const fontManifest = JSON.parse(readFileSync(resolve(scriptRoot, "font-subset-manifest.json"), "utf8"));
 const categoryCatalogInput = JSON.parse(readFileSync(
   resolve(clientRoot, "src/data/category-catalog.json"),
@@ -99,6 +100,10 @@ for (const budget of shippedFontBudgets) {
   }
 }
 assert(shippedFontBytes <= 180 * 1024, "Shipped fonts exceed the 180 KiB total budget");
+const ogImage = readFileSync(resolve(distRoot, "og-image.png"));
+assert(ogImage.subarray(0, 8).toString("hex") === "89504e470d0a1a0a", "Social image must be PNG");
+assert(ogImage.readUInt32BE(16) === 1200 && ogImage.readUInt32BE(20) === 630,
+  "Social image must be 1200x630");
 
 const pages = [
   { route: "/", path: resolve(distRoot, "index.html") },
@@ -130,6 +135,7 @@ for (const page of pages) {
   const robots = getMeta(html, "name", "robots");
   const canonical = getCanonical(html);
   const ogUrl = getMeta(html, "property", "og:url");
+  const ogImage = getMeta(html, "property", "og:image");
   const h1Count = (html.match(/<h1\b/g) ?? []).length;
   const body = html.match(/<body>[\s\S]*<\/body>/)?.[0] ?? "";
   const hash = createHash("sha256").update(body).digest("hex");
@@ -139,6 +145,7 @@ for (const page of pages) {
   assert(robots === "index,follow", `${page.route}: must be index,follow`);
   assert(canonical === expectedCanonical(page.route), `${page.route}: invalid canonical`);
   assert(ogUrl === canonical, `${page.route}: OG URL must match canonical`);
+  assert(ogImage === ogImageUrl, `${page.route}: invalid OG image`);
   assert(h1Count === 1, `${page.route}: expected one H1, received ${h1Count}`);
   assert(html.includes('id="app" data-server-rendered="true"'), `${page.route}: missing SSR body`);
   const jsonLd = JSON.stringify(getJsonLd(html));
@@ -195,6 +202,17 @@ assert(JSON.stringify([...sitemapUrls].sort()) === JSON.stringify(expectedUrls),
   "Sitemap URLs must exactly match indexable static pages");
 
 verifyDeployment({ distRoot, repositoryRoot, siteBase });
+
+const vercel = JSON.parse(read(resolve(repositoryRoot, "vercel.json")));
+assert(vercel.cleanUrls === true, "vercel.json must enable cleanUrls");
+assert(!(vercel.rewrites ?? []).some((rewrite) => rewrite.destination === "/index.html"),
+  "Catch-all SPA rewrites are forbidden");
+assert((vercel.rewrites ?? []).some((rewrite) => rewrite.source === "/nutri/:path*"),
+  "Missing /nutri path rewrite");
+const appHeaders = vercel.headers?.find((rule) => rule.source === "/(.*)")?.headers ?? [];
+assert(appHeaders.some((header) => header.key === "X-Content-Type-Options"), "Missing app security headers");
+const fontCache = vercel.headers?.find((rule) => rule.source === "/fonts/(.*)")?.headers ?? [];
+assert(!fontCache.some((header) => header.value.includes("immutable")), "Fixed font URLs must revalidate");
 
 console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, and noindex 404.`);
 await import("./verify-unit-price-pages.mjs");

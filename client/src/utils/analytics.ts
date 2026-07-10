@@ -2,6 +2,8 @@ import { z } from "zod";
 
 export const ANALYTICS_CONSENT_KEY = "nutri-analytics-consent";
 export const consentDecisionSchema = z.enum(["accepted", "rejected"]);
+const measurementIdSchema = z.string().regex(/^G-[A-Z0-9]+$/);
+const pageUrlSchema = z.string().url().max(2_048);
 
 const eventSchema = z.discriminatedUnion("name", [
   z.object({
@@ -35,6 +37,41 @@ const eventSchema = z.discriminatedUnion("name", [
 
 export type AnalyticsEvent = z.infer<typeof eventSchema>;
 type AnalyticsWindow = Window & { dataLayer?: unknown[] };
+let activeMeasurementId: string | null = null;
+
+export function sanitizePageUrl(input: unknown) {
+  const parsed = pageUrlSchema.safeParse(input);
+  if (!parsed.success) return null;
+  const url = new URL(parsed.data);
+  url.search = "";
+  url.hash = "";
+  return { page_location: url.href, page_path: url.pathname };
+}
+
+export function buildAnalyticsEventCommand(input: unknown, pageUrl: unknown) {
+  const parsed = eventSchema.safeParse(input);
+  const page = sanitizePageUrl(pageUrl);
+  if (!parsed.success || !page) return null;
+  const { name, ...parameters } = parsed.data;
+  return ["event", name, { ...parameters, ...page }];
+}
+
+function setAnalyticsDisabled(
+  analyticsWindow: AnalyticsWindow,
+  measurementId: string,
+  disabled: boolean,
+): void {
+  const flags = analyticsWindow as unknown as Record<string, unknown>;
+  flags[`ga-disable-${measurementId}`] = disabled;
+}
+
+function pushCommand(analyticsWindow: AnalyticsWindow, command: unknown[]): void {
+  analyticsWindow.dataLayer ??= [];
+  function queueCommand(..._values: unknown[]): void {
+    analyticsWindow.dataLayer!.push(arguments);
+  }
+  queueCommand(...command);
+}
 
 export function parseAnalyticsEvent(input: unknown) {
   return eventSchema.safeParse(input);
@@ -62,34 +99,55 @@ export function writeAnalyticsConsent(input: unknown): boolean {
 }
 
 export function initializeAnalytics(input: unknown): boolean {
-  const measurementId = z.string().regex(/^G-[A-Z0-9]+$/).safeParse(input);
+  const measurementId = measurementIdSchema.safeParse(input);
   if (!measurementId.success || typeof window === "undefined") return false;
   if (readAnalyticsConsent() !== "accepted") return false;
-  if (document.querySelector("script[data-nutri-ga]")) return true;
 
   const analyticsWindow = window as AnalyticsWindow;
-  analyticsWindow.dataLayer ??= [];
-  analyticsWindow.dataLayer.push(["js", new Date()]);
-  analyticsWindow.dataLayer.push([
+  activeMeasurementId = measurementId.data;
+  setAnalyticsDisabled(analyticsWindow, measurementId.data, false);
+  if (document.querySelector("script[data-nutri-ga]")) return true;
+  const page = sanitizePageUrl(window.location.href);
+  if (!page) return false;
+  pushCommand(analyticsWindow, ["js", new Date()]);
+  pushCommand(analyticsWindow, [
     "config",
     measurementId.data,
-    { anonymize_ip: true, send_page_view: false },
+    {
+      anonymize_ip: true,
+      send_page_view: false,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      ...page,
+    },
   ]);
   const script = document.createElement("script");
   script.async = true;
-  script.dataset.nutriGa = "true";
+  script.dataset.nutriGa = measurementId.data;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId.data)}`;
   document.head.append(script);
   return true;
 }
 
+export function disableAnalytics(input: unknown): boolean {
+  if (typeof window === "undefined") return false;
+  const parsed = measurementIdSchema.safeParse(input);
+  const measurementId = parsed.success ? parsed.data : activeMeasurementId;
+  if (!measurementId) return false;
+  const analyticsWindow = window as AnalyticsWindow;
+  setAnalyticsDisabled(analyticsWindow, measurementId, true);
+  analyticsWindow.dataLayer?.splice(0);
+  activeMeasurementId = null;
+  return true;
+}
+
 export function trackAnalytics(input: unknown): boolean {
-  const parsed = eventSchema.safeParse(input);
-  if (!parsed.success || typeof window === "undefined") return false;
+  if (typeof window === "undefined") return false;
   if (readAnalyticsConsent() !== "accepted") return false;
   const analyticsWindow = window as AnalyticsWindow;
   if (!analyticsWindow.dataLayer || !document.querySelector("script[data-nutri-ga]")) return false;
-  const { name, ...parameters } = parsed.data;
-  analyticsWindow.dataLayer.push({ event: name, ...parameters });
+  const command = buildAnalyticsEventCommand(input, window.location.href);
+  if (!command) return false;
+  pushCommand(analyticsWindow, command);
   return true;
 }

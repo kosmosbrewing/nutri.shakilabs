@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { nutriDataset } from "@/data/dataset";
 import { seoStaticPages } from "@/data/seo-static-pages";
 import { catalogCategories } from "./category-catalog";
-import { resolveSeoPage } from "./seo";
+import { buildHeadTags, resolveSeoPage } from "./seo";
 
 const pages = [
   resolveSeoPage({ name: "Home" }),
@@ -45,5 +45,17 @@ describe("route SEO metadata", () => {
     expect(structured).not.toContain("AggregateRating");
     expect(structured).not.toContain('"@type":"Offer"');
     expect(structured).not.toContain('"@type":"Product"');
+  });
+
+  it("publishes a large social preview image", () => {
+    const head = buildHeadTags(resolveSeoPage({ name: "Home" }));
+    expect(head.meta).toContainEqual(expect.objectContaining({
+      property: "og:image",
+      content: "https://shakilabs.com/nutri/og-image.png",
+    }));
+    expect(head.meta).toContainEqual(expect.objectContaining({
+      name: "twitter:card",
+      content: "summary_large_image",
+    }));
   });
 });

@@ -56,6 +56,7 @@
 | 15 | NUTRI-013 | DONE | release:check, 45 tests, 6 viewport QA 통과 | 3개 카테고리·9개 단위가격 제품, 공식 원본 대조, overflow·콘솔 오류·짧은 터치 타깃 0 |
 | 16 | NUTRI-014 | DONE | release:check, 46 tests, 28 viewport QA 통과 | 9개 카테고리·27개 오퍼, 식품안전나라 상세 18건 대조, overflow·콘솔 오류·짧은 터치 타깃 0 |
 | 17 | NUTRI-015 | DONE | release:check, 47 tests, 36 viewport QA 통과 | category-value-v1 상대지수·단위가격 병기, 9개 SEO 페이지, overflow·콘솔 오류·짧은 터치 타깃 0 |
+| 18 | NUTRI-011 | DONE | 39 tests, release:check, consent lifecycle browser QA | 최초 이벤트·query 제거·철회 중단, OG 이미지·env·보안 헤더·폰트 캐시 보강 |
 
 ## Queue Rules
 
