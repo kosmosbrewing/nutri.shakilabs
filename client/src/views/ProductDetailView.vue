@@ -42,7 +42,7 @@ function trackOfferClick(): void {
     <SiteHeader />
     <main class="container py-8 sm:py-12">
       <nav aria-label="현재 위치" class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-        <RouterLink class="touch-target inline-flex items-center font-semibold text-primary" :to="{ path: '/', hash: '#ranking' }">가격효율 순위</RouterLink>
+        <a class="touch-target inline-flex items-center font-semibold text-primary" href="/nutri#ranking">가격효율 순위</a>
         <span aria-hidden="true">/</span>
         <span>제품 근거</span>
       </nav>
@@ -50,9 +50,9 @@ function trackOfferClick(): void {
       <section v-if="pageError" class="surface-panel mt-6 px-5 py-12 text-center" role="alert">
         <h1 class="font-brand text-2xl">제품을 찾을 수 없습니다</h1>
         <p class="mt-2 text-sm text-muted-foreground">{{ pageError }}</p>
-        <RouterLink class="touch-target mt-5 inline-flex items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" :to="{ path: '/', hash: '#ranking' }">
+        <a class="touch-target mt-5 inline-flex items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" href="/nutri#ranking">
           검증 제품 보기
-        </RouterLink>
+        </a>
       </section>
 
       <template v-else-if="detail">

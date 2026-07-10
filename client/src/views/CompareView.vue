@@ -37,9 +37,9 @@ onMounted(() => {
   <div class="min-h-screen">
     <SiteHeader />
     <main class="container py-8 sm:py-12">
-      <RouterLink class="touch-target inline-flex items-center text-sm font-semibold text-primary" :to="{ path: '/', hash: '#ranking' }">
+      <a class="touch-target inline-flex items-center text-sm font-semibold text-primary" href="/nutri#ranking">
         ← 순위로 돌아가기
-      </RouterLink>
+      </a>
 
       <header class="mt-5 max-w-3xl">
         <p class="eyebrow">Side by side</p>
@@ -52,9 +52,9 @@ onMounted(() => {
       <section v-if="pageError" class="surface-panel mt-8 px-5 py-12 text-center" role="alert">
         <p class="font-semibold">비교 목록을 열 수 없습니다.</p>
         <p class="mt-2 text-sm text-muted-foreground">{{ pageError }}</p>
-        <RouterLink class="touch-target mt-5 inline-flex items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" :to="{ path: '/', hash: '#ranking' }">
+        <a class="touch-target mt-5 inline-flex items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" href="/nutri#ranking">
           제품 선택하기
-        </RouterLink>
+        </a>
       </section>
 
       <template v-else>

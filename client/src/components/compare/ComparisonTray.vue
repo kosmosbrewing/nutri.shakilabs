@@ -46,7 +46,7 @@ defineEmits<{
           <button
             v-for="item in items"
             :key="item.product.id"
-            class="min-h-9 max-w-56 truncate rounded-full border border-background/20 px-3 text-xs hover:border-background/55"
+            class="min-h-11 max-w-56 truncate rounded-full border border-background/20 px-3 text-xs hover:border-background/55"
             type="button"
             :aria-label="`${item.product.officialName} 비교에서 제거`"
             @click="$emit('remove', item.product.id)"

@@ -2,12 +2,18 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  collectFontCharacters,
+  fontJobs,
+  shippedFontBudgets,
+} from "./font-subset-config.mjs";
 
 const scriptRoot = dirname(fileURLToPath(import.meta.url));
 const clientRoot = resolve(scriptRoot, "..");
 const repositoryRoot = resolve(clientRoot, "..");
 const distRoot = resolve(clientRoot, "dist");
 const siteBase = "https://shakilabs.com/nutri";
+const fontManifest = JSON.parse(readFileSync(resolve(scriptRoot, "font-subset-manifest.json"), "utf8"));
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -16,6 +22,10 @@ function assert(condition, message) {
 function read(path) {
   assert(existsSync(path), `Missing static output: ${path}`);
   return readFileSync(path, "utf8");
+}
+
+function hash(content) {
+  return createHash("sha256").update(content).digest("hex");
 }
 
 function getAttribute(tag, name) {
@@ -57,6 +67,24 @@ const productFiles = readdirSync(productRoot)
   .sort();
 assert(productFiles.length === 10, `Expected 10 product pages, received ${productFiles.length}`);
 
+assert(fontManifest.characterSha256 === hash(collectFontCharacters()),
+  "UI characters changed; run npm run fonts:subset");
+let shippedFontBytes = 0;
+for (const budget of shippedFontBudgets) {
+  const path = resolve(distRoot, "fonts", budget.publicName);
+  assert(existsSync(path), `Missing shipped font: ${budget.publicName}`);
+  const content = readFileSync(path);
+  shippedFontBytes += content.byteLength;
+  assert(content.byteLength <= budget.maxBytes,
+    `${budget.publicName} exceeds its ${budget.maxBytes}-byte budget`);
+  const generated = fontJobs.some((font) => font.publicName === budget.publicName);
+  if (generated) {
+    const expected = fontManifest.fonts.find((font) => font.publicName === budget.publicName);
+    assert(expected?.sha256 === hash(content), `${budget.publicName} does not match its manifest`);
+  }
+}
+assert(shippedFontBytes <= 180 * 1024, "Shipped fonts exceed the 180 KiB total budget");
+
 const pages = [
   { route: "/", path: resolve(distRoot, "index.html") },
   { route: "/compare", path: resolve(distRoot, "compare.html") },
@@ -71,6 +99,7 @@ const pages = [
     path: resolve(productRoot, file),
   })),
 ];
+const knownInternalPaths = new Set(pages.map((page) => new URL(expectedCanonical(page.route)).pathname));
 
 const titles = new Set();
 const bodyHashes = new Set();
@@ -98,6 +127,15 @@ for (const page of pages) {
   assert(!jsonLd.includes("AggregateRating"), `${page.route}: rating schema is forbidden`);
   assert(!titles.has(title), `${page.route}: duplicate title`);
   assert(!bodyHashes.has(hash), `${page.route}: duplicate rendered body`);
+  const anchors = html.match(/<a\b[^>]*>/g) ?? [];
+  for (const anchor of anchors) {
+    const href = getAttribute(anchor, "href");
+    if (!href?.startsWith("/nutri")) continue;
+    const pathname = new URL(href, "https://shakilabs.com").pathname;
+    assert(knownInternalPaths.has(pathname), `${page.route}: broken internal link ${href}`);
+    assert(pathname === "/nutri" || !pathname.endsWith("/"),
+      `${page.route}: internal link must use the final non-trailing URL ${href}`);
+  }
   titles.add(title);
   bodyHashes.add(hash);
 

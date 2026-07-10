@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fonts:subset": "node scripts/subset-fonts.mjs",
     "fetch:data": "node scripts/fetch-public-data.mjs",
     "validate:data": "node scripts/validate-all-data.mjs",
     "build": "vite-ssg build && npm run verify:static",
@@ -15,7 +16,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify:static": "node scripts/verify-static.mjs",
-    "check": "npm run lint && npm run lint:layers && npm run typecheck && npm test && npm run build",
+    "check": "npm run release:check",
+    "release:check": "npm run lint && npm run lint:layers && npm run typecheck && npm test && npm run validate:data && npm run build && npm audit --audit-level=high",
     "preview": "vite preview"
   },
   "dependencies": {

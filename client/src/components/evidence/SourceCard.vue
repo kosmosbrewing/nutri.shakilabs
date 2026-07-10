@@ -24,7 +24,7 @@ function trackSourceOpen(): void {
       원문 열기 ↗
     </a>
     <details class="mt-2 text-[11px] text-muted-foreground">
-      <summary class="cursor-pointer py-2">검증 해시</summary>
+      <summary class="flex min-h-11 cursor-pointer items-center py-2">검증 해시</summary>
       <code class="block break-all rounded-lg bg-muted p-2">{{ source.rawHash }}</code>
     </details>
   </article>

@@ -18,7 +18,7 @@
 | NUTRI-008 | DONE | 제품 상세·방법론·출처 페이지 | 005 | 제품별 근거와 산식·결측·가격 정책 노출 |
 | NUTRI-009 | DONE | SSG·sitemap·404·canonical | 006,007,008 | route별 고유 HTML, self-canonical, 실제 404 |
 | NUTRI-010 | DONE | 정책·분석·제휴 표시 | 008 | 의료 고지, 개인정보 최소화, GA 이벤트, 제휴 구분 |
-| NUTRI-011 | PENDING | 전체 QA·preview·release gate | 009,010 | Ralph Loop 완료 조건 전체 통과 |
+| NUTRI-011 | DONE | 전체 QA·preview·release gate | 009,010 | Ralph Loop 완료 조건 전체 통과 |
 
 ## Deferred Queue
 
@@ -47,6 +47,7 @@
 | 10 | NUTRI-008 | DONE | 27 tests, 데이터 검증, 15-page build, browser QA 통과 | 상세 10개, 23행, 출처 25개, 산식 공개 |
 | 11 | NUTRI-009 | DONE | 32 tests, 14-page static gate, browser·HTTP QA 통과 | 고유 head·JSON-LD·sitemap, unknown 404 |
 | 12 | NUTRI-010 | DONE | 35 tests, 18-page static gate, consent browser QA 통과 | 정책 4종, 동의 전 GA 0, 전 링크 비제휴 |
+| 13 | NUTRI-011 | DONE | release:check, 57 route/viewport 검사, Lighthouse 측정 | 성능 87·접근성 100·Best Practices 100·SEO 100, 폰트 1.43MiB→109KiB |
 
 ## Queue Rules
 

@@ -13,7 +13,7 @@ defineProps<{
     <SiteHeader />
     <main class="container max-w-3xl py-8 sm:py-12">
       <nav aria-label="현재 위치" class="text-xs text-muted-foreground">
-        <RouterLink class="touch-target inline-flex items-center font-semibold text-primary" to="/">영양만점</RouterLink>
+        <a class="touch-target inline-flex items-center font-semibold text-primary" href="/nutri">영양만점</a>
         <span class="mx-2" aria-hidden="true">/</span><span>{{ title }}</span>
       </nav>
       <header class="mt-5">

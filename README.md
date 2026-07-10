@@ -6,7 +6,7 @@
 
 - 디렉터리: `11.nutri`
 - Git 저장소명: `nutri.shakilabs`
-- 단계: Ralph Loop 구현 중
+- 단계: 로컬 릴리스 gate 완료 (production 배포 전)
 - APP_ID: `nutri`
 - 운영 경로: `https://shakilabs.com/nutri/`
 - 개발 포트: `6112`
