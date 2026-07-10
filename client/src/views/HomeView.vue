@@ -1,6 +1,6 @@
 <template>
   <main class="page-shell min-h-screen">
-    <p class="eyebrow mb-3">Nutri</p>
+    <p class="eyebrow mb-3">영양만점</p>
     <h1 class="font-brand text-3xl font-bold tracking-tight sm:text-4xl">
       멀티비타민 가격·영양 비교
     </h1>

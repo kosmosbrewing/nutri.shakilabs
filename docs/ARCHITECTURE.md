@@ -13,6 +13,8 @@
 
 | 항목 | 결정 |
 |---|---|
+| 서비스명 | 영양만점 |
+| Git 저장소명 | `nutri.shakilabs` |
 | 디렉터리 | `11.nutri/` |
 | 프론트 | Vue 3, TypeScript, Tailwind, Radix Vue |
 | 렌더링 | Vite SSG, route별 HTML |

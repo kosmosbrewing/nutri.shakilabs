@@ -1,10 +1,12 @@
-# 11.nutri
+# 영양만점
 
 공식 데이터와 검증된 판매 스냅샷을 결합해 성인용 멀티비타민의 가격당 영양효율을 설명 가능하게 비교하는 서비스.
 
 ## 상태
 
-- 단계: 설계 완료 전, 구현 미착수
+- 디렉터리: `11.nutri`
+- Git 저장소명: `nutri.shakilabs`
+- 단계: Ralph Loop 구현 중
 - APP_ID: `nutri`
 - 운영 경로: `https://shakilabs.com/nutri/`
 - 개발 포트: `6112`
