@@ -12,6 +12,21 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/CompareView.vue"),
   },
   {
+    path: "/products/:slug",
+    name: "ProductDetail",
+    component: () => import("@/views/ProductDetailView.vue"),
+  },
+  {
+    path: "/methodology",
+    name: "Methodology",
+    component: () => import("@/views/MethodologyView.vue"),
+  },
+  {
+    path: "/sources",
+    name: "Sources",
+    component: () => import("@/views/SourcesView.vue"),
+  },
+  {
     path: "/404",
     name: "NotFoundStatic",
     component: () => import("@/views/NotFoundView.vue"),

@@ -43,7 +43,9 @@ const capturedAt = computed(() => props.item.offer.capturedAt.replaceAll("-", ".
           <p class="truncate text-xs font-semibold text-primary">{{ item.product.brand }}</p>
         </div>
         <h3 class="mt-2 break-keep text-lg font-semibold leading-snug sm:text-xl">
-          {{ item.product.officialName }}
+          <RouterLink class="decoration-primary/35 underline-offset-4 hover:text-primary hover:underline" :to="`/products/${item.product.slug}`">
+            {{ item.product.officialName }}
+          </RouterLink>
         </h3>
         <p class="mt-2 text-xs leading-5 text-muted-foreground">
           신고번호 {{ item.product.reportNo }} · 1일 {{ item.product.unitsPerServing }}정

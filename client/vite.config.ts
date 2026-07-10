@@ -4,6 +4,9 @@ import vue from "@vitejs/plugin-vue";
 import autoprefixer from "autoprefixer";
 import tailwind from "tailwindcss";
 import { defineConfig } from "vite";
+import { products } from "./src/data/products";
+
+const productRoutes = products.map((product) => `/products/${product.slug}`);
 
 export default defineConfig({
   base: "/nutri/",
@@ -25,6 +28,13 @@ export default defineConfig({
     include: ["src/**/*.test.ts"],
   },
   ssgOptions: {
-    includedRoutes: () => ["/", "/compare", "/404"],
+    includedRoutes: () => [
+      "/",
+      "/compare",
+      "/methodology",
+      "/sources",
+      ...productRoutes,
+      "/404",
+    ],
   },
 });

@@ -15,7 +15,7 @@
 | NUTRI-005 | DONE | 검증 제품 10개 evidence dataset | 003,004,005B | A/B 10개, unknown 0, 가격 30일 이내 |
 | NUTRI-006 | DONE | 랭킹·필터 UI | 004,005 | 기본 결과 즉시 표시, 모바일 overflow 없음 |
 | NUTRI-007 | DONE | 최대 4개 비교 UI | 006 | 모바일 카드·데스크톱 표·출처 표시 동작 |
-| NUTRI-008 | PENDING | 제품 상세·방법론·출처 페이지 | 005 | 제품별 근거와 산식·결측·가격 정책 노출 |
+| NUTRI-008 | DONE | 제품 상세·방법론·출처 페이지 | 005 | 제품별 근거와 산식·결측·가격 정책 노출 |
 | NUTRI-009 | PENDING | SSG·sitemap·404·canonical | 006,007,008 | route별 고유 HTML, self-canonical, 실제 404 |
 | NUTRI-010 | PENDING | 정책·분석·제휴 표시 | 008 | 의료 고지, 개인정보 최소화, GA 이벤트, 제휴 구분 |
 | NUTRI-011 | PENDING | 전체 QA·preview·release gate | 009,010 | Ralph Loop 완료 조건 전체 통과 |
@@ -44,6 +44,7 @@
 | 7 | NUTRI-005 | DONE | 17 tests, 데이터 검증, build, audit 통과 | A/B 10개, 23개 공통 영양소, 배송비 포함 가격 |
 | 8 | NUTRI-006 | DONE | 21 tests, build, 360/390/430px browser QA 통과 | 필터 상호작용·콘솔 오류 0·overflow 0 |
 | 9 | NUTRI-007 | DONE | 24 tests, build, 390/1280px browser QA 통과 | 2~4개 URL 검증, 표 30행, 출처 링크 |
+| 10 | NUTRI-008 | DONE | 27 tests, 데이터 검증, 15-page build, browser QA 통과 | 상세 10개, 23행, 출처 25개, 산식 공개 |
 
 ## Queue Rules
 

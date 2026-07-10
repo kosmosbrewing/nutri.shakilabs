@@ -172,6 +172,14 @@
     @apply border-b border-r border-border px-4 py-3 align-top tabular-nums last:border-r-0;
   }
 
+  .formula-card {
+    @apply rounded-xl border border-border bg-card p-5 text-card-foreground shadow-lift;
+  }
+
+  .formula-text {
+    @apply mt-3 rounded-lg bg-accent px-3 py-2 font-semibold text-accent-foreground;
+  }
+
   .ranking-list > li {
     animation: ranking-rise 420ms ease-out both;
   }

@@ -8,12 +8,12 @@
         <span>영양만점</span>
       </RouterLink>
       <nav aria-label="주요 메뉴" class="flex items-center gap-1 sm:gap-3">
-        <a class="touch-target inline-flex items-center px-2 text-sm font-semibold hover:text-primary" href="#ranking">
+        <RouterLink class="touch-target inline-flex items-center px-2 text-sm font-semibold hover:text-primary" :to="{ path: '/', hash: '#ranking' }">
           가격효율 순위
-        </a>
-        <a class="touch-target hidden items-center px-2 text-sm font-semibold hover:text-primary sm:inline-flex" href="#method-note">
+        </RouterLink>
+        <RouterLink class="touch-target hidden items-center px-2 text-sm font-semibold hover:text-primary sm:inline-flex" to="/methodology">
           산정 기준
-        </a>
+        </RouterLink>
       </nav>
     </div>
   </header>
