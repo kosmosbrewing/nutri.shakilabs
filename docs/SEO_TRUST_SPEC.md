@@ -29,7 +29,7 @@
 
 - title은 핵심 비교 대상, 기준연도, 브랜드를 60자 안에서 설명한다.
 - description은 1일 비용, 영양충족도, 공식 출처를 155자 안에서 설명한다.
-- canonical은 실제 200 응답 호스트인 `https://www.shakilabs.com/nutri` 기준 self URL이다.
+- canonical은 실제 200 응답 호스트인 `https://shakilabs.com/nutri` 기준 self URL이다.
 - OG URL과 canonical은 같아야 한다.
 - `lastmod`는 실제 데이터나 본문 변경일만 갱신한다.
 
@@ -97,8 +97,8 @@
 ## 출시 후 검증
 
 - 배포 직후 sitemap, canonical, 404, route별 HTML hash 확인
-- GSC는 도메인 속성 또는 `https://www.shakilabs.com/` URL-prefix 속성을 사용한다.
-- sitemap은 리다이렉트 없는 `https://www.shakilabs.com/nutri/sitemap.xml`을 제출한다.
+- GSC는 도메인 속성 또는 `https://shakilabs.com/` URL-prefix 속성을 사용한다.
+- sitemap은 리다이렉트 없는 `https://shakilabs.com/nutri/sitemap.xml`을 제출한다.
 - GSC 3일·7일·14일 색인 및 선택 canonical 확인
 - 30일 후 검색어를 비교·가격·제품명 의도로 분류
 - 고노출 저CTR은 title을, 높은 이탈은 근거·비교 UX를 우선 개선

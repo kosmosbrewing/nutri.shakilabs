@@ -28,7 +28,7 @@ describe("route SEO metadata", () => {
 
   it("keeps comparison canonical free of query state", () => {
     expect(resolveSeoPage({ name: "Compare" }).canonical).toBe(
-      "https://www.shakilabs.com/nutri/compare",
+      "https://shakilabs.com/nutri/compare",
     );
   });
 

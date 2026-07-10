@@ -5,7 +5,7 @@ import { categoryCards } from "./category-catalog";
 import { resolveCategorySeoPage } from "./category-seo";
 import { parseProductSlug } from "./product-detail";
 
-const SITE_BASE = "https://www.shakilabs.com/nutri";
+const SITE_BASE = "https://shakilabs.com/nutri";
 const UPDATED_AT = "2026-07-10";
 const routeInputSchema = z.object({
   name: z.string(),
@@ -85,7 +85,7 @@ function homePage(): SeoPage {
           position: index + 1,
           name: category.name,
           url: category.href.startsWith("/nutri/categories/")
-            ? `https://www.shakilabs.com${category.href}`
+            ? `https://shakilabs.com${category.href}`
             : canonical("/"),
         })),
       },
