@@ -3,12 +3,16 @@ import SiteHeader from "@/components/SiteHeader.vue";
 import SourceCard from "@/components/evidence/SourceCard.vue";
 import { nutriDataset } from "@/data/dataset";
 import { publicDataSnapshot } from "@/data/public-snapshot";
+import { formatUnitPriceAmount, unitPriceDataset } from "@/utils/unit-price";
 
 const generalSources = nutriDataset.sources.filter((source) => source.productId === null);
 const productGroups = nutriDataset.products.map((product) => ({
   product,
   sources: nutriDataset.sources.filter((source) => source.productId === product.id),
 }));
+const unitPriceProducts = unitPriceDataset.categories.flatMap((category) => (
+  category.products.map((product) => ({ category, product }))
+));
 </script>
 
 <template>
@@ -39,6 +43,27 @@ const productGroups = nutriDataset.products.map((product) => ({
         <div class="border-t border-border px-5 py-4 text-xs leading-5 text-muted-foreground">
           <a class="font-semibold text-primary underline underline-offset-4" :href="publicDataSnapshot.sourceUrl" rel="noopener noreferrer" target="_blank">공공데이터포털 데이터셋 {{ publicDataSnapshot.datasetId }} ↗</a>
           <code class="mt-2 block break-all">SHA-256 {{ publicDataSnapshot.sha256 }}</code>
+        </div>
+      </section>
+
+      <section class="mt-10" aria-labelledby="unit-price-source-title" data-unit-price-evidence>
+        <p class="eyebrow">Category price evidence</p>
+        <h2 id="unit-price-source-title" class="mt-2 font-brand text-2xl">단위가격 비교 출처</h2>
+        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">공식 스냅샷의 신고번호·1일 핵심 함량과 비회원 일반 판매가·필수 배송비를 연결한 비교 근거입니다.</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <article v-for="item in unitPriceProducts" :key="item.product.id" class="surface-panel p-5" data-unit-price-evidence-card>
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold text-primary">{{ item.category.name }}</span>
+              <span class="confidence-badge">신뢰도 {{ item.product.confidence }}</span>
+            </div>
+            <h3 class="mt-4 break-keep text-sm font-semibold leading-6">{{ item.product.displayName }}</h3>
+            <p class="mt-2 text-xs leading-5 text-muted-foreground">신고번호 {{ item.product.reportNo }} · 1일 {{ formatUnitPriceAmount(item.product.dailyActiveAmount, item.product.activeUnit) }}</p>
+            <p class="mt-1 text-xs text-muted-foreground">가격 확인 {{ item.product.offer.capturedAt }} · 비제휴</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
+              <a class="touch-target inline-flex items-center text-primary" :href="unitPriceDataset.source.url" target="_blank" rel="noopener noreferrer">공공 원문 ↗</a>
+              <a class="touch-target inline-flex items-center text-primary" :href="item.product.offer.url" target="_blank" rel="noopener noreferrer">가격 원문 ↗</a>
+            </div>
+          </article>
         </div>
       </section>
 

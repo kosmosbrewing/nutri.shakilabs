@@ -4,6 +4,18 @@ import type { CategoryCardItem } from "@/utils/category-catalog";
 defineProps<{
   categories: CategoryCardItem[];
 }>();
+
+const statusLabel = {
+  ranking: "랭킹 제공",
+  unit_price: "단위가격 비교",
+  official_catalog: "공식 목록",
+} as const;
+
+const actionLabel = {
+  ranking: "가격효율 보기",
+  unit_price: "단위가격 보기",
+  official_catalog: "등록 예시 보기",
+} as const;
 </script>
 
 <template>
@@ -19,9 +31,9 @@ defineProps<{
         <span class="font-brand text-sm text-primary">{{ String(index + 1).padStart(2, "0") }}</span>
         <span
           class="rounded-full px-2.5 py-1 text-[10px] font-semibold"
-          :class="category.status === 'ranking' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'"
+          :class="category.status === 'ranking' ? 'bg-primary text-primary-foreground' : category.status === 'unit_price' ? 'bg-accent text-primary' : 'bg-muted text-muted-foreground'"
         >
-          {{ category.status === "ranking" ? "랭킹 제공" : "공식 목록" }}
+          {{ statusLabel[category.status] }}
         </span>
       </div>
       <p class="mt-7 text-xs font-semibold text-muted-foreground">
@@ -30,7 +42,7 @@ defineProps<{
       <h3 class="mt-1 break-keep font-brand text-xl">{{ category.name }}</h3>
       <p class="mt-3 break-keep text-sm leading-6 text-muted-foreground">{{ category.summary }}</p>
       <span class="mt-5 inline-flex min-h-11 items-center text-sm font-semibold text-primary">
-        {{ category.status === "ranking" ? "가격효율 보기" : "등록 예시 보기" }}
+        {{ actionLabel[category.status] }}
         <span class="ml-1 transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
       </span>
     </a>
