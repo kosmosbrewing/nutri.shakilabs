@@ -18,15 +18,15 @@ export const fontJobs = [
   },
   {
     source: resolve(clientRoot, "fonts/source/GmarketSansBold.woff2"),
-    output: resolve(clientRoot, "public/fonts/GmarketSansBold-subset-v2.woff2"),
-    publicName: "GmarketSansBold-subset-v2.woff2",
+    output: resolve(clientRoot, "public/fonts/GmarketSansBold-subset-v3.woff2"),
+    publicName: "GmarketSansBold-subset-v3.woff2",
   },
 ];
 
 export const shippedFontBudgets = [
   { publicName: "Pretendard-Regular-subset.woff2", maxBytes: 48 * 1024 },
   { publicName: "Pretendard-SemiBold-subset.woff2", maxBytes: 48 * 1024 },
-  { publicName: "GmarketSansBold-subset-v2.woff2", maxBytes: 64 * 1024 },
+  { publicName: "GmarketSansBold-subset-v3.woff2", maxBytes: 64 * 1024 },
 ];
 
 const textExtensions = new Set([
