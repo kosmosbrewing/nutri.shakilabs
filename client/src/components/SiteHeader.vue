@@ -8,9 +8,8 @@
         <span>영양만점</span>
       </a>
       <nav aria-label="주요 메뉴" class="flex items-center gap-1 sm:gap-3">
-        <a class="touch-target inline-flex items-center px-2 text-sm font-semibold hover:text-primary" href="/nutri#ranking">
-          가격효율 순위
-        </a>
+        <RouterLink class="touch-target inline-flex items-center px-2 text-sm font-semibold hover:text-primary" to="/categories">종류 찾기</RouterLink>
+        <a class="touch-target hidden items-center px-2 text-sm font-semibold hover:text-primary sm:inline-flex" href="/nutri#ranking">가격 순위</a>
         <RouterLink class="touch-target hidden items-center px-2 text-sm font-semibold hover:text-primary sm:inline-flex" to="/methodology">
           산정 기준
         </RouterLink>

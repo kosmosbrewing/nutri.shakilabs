@@ -7,6 +7,8 @@ describe("routes", () => {
       expect.arrayContaining([
         "/",
         "/compare",
+        "/categories",
+        "/categories/:slug",
         "/products/:slug",
         "/methodology",
         "/sources",

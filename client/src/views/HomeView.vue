@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import SiteHeader from "@/components/SiteHeader.vue";
+import HomeCategorySection from "@/components/category/HomeCategorySection.vue";
 import ComparisonTray from "@/components/compare/ComparisonTray.vue";
 import RankingCard from "@/components/ranking/RankingCard.vue";
 import RankingFilters from "@/components/ranking/RankingFilters.vue";
@@ -58,18 +59,18 @@ onMounted(() => {
           <div class="relative z-10 max-w-2xl">
             <p class="eyebrow">공공데이터 + 판매가 근거 · 2026.07.10</p>
             <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-[1.18] tracking-[-0.035em] sm:text-5xl sm:leading-[1.14]">
-              멀티비타민,<br class="hidden lg:block" /> 하루 비용으로<br class="hidden lg:block" /> 다시 비교했습니다.
+              영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
             </h1>
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              23개 영양소의 기준 충족률을 100%에서 멈추고, 배송비를 포함한 1일 비용으로 나눴습니다. 함량이 높다는 말보다 실제 비교 근거를 먼저 확인하세요.
+              5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 가격효율로, 나머지는 공식 등록 근거부터 확인하세요.
             </p>
             <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
-              <span class="trust-chip">식약처 신고번호 확인</span>
+              <span class="trust-chip">10개 영양제 종류</span>
               <span class="trust-chip">가격 확인일 공개</span>
               <span class="trust-chip">제휴 무관 동일 산식</span>
             </div>
-            <a class="mt-7 inline-flex min-h-12 items-center rounded-lg bg-primary px-5 font-semibold text-primary-foreground hover:brightness-95" href="#ranking">
-              10개 제품 순위 보기
+            <a class="mt-7 inline-flex min-h-12 items-center rounded-lg bg-primary px-5 font-semibold text-primary-foreground hover:brightness-95" href="#categories">
+              영양제 종류부터 보기
             </a>
           </div>
 
@@ -105,6 +106,8 @@ onMounted(() => {
           </aside>
         </div>
       </section>
+
+      <HomeCategorySection />
 
       <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14" :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">

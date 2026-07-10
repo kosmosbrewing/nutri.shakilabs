@@ -19,6 +19,7 @@
 | NUTRI-009 | DONE | SSG·sitemap·404·canonical | 006,007,008 | route별 고유 HTML, self-canonical, 실제 404 |
 | NUTRI-010 | DONE | 정책·분석·제휴 표시 | 008 | 의료 고지, 개인정보 최소화, GA 이벤트, 제휴 구분 |
 | NUTRI-011 | DONE | 전체 QA·preview·release gate | 009,010 | Ralph Loop 완료 조건 전체 통과 |
+| NUTRI-012 | DONE | 영양제 카테고리 탐색 확장 | 005B,011 | 9개 공식 카테고리, 재현 가능한 catalog, 독립 SEO 페이지, 모바일 QA 통과 |
 
 ## Deferred Queue
 
@@ -48,6 +49,7 @@
 | 11 | NUTRI-009 | DONE | 32 tests, 14-page static gate, browser·HTTP QA 통과 | 고유 head·JSON-LD·sitemap, unknown 404 |
 | 12 | NUTRI-010 | DONE | 35 tests, 18-page static gate, consent browser QA 통과 | 정책 4종, 동의 전 GA 0, 전 링크 비제휴 |
 | 13 | NUTRI-011 | DONE | release:check, 57 route/viewport 검사, Lighthouse 측정 | 성능 87·접근성 100·Best Practices 100·SEO 100, 폰트 1.43MiB→109KiB |
+| 14 | NUTRI-012 | DONE | release:check, 28 index page, 5 viewport browser QA 통과 | 9개 카테고리·54개 공식 예시, www canonical·sitemap 통일, overflow·콘솔 오류·짧은 터치 타깃 0 |
 
 ## Queue Rules
 

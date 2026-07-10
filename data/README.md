@@ -5,6 +5,7 @@
 - `raw/`는 공공데이터포털 원문 전체 스냅샷이며 Git에 포함하지 않는다.
 - `manifests/latest.json`은 출처, 기준일, 행·열 수, SHA-256을 기록한다.
 - 브라우저 번들에는 검증·정규화된 공개 subset만 포함한다.
+- `client/src/data/category-catalog.json`은 원본에서 재현 생성한 9개 카테고리 compact subset이다.
 - 원문을 수정하지 않는다. 정제 결과는 별도 경로에 생성한다.
 
 ## 현재 원본
@@ -21,6 +22,7 @@
 
 ```bash
 npm run fetch:data
+npm run catalog:build
 npm run validate:data
 ```
 

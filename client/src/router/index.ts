@@ -12,6 +12,16 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/CompareView.vue"),
   },
   {
+    path: "/categories",
+    name: "Categories",
+    component: () => import("@/views/CategoriesView.vue"),
+  },
+  {
+    path: "/categories/:slug",
+    name: "CategoryDetail",
+    component: () => import("@/views/CategoryDetailView.vue"),
+  },
+  {
     path: "/products/:slug",
     name: "ProductDetail",
     component: () => import("@/views/ProductDetailView.vue"),

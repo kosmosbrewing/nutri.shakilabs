@@ -1,6 +1,6 @@
 # 아키텍처 설계 — 11.nutri
 
-- 상태: Draft v0.1
+- 상태: Draft v0.2
 - 기준일: 2026-07-10
 
 ## 전제
@@ -75,7 +75,8 @@ data → utils → composables → components/nutri → views
 | 경로 | 목적 | 색인 |
 |---|---|---|
 | `/nutri/` | 서비스 허브와 상위 랭킹 | index |
-| `/nutri/multivitamin` | 성인 멀티비타민 전체 랭킹 | index |
+| `/nutri/categories` | 영양제 카테고리 허브 | index |
+| `/nutri/categories/:slug` | 카테고리별 공식 등록 탐색 | 검증된 카테고리만 index |
 | `/nutri/compare` | 선택 제품 비교 | canonical 고정, query 제외 |
 | `/nutri/products/:slug` | 제품별 근거 상세 | 검증 제품만 index |
 | `/nutri/methodology` | 산식과 결측 정책 | index |
@@ -97,14 +98,15 @@ data → utils → composables → components/nutri → views
 
 ```text
 공공데이터 raw + 제조사 라벨 + 가격 캡처
-  → 검증·단위 정규화
-  → versioned TypeScript dataset
-  → scoring pure functions
-  → SSG ranking/detail pages
+  → raw Zod 검증 + 카테고리 집계
+  → compact category catalog + 검증 제품 dataset
+  → 카테고리 탐색 또는 scoring pure functions
+  → SSG category/ranking/detail pages
 ```
 
 - 브라우저에서 공공 API 키를 사용하지 않는다.
 - raw 데이터와 원문 hash는 저장소 밖 작업 영역에 보관하고 공개 데이터만 코드에 반영한다.
+- 카테고리 카탈로그는 raw 스냅샷에서 재현 생성하며 원문 hash와 기준일이 manifest와 일치해야 한다.
 - Phase 1 갱신은 검증 스크립트와 수동 승인으로 수행한다.
 
 ## Phase 2 공유 백엔드

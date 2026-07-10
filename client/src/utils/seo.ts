@@ -1,9 +1,11 @@
 import { z } from "zod";
 import { seoProducts } from "@/data/seo-products";
 import { seoStaticPages } from "@/data/seo-static-pages";
+import { categoryCards } from "./category-catalog";
+import { resolveCategorySeoPage } from "./category-seo";
 import { parseProductSlug } from "./product-detail";
 
-const SITE_BASE = "https://shakilabs.com/nutri";
+const SITE_BASE = "https://www.shakilabs.com/nutri";
 const UPDATED_AT = "2026-07-10";
 const routeInputSchema = z.object({
   name: z.string(),
@@ -11,7 +13,6 @@ const routeInputSchema = z.object({
 }).strict();
 
 type StructuredData = Record<string, unknown>;
-
 export interface SeoPage {
   title: string;
   description: string;
@@ -51,9 +52,9 @@ function article(headline: string, path: string): StructuredData {
 const validSlugs = seoProducts.map((product) => product.slug);
 
 function homePage(): SeoPage {
-  const description = "일반 성인용 멀티비타민 10개의 배송비 포함 1일 비용과 23개 영양소 충족도를 식약처 신고정보·라벨 근거로 비교합니다.";
+  const description = "식약처 제공 데이터로 10개 영양제 종류를 탐색하고, 검증된 멀티비타민 10개의 배송비 포함 1일 비용과 영양충족도를 비교합니다.";
   return {
-    title: "멀티비타민 가격·영양 비교 2026 | 영양만점",
+    title: "영양제 종류·멀티비타민 가격 비교 | 영양만점",
     description,
     canonical: canonical("/"),
     robots: "index,follow",
@@ -74,6 +75,18 @@ function homePage(): SeoPage {
           position: product.rank,
           name: product.name,
           url: canonical(`/products/${product.slug}`),
+        })),
+      },
+      {
+        "@type": "ItemList",
+        name: "영양제 종류",
+        itemListElement: categoryCards.map((category, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: category.name,
+          url: category.href.startsWith("/nutri/categories/")
+            ? `https://www.shakilabs.com${category.href}`
+            : canonical("/"),
         })),
       },
       breadcrumb([{ name: "영양만점", path: "/" }]),
@@ -116,6 +129,7 @@ export function resolveSeoPage(input: unknown): SeoPage {
   const { name, slug } = parsed.data;
   if (name === "Home") return homePage();
   if (name === "ProductDetail") return productPage(slug) ?? notFoundPage();
+  if (name === "CategoryDetail") return resolveCategorySeoPage(slug) ?? notFoundPage();
   const staticPage = seoStaticPages.find((page) => page.name === name);
   if (staticPage) return contentPage(
     staticPage.title,

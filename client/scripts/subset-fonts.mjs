@@ -3,11 +3,16 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
-import { clientRoot, collectFontCharacters, fontJobs } from "./font-subset-config.mjs";
+import {
+  clientRoot,
+  collectBrandFontCharacters,
+  collectFontCharacters,
+  fontJobs,
+} from "./font-subset-config.mjs";
 
 const characters = collectFontCharacters();
+const brandCharacters = collectBrandFontCharacters();
 const temporaryRoot = mkdtempSync(join(tmpdir(), "nutri-fonts-"));
-const characterFile = resolve(temporaryRoot, "characters.txt");
 const manifestPath = resolve(clientRoot, "scripts/font-subset-manifest.json");
 
 function hash(content) {
@@ -15,9 +20,10 @@ function hash(content) {
 }
 
 try {
-  writeFileSync(characterFile, characters);
-
   for (const font of fontJobs) {
+    const fontCharacters = font.scope === "brand" ? brandCharacters : characters;
+    const characterFile = resolve(temporaryRoot, `${font.publicName}.txt`);
+    writeFileSync(characterFile, fontCharacters);
     const result = spawnSync("python3", [
       "-m",
       "fontTools.subset",
@@ -51,6 +57,7 @@ try {
       return {
         publicName: font.publicName,
         bytes: content.byteLength,
+        characterCount: [...(font.scope === "brand" ? brandCharacters : characters)].length,
         sha256: hash(content),
       };
     }),
