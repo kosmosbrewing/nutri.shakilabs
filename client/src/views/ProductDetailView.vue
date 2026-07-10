@@ -8,6 +8,7 @@ import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
 import { buildProductDetail, parseProductSlug } from "@/utils/product-detail";
 import { formatScore, formatWon } from "@/utils/ranking";
+import { trackAnalytics } from "@/utils/analytics";
 
 const route = useRoute();
 const { allItems, dataError } = useRanking();
@@ -24,6 +25,16 @@ const pageError = computed(() => dataError
   ?? (detail.value ? null : "제품 근거를 구성할 수 없습니다."));
 const absentCount = computed(() => detail.value?.nutritionRows
   .filter((row) => row.nutrient.presence === "absent").length ?? 0);
+
+function trackOfferClick(): void {
+  if (!detail.value) return;
+  trackAnalytics({
+    name: "affiliate_click",
+    product_id: detail.value.item.product.id,
+    seller: detail.value.item.offer.seller,
+    affiliate: detail.value.item.offer.affiliate,
+  });
+}
 </script>
 
 <template>
@@ -100,7 +111,7 @@ const absentCount = computed(() => detail.value?.nutritionRows
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">총 복용일</dt><dd class="font-semibold">{{ detail.item.product.totalDays * detail.item.offer.quantityMultiplier }}일</dd></div>
               <div class="flex justify-between gap-3 border-t border-border pt-3"><dt class="text-muted-foreground">확인일</dt><dd class="font-semibold">{{ detail.item.offer.capturedAt }}</dd></div>
             </dl>
-            <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="detail.item.offer.url" rel="noopener noreferrer" target="_blank">
+            <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="detail.item.offer.url" rel="noopener noreferrer" target="_blank" @click="trackOfferClick">
               가격 원문 · 비제휴 ↗
             </a>
             <RouterLink class="touch-target mt-2 inline-flex w-full items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground" to="/methodology">

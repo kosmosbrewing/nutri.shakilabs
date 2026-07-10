@@ -11,6 +11,8 @@
 - 운영 경로: `https://shakilabs.com/nutri/`
 - 개발 포트: `6112`
 - 초기 제품군: 일반 성인용 멀티비타민·미네랄
+- 공공데이터 전체 스냅샷: API 키 없이 `npm run fetch:data`로 재현
+- 선택적 GA4: `VITE_GA_MEASUREMENT_ID` 설정 및 사용자 동의 후에만 로드
 
 ## 목표
 

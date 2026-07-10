@@ -1,12 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { nutriDataset } from "@/data/dataset";
+import { seoStaticPages } from "@/data/seo-static-pages";
 import { resolveSeoPage } from "./seo";
 
 const pages = [
   resolveSeoPage({ name: "Home" }),
-  resolveSeoPage({ name: "Compare" }),
-  resolveSeoPage({ name: "Methodology" }),
-  resolveSeoPage({ name: "Sources" }),
+  ...seoStaticPages.map((page) => resolveSeoPage({ name: page.name })),
   ...nutriDataset.products.map((product) => resolveSeoPage({
     name: "ProductDetail",
     slug: product.slug,

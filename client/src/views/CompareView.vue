@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
 import ComparisonDesktopTable from "@/components/compare/ComparisonDesktopTable.vue";
@@ -8,6 +8,7 @@ import ComparisonSources from "@/components/compare/ComparisonSources.vue";
 import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
 import { buildComparisonEntries, parseComparisonIds } from "@/utils/comparison";
+import { trackAnalytics } from "@/utils/analytics";
 
 const route = useRoute();
 const { allItems, dataError } = useRanking();
@@ -24,6 +25,12 @@ const pageError = computed(() => {
 const entries = computed(() => parsedIds.value.success
   ? buildComparisonEntries(parsedIds.value.ids, allItems, nutriDataset.sources)
   : []);
+
+onMounted(() => {
+  if (entries.value.length >= 2 && entries.value.length <= 4) {
+    trackAnalytics({ name: "compare_view", product_count: entries.value.length });
+  }
+});
 </script>
 
 <template>
@@ -62,8 +69,5 @@ const entries = computed(() => parsedIds.value.success
       </template>
     </main>
 
-    <footer class="container border-t border-border/60 py-8 text-xs leading-5 text-muted-foreground">
-      영양만점은 정보 비교 도구입니다. 임신·수유 중이거나 질환·복용약이 있다면 섭취 전 전문가와 상담하세요.
-    </footer>
   </div>
 </template>

@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import type { ComparisonEntry } from "@/utils/comparison";
+import type { SourceType } from "@/data/types";
+import { trackAnalytics } from "@/utils/analytics";
 
 defineProps<{ entries: ComparisonEntry[] }>();
+
+function trackSourceOpen(sourceType: SourceType): void {
+  trackAnalytics({ name: "source_open", source_type: sourceType });
+}
 </script>
 
 <template>
@@ -18,7 +24,7 @@ defineProps<{ entries: ComparisonEntry[] }>();
         <h3 class="break-keep text-sm font-semibold">{{ entry.item.product.officialName }}</h3>
         <ul class="mt-3 space-y-2">
           <li v-for="source in entry.sources" :key="source.id" class="text-xs leading-5">
-            <a class="font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary" :href="source.url" rel="noopener noreferrer" target="_blank">
+            <a class="font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary" :href="source.url" rel="noopener noreferrer" target="_blank" @click="trackSourceOpen(source.type)">
               {{ source.title }}
             </a>
             <span class="ml-1 text-muted-foreground">· {{ source.verifiedAt }}</span>

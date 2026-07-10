@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { seoProducts } from "@/data/seo-products";
+import { seoStaticPages } from "@/data/seo-static-pages";
 import { parseProductSlug } from "./product-detail";
 
 const SITE_BASE = "https://shakilabs.com/nutri";
@@ -115,23 +116,12 @@ export function resolveSeoPage(input: unknown): SeoPage {
   const { name, slug } = parsed.data;
   if (name === "Home") return homePage();
   if (name === "ProductDetail") return productPage(slug) ?? notFoundPage();
-  if (name === "Compare") return contentPage(
-    "멀티비타민 성분·가격 나란히 비교 | 영양만점",
-    "최대 4개 멀티비타민의 배송비 포함 1일 비용과 23개 영양소별 함량·기준 충족률을 같은 표에서 비교합니다.",
-    "/compare",
-    "WebPage",
-  );
-  if (name === "Methodology") return contentPage(
-    "가격당 영양효율 점수 계산법 | 영양만점",
-    "영양소별 100% 상한, 배송비 포함 1일 비용, 미표시·미확인 구분과 가격 신선도 등 value-v1 산식을 공개합니다.",
-    "/methodology",
-    "Article",
-  );
-  if (name === "Sources") return contentPage(
-    "멀티비타민 비교 데이터 출처 | 영양만점",
-    "식약처·공공데이터포털 제품 식별정보와 제조사·판매 페이지의 라벨·가격 근거, 확인일과 검증 해시를 공개합니다.",
-    "/sources",
-    "Article",
+  const staticPage = seoStaticPages.find((page) => page.name === name);
+  if (staticPage) return contentPage(
+    staticPage.title,
+    staticPage.description,
+    staticPage.path,
+    staticPage.type,
   );
   return notFoundPage();
 }

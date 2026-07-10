@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import SiteHeader from "@/components/SiteHeader.vue";
 import ComparisonTray from "@/components/compare/ComparisonTray.vue";
 import RankingCard from "@/components/ranking/RankingCard.vue";
 import RankingFilters from "@/components/ranking/RankingFilters.vue";
 import { useComparison } from "@/composables/useComparison";
 import { useRanking } from "@/composables/useRanking";
+import { trackAnalytics } from "@/utils/analytics";
 import { formatScore, formatWon } from "@/utils/ranking";
+import type { RankingFilterKey } from "@/utils/ranking";
 
 const {
   allItems,
@@ -29,6 +32,20 @@ const {
   selectionError,
   toggleProduct,
 } = useComparison(allItems);
+
+function handleFilterUpdate(key: RankingFilterKey, value: unknown): void {
+  if (updateFilter(key, value)) {
+    trackAnalytics({ name: "filter_apply", filter_name: key });
+  }
+}
+
+onMounted(() => {
+  trackAnalytics({
+    name: "ranking_view",
+    category: "multivitamin",
+    score_version: "value-v1",
+  });
+});
 </script>
 
 <template>
@@ -106,7 +123,7 @@ const {
           :result-count="visibleItems.length"
           :total-count="allItems.length"
           @reset="resetFilters"
-          @update="updateFilter"
+          @update="handleFilterUpdate"
         />
 
         <div v-if="dataError || filterError" class="mt-5 rounded-xl border border-status-danger/30 bg-card p-5 text-sm text-status-danger" role="alert">
@@ -162,8 +179,5 @@ const {
       @remove="toggleProduct"
     />
 
-    <footer class="container py-8 text-xs leading-5 text-muted-foreground">
-      영양만점은 영양정보 비교 도구이며 질환의 진단·치료·예방을 위한 의료 조언을 제공하지 않습니다.
-    </footer>
   </div>
 </template>

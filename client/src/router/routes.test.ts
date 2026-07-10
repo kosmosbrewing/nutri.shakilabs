@@ -10,6 +10,10 @@ describe("routes", () => {
         "/products/:slug",
         "/methodology",
         "/sources",
+        "/about",
+        "/privacy",
+        "/terms",
+        "/disclosure",
         "/404",
       ]),
     );

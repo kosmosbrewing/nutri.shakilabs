@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import type { RankingItem } from "@/utils/ranking";
 import { formatScore, formatWon } from "@/utils/ranking";
+import { trackAnalytics } from "@/utils/analytics";
 
 const props = withDefaults(defineProps<{
   item: RankingItem;
@@ -16,6 +17,15 @@ defineEmits<{ toggleCompare: [productId: string] }>();
 
 const coverageWidth = computed(() => `${Math.min(props.item.score.coverageScore, 100)}%`);
 const capturedAt = computed(() => props.item.offer.capturedAt.replaceAll("-", "."));
+
+function trackOfferClick(): void {
+  trackAnalytics({
+    name: "affiliate_click",
+    product_id: props.item.product.id,
+    seller: props.item.offer.seller,
+    affiliate: props.item.offer.affiliate,
+  });
+}
 </script>
 
 <template>
@@ -93,6 +103,7 @@ const capturedAt = computed(() => props.item.offer.capturedAt.replaceAll("-", ".
             :href="item.offer.url"
             rel="noopener noreferrer"
             target="_blank"
+            @click="trackOfferClick"
           >
             가격 원문
           </a>

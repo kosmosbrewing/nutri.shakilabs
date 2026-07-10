@@ -62,6 +62,10 @@ const pages = [
   { route: "/compare", path: resolve(distRoot, "compare.html") },
   { route: "/methodology", path: resolve(distRoot, "methodology.html") },
   { route: "/sources", path: resolve(distRoot, "sources.html") },
+  { route: "/about", path: resolve(distRoot, "about.html") },
+  { route: "/privacy", path: resolve(distRoot, "privacy.html") },
+  { route: "/terms", path: resolve(distRoot, "terms.html") },
+  { route: "/disclosure", path: resolve(distRoot, "disclosure.html") },
   ...productFiles.map((file) => ({
     route: `/products/${file.replace(/\.html$/, "")}`,
     path: resolve(productRoot, file),
@@ -108,6 +112,13 @@ assert(compareHtml.includes("비교 제품 2개"), "Compare page must render a u
 const sourcesHtml = read(resolve(distRoot, "sources.html"));
 assert((sourcesHtml.match(/data-source-card/g) ?? []).length === 25,
   "Sources page must contain 25 evidence cards");
+const privacyHtml = read(resolve(distRoot, "privacy.html"));
+assert(privacyHtml.includes("nutri-analytics-consent"), "Privacy page must disclose local consent storage");
+const disclosureHtml = read(resolve(distRoot, "disclosure.html"));
+assert(disclosureHtml.includes("모든 가격·판매처 링크는 비제휴"),
+  "Disclosure page must state the current non-affiliate status");
+assert(!pages.some((page) => read(page.path).includes("googletagmanager.com/gtag/js")),
+  "Static HTML must not load analytics before consent");
 
 const notFoundHtml = read(resolve(distRoot, "404.html"));
 assert(getMeta(notFoundHtml, "name", "robots") === "noindex,nofollow",
