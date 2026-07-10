@@ -24,6 +24,18 @@ function restrictImports(files, patterns) {
 export default [
   { ignores: ["dist/**", "node_modules/**"] },
   {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: globals.node,
+    },
+    rules: {
+      "no-debugger": "error",
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+    },
+  },
+  {
     files: ["src/**/*.ts"],
     languageOptions: {
       parser: tsParser,

@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fetch:data": "node scripts/fetch-public-data.mjs",
+    "validate:data": "node scripts/verify-public-data.mjs",
     "build": "vite-ssg build",
-    "lint": "eslint \"src/**/*.{ts,vue}\"",
+    "lint": "eslint \"src/**/*.{ts,vue}\" \"scripts/**/*.mjs\"",
     "lint:layers": "eslint \"src/{data,utils,composables,components,views}/**/*.{ts,vue}\" --no-error-on-unmatched-pattern",
     "lint:fix": "npm run lint -- --fix",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",

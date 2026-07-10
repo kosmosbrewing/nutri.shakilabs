@@ -3,3 +3,5 @@ client/dist/
 client/.env.local
 .DS_Store
 *.log
+data/raw/
+data/.staging/
