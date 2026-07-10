@@ -15,6 +15,7 @@ function run(command, args) {
 }
 
 run(nodeBin, [resolve(scriptDir, "verify-category-catalog.mjs")]);
+run(nodeBin, [resolve(scriptDir, "verify-unit-price-data.mjs")]);
 
 if (existsSync(rawRoot)) {
   run(nodeBin, [resolve(scriptDir, "verify-public-data.mjs")]);

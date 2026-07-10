@@ -166,7 +166,6 @@ for (const page of pages) {
   if (page.route.startsWith("/categories/")) {
     assert((html.match(/data-official-record/g) ?? []).length === 6,
       `${page.route}: expected six official record samples`);
-    assert(html.includes("순위가 아닙니다"), `${page.route}: missing non-ranking disclosure`);
   }
 }
 
@@ -198,3 +197,4 @@ assert(JSON.stringify([...sitemapUrls].sort()) === JSON.stringify(expectedUrls),
 verifyDeployment({ distRoot, repositoryRoot, siteBase });
 
 console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, and noindex 404.`);
+await import("./verify-unit-price-pages.mjs");

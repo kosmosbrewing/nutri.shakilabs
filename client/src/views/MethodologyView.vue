@@ -12,13 +12,14 @@ import SiteHeader from "@/components/SiteHeader.vue";
       </nav>
 
       <header class="mt-5 max-w-3xl">
-        <p class="eyebrow">Value-v1 methodology</p>
+        <p class="eyebrow">Value-v1 + unit-price-v1 methodology</p>
         <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">가격당 영양효율은 이렇게 계산합니다</h1>
         <p class="mt-5 break-keep text-base leading-7 text-muted-foreground">
           함량이 많을수록 무조건 높은 점수를 받지 않도록 영양소별 충족률을 100%에서 멈춘 뒤, 배송비를 포함한 하루 비용으로 나눕니다.
         </p>
         <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold">
           <span class="trust-chip">산식 버전 value-v1</span>
+          <span class="trust-chip">카테고리 비교 unit-price-v1</span>
           <span class="trust-chip">일반 성인 기준</span>
           <span class="trust-chip">대상 영양소 23개</span>
         </div>
@@ -47,6 +48,18 @@ import SiteHeader from "@/components/SiteHeader.vue";
             <p class="mt-2 text-sm leading-6 text-muted-foreground">1일 비용은 (판매가 + 필수 배송비) ÷ 총 복용일수입니다.</p>
           </article>
         </div>
+      </section>
+
+      <section class="mt-10 surface-panel p-5 sm:p-6" aria-labelledby="unit-price-title" data-unit-price-method>
+        <p class="eyebrow">Category unit price</p>
+        <h2 id="unit-price-title" class="mt-2 font-brand text-2xl">단일 핵심 성분은 단위가격으로 비교합니다</h2>
+        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">비타민D·비타민C·칼슘은 멀티비타민 종합점수와 섞지 않고 같은 카테고리 안에서만 비교합니다. 세트 전체 가격과 필수 배송비를 총 복용일수로 나눈 뒤 기준 함량으로 환산합니다.</p>
+        <p class="formula-text mt-4">단위가격 = 1일 비용 ÷ (1일 핵심 함량 ÷ 기준 함량)</p>
+        <dl class="mt-4 grid gap-3 text-sm sm:grid-cols-3">
+          <div class="rounded-lg bg-accent/55 p-4"><dt class="font-semibold">비타민D</dt><dd class="mt-1 text-muted-foreground">10 μg당 가격</dd></div>
+          <div class="rounded-lg bg-accent/55 p-4"><dt class="font-semibold">비타민C</dt><dd class="mt-1 text-muted-foreground">100 mg당 가격</dd></div>
+          <div class="rounded-lg bg-accent/55 p-4"><dt class="font-semibold">칼슘</dt><dd class="mt-1 text-muted-foreground">100 mg당 가격</dd></div>
+        </dl>
       </section>
 
       <section class="mt-10 grid gap-5 lg:grid-cols-2">

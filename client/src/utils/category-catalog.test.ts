@@ -34,9 +34,12 @@ describe("official supplement category catalog", () => {
       count: 10,
       status: "ranking",
     });
-    expect(categoryCards.slice(1).every((category) =>
-      category.status === "official_catalog",
-    )).toBe(true);
+    expect(categoryCards.filter(({ status }) => status === "unit_price").map(({ slug }) => slug)).toEqual([
+      "vitamin-d",
+      "vitamin-c",
+      "calcium",
+    ]);
+    expect(categoryCards.filter(({ status }) => status === "official_catalog")).toHaveLength(6);
   });
 
   it("parses route slugs and formats source amounts safely", () => {
