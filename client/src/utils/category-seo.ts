@@ -1,6 +1,6 @@
 import { findCategory } from "./category-catalog";
 
-const SITE_BASE = "https://www.shakilabs.com/nutri";
+const SITE_BASE = "https://shakilabs.com/nutri";
 const UPDATED_AT = "2026-07-10";
 
 export interface CategorySeoPage {

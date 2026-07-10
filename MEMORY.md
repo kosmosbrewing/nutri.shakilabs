@@ -7,7 +7,7 @@
 - Git 저장소명: `nutri.shakilabs`
 - 앱 ID: `nutri`
 - URL base: `/nutri/`
-- canonical host: `https://www.shakilabs.com/nutri` (non-www는 308 redirect)
+- canonical host: `https://shakilabs.com/nutri` (`www`는 apex로 308 redirect)
 - 목표: 가격당 영양효율 비교로 유기 검색 트래픽을 확보하고 광고·제휴 수익 자산으로 전환한다.
 - 첫 랭킹 제품군: 일반 성인용 멀티비타민·미네랄만 지원한다.
 - 탐색 범위: 공식 스냅샷에서 검증한 9개 추가 영양제 카테고리를 순위 없이 제공한다.

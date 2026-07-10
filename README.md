@@ -8,7 +8,7 @@
 - Git 저장소명: `nutri.shakilabs`
 - 단계: 로컬 릴리스 gate 완료 (production 배포 전)
 - APP_ID: `nutri`
-- 운영 경로: `https://www.shakilabs.com/nutri/`
+- 운영 경로: `https://shakilabs.com/nutri/`
 - 개발 포트: `6112`
 - 초기 제품군: 일반 성인용 멀티비타민·미네랄
 - 공공데이터 전체 스냅샷: API 키 없이 `npm run fetch:data`로 재현

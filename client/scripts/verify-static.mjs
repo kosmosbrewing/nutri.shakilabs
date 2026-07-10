@@ -14,7 +14,7 @@ const scriptRoot = dirname(fileURLToPath(import.meta.url));
 const clientRoot = resolve(scriptRoot, "..");
 const repositoryRoot = resolve(clientRoot, "..");
 const distRoot = resolve(clientRoot, "dist");
-const siteBase = "https://www.shakilabs.com/nutri";
+const siteBase = "https://shakilabs.com/nutri";
 const fontManifest = JSON.parse(readFileSync(resolve(scriptRoot, "font-subset-manifest.json"), "utf8"));
 const categoryCatalogInput = JSON.parse(readFileSync(
   resolve(clientRoot, "src/data/category-catalog.json"),
@@ -151,7 +151,7 @@ for (const page of pages) {
   for (const anchor of anchors) {
     const href = getAttribute(anchor, "href");
     if (!href?.startsWith("/nutri")) continue;
-    const pathname = new URL(href, "https://www.shakilabs.com").pathname;
+    const pathname = new URL(href, "https://shakilabs.com").pathname;
     assert(knownInternalPaths.has(pathname), `${page.route}: broken internal link ${href}`);
     assert(pathname === "/nutri" || !pathname.endsWith("/"),
       `${page.route}: internal link must use the final non-trailing URL ${href}`);

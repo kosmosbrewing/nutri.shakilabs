@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.shakilabs.com/nutri/sitemap.xml
+Sitemap: https://shakilabs.com/nutri/sitemap.xml
