@@ -1,0 +1,39 @@
+{
+  "name": "nutri-value-compare",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite-ssg build",
+    "lint": "eslint \"src/**/*.{ts,vue}\"",
+    "lint:fix": "npm run lint -- --fix",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.25",
+    "vue-router": "^4.6.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^9.38.0",
+    "eslint-plugin-vue": "^10.5.1",
+    "globals": "^16.4.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.7.3",
+    "vite": "^7.3.1",
+    "vite-ssg": "^28.3.0",
+    "vitest": "^4.0.18",
+    "vue-eslint-parser": "^10.2.0",
+    "vue-tsc": "^2.2.0"
+  }
+}

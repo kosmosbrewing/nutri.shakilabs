@@ -6,7 +6,7 @@
 
 | ID | 상태 | 작업 | 의존성 | 완료 조건 |
 |---|---|---|---|---|
-| NUTRI-001 | PENDING | Vue 3 SSG 프로젝트 scaffold | 없음 | `/nutri/` 부팅, lint/typecheck/test/build 스크립트 존재 |
+| NUTRI-001 | DONE | Vue 3 SSG 프로젝트 scaffold | 없음 | `/nutri/` 부팅, lint/typecheck/test/build 스크립트 존재 |
 | NUTRI-002 | PENDING | 디자인 토큰·레이어·CI 구성 | 001 | lime 토큰, 6112 포트, 레이어 lint, GitHub CI 통과 |
 | NUTRI-003 | PENDING | 데이터 타입·Zod 공개 데이터 검증 | 001 | Product/Nutrient/Offer/Source safeParse 테스트 통과 |
 | NUTRI-004 | PENDING | `value-v1` 점수 엔진 | 003 | 캡핑·결측·단위·가격·정렬 golden test 통과 |
@@ -33,7 +33,7 @@
 
 | 반복 | 이슈 | 결과 | 검증 | 메모 |
 |---|---|---|---|---|
-| - | - | - | - | 구현 루프 미착수 |
+| 1 | NUTRI-001 | DONE | lint, typecheck, test, build, audit 통과 | `/nutri/` SSG 2개 route 생성, 타입 오류 1회 보정 |
 
 ## Queue Rules
 
