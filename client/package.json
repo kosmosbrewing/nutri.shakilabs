@@ -7,11 +7,12 @@
     "dev": "vite",
     "build": "vite-ssg build",
     "lint": "eslint \"src/**/*.{ts,vue}\"",
+    "lint:layers": "eslint \"src/{data,utils,composables,components,views}/**/*.{ts,vue}\" --no-error-on-unmatched-pattern",
     "lint:fix": "npm run lint -- --fix",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "check": "npm run lint && npm run lint:layers && npm run typecheck && npm test && npm run build",
     "preview": "vite preview"
   },
   "dependencies": {

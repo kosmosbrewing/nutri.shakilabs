@@ -12,6 +12,15 @@ const commonRules = {
   ],
 };
 
+function restrictImports(files, patterns) {
+  return {
+    files,
+    rules: {
+      "no-restricted-imports": ["error", { patterns }],
+    },
+  };
+}
+
 export default [
   { ignores: ["dist/**", "node_modules/**"] },
   {
@@ -43,4 +52,27 @@ export default [
       "vue/no-unused-vars": "error",
     },
   },
+  restrictImports(["src/data/**/*.{ts,vue}"], [
+    "@/utils/*",
+    "@/composables/*",
+    "@/components/*",
+    "@/views/*",
+  ]),
+  restrictImports(["src/utils/**/*.{ts,vue}"], [
+    "@/composables/*",
+    "@/components/*",
+    "@/views/*",
+  ]),
+  restrictImports(["src/composables/**/*.{ts,vue}"], [
+    "@/components/*",
+    "@/views/*",
+  ]),
+  restrictImports(["src/components/**/*.{ts,vue}"], ["@/views/*"]),
+  restrictImports(["src/{api,lib}/**/*.{ts,vue}"], [
+    "@/data/*",
+    "@/utils/*",
+    "@/composables/*",
+    "@/components/*",
+    "@/views/*",
+  ]),
 ];
