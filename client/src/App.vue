@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ShSurface } from "@shakilabs/ui";
 import SiteFooter from "@/components/SiteFooter.vue";
 import ConsentBanner from "@/components/policy/ConsentBanner.vue";
 </script>
 
 <template>
-  <RouterView />
-  <SiteFooter />
-  <ConsentBanner />
+  <ShSurface as="div" variant="plain" padding="none" class="design-system-shell min-h-screen">
+    <RouterView />
+    <SiteFooter />
+    <ConsentBanner />
+  </ShSurface>
 </template>

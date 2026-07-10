@@ -4,6 +4,8 @@ import { routes } from "./router";
 import { trackAnalytics } from "./utils/analytics";
 import { buildHeadTags, resolveSeoPage } from "./utils/seo";
 import "./assets/css/main.css";
+import "@shakilabs/ui/styles.css";
+import "./assets/css/design-system.css";
 
 export const createApp = ViteSSG(App, {
   routes,
