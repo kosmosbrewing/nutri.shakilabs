@@ -127,6 +127,11 @@ export const nutriDatasetSchema = baseDatasetSchema.superRefine((data, context) 
       context.addIssue({ code: "custom", message: `Missing product source: ${product.id}` });
     }
   }
+  for (const reference of data.nutrientReferences) {
+    if (!sources.has(reference.targetSourceId)) {
+      context.addIssue({ code: "custom", message: `Missing target source: ${reference.id}` });
+    }
+  }
   for (const item of data.productNutrients) {
     if (!products.has(item.productId) || !nutrients.has(item.nutrientId) || !sources.has(item.sourceId)) {
       context.addIssue({ code: "custom", message: `Invalid nutrient reference: ${item.productId}` });

@@ -12,7 +12,7 @@
 | NUTRI-004 | DONE | `value-v1` 점수 엔진 | 003 | 캡핑·결측·단위·가격·정렬 golden test 통과 |
 | NUTRI-005A | DONE | 영양만점 프로젝트·저장소 정체성 반영 | 001 | 서비스명과 `nutri.shakilabs` 저장소명 문서·UI 일치 |
 | NUTRI-005B | DONE | 공공 영양성분 전체 로컬 스냅샷 | 003 | 전체 5,556건, 원문 hash, 재현 스크립트, raw Git 제외 |
-| NUTRI-005 | PENDING | 검증 제품 10개 evidence dataset | 003,004,005B | A/B 10개, unknown 0, 가격 30일 이내 |
+| NUTRI-005 | DONE | 검증 제품 10개 evidence dataset | 003,004,005B | A/B 10개, unknown 0, 가격 30일 이내 |
 | NUTRI-006 | PENDING | 랭킹·필터 UI | 004,005 | 기본 결과 즉시 표시, 모바일 overflow 없음 |
 | NUTRI-007 | PENDING | 최대 4개 비교 UI | 006 | 모바일 카드·데스크톱 표·출처 표시 동작 |
 | NUTRI-008 | PENDING | 제품 상세·방법론·출처 페이지 | 005 | 제품별 근거와 산식·결측·가격 정책 노출 |
@@ -41,6 +41,7 @@
 | 4 | NUTRI-004 | DONE | 13 tests와 전체 CI 통과 | 보고서 2개 입력을 `value-v1`로 재산정 |
 | 5 | NUTRI-005A | DONE | 전체 CI 통과 | 서비스 `영양만점`, 저장소 `nutri.shakilabs` 고정 |
 | 6 | NUTRI-005B | DONE | 5,556행·62열·hash 및 전체 CI 통과 | raw 9.3MB Git 제외, fetch/verify 재현 가능 |
+| 7 | NUTRI-005 | DONE | 17 tests, 데이터 검증, build, audit 통과 | A/B 10개, 23개 공통 영양소, 배송비 포함 가격 |
 
 ## Queue Rules
 
