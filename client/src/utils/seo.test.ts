@@ -1,11 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { nutriDataset } from "@/data/dataset";
 import { seoStaticPages } from "@/data/seo-static-pages";
+import { catalogCategories } from "./category-catalog";
 import { resolveSeoPage } from "./seo";
 
 const pages = [
   resolveSeoPage({ name: "Home" }),
   ...seoStaticPages.map((page) => resolveSeoPage({ name: page.name })),
+  ...catalogCategories.map((category) => resolveSeoPage({
+    name: "CategoryDetail",
+    slug: category.slug,
+  })),
   ...nutriDataset.products.map((product) => resolveSeoPage({
     name: "ProductDetail",
     slug: product.slug,
@@ -23,7 +28,7 @@ describe("route SEO metadata", () => {
 
   it("keeps comparison canonical free of query state", () => {
     expect(resolveSeoPage({ name: "Compare" }).canonical).toBe(
-      "https://shakilabs.com/nutri/compare",
+      "https://www.shakilabs.com/nutri/compare",
     );
   });
 
@@ -31,6 +36,8 @@ describe("route SEO metadata", () => {
     const page = resolveSeoPage({ name: "ProductDetail", slug: "not-real" });
     expect(page.robots).toBe("noindex,nofollow");
     expect(page.canonical).toBeNull();
+    expect(resolveSeoPage({ name: "CategoryDetail", slug: ["omega-3"] }).robots)
+      .toBe("noindex,nofollow");
   });
 
   it("does not publish offer or review rating schema", () => {

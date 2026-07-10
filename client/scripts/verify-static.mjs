@@ -2,19 +2,29 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { z } from "zod";
 import {
   collectFontCharacters,
   fontJobs,
   shippedFontBudgets,
 } from "./font-subset-config.mjs";
+import { verifyDeployment } from "./verify-deployment.mjs";
 
 const scriptRoot = dirname(fileURLToPath(import.meta.url));
 const clientRoot = resolve(scriptRoot, "..");
 const repositoryRoot = resolve(clientRoot, "..");
 const distRoot = resolve(clientRoot, "dist");
-const siteBase = "https://shakilabs.com/nutri";
+const siteBase = "https://www.shakilabs.com/nutri";
 const fontManifest = JSON.parse(readFileSync(resolve(scriptRoot, "font-subset-manifest.json"), "utf8"));
-
+const categoryCatalogInput = JSON.parse(readFileSync(
+  resolve(clientRoot, "src/data/category-catalog.json"),
+  "utf8",
+));
+const categoryCatalogResult = z.object({
+  categories: z.array(z.object({ slug: z.string() }).passthrough()).length(9),
+}).passthrough().safeParse(categoryCatalogInput);
+assert(categoryCatalogResult.success, "Category catalog must contain nine valid routes");
+const categoryCatalog = categoryCatalogResult.data;
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
@@ -27,7 +37,6 @@ function read(path) {
 function hash(content) {
   return createHash("sha256").update(content).digest("hex");
 }
-
 function getAttribute(tag, name) {
   return tag.match(new RegExp(`${name}="([^"]*)"`))?.[1] ?? null;
 }
@@ -66,6 +75,12 @@ const productFiles = readdirSync(productRoot)
   .filter((file) => file.endsWith(".html"))
   .sort();
 assert(productFiles.length === 10, `Expected 10 product pages, received ${productFiles.length}`);
+const categoryRoot = resolve(distRoot, "categories");
+const categoryFiles = readdirSync(categoryRoot)
+  .filter((file) => file.endsWith(".html"))
+  .sort();
+assert(categoryFiles.length === categoryCatalog.categories.length,
+  `Expected ${categoryCatalog.categories.length} category pages, received ${categoryFiles.length}`);
 
 assert(fontManifest.characterSha256 === hash(collectFontCharacters()),
   "UI characters changed; run npm run fonts:subset");
@@ -88,6 +103,11 @@ assert(shippedFontBytes <= 180 * 1024, "Shipped fonts exceed the 180 KiB total b
 const pages = [
   { route: "/", path: resolve(distRoot, "index.html") },
   { route: "/compare", path: resolve(distRoot, "compare.html") },
+  { route: "/categories", path: resolve(distRoot, "categories.html") },
+  ...categoryFiles.map((file) => ({
+    route: `/categories/${file.replace(/\.html$/, "")}`,
+    path: resolve(categoryRoot, file),
+  })),
   { route: "/methodology", path: resolve(distRoot, "methodology.html") },
   { route: "/sources", path: resolve(distRoot, "sources.html") },
   { route: "/about", path: resolve(distRoot, "about.html") },
@@ -131,7 +151,7 @@ for (const page of pages) {
   for (const anchor of anchors) {
     const href = getAttribute(anchor, "href");
     if (!href?.startsWith("/nutri")) continue;
-    const pathname = new URL(href, "https://shakilabs.com").pathname;
+    const pathname = new URL(href, "https://www.shakilabs.com").pathname;
     assert(knownInternalPaths.has(pathname), `${page.route}: broken internal link ${href}`);
     assert(pathname === "/nutri" || !pathname.endsWith("/"),
       `${page.route}: internal link must use the final non-trailing URL ${href}`);
@@ -142,6 +162,11 @@ for (const page of pages) {
   if (page.route.startsWith("/products/")) {
     assert((html.match(/data-nutrient-row/g) ?? []).length === 23,
       `${page.route}: expected 23 nutrient rows`);
+  }
+  if (page.route.startsWith("/categories/")) {
+    assert((html.match(/data-official-record/g) ?? []).length === 6,
+      `${page.route}: expected six official record samples`);
+    assert(html.includes("순위가 아닙니다"), `${page.route}: missing non-ranking disclosure`);
   }
 }
 
@@ -170,14 +195,6 @@ const expectedUrls = pages.map((page) => expectedCanonical(page.route)).sort();
 assert(JSON.stringify([...sitemapUrls].sort()) === JSON.stringify(expectedUrls),
   "Sitemap URLs must exactly match indexable static pages");
 
-const robots = read(resolve(distRoot, "robots.txt"));
-assert(robots.includes(`Sitemap: ${siteBase}/sitemap.xml`), "robots.txt must reference sitemap");
+verifyDeployment({ distRoot, repositoryRoot, siteBase });
 
-const vercel = JSON.parse(read(resolve(repositoryRoot, "vercel.json")));
-assert(vercel.cleanUrls === true, "vercel.json must enable cleanUrls");
-assert(!(vercel.rewrites ?? []).some((rewrite) => rewrite.destination === "/index.html"),
-  "Catch-all SPA rewrites are forbidden");
-assert((vercel.rewrites ?? []).some((rewrite) => rewrite.source === "/nutri/:path*"),
-  "Missing /nutri path rewrite");
-
-console.log(`Validated ${pages.length} indexable pages, 10 products, sitemap, and noindex 404.`);
+console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, and noindex 404.`);

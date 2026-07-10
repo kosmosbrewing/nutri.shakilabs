@@ -8,6 +8,13 @@ export interface SeoStaticPage {
 
 export const seoStaticPages: SeoStaticPage[] = [
   {
+    name: "Categories",
+    title: "영양제 종류별 공식 등록 제품 찾기 | 영양만점",
+    description: "비타민D, 유산균, 오메가3, 마그네슘 등 10개 영양제 종류를 분리해 식약처 제공 공식 등록 현황과 비교 준비 상태를 확인합니다.",
+    path: "/categories",
+    type: "WebPage",
+  },
+  {
     name: "Compare",
     title: "멀티비타민 성분·가격 나란히 비교 | 영양만점",
     description: "최대 4개 멀티비타민의 배송비 포함 1일 비용과 23개 영양소별 함량·기준 충족률을 같은 표에서 비교합니다.",

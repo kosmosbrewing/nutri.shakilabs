@@ -53,7 +53,7 @@ function trackOfferClick(): void {
           <p class="truncate text-xs font-semibold text-primary">{{ item.product.brand }}</p>
         </div>
         <h3 class="mt-2 break-keep text-lg font-semibold leading-snug sm:text-xl">
-          <RouterLink class="decoration-primary/35 underline-offset-4 hover:text-primary hover:underline" :to="`/products/${item.product.slug}`">
+          <RouterLink class="inline-flex min-h-11 items-center decoration-primary/35 underline-offset-4 hover:text-primary hover:underline" :to="`/products/${item.product.slug}`">
             {{ item.product.officialName }}
           </RouterLink>
         </h3>
