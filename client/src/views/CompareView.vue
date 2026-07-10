@@ -12,7 +12,11 @@ import { buildComparisonEntries, parseComparisonIds } from "@/utils/comparison";
 const route = useRoute();
 const { allItems, dataError } = useRanking();
 const validIds = allItems.map((item) => item.product.id);
-const parsedIds = computed(() => parseComparisonIds(route.query.ids, validIds));
+const defaultComparisonIds = allItems.slice(0, 2).map((item) => item.product.id).join(",");
+const parsedIds = computed(() => parseComparisonIds(
+  route.query.ids === undefined ? defaultComparisonIds : route.query.ids,
+  validIds,
+));
 const pageError = computed(() => {
   if (dataError) return dataError;
   return parsedIds.value.success ? null : parsedIds.value.detail;
