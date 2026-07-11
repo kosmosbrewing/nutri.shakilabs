@@ -3,9 +3,11 @@ body {
 }
 
 .design-system-shell {
-  --sh-radius-sm: 0.375rem;
-  --sh-radius-md: 0.5rem;
-  --sh-radius-lg: 0.625rem;
+  --sh-card-radius: 0px;
+  --sh-color-card-border: hsl(var(--border) / 0.7);
+  --sh-radius-sm: 0.125rem;
+  --sh-radius-md: 0.125rem;
+  --sh-radius-lg: 0.25rem;
 }
 
 .design-system-shell .hero-field {
@@ -15,26 +17,68 @@ body {
 .design-system-shell .surface-panel,
 .design-system-shell .ranking-card,
 .design-system-shell .formula-card,
-.design-system-shell .rounded-xl,
-.design-system-shell .rounded-lg {
-  border-radius: var(--sh-radius-md);
+.design-system-shell [data-category-card],
+.design-system-shell [data-official-record],
+.design-system-shell [data-source-card] {
+  border-width: 1px;
+  border-radius: var(--sh-card-radius);
+  box-shadow: none;
 }
 
 .design-system-shell .surface-panel,
 .design-system-shell .ranking-card,
 .design-system-shell .formula-card,
-.design-system-shell .shadow-lift,
-.design-system-shell .shadow-2xl {
+.design-system-shell [data-category-card],
+.design-system-shell [data-official-record],
+.design-system-shell [data-source-card] {
+  border-color: var(--sh-color-card-border);
+  background: hsl(var(--card));
+}
+
+.design-system-shell [data-category-card]:hover {
+  border-color: hsl(var(--primary) / 0.45);
+}
+
+.design-system-shell .shadow-lift {
   box-shadow: none;
 }
 
 .design-system-shell .ranking-card--top {
+  border-color: hsl(var(--primary) / 0.45);
   background: hsl(var(--card));
 }
 
 .design-system-shell .trust-chip,
 .design-system-shell .confidence-badge {
   border-radius: var(--sh-radius-sm);
+}
+
+.design-system-shell
+  :is(div, section, article, aside, details, dl, ul, ol, li, table, a):is(
+    .rounded,
+    .rounded-lg,
+    .rounded-xl,
+    .rounded-2xl
+  ):is(.border, .border-2) {
+  border-width: 1px;
+  border-radius: var(--sh-card-radius);
+  box-shadow: none;
+}
+
+.design-system-shell :is(button, input, select, textarea):not(.rounded-full),
+.design-system-shell label:is(.rounded, .rounded-lg, .rounded-xl, .rounded-2xl),
+.design-system-shell a.touch-target:is(.rounded, .rounded-lg, .rounded-xl, .rounded-2xl),
+.design-system-shell a[role="button"]:not(.rounded-full) {
+  border-radius: var(--sh-radius-sm);
+}
+
+.design-system-shell
+  .shadow-2xl:is(.rounded, .rounded-lg, .rounded-xl, .rounded-2xl):is(
+    .border,
+    .border-2
+  ) {
+  border-radius: var(--sh-radius-lg);
+  box-shadow: var(--sh-shadow-overlay);
 }
 
 .design-system-shell .eyebrow {

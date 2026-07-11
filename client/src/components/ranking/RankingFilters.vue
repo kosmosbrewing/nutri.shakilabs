@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ShButton, ShField, ShInput, ShLabel, ShSelect } from "@shakilabs/ui";
 import type { RankingFilterKey, RankingFilters } from "@/utils/ranking";
 
 defineProps<{
@@ -13,11 +14,6 @@ const emit = defineEmits<{
   reset: [];
 }>();
 
-function updateFromControl(key: RankingFilterKey, event: Event): void {
-  const target = event.target;
-  if (!(target instanceof HTMLInputElement || target instanceof HTMLSelectElement)) return;
-  emit("update", key, target.value);
-}
 </script>
 
 <template>
@@ -29,67 +25,56 @@ function updateFromControl(key: RankingFilterKey, event: Event): void {
           전체 {{ totalCount }}개 중 {{ resultCount }}개 표시
         </p>
       </div>
-      <button
-        class="touch-target rounded-lg px-3 text-sm font-semibold text-primary hover:bg-accent"
+      <ShButton
+        size="sm"
+        variant="ghost"
         type="button"
         @click="emit('reset')"
       >
         조건 초기화
-      </button>
+      </ShButton>
     </div>
 
     <div class="grid gap-4 p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-4">
-      <label class="block min-w-0">
-        <span class="filter-label">제품 검색</span>
-        <input
-          :value="filters.query"
+      <ShField>
+        <ShLabel for="ranking-query">제품 검색</ShLabel>
+        <ShInput
+          id="ranking-query"
+          :model-value="filters.query"
           aria-label="제품 또는 브랜드 검색"
-          class="filter-control"
           maxlength="80"
           placeholder="예: 센트룸, 베로카"
           type="search"
-          @input="updateFromControl('query', $event)"
+          @update:model-value="emit('update', 'query', $event)"
         />
-      </label>
+      </ShField>
 
-      <label class="block min-w-0">
-        <span class="filter-label">브랜드</span>
-        <select
-          :value="filters.brand"
-          class="filter-control"
-          @change="updateFromControl('brand', $event)"
-        >
+      <ShField>
+        <ShLabel for="ranking-brand">브랜드</ShLabel>
+        <ShSelect id="ranking-brand" :model-value="filters.brand" @update:model-value="emit('update', 'brand', $event)">
           <option value="all">전체 브랜드</option>
           <option v-for="brand in brands" :key="brand" :value="brand">{{ brand }}</option>
-        </select>
-      </label>
+        </ShSelect>
+      </ShField>
 
-      <label class="block min-w-0">
-        <span class="filter-label">월 예상 비용</span>
-        <select
-          :value="filters.budget"
-          class="filter-control"
-          @change="updateFromControl('budget', $event)"
-        >
+      <ShField>
+        <ShLabel for="ranking-budget">월 예상 비용</ShLabel>
+        <ShSelect id="ranking-budget" :model-value="filters.budget" @update:model-value="emit('update', 'budget', $event)">
           <option value="all">예산 전체</option>
           <option value="under-10000">1만원 이하</option>
           <option value="under-15000">1만 5천원 이하</option>
           <option value="under-20000">2만원 이하</option>
-        </select>
-      </label>
+        </ShSelect>
+      </ShField>
 
-      <label class="block min-w-0">
-        <span class="filter-label">정렬</span>
-        <select
-          :value="filters.sort"
-          class="filter-control"
-          @change="updateFromControl('sort', $event)"
-        >
+      <ShField>
+        <ShLabel for="ranking-sort">정렬</ShLabel>
+        <ShSelect id="ranking-sort" :model-value="filters.sort" @update:model-value="emit('update', 'sort', $event)">
           <option value="value">가격효율 높은 순</option>
           <option value="coverage">영양충족도 높은 순</option>
           <option value="cost">1일 비용 낮은 순</option>
-        </select>
-      </label>
+        </ShSelect>
+      </ShField>
     </div>
 
     <div class="border-t border-border/60 bg-muted/35 px-4 py-3 sm:px-5">
