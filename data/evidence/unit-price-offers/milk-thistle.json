@@ -1,0 +1,38 @@
+{
+  "categorySlug": "milk-thistle",
+  "products": [
+    {
+      "productId": "gnm-healthy-liver-milk-thistle",
+      "displayName": "GNM 건강한 간 밀크씨슬",
+      "brand": "GNM자연의품격",
+      "servingLabel": "1일 1정",
+      "packageLabel": "30정 × 4박스",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 18600, "mandatoryShippingKrw": 0, "packageCount": 4, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=115681233", "title": "다나와 4박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "ckd-healthykan",
+      "displayName": "종근당건강 헬씨칸",
+      "brand": "종근당건강",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "30캡슐 × 10박스",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 76820, "mandatoryShippingKrw": 0, "packageCount": 10, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=90622835", "title": "다나와 10박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "dailycore-milk-thistle",
+      "displayName": "데일리코어 밀크씨슬",
+      "brand": "데일리코어",
+      "servingLabel": "1일 1정",
+      "packageLabel": "30정 × 1박스",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 7900, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=9786186", "title": "다나와 30정 가격비교", "affiliate": false, "availability": "in_stock" }
+    }
+  ]
+}

@@ -3,11 +3,14 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
 import CategoryRecordCard from "@/components/category/CategoryRecordCard.vue";
+import UnitPriceComparison from "@/components/category/UnitPriceComparison.vue";
 import { publicDataSnapshot } from "@/data/public-snapshot";
 import { findCategory } from "@/utils/category-catalog";
+import { resolveUnitPriceRanking } from "@/utils/unit-price";
 
 const route = useRoute();
 const category = computed(() => findCategory(route.params.slug));
+const unitPriceRanking = computed(() => resolveUnitPriceRanking(route.params.slug));
 </script>
 
 <template>
@@ -20,19 +23,21 @@ const category = computed(() => findCategory(route.params.slug));
           <div class="mt-6 grid gap-7 lg:grid-cols-[1fr_20rem] lg:items-end">
             <div>
               <div class="flex flex-wrap items-center gap-2">
-                <span class="rounded-full bg-muted px-2.5 py-1 text-[10px] font-semibold text-muted-foreground">공식 목록</span>
-                <span class="rounded-full border border-status-warning/30 px-2.5 py-1 text-[10px] font-semibold text-status-warning">순위가 아닙니다</span>
+                <span class="rounded-full bg-muted px-2.5 py-1 text-[10px] font-semibold text-muted-foreground">{{ unitPriceRanking ? "가격효율 비교" : "공식 목록" }}</span>
+                <span class="rounded-full border border-status-warning/30 px-2.5 py-1 text-[10px] font-semibold text-status-warning">{{ unitPriceRanking ? "동일 성분 내 비교" : "순위가 아닙니다" }}</span>
               </div>
-              <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">{{ category.name }} 영양제<br />공식 등록 제품 찾기</h1>
-              <p class="mt-5 max-w-2xl break-keep text-base leading-7 text-muted-foreground">{{ category.summary }}을 보여줍니다. 아래 제품은 최근 생성일과 제조사 다양성을 기준으로 추린 예시입니다.</p>
+              <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">{{ category.name }} 영양제<br />{{ unitPriceRanking ? "가격효율·단위가격 비교" : "공식 등록 제품 찾기" }}</h1>
+              <p class="mt-5 max-w-2xl break-keep text-base leading-7 text-muted-foreground">{{ unitPriceRanking ? unitPriceRanking.category.summary : `${category.summary}을 보여줍니다. 아래 제품은 최근 생성일과 제조사 다양성을 기준으로 추린 예시입니다.` }}</p>
             </div>
             <dl class="grid grid-cols-2 divide-x divide-border rounded-xl border border-border bg-card py-4 text-center">
-              <div class="px-3"><dt class="text-[11px] text-muted-foreground">공식 레코드</dt><dd class="mt-1 font-brand text-2xl text-primary">{{ category.recordCount.toLocaleString("ko-KR") }}</dd></div>
-              <div class="px-3"><dt class="text-[11px] text-muted-foreground">표시 예시</dt><dd class="mt-1 font-brand text-2xl">{{ category.records.length }}</dd></div>
+              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "검증 제품" : "공식 레코드" }}</dt><dd class="mt-1 font-brand text-2xl text-primary">{{ unitPriceRanking ? unitPriceRanking.scores.length : category.recordCount.toLocaleString("ko-KR") }}</dd></div>
+              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "가격 기준일" : "표시 예시" }}</dt><dd class="mt-1 font-brand" :class="unitPriceRanking ? 'text-base' : 'text-2xl'">{{ unitPriceRanking ? unitPriceRanking.updatedAt.replaceAll("-", ".") : category.records.length }}</dd></div>
             </dl>
           </div>
         </div>
       </section>
+
+      <UnitPriceComparison v-if="unitPriceRanking" :ranking="unitPriceRanking" />
 
       <section class="container py-10 sm:py-14">
         <div class="grid gap-8 lg:grid-cols-[1fr_18rem]">
@@ -48,12 +53,12 @@ const category = computed(() => findCategory(route.params.slug));
           </div>
 
           <aside class="h-fit rounded-xl border border-border bg-card p-5 lg:sticky lg:top-5">
-            <p class="eyebrow">Ranking readiness</p>
-            <h2 class="mt-2 break-keep font-semibold">향후 비교 기준</h2>
+            <p class="eyebrow">{{ unitPriceRanking ? "Comparison scope" : "Ranking readiness" }}</p>
+            <h2 class="mt-2 break-keep font-semibold">{{ unitPriceRanking ? "현재 비교 범위" : "향후 비교 기준" }}</h2>
             <p class="mt-2 break-keep text-sm leading-6 text-muted-foreground">{{ category.comparisonBasis }}</p>
-            <h3 class="mt-6 text-xs font-semibold">추가로 필요한 근거</h3>
+            <h3 class="mt-6 text-xs font-semibold">{{ unitPriceRanking ? "반영하지 않는 요소" : "추가로 필요한 근거" }}</h3>
             <ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-              <li v-for="evidence in category.nextEvidence" :key="evidence" class="flex gap-2"><span class="text-primary" aria-hidden="true">•</span><span>{{ evidence }}</span></li>
+              <li v-for="evidence in unitPriceRanking ? ['원료 형태와 흡수율', '핵심 성분 외 기타 영양소', '개인별 적정 섭취량'] : category.nextEvidence" :key="evidence" class="flex gap-2"><span class="text-primary" aria-hidden="true">•</span><span>{{ evidence }}</span></li>
             </ul>
             <a class="touch-target mt-6 inline-flex items-center text-sm font-semibold text-primary" :href="publicDataSnapshot.sourceUrl" target="_blank" rel="noopener noreferrer">공공데이터 원문 확인 ↗</a>
           </aside>

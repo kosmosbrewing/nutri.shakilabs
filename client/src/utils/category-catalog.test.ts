@@ -27,16 +27,25 @@ describe("official supplement category catalog", () => {
     }
   });
 
-  it("keeps the ranked multivitamin group separate from official catalogs", () => {
+  it("keeps the multivitamin ranking separate from nine unit-price categories", () => {
     expect(categoryCards).toHaveLength(10);
     expect(categoryCards[0]).toMatchObject({
       slug: "multivitamin",
       count: 10,
       status: "ranking",
     });
-    expect(categoryCards.slice(1).every((category) =>
-      category.status === "official_catalog",
-    )).toBe(true);
+    expect(categoryCards.filter(({ status }) => status === "unit_price").map(({ slug }) => slug)).toEqual([
+      "vitamin-d",
+      "probiotics",
+      "vitamin-c",
+      "omega-3",
+      "magnesium",
+      "calcium",
+      "msm",
+      "coenzyme-q10",
+      "milk-thistle",
+    ]);
+    expect(categoryCards.filter(({ status }) => status === "official_catalog")).toHaveLength(0);
   });
 
   it("parses route slugs and formats source amounts safely", () => {
