@@ -1,0 +1,38 @@
+{
+  "categorySlug": "probiotics",
+  "products": [
+    {
+      "productId": "gnm-probiotics-10b",
+      "displayName": "GNM 100억 생 유산균 비피더스 락토 프로바이오틱스",
+      "brand": "GNM자연의품격",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "30캡슐 × 2병",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "A",
+      "offer": { "seller": "GNM 공식몰", "listedPriceKrw": 37900, "mandatoryShippingKrw": 0, "packageCount": 2, "capturedAt": "2026-07-11", "url": "https://www.gnm.co.kr/product/detail.html?cate_no=1&display_group=10&product_no=2353", "title": "GNM 공식몰 2개월분", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "kimsohyung-probiotics-10b",
+      "displayName": "김소형원방 100억 생유산균",
+      "brand": "김소형원방",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "180캡슐 × 1세트",
+      "totalUnitsPerPackage": 180,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "SSG.COM 일반가", "listedPriceKrw": 51700, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://www.ssg.com/item/itemView.ssg?itemId=1000619621849", "title": "SSG.COM 180캡슐 판매 페이지", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "lactofit-gold-50",
+      "displayName": "종근당건강 락토핏 생유산균 골드",
+      "brand": "종근당건강",
+      "servingLabel": "1일 1포",
+      "packageLabel": "50포 × 1통",
+      "totalUnitsPerPackage": 50,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 4460, "mandatoryShippingKrw": 4000, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=18590933", "title": "다나와 50포 가격비교", "affiliate": false, "availability": "in_stock" }
+    }
+  ]
+}

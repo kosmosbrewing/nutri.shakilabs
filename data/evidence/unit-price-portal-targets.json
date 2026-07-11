@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "unit-price-evidence-target-v1",
+  "targets": [
+    { "productId": "gnm-probiotics-10b", "categorySlug": "probiotics", "ledgerNo": "2025021000177171", "reportNo": "20180012174483" },
+    { "productId": "kimsohyung-probiotics-10b", "categorySlug": "probiotics", "ledgerNo": "2024021000140215", "reportNo": "200400200201289" },
+    { "productId": "lactofit-gold-50", "categorySlug": "probiotics", "ledgerNo": "2022021000348192", "reportNo": "20040020016655" },
+    { "productId": "promega-rtg-omega3-dual-plus", "categorySlug": "omega-3", "ledgerNo": "2022021000514016", "reportNo": "20040020016660" },
+    { "productId": "truen-supercritical-rtg-omega3", "categorySlug": "omega-3", "ledgerNo": "2022021000133839", "reportNo": "200400170061441" },
+    { "productId": "gnm-rtg-omega3-dha", "categorySlug": "omega-3", "ledgerNo": "2024021000446107", "reportNo": "200600200033060" },
+    { "productId": "gnm-magnesium-05", "categorySlug": "magnesium", "ledgerNo": "2017021000388016", "reportNo": "20040015083948" },
+    { "productId": "hanmi-premium-magnesium-400", "categorySlug": "magnesium", "ledgerNo": "2022021000307141", "reportNo": "200400150831735" },
+    { "productId": "nutrigarden-magnesium-max-400", "categorySlug": "magnesium", "ledgerNo": "2022021000522134", "reportNo": "200400150831802" },
+    { "productId": "gnm-joint-msm", "categorySlug": "msm", "ledgerNo": "2024021000368525", "reportNo": "20172880236327" },
+    { "productId": "wellers-msm-premium", "categorySlug": "msm", "ledgerNo": "2024021000141581", "reportNo": "2018000391583" },
+    { "productId": "today-health-msm-2000", "categorySlug": "msm", "ledgerNo": "2024021000119227", "reportNo": "200400200082870" },
+    { "productId": "gnm-coq10-11", "categorySlug": "coenzyme-q10", "ledgerNo": "2018021000460790", "reportNo": "20040015083972" },
+    { "productId": "jangdaewon-coq10-plus", "categorySlug": "coenzyme-q10", "ledgerNo": "2022021000059552", "reportNo": "200400170061402" },
+    { "productId": "meditree-coq10", "categorySlug": "coenzyme-q10", "ledgerNo": "2026021000011536", "reportNo": "20190004553448" },
+    { "productId": "gnm-healthy-liver-milk-thistle", "categorySlug": "milk-thistle", "ledgerNo": "2023021000213377", "reportNo": "200400150831880" },
+    { "productId": "ckd-healthykan", "categorySlug": "milk-thistle", "ledgerNo": "2025021000369287", "reportNo": "20190004553423" },
+    { "productId": "dailycore-milk-thistle", "categorySlug": "milk-thistle", "ledgerNo": "2025021000311084", "reportNo": "20240028080248" }
+  ]
+}

@@ -9,8 +9,8 @@ export interface SeoStaticPage {
 export const seoStaticPages: SeoStaticPage[] = [
   {
     name: "Categories",
-    title: "영양제 종류별 공식 등록 제품 찾기 | 영양만점",
-    description: "비타민D, 유산균, 오메가3, 마그네슘 등 10개 영양제 종류를 분리해 식약처 제공 공식 등록 현황과 비교 준비 상태를 확인합니다.",
+    title: "영양제 종류별 가격효율 비교 | 영양만점",
+    description: "비타민D, 유산균, 오메가3, 마그네슘 등 9개 영양제 종류의 카테고리 상대 가격효율지수와 단위가격을 비교합니다.",
     path: "/categories",
     type: "WebPage",
   },
@@ -24,14 +24,14 @@ export const seoStaticPages: SeoStaticPage[] = [
   {
     name: "Methodology",
     title: "가격당 영양효율 점수 계산법 | 영양만점",
-    description: "영양소별 100% 상한, 배송비 포함 1일 비용, 미표시·미확인 구분과 가격 신선도 등 value-v1 산식을 공개합니다.",
+    description: "영양소별 100% 상한과 9개 영양제 종류의 상대 가격효율지수, 기준 단위가격, 배송비 포함 1일 비용 산식을 공개합니다.",
     path: "/methodology",
     type: "Article",
   },
   {
     name: "Sources",
-    title: "멀티비타민 비교 데이터 출처 | 영양만점",
-    description: "식약처·공공데이터포털 제품 식별정보와 제조사·판매 페이지의 라벨·가격 근거, 확인일과 검증 해시를 공개합니다.",
+    title: "영양제 가격 비교 데이터 출처 | 영양만점",
+    description: "가격효율지수와 단위가격에 사용한 식품안전나라 제품·핵심 함량, 제조사·판매 페이지의 가격 근거와 확인일을 공개합니다.",
     path: "/sources",
     type: "Article",
   },

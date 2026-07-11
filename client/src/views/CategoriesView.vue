@@ -36,7 +36,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
           <p class="eyebrow">Choose a lane</p>
           <h2 class="mt-2 font-brand text-2xl sm:text-3xl">영양제 종류별로 확인하기</h2>
           <p class="mt-3 break-keep text-sm leading-6 text-muted-foreground">
-            멀티비타민은 가격효율 랭킹, 나머지는 공식 등록 예시와 다음 검증 항목을 제공합니다.
+            멀티비타민은 23개 영양소 가격효율, 나머지 9개 종류는 핵심 성분 단위가격을 100점 기준으로 환산한 카테고리 가격효율을 제공합니다.
           </p>
         </div>
         <CategoryGrid :categories="categoryCards" />

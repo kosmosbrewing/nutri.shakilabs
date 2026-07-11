@@ -1,7 +1,7 @@
 # 아키텍처 설계 — 11.nutri
 
-- 상태: Draft v0.2
-- 기준일: 2026-07-10
+- 상태: Draft v0.3
+- 기준일: 2026-07-11
 
 ## 전제
 
@@ -41,8 +41,10 @@
 │   │   │   ├── products.ts
 │   │   │   ├── offers.ts
 │   │   │   └── sources.ts
+│   │   │   └── unit-price-products.ts
 │   │   ├── utils/
 │   │   │   ├── scoring.ts
+│   │   │   ├── unit-price.ts
 │   │   │   ├── scoring.test.ts
 │   │   │   └── validation.ts
 │   │   ├── composables/
@@ -100,7 +102,7 @@ data → utils → composables → components/nutri → views
 공공데이터 raw + 제조사 라벨 + 가격 캡처
   → raw Zod 검증 + 카테고리 집계
   → compact category catalog + 검증 제품 dataset
-  → 카테고리 탐색 또는 scoring pure functions
+  → 카테고리 탐색 또는 value-v1/unit-price-v1 pure functions
   → SSG category/ranking/detail pages
 ```
 
@@ -108,6 +110,7 @@ data → utils → composables → components/nutri → views
 - raw 데이터와 원문 hash는 저장소 밖 작업 영역에 보관하고 공개 데이터만 코드에 반영한다.
 - 카테고리 카탈로그는 raw 스냅샷에서 재현 생성하며 원문 hash와 기준일이 manifest와 일치해야 한다.
 - Phase 1 갱신은 검증 스크립트와 수동 승인으로 수행한다.
+- 카테고리 단위가격 데이터는 멀티비타민 데이터와 분리하고 카테고리 간 순위를 계산하지 않는다.
 
 ## Phase 2 공유 백엔드
 
