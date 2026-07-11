@@ -69,7 +69,7 @@ function trackOfferClick(): void {
             </p>
           </div>
 
-          <div class="surface-panel grid grid-cols-2 gap-px overflow-hidden bg-border/70">
+          <div class="product-summary-grid surface-panel grid grid-cols-2 gap-px overflow-hidden bg-border/70">
             <div class="bg-card p-4">
               <p class="metric-label">배송비 포함 1일</p>
               <p class="mt-1 text-xl font-semibold">{{ formatWon(detail.item.score.dailyCostKrw) }}</p>
@@ -92,7 +92,7 @@ function trackOfferClick(): void {
         <section class="mt-10 grid gap-5 lg:grid-cols-[1fr_18rem] lg:items-start">
           <div>
             <div class="mb-4">
-              <p class="eyebrow">Daily nutrition</p>
+              <p class="eyebrow">1일 영양소</p>
               <h2 class="mt-2 font-brand text-2xl">영양소별 1일 함량</h2>
               <p class="mt-2 text-xs leading-5 text-muted-foreground">
                 23개 공통 기준 · 기준 충족률 100% 상한 · 전체 라벨 미표시 {{ absentCount }}개
@@ -102,9 +102,9 @@ function trackOfferClick(): void {
           </div>
 
           <aside class="surface-panel p-5 lg:sticky lg:top-5">
-            <p class="eyebrow">Price evidence</p>
+            <p class="eyebrow">가격 근거</p>
             <h2 class="mt-2 text-lg font-semibold">가격 계산 내역</h2>
-            <dl class="mt-4 space-y-3 text-sm">
+            <dl class="product-price-facts mt-4 space-y-3 text-sm">
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">판매가</dt><dd class="font-semibold">{{ formatWon(detail.item.offer.listedPriceKrw) }}</dd></div>
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">필수 배송비</dt><dd class="font-semibold">{{ formatWon(detail.item.offer.mandatoryShippingKrw) }}</dd></div>
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">묶음 수량</dt><dd class="font-semibold">{{ detail.item.offer.quantityMultiplier }}개</dd></div>
@@ -121,7 +121,7 @@ function trackOfferClick(): void {
         </section>
 
         <section class="mt-10" aria-labelledby="product-evidence-title">
-          <p class="eyebrow">Source trail</p>
+          <p class="eyebrow">제품 근거</p>
           <h2 id="product-evidence-title" class="mt-2 font-brand text-2xl">이 제품의 근거</h2>
           <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <SourceCard v-for="source in detail.sources" :key="source.id" :source="source" />

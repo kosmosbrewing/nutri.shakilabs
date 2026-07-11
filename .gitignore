@@ -5,3 +5,8 @@ client/.env.local
 *.log
 data/raw/
 data/.staging/
+/artifacts/*
+!/artifacts/ui-audit/
+/artifacts/ui-audit/*
+!/artifacts/ui-audit/report.md
+!/artifacts/ui-audit/issues.json

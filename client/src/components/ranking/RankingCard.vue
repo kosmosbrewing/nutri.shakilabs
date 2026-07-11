@@ -33,8 +33,8 @@ function trackOfferClick(): void {
     class="ranking-card"
     :class="item.overallRank === 1 ? 'ranking-card--top' : ''"
   >
-    <div class="grid min-w-0 gap-4 p-4 sm:p-5 lg:grid-cols-[4rem_minmax(0,1.5fr)_minmax(8rem,0.8fr)_minmax(8rem,0.8fr)_7rem] lg:items-center">
-      <div class="flex items-center justify-between lg:block">
+    <div class="grid min-w-0 gap-4 p-4 sm:p-5 min-[900px]:grid-cols-[4rem_minmax(0,1.5fr)_minmax(8rem,0.8fr)_minmax(8rem,0.8fr)_7rem] min-[900px]:items-center">
+      <div class="flex items-center justify-between min-[900px]:block">
         <div
           class="grid h-12 w-12 shrink-0 place-items-center rounded-full font-brand text-lg"
           :class="item.overallRank === 1 ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'"
@@ -42,7 +42,7 @@ function trackOfferClick(): void {
         >
           {{ item.overallRank }}
         </div>
-        <span class="confidence-badge lg:mt-2">
+        <span class="confidence-badge min-[900px]:mt-2">
           신뢰도 {{ item.product.confidence }}
         </span>
       </div>
@@ -92,12 +92,12 @@ function trackOfferClick(): void {
         </p>
       </div>
 
-      <div class="flex items-end justify-between gap-4 lg:block lg:text-right">
+      <div class="flex items-end justify-between gap-4 min-[900px]:block min-[900px]:text-right">
         <div>
           <p class="metric-label">가격효율지수</p>
           <p class="mt-1 font-brand text-2xl text-primary">{{ formatScore(item.score.valueIndex) }}</p>
         </div>
-        <div class="flex flex-wrap justify-end gap-1.5 lg:mt-2">
+        <div class="flex flex-wrap justify-end gap-1.5 min-[900px]:mt-2">
           <a
             class="touch-target inline-flex items-center rounded-lg border border-border px-2.5 text-xs font-semibold hover:border-primary hover:text-primary"
             :href="item.offer.url"

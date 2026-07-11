@@ -49,6 +49,14 @@ export function formatCoverageRatio(ratio: number): string {
   return `${(Math.min(ratio, 1) * 100).toFixed(0)}%`;
 }
 
+export function formatNutrientAmount(value: number): string {
+  return value.toLocaleString("ko-KR", { maximumFractionDigits: 2 });
+}
+
+export function findNutrientCoverage(entry: ComparisonEntry, nutrientId: string) {
+  return entry.item.score.coverage.find((coverage) => coverage.nutrientId === nutrientId);
+}
+
 export function buildComparisonEntries(
   ids: string[],
   items: RankingItem[],

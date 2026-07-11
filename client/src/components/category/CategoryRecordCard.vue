@@ -19,20 +19,18 @@ defineProps<{
       </time>
     </div>
     <h2 class="mt-4 break-keep font-semibold leading-6">{{ record.name }}</h2>
-    <dl class="mt-4 grid gap-2 text-xs leading-5">
-      <div>
+    <dl class="mt-4 grid grid-cols-2 gap-2 text-xs leading-5">
+      <div class="col-span-2">
         <dt class="text-muted-foreground">제조사</dt>
         <dd class="break-all font-semibold">{{ record.manufacturer }}</dd>
       </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div>
-          <dt class="text-muted-foreground">신고번호</dt>
-          <dd class="font-semibold tabular-nums">{{ record.reportNo }}</dd>
-        </div>
-        <div>
-          <dt class="text-muted-foreground">섭취 표기</dt>
-          <dd class="font-semibold">{{ record.servingSize }} · {{ record.dailyFrequency }}</dd>
-        </div>
+      <div>
+        <dt class="text-muted-foreground">신고번호</dt>
+        <dd class="font-semibold tabular-nums">{{ record.reportNo }}</dd>
+      </div>
+      <div>
+        <dt class="text-muted-foreground">섭취 표기</dt>
+        <dd class="font-semibold">{{ record.servingSize }} · {{ record.dailyFrequency }}</dd>
       </div>
     </dl>
     <p

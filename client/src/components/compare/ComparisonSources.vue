@@ -14,7 +14,7 @@ function trackSourceOpen(sourceType: SourceType): void {
   <section class="mt-8" aria-labelledby="comparison-sources-title">
     <div class="flex items-end justify-between gap-3">
       <div>
-        <p class="eyebrow">Evidence</p>
+        <p class="eyebrow">비교 근거</p>
         <h2 id="comparison-sources-title" class="mt-2 font-brand text-2xl">비교 근거</h2>
       </div>
       <p class="text-xs text-muted-foreground">모든 링크는 비제휴 원문입니다.</p>
@@ -24,7 +24,7 @@ function trackSourceOpen(sourceType: SourceType): void {
         <h3 class="break-keep text-sm font-semibold">{{ entry.item.product.officialName }}</h3>
         <ul class="mt-3 space-y-2">
           <li v-for="source in entry.sources" :key="source.id" class="text-xs leading-5">
-            <a class="font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary" :href="source.url" rel="noopener noreferrer" target="_blank" @click="trackSourceOpen(source.type)">
+            <a class="touch-target inline-flex items-center font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary" :href="source.url" rel="noopener noreferrer" target="_blank" @click="trackSourceOpen(source.type)">
               {{ source.title }}
             </a>
             <span class="ml-1 text-muted-foreground">· {{ source.verifiedAt }}</span>

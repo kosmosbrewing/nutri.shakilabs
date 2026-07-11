@@ -1,18 +1,10 @@
 <script setup lang="ts">
 import type { NutrientReference } from "@/data/types";
 import type { ComparisonEntry } from "@/utils/comparison";
-import { formatCoverageRatio } from "@/utils/comparison";
+import { findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
 import { formatScore, formatWon } from "@/utils/ranking";
 
 defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
-
-function nutrientValue(entry: ComparisonEntry, nutrientId: string) {
-  return entry.item.score.coverage.find((coverage) => coverage.nutrientId === nutrientId);
-}
-
-function formatAmount(value: number): string {
-  return value.toLocaleString("ko-KR", { maximumFractionDigits: 2 });
-}
 </script>
 
 <template>
@@ -54,9 +46,9 @@ function formatAmount(value: number): string {
         <dl class="border-t border-border/70 px-5 py-2">
           <div v-for="reference in references" :key="reference.id" class="flex items-center justify-between gap-3 border-b border-border/45 py-2.5 last:border-0">
             <dt class="text-xs text-muted-foreground">{{ reference.name }}</dt>
-            <dd v-if="nutrientValue(entry, reference.id)" class="text-right text-xs tabular-nums">
-              {{ formatAmount(nutrientValue(entry, reference.id)!.dailyAmount) }}{{ reference.canonicalUnit }}
-              <strong class="ml-1 text-primary">{{ formatCoverageRatio(nutrientValue(entry, reference.id)!.ratio) }}</strong>
+            <dd v-if="findNutrientCoverage(entry, reference.id)" class="text-right text-xs tabular-nums">
+              {{ formatNutrientAmount(findNutrientCoverage(entry, reference.id)!.dailyAmount) }}{{ reference.canonicalUnit }}
+              <strong class="ml-1 text-primary">{{ formatCoverageRatio(findNutrientCoverage(entry, reference.id)!.ratio) }}</strong>
             </dd>
           </div>
         </dl>

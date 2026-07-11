@@ -13,7 +13,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
       </nav>
 
       <header class="mt-5 max-w-3xl">
-        <p class="eyebrow">Value-v1 + category-value-v1 methodology</p>
+        <p class="eyebrow">가격효율 산정 방식</p>
         <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">가격당 영양효율은 이렇게 계산합니다</h1>
         <p class="mt-5 break-keep text-base leading-7 text-muted-foreground">
           함량이 많을수록 무조건 높은 점수를 받지 않도록 영양소별 충족률을 100%에서 멈춘 뒤, 배송비를 포함한 하루 비용으로 나눕니다.
@@ -53,7 +53,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
       </section>
 
       <section class="mt-10 surface-panel p-5 sm:p-6" aria-labelledby="unit-price-title" data-unit-price-method data-category-value-method>
-        <p class="eyebrow">Category price efficiency</p>
+        <p class="eyebrow">종류별 가격효율</p>
         <h2 id="unit-price-title" class="mt-2 font-brand text-2xl">단일 핵심 성분은 단위가격과 가격효율지수로 비교합니다</h2>
         <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">비타민·미네랄과 프로바이오틱스, 오메가3, 기능성 원료는 멀티비타민 종합점수와 섞지 않고 같은 카테고리 안에서만 비교합니다. 세트 전체 가격과 필수 배송비를 총 복용일수로 나눈 뒤 공식 핵심 함량의 기준 단위로 환산합니다.</p>
         <p class="formula-text mt-4">단위가격 = 1일 비용 ÷ (1일 핵심 함량 ÷ 기준 함량)</p>
@@ -69,7 +69,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
 
       <section class="mt-10 grid gap-5 lg:grid-cols-2">
         <article class="surface-panel p-5 sm:p-6">
-          <p class="eyebrow">Missing data</p>
+          <p class="eyebrow">결측값 처리</p>
           <h2 class="mt-2 text-xl font-semibold">미표시와 미확인은 다릅니다</h2>
           <dl class="mt-4 space-y-4 text-sm leading-6">
             <div><dt class="font-semibold">전체 라벨 미표시</dt><dd class="text-muted-foreground">확보한 전체 성분표에 항목이 없음을 확인한 상태입니다. 실제 화학적 부재를 단정하지 않으며 value-v1에서는 0점으로 반영합니다.</dd></div>
@@ -78,7 +78,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
         </article>
 
         <article class="surface-panel p-5 sm:p-6">
-          <p class="eyebrow">Price freshness</p>
+          <p class="eyebrow">가격 갱신 기준</p>
           <h2 class="mt-2 text-xl font-semibold">가격 갱신 규칙</h2>
           <ul class="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
             <li><strong class="text-foreground">0~14일:</strong> 최신 가격으로 표시합니다.</li>
@@ -91,7 +91,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
 
       <section class="mt-10 surface-panel overflow-hidden" aria-labelledby="confidence-title">
         <div class="border-b border-border p-5 sm:p-6">
-          <p class="eyebrow">Confidence</p>
+          <p class="eyebrow">데이터 신뢰도</p>
           <h2 id="confidence-title" class="mt-2 text-xl font-semibold">근거 신뢰도</h2>
         </div>
         <dl class="divide-y divide-border text-sm">

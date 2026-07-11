@@ -10,18 +10,10 @@ import {
 } from "@shakilabs/ui";
 import type { NutrientReference } from "@/data/types";
 import type { ComparisonEntry } from "@/utils/comparison";
-import { formatCoverageRatio } from "@/utils/comparison";
+import { findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
 import { formatScore, formatWon } from "@/utils/ranking";
 
 defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
-
-function nutrientValue(entry: ComparisonEntry, nutrientId: string) {
-  return entry.item.score.coverage.find((coverage) => coverage.nutrientId === nutrientId);
-}
-
-function formatAmount(value: number): string {
-  return value.toLocaleString("ko-KR", { maximumFractionDigits: 2 });
-}
 </script>
 
 <template>
@@ -78,9 +70,9 @@ function formatAmount(value: number): string {
         <ShTableRow v-for="reference in references" :key="reference.id">
           <ShTableHead scope="row">{{ reference.name }}</ShTableHead>
           <ShTableCell v-for="entry in entries" :key="entry.item.product.id" numeric class="text-xs">
-            <template v-if="nutrientValue(entry, reference.id)">
-              {{ formatAmount(nutrientValue(entry, reference.id)!.dailyAmount) }}{{ reference.canonicalUnit }}
-              <strong class="ml-1 text-primary">{{ formatCoverageRatio(nutrientValue(entry, reference.id)!.ratio) }}</strong>
+            <template v-if="findNutrientCoverage(entry, reference.id)">
+              {{ formatNutrientAmount(findNutrientCoverage(entry, reference.id)!.dailyAmount) }}{{ reference.canonicalUnit }}
+              <strong class="ml-1 text-primary">{{ formatCoverageRatio(findNutrientCoverage(entry, reference.id)!.ratio) }}</strong>
             </template>
           </ShTableCell>
         </ShTableRow>
