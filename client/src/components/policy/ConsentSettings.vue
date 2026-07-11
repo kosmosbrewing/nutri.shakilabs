@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { ShButton, ShSurface } from "@shakilabs/ui";
 import { useConsent } from "@/composables/useConsent";
 
 const { decide, decision, ready } = useConsent();
@@ -12,16 +13,16 @@ const status = computed(() => {
 </script>
 
 <template>
-  <section class="mt-5 rounded-xl border border-border bg-muted/35 p-4" aria-labelledby="consent-settings-title">
+  <ShSurface as="section" padding="sm" class="mt-5" aria-labelledby="consent-settings-title">
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h3 id="consent-settings-title" class="text-sm font-semibold">이용 분석 선택</h3>
         <p class="mt-1 text-xs text-muted-foreground" aria-live="polite">현재 상태: {{ status }}</p>
       </div>
       <div class="flex gap-2">
-        <button class="touch-target rounded-lg border border-border px-3 text-xs font-semibold hover:border-primary" type="button" @click="decide('rejected')">거부</button>
-        <button class="touch-target rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground" type="button" @click="decide('accepted')">허용</button>
+        <ShButton variant="secondary" @click="decide('rejected')">거부</ShButton>
+        <ShButton @click="decide('accepted')">허용</ShButton>
       </div>
     </div>
-  </section>
+  </ShSurface>
 </template>
