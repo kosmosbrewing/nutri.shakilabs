@@ -6,8 +6,8 @@ import ConsentBanner from "@/components/policy/ConsentBanner.vue";
 
 <template>
   <ShSurface as="div" variant="plain" padding="none" class="design-system-shell min-h-screen">
+    <ConsentBanner />
     <RouterView />
     <SiteFooter />
-    <ConsentBanner />
   </ShSurface>
 </template>

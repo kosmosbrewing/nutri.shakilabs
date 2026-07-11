@@ -43,7 +43,7 @@ const unitPriceRanking = computed(() => resolveUnitPriceRanking(route.params.slu
         <div class="grid gap-8 lg:grid-cols-[1fr_18rem]">
           <div>
             <div class="mb-5">
-              <p class="eyebrow">Official records</p>
+              <p class="eyebrow">공식 등록 목록</p>
               <h2 class="mt-2 font-brand text-2xl">식약처 제공 데이터 등록 예시</h2>
               <p class="mt-3 break-keep text-xs leading-5 text-muted-foreground">등록 레코드에는 수입·신고 변형이 포함될 수 있으며 고유 상품 수나 판매 중인 상품 수와 같지 않습니다.</p>
             </div>

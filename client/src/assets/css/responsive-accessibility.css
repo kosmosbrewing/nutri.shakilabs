@@ -1,0 +1,138 @@
+.text-\[10px\],
+.text-\[11px\],
+.confidence-badge,
+.metric-label {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 900px) {
+  .ranking-card .metric-block {
+    padding: 0;
+    background: transparent;
+  }
+}
+
+@media (max-width: 400px) {
+  .brand-mark {
+    font-size: 12px;
+  }
+
+  main input[type="range"] {
+    min-height: 24px;
+  }
+
+  main input[type="checkbox"] {
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  [aria-labelledby="analytics-consent-title"] a {
+    display: inline-flex;
+    min-height: 24px;
+    align-items: center;
+  }
+
+  .container {
+    padding-inline: 12px;
+  }
+
+  :is(h1, h2, h3, p, a, button, span, strong, dt, dd, code) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .break-keep {
+    word-break: normal;
+  }
+
+  .truncate {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .site-header__bar {
+    min-height: 64px;
+    gap: 8px;
+  }
+
+  .site-logo {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .site-logo__mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .site-menu-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .home-top-metrics,
+  .unit-price-metrics,
+  .unit-price-facts,
+  .product-summary-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ranking-card > div,
+  [data-unit-price-card] > article > div,
+  [data-unit-price-card] > article > div:last-child,
+  .surface-panel,
+  .product-nutrition-header,
+  .product-nutrition-row {
+    padding-inline: 12px;
+  }
+
+  .ranking-card [aria-label^="전체 가격효율"] {
+    width: 48px;
+    height: 48px;
+  }
+
+  .confidence-badge {
+    flex-shrink: 1;
+    white-space: normal;
+  }
+
+  .unit-price-metrics > div,
+  .unit-price-facts > div {
+    padding: 12px;
+  }
+
+  .product-nutrition-header,
+  .product-nutrition-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .product-nutrition-header > :first-child,
+  .product-nutrition-row > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .product-nutrition-amount {
+    text-align: left;
+  }
+
+  .product-price-facts > div {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .product-price-facts dd {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .source-dataset-name {
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+}

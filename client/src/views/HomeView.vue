@@ -63,7 +63,7 @@ onMounted(() => {
               영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
             </ShText>
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 가격효율로, 나머지는 공식 등록 근거부터 확인하세요.
+              5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 23개 영양소 가격효율로, 나머지 9개 종류는 핵심 성분 단위가격으로 비교합니다.
             </p>
             <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
               <span class="trust-chip">10개 영양제 종류</span>
@@ -85,7 +85,7 @@ onMounted(() => {
               <h2 class="mt-1 break-keep font-brand text-2xl leading-snug">
                 {{ topItem.product.officialName }}
               </h2>
-              <div class="mt-6 grid grid-cols-3 divide-x divide-border rounded-xl border border-border bg-background/80 py-4 text-center">
+              <div class="home-top-metrics mt-6 grid grid-cols-3 divide-x divide-border rounded-xl border border-border bg-background/80 py-4 text-center">
                 <div class="px-2">
                   <p class="text-[11px] text-muted-foreground">하루</p>
                   <p class="mt-1 font-semibold tabular-nums">{{ formatWon(topItem.score.dailyCostKrw) }}</p>
@@ -112,7 +112,7 @@ onMounted(() => {
       <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14" :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p class="eyebrow">Value ranking</p>
+            <p class="eyebrow">가격효율 순위</p>
             <ShText as="h2" variant="title" class="mt-2">가격당 영양효율 순위</ShText>
           </div>
           <p class="max-w-md break-keep text-xs leading-5 text-muted-foreground sm:text-right">

@@ -13,7 +13,7 @@ defineProps<{ ranking: UnitPriceRanking }>();
     <div class="container py-10 sm:py-14">
       <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
         <div>
-          <p class="eyebrow">Category price efficiency</p>
+          <p class="eyebrow">종류별 가격 비교</p>
           <h2 class="mt-2 break-keep font-brand text-3xl sm:text-4xl">
             {{ ranking.category.name }} 가격효율 비교
           </h2>
@@ -22,7 +22,7 @@ defineProps<{ ranking: UnitPriceRanking }>();
           </p>
         </div>
         <div class="rounded-xl border border-primary/20 bg-card p-4">
-          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">Comparison basis</p>
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">비교 기준</p>
           <p class="mt-2 font-brand text-xl text-primary">{{ ranking.category.basisLabel }}</p>
           <p class="mt-2 text-xs leading-5 text-muted-foreground">최고 효율 100점 · category-value-v1</p>
           <p class="mt-1 text-xs leading-5 text-muted-foreground">unit-price-v1 · 가격 확인 {{ ranking.updatedAt.replaceAll("-", ".") }}</p>
@@ -53,9 +53,9 @@ defineProps<{ ranking: UnitPriceRanking }>();
             <div class="flex flex-1 flex-col p-5">
               <p class="text-xs font-semibold text-primary">{{ score.product.brand }}</p>
               <h3 class="mt-2 min-h-14 break-keep text-lg font-semibold leading-7">{{ score.product.displayName }}</h3>
-              <div class="mt-5 grid grid-cols-2 gap-2">
+              <div class="unit-price-metrics mt-5 grid grid-cols-2 gap-2">
                 <div class="rounded-lg bg-primary p-4 text-primary-foreground">
-                  <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground/70">가격효율지수</p>
+                  <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground">가격효율지수</p>
                   <p class="mt-1 font-brand text-3xl tabular-nums">{{ formatPriceEfficiency(score.priceEfficiencyIndex) }}</p>
                 </div>
                 <div class="rounded-lg bg-accent/65 p-4">
@@ -64,18 +64,18 @@ defineProps<{ ranking: UnitPriceRanking }>();
                 </div>
               </div>
 
-              <dl class="mt-4 grid grid-cols-3 divide-x divide-border rounded-lg border border-border py-3 text-center">
+              <dl class="unit-price-facts mt-4 grid grid-cols-1 divide-y divide-border rounded-lg border border-border text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
                 <div class="min-w-0 px-2">
                   <dt class="text-[10px] text-muted-foreground">1일 함량</dt>
-                  <dd class="mt-1 truncate text-xs font-semibold tabular-nums">{{ formatUnitPriceAmount(score.product.dailyActiveAmount, score.product.activeUnit) }}</dd>
+                  <dd class="mt-1 text-xs font-semibold tabular-nums">{{ formatUnitPriceAmount(score.product.dailyActiveAmount, score.product.activeUnit) }}</dd>
                 </div>
                 <div class="min-w-0 px-2">
                   <dt class="text-[10px] text-muted-foreground">1일 비용</dt>
-                  <dd class="mt-1 truncate text-xs font-semibold tabular-nums">{{ formatUnitPriceWon(score.dailyCostKrw) }}</dd>
+                  <dd class="mt-1 text-xs font-semibold tabular-nums">{{ formatUnitPriceWon(score.dailyCostKrw) }}</dd>
                 </div>
                 <div class="min-w-0 px-2">
                   <dt class="text-[10px] text-muted-foreground">30일 비용</dt>
-                  <dd class="mt-1 truncate text-xs font-semibold tabular-nums">{{ formatUnitPriceWon(score.monthlyCostKrw) }}</dd>
+                  <dd class="mt-1 text-xs font-semibold tabular-nums">{{ formatUnitPriceWon(score.monthlyCostKrw) }}</dd>
                 </div>
               </dl>
 
@@ -89,7 +89,7 @@ defineProps<{ ranking: UnitPriceRanking }>();
                   target="_blank"
                   rel="noopener noreferrer"
                   data-unit-price-source="official"
-                >공식 신고 {{ score.product.reportNo }} ↗</a>
+                >공식 데이터에서 신고번호 {{ score.product.reportNo }} 검색 ↗</a>
                 <a
                   class="touch-target inline-flex items-center rounded-lg border border-border px-3 hover:border-primary hover:text-primary"
                   :href="score.product.offer.url"

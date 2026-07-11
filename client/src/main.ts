@@ -6,6 +6,7 @@ import { buildHeadTags, resolveSeoPage } from "./utils/seo";
 import "./assets/css/main.css";
 import "@shakilabs/ui/styles.css";
 import "./assets/css/design-system.css";
+import "./assets/css/responsive-accessibility.css";
 
 export const createApp = ViteSSG(App, {
   routes,

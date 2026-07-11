@@ -42,7 +42,7 @@ onMounted(() => {
       </a>
 
       <header class="mt-5 max-w-3xl">
-        <p class="eyebrow">Side by side</p>
+        <p class="eyebrow">제품 비교</p>
         <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">멀티비타민 성분·가격 비교</h1>
         <p class="mt-4 break-keep text-base leading-7 text-muted-foreground">
           선택한 제품의 배송비 포함 1일 비용과 23개 영양소 충족률을 같은 기준으로 나란히 표시합니다.
