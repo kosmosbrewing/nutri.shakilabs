@@ -77,7 +77,7 @@ defineProps<{ ranking: UnitPriceRanking }>();
               <div class="mt-auto flex flex-wrap gap-2 pt-5 text-xs font-semibold">
                 <a
                   class="touch-target inline-flex items-center rounded-lg border border-border px-3 hover:border-primary hover:text-primary"
-                  :href="ranking.publicSourceUrl"
+                  :href="score.product.officialSourceUrl"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-unit-price-source="official"

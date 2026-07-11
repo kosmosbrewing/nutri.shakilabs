@@ -1,0 +1,38 @@
+{
+  "categorySlug": "magnesium",
+  "products": [
+    {
+      "productId": "gnm-magnesium-05",
+      "displayName": "GNM 마그네슘05",
+      "brand": "GNM자연의품격",
+      "servingLabel": "1일 1정",
+      "packageLabel": "120정 × 1병",
+      "totalUnitsPerPackage": 120,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 8850, "mandatoryShippingKrw": 2500, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=5980195", "title": "다나와 120정 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "hanmi-premium-magnesium-400",
+      "displayName": "한미양행 프리미엄 마그네슘400",
+      "brand": "한미양행",
+      "servingLabel": "1일 1정",
+      "packageLabel": "90정 × 1병",
+      "totalUnitsPerPackage": 90,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 16100, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=73295138", "title": "다나와 90정 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "nutrigarden-magnesium-max-400",
+      "displayName": "뉴트리가든 마그네슘 맥스 400",
+      "brand": "뉴트리가든",
+      "servingLabel": "1일 1정",
+      "packageLabel": "120정 × 1병",
+      "totalUnitsPerPackage": 120,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 20140, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=120443495", "title": "다나와 120정 가격비교", "affiliate": false, "availability": "in_stock" }
+    }
+  ]
+}

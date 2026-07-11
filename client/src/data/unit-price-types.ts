@@ -1,4 +1,4 @@
-export type UnitPriceUnit = "mg" | "ug";
+export type UnitPriceUnit = "mg" | "ug" | "cfu";
 export type UnitPriceConfidence = "A" | "B";
 
 export interface UnitPriceOfferInput {
@@ -21,6 +21,7 @@ export interface UnitPriceProductInput {
   brand: string;
   manufacturer: string;
   reportNo: string;
+  officialSourceUrl: string;
   servingLabel: string;
   packageLabel: string;
   dailyActiveAmount: number;

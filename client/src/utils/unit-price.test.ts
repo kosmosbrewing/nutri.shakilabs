@@ -7,11 +7,17 @@ import {
 } from "./unit-price";
 
 describe("unit-price-v1 dataset", () => {
-  it("publishes three independent categories with three products each", () => {
+  it("publishes nine independent categories with three products each", () => {
     expect(unitPriceDataset.categories.map(({ slug }) => slug)).toEqual([
       "vitamin-d",
+      "probiotics",
       "vitamin-c",
+      "omega-3",
+      "magnesium",
       "calcium",
+      "msm",
+      "coenzyme-q10",
+      "milk-thistle",
     ]);
     expect(unitPriceDataset.categories.every(({ products }) => products.length === 3)).toBe(true);
   });
@@ -41,6 +47,12 @@ describe("unit-price-v1 scoring", () => {
     expect(product?.totalDays).toBe(60);
     expect(product?.dailyCostKrw).toBeCloseTo(205.17, 2);
     expect(product?.unitPriceKrw).toBeCloseTo(20.52, 2);
+  });
+
+  it("compares probiotics per one billion CFU", () => {
+    const ranking = resolveUnitPriceRanking("probiotics", "2026-07-11");
+    expect(ranking?.category.basisAmount).toBe(1_000_000_000);
+    expect(ranking?.scores.every(({ product }) => product.activeUnit === "cfu")).toBe(true);
   });
 
   it("does not compare products across categories", () => {

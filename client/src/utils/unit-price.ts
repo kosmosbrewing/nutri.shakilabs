@@ -8,7 +8,7 @@ const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((value) => {
   const parsed = new Date(`${value}T00:00:00Z`);
   return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }, "Invalid calendar date");
-const unitSchema = z.enum(["mg", "ug"]);
+const unitSchema = z.enum(["mg", "ug", "cfu"]);
 const offerSchema = z.object({
   seller: z.string().trim().min(1),
   listedPriceKrw: z.number().int().positive(),
@@ -28,6 +28,7 @@ const productSchema = z.object({
   brand: z.string().trim().min(1),
   manufacturer: z.string().trim().min(1),
   reportNo: z.string().trim().min(1),
+  officialSourceUrl: z.url(),
   servingLabel: z.string().trim().min(1),
   packageLabel: z.string().trim().min(1),
   dailyActiveAmount: z.number().positive(),
@@ -64,7 +65,7 @@ const datasetSchema = z.object({
     url: z.url(),
     sha256: z.string().regex(/^[a-f0-9]{64}$/),
   }).strict(),
-  categories: z.array(categorySchema).length(3),
+  categories: z.array(categorySchema).length(9),
 }).strict().superRefine((dataset, context) => {
   const products = dataset.categories.flatMap((category) => category.products);
   for (const field of ["id", "reportNo"] as const) {
@@ -88,7 +89,6 @@ export interface UnitPriceRanking {
   category: UnitPriceCategoryInput;
   scores: UnitPriceScore[];
   updatedAt: string;
-  publicSourceUrl: string;
 }
 
 export function validateUnitPriceDataset(input: unknown) {
@@ -137,14 +137,18 @@ export function resolveUnitPriceRanking(
       || b.product.offer.capturedAt.localeCompare(a.product.offer.capturedAt)
       || a.product.displayName.localeCompare(b.product.displayName, "ko"))
     .map((score, index) => ({ ...score, rank: index + 1 }));
-  return { category, scores, updatedAt: unitPriceDataset.updatedAt, publicSourceUrl: unitPriceDataset.source.url };
+  return { category, scores, updatedAt: unitPriceDataset.updatedAt };
 }
 
 export function formatUnitPriceWon(value: number): string {
   return `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value)}원`;
 }
 
-export function formatUnitPriceAmount(value: number, unit: "mg" | "ug"): string {
+export function formatUnitPriceAmount(value: number, unit: "mg" | "ug" | "cfu"): string {
+  if (unit === "cfu") {
+    const amount = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value / 100_000_000);
+    return `${amount}억 CFU`;
+  }
   const amount = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value);
   return `${amount} ${unit === "ug" ? "μg" : "mg"}`;
 }

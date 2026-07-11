@@ -38,7 +38,10 @@ for (const category of catalog.categories) {
 
 const methodologyHtml = readFileSync(resolve(clientRoot, "dist/methodology.html"), "utf8");
 assert(methodologyHtml.includes("data-unit-price-method"), "Methodology must explain unit-price-v1");
+for (const category of dataset.categories) {
+  assert(methodologyHtml.includes(category.basisLabel), `Methodology must include ${category.slug} basis`);
+}
 const sourcesHtml = readFileSync(resolve(clientRoot, "dist/sources.html"), "utf8");
-assert((sourcesHtml.match(/data-unit-price-evidence-card/g) ?? []).length === 9, "Sources must list 9 unit-price products");
+assert((sourcesHtml.match(/data-unit-price-evidence-card/g) ?? []).length === 27, "Sources must list 27 unit-price products");
 
-process.stdout.write("Verified 3 unit-price pages, 9 cards, methodology, sources, and category boundaries.\n");
+process.stdout.write("Verified 9 unit-price pages, 27 cards, methodology, sources, and category boundaries.\n");

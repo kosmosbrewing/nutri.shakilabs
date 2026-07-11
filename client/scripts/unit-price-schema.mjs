@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const idSchema = z.string().regex(/^[a-z0-9][a-z0-9-]*$/);
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
-const unitSchema = z.enum(["mg", "ug"]);
+const unitSchema = z.enum(["mg", "ug", "cfu"]);
 
 const offerSchema = z.object({
   seller: z.string().trim().min(1),
@@ -24,6 +24,7 @@ const productSchema = z.object({
   brand: z.string().trim().min(1),
   manufacturer: z.string().trim().min(1),
   reportNo: z.string().trim().min(1),
+  officialSourceUrl: z.url(),
   servingLabel: z.string().trim().min(1),
   packageLabel: z.string().trim().min(1),
   dailyActiveAmount: z.number().positive(),
@@ -62,5 +63,5 @@ export const unitPriceDatasetSchema = z.object({
     url: z.url(),
     sha256: z.string().regex(/^[a-f0-9]{64}$/),
   }).strict(),
-  categories: z.array(categorySchema).length(3),
+  categories: z.array(categorySchema).length(9),
 }).strict();

@@ -1,0 +1,38 @@
+{
+  "categorySlug": "omega-3",
+  "products": [
+    {
+      "productId": "promega-rtg-omega3-dual-plus",
+      "displayName": "종근당건강 프로메가 알티지 오메가3 듀얼 플러스",
+      "brand": "종근당건강",
+      "servingLabel": "1일 2캡슐",
+      "packageLabel": "60캡슐 × 3박스",
+      "totalUnitsPerPackage": 60,
+      "unitsPerDay": 2,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 35200, "mandatoryShippingKrw": 0, "packageCount": 3, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=21206930", "title": "다나와 3박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "truen-supercritical-rtg-omega3",
+      "displayName": "트루엔 초임계 알티지 오메가3",
+      "brand": "트루엔",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "100캡슐 × 1병",
+      "totalUnitsPerPackage": 100,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 61910, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=20139737", "title": "다나와 100캡슐 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "gnm-rtg-omega3-dha",
+      "displayName": "GNM 알티지 오메가3 DHA",
+      "brand": "GNM자연의품격",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "30캡슐 × 2박스",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 16770, "mandatoryShippingKrw": 0, "packageCount": 2, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=17625611", "title": "다나와 2박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    }
+  ]
+}

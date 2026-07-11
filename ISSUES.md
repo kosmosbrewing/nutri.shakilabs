@@ -21,6 +21,7 @@
 | NUTRI-011 | DONE | 전체 QA·preview·release gate | 009,010 | Ralph Loop 완료 조건 전체 통과 |
 | NUTRI-012 | DONE | 영양제 카테고리 탐색 확장 | 005B,011 | 9개 공식 카테고리, 재현 가능한 catalog, 독립 SEO 페이지, 모바일 QA 통과 |
 | NUTRI-013 | DONE | 카테고리별 단위가격 비교 | 005B,012 | 비타민D·비타민C·칼슘 각 3개 제품, 독립 단위가격 산식, 출처·가격일·안전 고지, 모바일 QA 통과 |
+| NUTRI-014 | DONE | 나머지 6개 카테고리 단위가격 확장 | 013 | 식품안전나라 공식 함량, 카테고리별 3개 제품, 가격·출처·모바일 QA 통과 |
 
 ## Deferred Queue
 
@@ -52,6 +53,7 @@
 | 13 | NUTRI-011 | DONE | release:check, 57 route/viewport 검사, Lighthouse 측정 | 성능 87·접근성 100·Best Practices 100·SEO 100, 폰트 1.43MiB→109KiB |
 | 14 | NUTRI-012 | DONE | release:check, 28 index page, 5 viewport browser QA 통과 | 9개 카테고리·54개 공식 예시, www canonical·sitemap 통일, overflow·콘솔 오류·짧은 터치 타깃 0 |
 | 15 | NUTRI-013 | DONE | release:check, 45 tests, 6 viewport QA 통과 | 3개 카테고리·9개 단위가격 제품, 공식 원본 대조, overflow·콘솔 오류·짧은 터치 타깃 0 |
+| 16 | NUTRI-014 | DONE | release:check, 46 tests, 28 viewport QA 통과 | 9개 카테고리·27개 오퍼, 식품안전나라 상세 18건 대조, overflow·콘솔 오류·짧은 터치 타깃 0 |
 
 ## Queue Rules
 

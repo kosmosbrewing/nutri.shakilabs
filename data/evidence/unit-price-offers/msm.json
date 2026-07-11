@@ -1,0 +1,38 @@
+{
+  "categorySlug": "msm",
+  "products": [
+    {
+      "productId": "gnm-joint-msm",
+      "displayName": "GNM 관절 연골 뼈건강엔 MSM",
+      "brand": "GNM자연의품격",
+      "servingLabel": "1일 2정",
+      "packageLabel": "60정 × 4박스",
+      "totalUnitsPerPackage": 60,
+      "unitsPerDay": 2,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 37070, "mandatoryShippingKrw": 0, "packageCount": 4, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=117176274", "title": "다나와 4박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "wellers-msm-premium",
+      "displayName": "웰러스 관절 연골엔 MSM 프리미엄",
+      "brand": "웰러스",
+      "servingLabel": "1일 2정",
+      "packageLabel": "300정 × 1박스",
+      "totalUnitsPerPackage": 300,
+      "unitsPerDay": 2,
+      "confidence": "B",
+      "offer": { "seller": "11번가 가격비교", "listedPriceKrw": 36600, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://catalog.11st.co.kr/pc/506782091?poc=pc&sortCds=DLV_INCLUDE", "title": "11번가 300정 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "today-health-msm-2000",
+      "displayName": "오늘의건강 관절건강엔 옵티멈 MSM 2000",
+      "brand": "오늘의건강",
+      "servingLabel": "1일 2정",
+      "packageLabel": "60정 × 1박스",
+      "totalUnitsPerPackage": 60,
+      "unitsPerDay": 2,
+      "confidence": "B",
+      "offer": { "seller": "쿠팡 일반가", "listedPriceKrw": 20880, "mandatoryShippingKrw": 0, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://www.coupang.com/vp/products/7612728040", "title": "쿠팡 1박스 일반가 옵션", "affiliate": false, "availability": "in_stock" }
+    }
+  ]
+}

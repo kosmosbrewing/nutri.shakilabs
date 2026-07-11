@@ -52,7 +52,7 @@ function article(headline: string, path: string): StructuredData {
 const validSlugs = seoProducts.map((product) => product.slug);
 
 function homePage(): SeoPage {
-  const description = "식약처 제공 데이터로 10개 영양제 종류를 탐색하고, 검증된 멀티비타민 10개의 배송비 포함 1일 비용과 영양충족도를 비교합니다.";
+  const description = "식약처 제공 데이터로 10개 영양제 종류를 탐색하고, 9개 종류의 단위가격과 멀티비타민 10개의 배송비 포함 영양효율을 비교합니다.";
   return {
     title: "영양제 종류·멀티비타민 가격 비교 | 영양만점",
     description,

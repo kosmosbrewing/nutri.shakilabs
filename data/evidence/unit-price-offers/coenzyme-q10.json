@@ -1,0 +1,38 @@
+{
+  "categorySlug": "coenzyme-q10",
+  "products": [
+    {
+      "productId": "gnm-coq10-11",
+      "displayName": "GNM 코큐텐11",
+      "brand": "GNM자연의품격",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "30캡슐 × 4박스",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 26630, "mandatoryShippingKrw": 0, "packageCount": 4, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=4399261", "title": "다나와 4박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "jangdaewon-coq10-plus",
+      "displayName": "장대원 코엔자임Q10 항산화 플러스",
+      "brand": "장대원",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "30캡슐 × 6박스",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 56350, "mandatoryShippingKrw": 0, "packageCount": 6, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=17143085", "title": "다나와 6박스 가격비교", "affiliate": false, "availability": "in_stock" }
+    },
+    {
+      "productId": "meditree-coq10",
+      "displayName": "메디트리 코큐텐 코엔자임 Q10",
+      "brand": "메디트리",
+      "servingLabel": "1일 1캡슐",
+      "packageLabel": "30캡슐 × 1병",
+      "totalUnitsPerPackage": 30,
+      "unitsPerDay": 1,
+      "confidence": "B",
+      "offer": { "seller": "다나와 최저가", "listedPriceKrw": 2900, "mandatoryShippingKrw": 3000, "packageCount": 1, "capturedAt": "2026-07-11", "url": "https://prod.danawa.com/info/?pcode=108352028", "title": "다나와 30정 가격비교", "affiliate": false, "availability": "in_stock" }
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SiteHeader from "@/components/SiteHeader.vue";
+import { unitPriceDataset } from "@/utils/unit-price";
 </script>
 
 <template>
@@ -53,12 +54,13 @@ import SiteHeader from "@/components/SiteHeader.vue";
       <section class="mt-10 surface-panel p-5 sm:p-6" aria-labelledby="unit-price-title" data-unit-price-method>
         <p class="eyebrow">Category unit price</p>
         <h2 id="unit-price-title" class="mt-2 font-brand text-2xl">단일 핵심 성분은 단위가격으로 비교합니다</h2>
-        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">비타민D·비타민C·칼슘은 멀티비타민 종합점수와 섞지 않고 같은 카테고리 안에서만 비교합니다. 세트 전체 가격과 필수 배송비를 총 복용일수로 나눈 뒤 기준 함량으로 환산합니다.</p>
+        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">비타민·미네랄과 프로바이오틱스, 오메가3, 기능성 원료는 멀티비타민 종합점수와 섞지 않고 같은 카테고리 안에서만 비교합니다. 세트 전체 가격과 필수 배송비를 총 복용일수로 나눈 뒤 공식 핵심 함량의 기준 단위로 환산합니다.</p>
         <p class="formula-text mt-4">단위가격 = 1일 비용 ÷ (1일 핵심 함량 ÷ 기준 함량)</p>
-        <dl class="mt-4 grid gap-3 text-sm sm:grid-cols-3">
-          <div class="rounded-lg bg-accent/55 p-4"><dt class="font-semibold">비타민D</dt><dd class="mt-1 text-muted-foreground">10 μg당 가격</dd></div>
-          <div class="rounded-lg bg-accent/55 p-4"><dt class="font-semibold">비타민C</dt><dd class="mt-1 text-muted-foreground">100 mg당 가격</dd></div>
-          <div class="rounded-lg bg-accent/55 p-4"><dt class="font-semibold">칼슘</dt><dd class="mt-1 text-muted-foreground">100 mg당 가격</dd></div>
+        <dl class="mt-4 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
+          <div v-for="category in unitPriceDataset.categories" :key="category.slug" class="rounded-lg bg-accent/55 p-4">
+            <dt class="font-semibold">{{ category.name }}</dt>
+            <dd class="mt-1 text-muted-foreground">{{ category.basisLabel }}</dd>
+          </div>
         </dl>
       </section>
 
@@ -90,8 +92,8 @@ import SiteHeader from "@/components/SiteHeader.vue";
           <h2 id="confidence-title" class="mt-2 text-xl font-semibold">근거 신뢰도</h2>
         </div>
         <dl class="divide-y divide-border text-sm">
-          <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">A</dt><dd class="text-muted-foreground">공식 제품 식별과 제조사 라벨 또는 이에 준하는 1차 자료를 확보한 상태</dd></div>
-          <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">B</dt><dd class="text-muted-foreground">공식 제품 식별과 구조화된 판매 페이지의 전체 성분표를 확보한 상태</dd></div>
+          <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">A</dt><dd class="text-muted-foreground">식품안전나라 공식 상세와 제조사·브랜드 공식 판매 페이지를 함께 확보한 상태</dd></div>
+          <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">B</dt><dd class="text-muted-foreground">공식 제품·함량 상세와 구조화된 가격비교 또는 판매 페이지를 함께 확보한 상태</dd></div>
           <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">C</dt><dd class="text-muted-foreground">OCR 또는 비정형 일부 자료 의존 상태. 공개 랭킹에서는 제외</dd></div>
         </dl>
       </section>
