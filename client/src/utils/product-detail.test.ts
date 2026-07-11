@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { nutriDataset } from "@/data/dataset";
 import { buildRankingItems } from "./ranking";
-import { buildProductDetail, parseProductSlug } from "./product-detail";
+import { buildProductAlternatives, buildProductDetail, parseProductSlug } from "./product-detail";
 
 describe("product detail evidence", () => {
   it("accepts only a known product slug", () => {
@@ -20,5 +20,18 @@ describe("product detail evidence", () => {
       expect(detail.sources.length).toBeGreaterThanOrEqual(2);
       expect(detail.sources.every((source) => source.productId === item.product.id)).toBe(true);
     }
+  });
+
+  it("selects three objective alternatives by nearby daily cost then coverage", () => {
+    const ranking = buildRankingItems(nutriDataset);
+    if (!ranking.success) throw new Error(ranking.detail);
+    const current = ranking.items[0];
+    const alternatives = buildProductAlternatives(ranking.items, current.product.id);
+
+    expect(alternatives).toHaveLength(3);
+    expect(alternatives.every((alternative) => alternative.item.product.id !== current.product.id)).toBe(true);
+    expect(alternatives.map((alternative) => alternative.dailyCostGapKrw)).toEqual(
+      [...alternatives].map((alternative) => alternative.dailyCostGapKrw).sort((a, b) => a - b),
+    );
   });
 });
