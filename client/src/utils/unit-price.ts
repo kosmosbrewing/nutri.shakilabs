@@ -78,6 +78,7 @@ const datasetSchema = z.object({
 export interface UnitPriceScore {
   product: UnitPriceProductInput;
   rank: number;
+  priceEfficiencyIndex: number;
   totalDays: number;
   dailyCostKrw: number;
   monthlyCostKrw: number;
@@ -105,7 +106,7 @@ export function calculateUnitPrice(
   category: UnitPriceCategoryInput,
   product: UnitPriceProductInput,
   asOf: string,
-): Omit<UnitPriceScore, "rank"> {
+): Omit<UnitPriceScore, "rank" | "priceEfficiencyIndex"> {
   const totalDays = product.totalUnitsPerPackage * product.offer.packageCount / product.unitsPerDay;
   const dailyCostKrw = (product.offer.listedPriceKrw + product.offer.mandatoryShippingKrw) / totalDays;
   return {
@@ -128,20 +129,29 @@ export function resolveUnitPriceRanking(
   const category = unitPriceDataset.categories.find(({ slug }) => slug === slugResult.data);
   if (!category) return null;
   const confidenceOrder = { A: 0, B: 1 } as const;
-  const scores = category.products
+  const candidates = category.products
     .filter(({ offer }) => offer.availability === "in_stock")
     .map((product) => calculateUnitPrice(category, product, asOfResult.data))
     .filter(({ freshness }) => freshness !== "stale")
     .sort((a, b) => a.unitPriceKrw - b.unitPriceKrw
       || confidenceOrder[a.product.confidence] - confidenceOrder[b.product.confidence]
       || b.product.offer.capturedAt.localeCompare(a.product.offer.capturedAt)
-      || a.product.displayName.localeCompare(b.product.displayName, "ko"))
-    .map((score, index) => ({ ...score, rank: index + 1 }));
+      || a.product.displayName.localeCompare(b.product.displayName, "ko"));
+  const bestUnitPrice = candidates[0]?.unitPriceKrw;
+  const scores = candidates.map((score, index) => ({
+    ...score,
+    rank: index + 1,
+    priceEfficiencyIndex: bestUnitPrice ? bestUnitPrice / score.unitPriceKrw * 100 : 0,
+  }));
   return { category, scores, updatedAt: unitPriceDataset.updatedAt };
 }
 
 export function formatUnitPriceWon(value: number): string {
   return `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value)}원`;
+}
+
+export function formatPriceEfficiency(value: number): string {
+  return `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value)}점`;
 }
 
 export function formatUnitPriceAmount(value: number, unit: "mg" | "ug" | "cfu"): string {

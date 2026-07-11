@@ -48,7 +48,7 @@ const unitPriceProducts = unitPriceDataset.categories.flatMap((category) => (
 
       <section class="mt-10" aria-labelledby="unit-price-source-title" data-unit-price-evidence>
         <p class="eyebrow">Category price evidence</p>
-        <h2 id="unit-price-source-title" class="mt-2 font-brand text-2xl">단위가격 비교 출처</h2>
+        <h2 id="unit-price-source-title" class="mt-2 font-brand text-2xl">가격효율·단위가격 비교 출처</h2>
         <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">공공데이터포털 스냅샷과 식품안전나라 제품 상세의 신고번호·1일 핵심 함량을 비회원 일반 판매가·필수 배송비와 연결한 비교 근거입니다.</p>
         <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <article v-for="item in unitPriceProducts" :key="item.product.id" class="surface-panel p-5" data-unit-price-evidence-card>

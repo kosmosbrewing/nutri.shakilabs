@@ -1,6 +1,6 @@
 # Ralph Loop 실행 계획 — 11.nutri
 
-- 상태: Complete through NUTRI-014
+- 상태: Complete through NUTRI-015
 - 모드: Issue Fix Loop
 - 최대 반복: 24회
 - 이슈당 최대 재시도: 3회
@@ -8,7 +8,7 @@
 
 ## Goal
 
-공식 근거가 연결된 성인용 멀티비타민 10개와 영양제 카테고리 9개를 대상으로 가격당 영양효율·단위가격 비교, 제품 상세, 방법론을 SSG로 출시 가능한 상태까지 완성한다.
+공식 근거가 연결된 성인용 멀티비타민 10개와 영양제 카테고리 9개를 대상으로 가격당 영양효율·카테고리 상대 가격효율·단위가격 비교, 제품 상세, 방법론을 SSG로 출시 가능한 상태까지 완성한다.
 
 ## 완료 상태
 
@@ -17,6 +17,7 @@
 - `ISSUES.md`의 Launch 필수 이슈가 모두 `DONE`이다.
 - 제품 10개가 A/B 신뢰도와 완전성 gate를 통과한다.
 - 9개 단위가격 카테고리가 각 3개 현재 판매 제품과 공식 함량 근거를 갖춘다.
+- 9개 카테고리가 `category-value-v1` 상대 점수와 단위가격을 함께 설명한다.
 - 산식, 결측, 가격, 정렬 golden test가 통과한다.
 - typecheck, test, build, static output 검증이 모두 통과한다.
 - sitemap route가 고유 HTML과 self-canonical을 반환한다.
@@ -77,7 +78,7 @@ npm audit --audit-level=high
 | SEO | 009 | SSG, sitemap, 404, canonical 통과 |
 | Trust | 010 | 분석·정책·제휴 표시 통과 |
 | Release | 011 | 전체 품질·preview·live gate 통과 |
-| Expansion | 012~014 | 9개 종류·27개 단위가격 오퍼·공식 근거·모바일 QA 통과 |
+| Expansion | 012~015 | 9개 종류·27개 오퍼·상대 가격효율·공식 근거·모바일 QA 통과 |
 
 ## 중단 조건
 

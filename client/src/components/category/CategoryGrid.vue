@@ -7,13 +7,13 @@ defineProps<{
 
 const statusLabel = {
   ranking: "랭킹 제공",
-  unit_price: "단위가격 비교",
+  unit_price: "가격효율 비교",
   official_catalog: "공식 목록",
 } as const;
 
 const actionLabel = {
   ranking: "가격효율 보기",
-  unit_price: "단위가격 보기",
+  unit_price: "가격효율 보기",
   official_catalog: "등록 예시 보기",
 } as const;
 </script>

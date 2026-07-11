@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import unitPriceDatasetInput from "@/data/unit-price-products.json";
 import {
+  formatPriceEfficiency,
   resolveUnitPriceRanking,
   unitPriceDataset,
   validateUnitPriceDataset,
@@ -39,6 +40,11 @@ describe("unit-price-v1 scoring", () => {
     ]);
     expect(ranking?.scores[0].totalDays).toBe(540);
     expect(ranking?.scores[0].unitPriceKrw).toBeCloseTo(4.86, 2);
+    expect(ranking?.scores[0].priceEfficiencyIndex).toBe(100);
+    expect(ranking?.scores[1].priceEfficiencyIndex).toBeCloseTo(
+      ranking!.scores[0].unitPriceKrw / ranking!.scores[1].unitPriceKrw * 100,
+      5,
+    );
   });
 
   it("includes mandatory shipping and units per day", () => {
@@ -53,6 +59,24 @@ describe("unit-price-v1 scoring", () => {
     const ranking = resolveUnitPriceRanking("probiotics", "2026-07-11");
     expect(ranking?.category.basisAmount).toBe(1_000_000_000);
     expect(ranking?.scores.every(({ product }) => product.activeUnit === "cfu")).toBe(true);
+    expect(ranking?.scores.every(({ priceEfficiencyIndex }) => (
+      priceEfficiencyIndex > 0 && priceEfficiencyIndex <= 100
+    ))).toBe(true);
+    expect(formatPriceEfficiency(ranking!.scores[0].priceEfficiencyIndex)).toBe("100점");
+  });
+
+  it("normalizes the best current offer to 100 within every category", () => {
+    for (const category of unitPriceDataset.categories) {
+      const ranking = resolveUnitPriceRanking(category.slug, "2026-07-11");
+      expect(ranking?.scores).toHaveLength(3);
+      expect(ranking?.scores[0].priceEfficiencyIndex).toBe(100);
+      for (const score of ranking!.scores) {
+        expect(score.priceEfficiencyIndex).toBeCloseTo(
+          ranking!.scores[0].unitPriceKrw / score.unitPriceKrw * 100,
+          5,
+        );
+      }
+    }
   });
 
   it("does not compare products across categories", () => {
