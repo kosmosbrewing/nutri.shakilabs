@@ -3,6 +3,11 @@ import type { UnitPriceRanking } from "@/utils/unit-price";
 import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon } from "@/utils/unit-price";
 
 defineProps<{ ranking: UnitPriceRanking }>();
+
+function splitBasisLabel(label: string): { name: string; amount: string } {
+  const match = label.match(/^(.+?)\s+([\d,.]+(?:억)?\s+\S+당)$/u);
+  return match ? { name: match[1], amount: match[2] } : { name: label, amount: "" };
+}
 </script>
 
 <template>
@@ -58,8 +63,13 @@ defineProps<{ ranking: UnitPriceRanking }>();
                   <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground">가격효율지수</p>
                   <p class="mt-1 font-brand text-3xl tabular-nums">{{ formatPriceEfficiency(score.priceEfficiencyIndex) }}</p>
                 </div>
-                <div class="rounded-lg bg-accent/65 p-4">
-                  <p class="metric-label">{{ ranking.category.basisLabel }}</p>
+                <div class="rounded-lg bg-accent/65 px-3 py-4">
+                  <p class="metric-label flex flex-wrap gap-x-1">
+                    <span>{{ splitBasisLabel(ranking.category.basisLabel).name }}</span>
+                    <span v-if="splitBasisLabel(ranking.category.basisLabel).amount" class="whitespace-nowrap">
+                      {{ splitBasisLabel(ranking.category.basisLabel).amount }}
+                    </span>
+                  </p>
                   <p class="mt-1 font-brand text-2xl tabular-nums text-primary">{{ formatUnitPriceWon(score.unitPriceKrw) }}</p>
                 </div>
               </div>

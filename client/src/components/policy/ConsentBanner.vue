@@ -24,7 +24,7 @@ const { decide, decision, ready } = useConsent();
           <RouterLink class="ml-1 font-semibold text-background underline underline-offset-4" to="/privacy">개인정보 처리 안내</RouterLink>
         </p>
       </div>
-      <div class="flex shrink-0 justify-end gap-2">
+      <div class="consent-actions flex shrink-0 justify-end gap-2">
         <button class="touch-target rounded-lg border border-background/40 px-4 text-sm font-semibold hover:bg-background/10" type="button" @click="decide('rejected')">
           거부
         </button>

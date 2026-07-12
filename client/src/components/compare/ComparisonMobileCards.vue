@@ -19,7 +19,7 @@ defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
         <p class="mt-2 text-xs text-muted-foreground">전체 가격효율 {{ entry.item.overallRank }}위</p>
       </header>
 
-      <dl class="grid grid-cols-2 gap-px bg-border/70">
+      <dl class="comparison-mobile-metrics grid grid-cols-2 gap-px bg-border/70">
         <div class="bg-card p-4">
           <dt class="metric-label">1일 비용</dt>
           <dd class="mt-1 text-lg font-semibold tabular-nums">{{ formatWon(entry.item.score.dailyCostKrw) }}</dd>

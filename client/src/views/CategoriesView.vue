@@ -23,7 +23,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
           <p class="mt-5 max-w-2xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             {{ publicDataSnapshot.rowCount.toLocaleString("ko-KR") }}건의 식약처 제공 표준데이터에서 자주 찾는 제품군을 분리했습니다. 서로 다른 종류를 한 순위에 섞지 않습니다.
           </p>
-          <div class="mt-7 grid max-w-2xl grid-cols-3 divide-x divide-border rounded-xl border border-border bg-card py-4 text-center">
+          <div class="category-summary-grid mt-7 grid max-w-2xl grid-cols-3 divide-x divide-border rounded-xl border border-border bg-card py-4 text-center">
             <div class="px-2"><p class="text-[11px] text-muted-foreground">탐색 범위</p><p class="mt-1 font-semibold">10개 종류</p></div>
             <div class="px-2"><p class="text-[11px] text-muted-foreground">카테고리 레코드</p><p class="mt-1 font-semibold tabular-nums">{{ officialRecordCount.toLocaleString("ko-KR") }}건</p></div>
             <div class="px-2"><p class="text-[11px] text-muted-foreground">기준일</p><p class="mt-1 font-semibold">{{ categoryCatalog.source.dataReferenceDate.replaceAll("-", ".") }}</p></div>

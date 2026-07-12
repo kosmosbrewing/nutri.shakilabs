@@ -26,7 +26,7 @@ defineProps<{
       </div>
       <div>
         <dt class="text-muted-foreground">신고번호</dt>
-        <dd class="font-semibold tabular-nums">{{ record.reportNo }}</dd>
+        <dd class="break-words font-semibold">{{ record.reportNo }}</dd>
       </div>
       <div>
         <dt class="text-muted-foreground">섭취 표기</dt>
