@@ -68,7 +68,7 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
                   <span class="confidence-badge">신뢰도 {{ product.confidence }}</span>
                 </div>
                 <h3 class="mt-4 break-keep text-sm font-semibold leading-6">{{ product.displayName }}</h3>
-                <p class="mt-2 text-xs leading-5 text-muted-foreground">신고번호 {{ product.reportNo }} · 1일 {{ formatUnitPriceAmount(product.dailyActiveAmount, product.activeUnit) }}</p>
+                <p class="mt-2 text-xs leading-5 text-muted-foreground">신고번호 <span class="break-all">{{ product.reportNo }}</span> · 1일 {{ formatUnitPriceAmount(product.dailyActiveAmount, product.activeUnit) }}</p>
                 <p class="mt-1 text-xs text-muted-foreground">가격 확인 {{ product.offer.capturedAt }} · 비제휴</p>
                 <div class="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
                   <a class="touch-target inline-flex items-center text-primary" :href="product.officialSourceUrl" target="_blank" rel="noopener noreferrer">신고번호 검색 ↗</a>
@@ -93,10 +93,10 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
         <h2 id="product-source-title" class="mt-2 font-brand text-2xl">제품별 출처</h2>
         <div class="mt-4 space-y-3">
           <details v-for="group in productGroups" :key="group.product.id" class="surface-panel group overflow-hidden">
-            <summary class="touch-target flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+            <summary class="source-summary touch-target flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
               <span class="min-w-0">
                 <span class="block truncate text-sm font-semibold">{{ group.product.officialName }}</span>
-                <span class="mt-1 block text-[11px] text-muted-foreground">신고번호 {{ group.product.reportNo }} · 출처 {{ group.sources.length }}개</span>
+                <span class="source-summary__meta mt-1 block text-[11px] text-muted-foreground">신고번호 <span class="break-all">{{ group.product.reportNo }}</span> · 출처 {{ group.sources.length }}개</span>
               </span>
               <span class="shrink-0 text-primary group-open:rotate-45" aria-hidden="true">＋</span>
             </summary>

@@ -10,3 +10,7 @@ data/.staging/
 /artifacts/ui-audit/*
 !/artifacts/ui-audit/report.md
 !/artifacts/ui-audit/issues.json
+!/artifacts/text-layout-audit/
+/artifacts/text-layout-audit/*
+!/artifacts/text-layout-audit/report.md
+!/artifacts/text-layout-audit/issues.json

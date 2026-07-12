@@ -19,7 +19,7 @@ const status = computed(() => {
         <h3 id="consent-settings-title" class="text-sm font-semibold">이용 분석 선택</h3>
         <p class="mt-1 text-xs text-muted-foreground" aria-live="polite">현재 상태: {{ status }}</p>
       </div>
-      <div class="flex gap-2">
+      <div class="consent-actions flex gap-2">
         <ShButton variant="secondary" @click="decide('rejected')">거부</ShButton>
         <ShButton @click="decide('accepted')">허용</ShButton>
       </div>
