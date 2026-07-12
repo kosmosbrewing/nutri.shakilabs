@@ -5,6 +5,7 @@ import SiteHeader from "@/components/SiteHeader.vue";
 import ComparisonDesktopTable from "@/components/compare/ComparisonDesktopTable.vue";
 import ComparisonMobileCards from "@/components/compare/ComparisonMobileCards.vue";
 import ComparisonSources from "@/components/compare/ComparisonSources.vue";
+import ComparisonSummaryBars from "@/components/compare/ComparisonSummaryBars.vue";
 import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
 import { buildComparisonEntries, parseComparisonIds } from "@/utils/comparison";
@@ -61,6 +62,7 @@ onMounted(() => {
         <div class="mt-7 rounded-xl border border-primary/20 bg-accent px-4 py-3 text-xs leading-5 text-accent-foreground">
           비교 제품 {{ entries.length }}개 · 동일한 일반 성인 기준 · 가격 확인일 2026.07.10 · 자체 점수는 사용자 리뷰 평점이 아닙니다.
         </div>
+        <ComparisonSummaryBars :entries="entries" />
         <div class="mt-5">
           <ComparisonMobileCards :entries="entries" :references="nutriDataset.nutrientReferences" />
           <ComparisonDesktopTable :entries="entries" :references="nutriDataset.nutrientReferences" />
