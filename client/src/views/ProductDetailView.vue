@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
 import SourceCard from "@/components/evidence/SourceCard.vue";
 import ProductNutritionTable from "@/components/product/ProductNutritionTable.vue";
+import ProductAlternatives from "@/components/product/ProductAlternatives.vue";
 import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
 import { buildProductDetail, parseProductSlug } from "@/utils/product-detail";
@@ -119,6 +120,8 @@ function trackOfferClick(): void {
             </RouterLink>
           </aside>
         </section>
+
+        <ProductAlternatives :current-item="detail.item" :items="allItems" />
 
         <section class="mt-10" aria-labelledby="product-evidence-title">
           <p class="eyebrow">제품 근거</p>

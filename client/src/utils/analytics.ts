@@ -33,6 +33,12 @@ const eventSchema = z.discriminatedUnion("name", [
     seller: z.string().min(1).max(80),
     affiliate: z.boolean(),
   }).strict(),
+  z.object({
+    name: z.enum(["related_tool_impression", "related_tool_click"]),
+    from_tool: z.string().regex(/^[a-z0-9-]+$/).max(80),
+    to_tool: z.string().regex(/^[a-z0-9-]+$/).max(80),
+    placement: z.literal("similar_products"),
+  }).strict(),
 ]);
 
 export type AnalyticsEvent = z.infer<typeof eventSchema>;
