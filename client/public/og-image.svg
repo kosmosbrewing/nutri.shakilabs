@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#17240d" />
+      <stop offset="1" stop-color="#4d7c0f" />
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#ecfccb" stroke-opacity="0.08" />
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+  <circle cx="1060" cy="80" r="230" fill="#a3e635" fill-opacity="0.14" />
+  <circle cx="1030" cy="610" r="170" fill="#ecfccb" fill-opacity="0.08" />
+  <rect x="72" y="62" width="258" height="50" rx="25" fill="#ecfccb" fill-opacity="0.14" />
+  <text x="201" y="96" fill="#ecfccb" font-family="Pretendard, sans-serif" font-size="23" font-weight="700" text-anchor="middle">공공데이터 기반 · 영양만점</text>
+  <text x="72" y="226" fill="#ffffff" font-family="GmarketSans, Pretendard, sans-serif" font-size="68" font-weight="700">멀티비타민,</text>
+  <text x="72" y="312" fill="#ffffff" font-family="GmarketSans, Pretendard, sans-serif" font-size="68" font-weight="700">하루 비용으로 비교</text>
+  <text x="72" y="378" fill="#d9f99d" font-family="Pretendard, sans-serif" font-size="29" font-weight="600">1일 비용 · 23개 영양소 충족도 · 공식 근거</text>
+  <g transform="translate(72 434)" fill="#ffffff" fill-opacity="0.12">
+    <rect width="218" height="62" rx="20" />
+    <rect x="236" width="218" height="62" rx="20" />
+    <rect x="472" width="194" height="62" rx="20" />
+  </g>
+  <g fill="#ffffff" font-family="Pretendard, sans-serif" font-size="24" font-weight="700" text-anchor="middle">
+    <text x="181" y="474">가격효율 순위</text>
+    <text x="417" y="474">제품별 성분</text>
+    <text x="641" y="474">근거 출처</text>
+  </g>
+  <text x="72" y="566" fill="#ecfccb" font-family="Pretendard, sans-serif" font-size="24" font-weight="600">shakilabs.com/nutri</text>
+</svg>

@@ -1,6 +1,8 @@
 client/node_modules/
 client/dist/
-client/.env.local
+client/.env
+client/.env.*
+!client/.env.example
 .DS_Store
 *.log
 data/raw/

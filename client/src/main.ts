@@ -1,7 +1,7 @@
 import { ViteSSG } from "vite-ssg";
 import App from "./App.vue";
 import { routes } from "./router";
-import { trackAnalytics } from "./utils/analytics";
+import { initializeAnalytics, trackAnalytics } from "./utils/analytics";
 import { buildHeadTags, resolveSeoPage } from "./utils/seo";
 import "./assets/css/main.css";
 import "@shakilabs/ui/styles.css";
@@ -12,6 +12,7 @@ export const createApp = ViteSSG(App, {
   routes,
   base: import.meta.env.BASE_URL,
 }, ({ head, router }) => {
+  initializeAnalytics(import.meta.env.VITE_GA_MEASUREMENT_ID);
   let disposeHead: (() => void) | undefined;
   router.beforeEach((to) => {
     disposeHead?.();

@@ -12,6 +12,7 @@
 - 전체 WOFF2는 `client/fonts/source/`에 보존하고 배포하지 않는다.
 - `npm run fonts:subset`은 Python `fontTools`로 현재 UI 문자열의 서브셋과 해시 manifest를 생성한다.
 - 생성된 WOFF2와 manifest는 Git에 포함한다.
+- 고정된 공개 파일명은 장기 `immutable` 캐시를 사용하지 않고 재검증 가능한 캐시 정책을 적용한다.
 - 일반 build와 CI는 Python 도구에 의존하지 않고, 생성물 해시·문자 집합 해시·180KiB 총량을 검증한다.
 - UI 문자열이 바뀌어 해시가 달라지면 build를 실패시키고 서브셋 재생성을 요구한다.
 

@@ -6,6 +6,7 @@ import { resolveCategorySeoPage } from "./category-seo";
 import { parseProductSlug } from "./product-detail";
 
 const SITE_BASE = "https://shakilabs.com/nutri";
+const OG_IMAGE = `${SITE_BASE}/og-image.png`;
 const UPDATED_AT = "2026-07-10";
 const routeInputSchema = z.object({
   name: z.string(),
@@ -187,8 +188,13 @@ export function buildHeadTags(page: SeoPage) {
       { key: "og:description", property: "og:description", content: page.description },
       { key: "og:type", property: "og:type", content: "website" },
       ...(page.canonical ? [{ key: "og:url", property: "og:url", content: page.canonical }] : []),
+      { key: "og:image", property: "og:image", content: OG_IMAGE },
+      { key: "og:image:width", property: "og:image:width", content: "1200" },
+      { key: "og:image:height", property: "og:image:height", content: "630" },
+      { key: "og:image:alt", property: "og:image:alt", content: "영양만점 멀티비타민 가격·영양 비교" },
       { key: "og:locale", property: "og:locale", content: "ko_KR" },
-      { key: "twitter:card", name: "twitter:card", content: "summary" },
+      { key: "twitter:card", name: "twitter:card", content: "summary_large_image" },
+      { key: "twitter:image", name: "twitter:image", content: OG_IMAGE },
     ],
     link: page.canonical
       ? [{ key: "canonical", rel: "canonical", href: page.canonical }]
