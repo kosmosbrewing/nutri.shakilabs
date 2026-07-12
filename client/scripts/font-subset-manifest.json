@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "characterCount": 550,
-  "characterSha256": "60cab685375d1628274faa0d0461333df7bb4d3ee4c3b3815a95298d81f9babb",
+  "characterCount": 551,
+  "characterSha256": "57b06ed51fc0ee7765eeac90cea0cac0eace11a942759c135e4040a116581942",
   "fonts": [
     {
       "publicName": "Pretendard-Regular-subset.woff2",
-      "bytes": 39900,
-      "characterCount": 550,
-      "sha256": "58e02dc9825d9dc3abac041a560b16f52f10e86eb0b9b16dc22d61cb0ab3fae1"
+      "bytes": 39808,
+      "characterCount": 551,
+      "sha256": "e25e611f93eb551eaa8df598beb9e5af80c22d8b2ba65e97a65f07dbc6795257"
     },
     {
       "publicName": "Pretendard-SemiBold-subset.woff2",
-      "bytes": 34392,
-      "characterCount": 550,
-      "sha256": "37416c7270c5eb1714cc39981c0994117c96feb6c1b530da9c41b8cf2088d0d9"
+      "bytes": 34300,
+      "characterCount": 551,
+      "sha256": "1e34ec2a7f7b417c4e59401e84607d7e31ac00cc09a70b53caff1babb20a3200"
     },
     {
       "publicName": "GmarketSansBold-subset-v3.woff2",
       "bytes": 64432,
-      "characterCount": 462,
-      "sha256": "5ac0e770022e7eb772da020aeebf5a123ad7989ef924e96a854d658b773671fd"
+      "characterCount": 463,
+      "sha256": "b27fdb0ca737736cf139a9640c1c16397cc6ec31d8abf1eb3d3c54615dcdd480"
     }
   ]
 }
