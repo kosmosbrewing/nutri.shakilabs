@@ -9,15 +9,17 @@ import {
 
 const route = useRoute();
 const navigationItems: readonly PrimaryNavigationItem[] = [
+  { key: "home", label: "비교 홈", to: "/", href: "/nutri" },
   { key: "categories", label: "종류 찾기", to: "/categories" },
   { key: "ranking", label: "가격 순위", to: "/", href: "/nutri#ranking" },
   { key: "methodology", label: "산정 기준", to: "/methodology" },
 ];
 
 const activeItem = computed(() => {
-  if (route.path.startsWith("/categories")) return navigationItems[0];
-  if (route.path === "/") return navigationItems[1];
-  if (route.path === "/methodology") return navigationItems[2];
+  if (route.path.startsWith("/categories")) return navigationItems[1];
+  if (route.path === "/" && route.hash === "#ranking") return navigationItems[2];
+  if (route.path === "/") return navigationItems[0];
+  if (route.path === "/methodology") return navigationItems[3];
   return undefined;
 });
 </script>
@@ -37,6 +39,7 @@ const activeItem = computed(() => {
     :items="navigationItems"
     :active-key="activeItem?.key"
     :link-component="RouterLink"
+    :mobile-columns="2"
     aria-label="영양만점 주요 메뉴"
   />
 </template>
