@@ -40,7 +40,6 @@ const activeItem = computed(() => {
     :active-key="activeItem?.key"
     :link-component="RouterLink"
     :mobile-columns="2"
-    style="--sh-navigation-desktop-max-width: 1080px; --sh-navigation-desktop-padding: 16px"
     aria-label="영양만점 주요 메뉴"
   />
 </template>
