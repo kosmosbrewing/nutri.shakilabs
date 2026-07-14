@@ -2,7 +2,7 @@
 
 ## 프로젝트 정체성
 
-- 현재 상태: production 운영, main `fc54648`, open PR 0 (2026-07-14 점검)
+- 현재 상태: production 운영, 2026-07-14 `main` 및 production audit 통과
 - indexable route: 28개
 - 공통 UI: `@shakilabs/ui` `0.3.7`
 
