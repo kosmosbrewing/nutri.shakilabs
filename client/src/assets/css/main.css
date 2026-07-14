@@ -101,6 +101,10 @@
 }
 
 @layer components {
+  .site-header__bar {
+    max-width: var(--sh-navigation-desktop-max-width, 960px);
+  }
+
   .page-shell {
     @apply container py-6 sm:py-9;
   }
