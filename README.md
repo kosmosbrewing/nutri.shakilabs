@@ -7,6 +7,8 @@
 - 디렉터리: `11.nutri`
 - Git 저장소명: `nutri.shakilabs`
 - 단계: 10개 카테고리 가격효율 구현 및 로컬 릴리스 gate 완료
+- production: 28개 indexable page 운영, 2026-07-14 sitemap/canonical audit 통과
+- 공통 UI: `@shakilabs/ui` `0.3.7` exact artifact
 - APP_ID: `nutri`
 - 운영 경로: `https://shakilabs.com/nutri/`
 - 개발 포트: `6112`
@@ -37,6 +39,6 @@
 - `../../TEMP/NutriMaxBackend`: 제품·성분·가격 관계만 참고한다.
 - 기존 코드는 SSG, 출처 증거, 테스트 기준이 달라 직접 복사하지 않는다.
 
-## 구현 시작 조건
+## 변경 검증
 
-`ISSUES.md`의 `NUTRI-001`부터 한 번에 하나씩 처리한다. 구현 루프는 `docs/RALPH_LOOP_PLAN.md`의 검증·중단 조건을 변경하지 않고 따른다.
+Launch queue `NUTRI-001`~`NUTRI-015`는 완료됐다. 후속 데이터·UI 변경도 `docs/RALPH_LOOP_PLAN.md`의 검증 순서와 `ISSUES.md`의 deferred 진입 조건을 유지한다.

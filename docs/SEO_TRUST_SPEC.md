@@ -1,7 +1,8 @@
 # SEO·신뢰 설계 — 11.nutri
 
-- 상태: Draft v0.2
-- 기준일: 2026-07-10
+- 상태: Implemented v1.0
+- 기준일: 2026-07-14
+- 운영 범위: 28 indexable routes
 
 ## 검색 전략
 
