@@ -26,7 +26,7 @@ const activeItem = computed(() => {
 
 <template>
   <header class="border-b border-border bg-background">
-    <div class="site-header__bar container flex min-h-16 items-center">
+    <div class="site-header__bar container flex min-h-16 items-center px-3 sm:px-4">
       <a class="site-logo touch-target inline-flex items-center gap-2.5 font-brand text-lg" href="/nutri">
         <span class="site-logo__mark grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-sm text-primary-foreground">
           영
