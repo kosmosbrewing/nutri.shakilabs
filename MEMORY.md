@@ -2,6 +2,10 @@
 
 ## 프로젝트 정체성
 
+- 현재 상태: production 운영, 2026-07-14 `main` 및 production audit 통과
+- indexable route: 28개
+- 공통 UI: `@shakilabs/ui` `0.3.7`
+
 - 디렉터리: `11.nutri`
 - 서비스명: `영양만점`
 - Git 저장소명: `nutri.shakilabs`
@@ -51,4 +55,4 @@
 - 가격이 30일보다 오래되면 랭킹에서 제외한다.
 - 단위가격 오퍼 27개의 최근 확인일은 2026-07-11이며 품절·회원가·쿠폰가는 제외한다.
 - 점수 산식 버전을 데이터와 함께 노출한다.
-- 구현은 `ISSUES.md`와 `docs/RALPH_LOOP_PLAN.md`에 따라 한 이슈씩 진행한다.
+- Launch queue는 완료됐으며 후속 작업은 `ISSUES.md` deferred 조건과 `docs/RALPH_LOOP_PLAN.md` gate에 따라 한 이슈씩 진행한다.

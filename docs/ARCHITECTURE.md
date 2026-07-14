@@ -1,7 +1,7 @@
 # 아키텍처 설계 — 11.nutri
 
-- 상태: Draft v0.3
-- 기준일: 2026-07-11
+- 상태: Implemented v1.0
+- 기준일: 2026-07-14
 
 ## 전제
 
@@ -25,6 +25,8 @@
 | APP_ID | `nutri` |
 | DEV_PORT | `6112` |
 | Primary | lime-700 `#4D7C0F` |
+| 공통 UI | `@shakilabs/ui` `0.3.7` exact artifact |
+| 공개 페이지 | 28 indexable routes |
 
 ## Phase 1 구조
 
