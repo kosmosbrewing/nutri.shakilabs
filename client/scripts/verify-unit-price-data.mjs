@@ -64,7 +64,10 @@ const rawPath = resolve(dataRoot, manifest.rawFile);
 if (existsSync(rawPath)) {
   const snapshot = await readJson(rawPath, rawSnapshotSchema, "Raw snapshot");
   const nutrientField = { "vitamin-d": "VITD", "vitamin-c": "VITC", calcium: "CA" };
-  const snapshotProducts = products.filter((product) => nutrientField[product.categorySlug]);
+  // 포털 공식 evidence로 검증되는 제품은 스냅샷 대조를 면제 — 스냅샷 미수록 신규 제품 허용
+  const snapshotProducts = products.filter(
+    (product) => nutrientField[product.categorySlug] && !evidenceById.has(product.id),
+  );
   for (const product of snapshotProducts) {
     const rows = snapshot.records.filter((row) => (
       row.ITEM_MNFTR_RPT_NO === product.reportNo && row.FOOD_NM === product.officialName

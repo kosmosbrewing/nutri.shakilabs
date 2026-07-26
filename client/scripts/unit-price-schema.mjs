@@ -45,7 +45,7 @@ const categorySchema = z.object({
   basisAmount: z.number().positive(),
   basisLabel: z.string().trim().min(1),
   summary: z.string().trim().min(1),
-  products: z.array(productSchema).length(3),
+  products: z.array(productSchema).min(3).max(12),
 }).strict().superRefine((category, context) => {
   category.products.forEach((product, index) => {
     if (product.categorySlug !== category.slug || product.activeUnit !== category.activeUnit) {

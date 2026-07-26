@@ -146,6 +146,13 @@ export function resolveUnitPriceRanking(
   return { category, scores, updatedAt: unitPriceDataset.updatedAt };
 }
 
+// 순위 표기 최소 기준 — 비교군이 이보다 작으면 "비교"로만 표기해 과대 해석을 막는다
+export const RANKING_MIN_PRODUCTS = 4;
+
+export function isRankingEligible(ranking: UnitPriceRanking): boolean {
+  return ranking.scores.length >= RANKING_MIN_PRODUCTS;
+}
+
 export function formatUnitPriceWon(value: number): string {
   return `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value)}원`;
 }

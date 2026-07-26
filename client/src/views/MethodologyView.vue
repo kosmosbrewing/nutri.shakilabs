@@ -59,6 +59,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
         <p class="formula-text mt-4">단위가격 = 1일 비용 ÷ (1일 핵심 함량 ÷ 기준 함량)</p>
         <p class="formula-text mt-2">가격효율지수 = (현재 비교군 최저 단위가격 ÷ 제품 단위가격) × 100</p>
         <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">100점은 현재 같은 카테고리 비교군에서 단위가격이 가장 낮다는 상대값입니다. 가격이 바뀌면 다시 계산되며, 카테고리가 다른 제품의 점수끼리는 비교할 수 없습니다.</p>
+        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">공식 근거가 검증된 제품이 4개 이상인 카테고리만 "가격효율 순위"로 표기합니다. 그보다 적으면 순위 대신 "비교"로만 표시하며, 순위는 단위가격의 정량 정렬일 뿐 효능·품질·개인 적합성의 순위가 아닙니다.</p>
         <dl class="mt-4 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
           <div v-for="category in unitPriceDataset.categories" :key="category.slug" class="rounded-lg bg-accent/55 p-4">
             <dt class="font-semibold">{{ category.name }}</dt>

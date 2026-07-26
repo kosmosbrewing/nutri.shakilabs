@@ -1,8 +1,8 @@
 import { findCategory } from "./category-catalog";
-import { resolveUnitPriceRanking } from "./unit-price";
+import { isRankingEligible, resolveUnitPriceRanking, unitPriceDataset } from "./unit-price";
 
 const SITE_BASE = "https://shakilabs.com/nutri";
-const UPDATED_AT = "2026-07-11";
+const UPDATED_AT = unitPriceDataset.updatedAt;
 
 export interface CategorySeoPage {
   title: string;
@@ -27,17 +27,21 @@ export function resolveCategorySeoPage(slugInput: unknown): CategorySeoPage | nu
   const listItems = ranking
     ? ranking.scores.map(({ product, rank }) => ({ name: product.displayName, position: rank }))
     : category.records.map((record, index) => ({ name: record.name, position: index + 1 }));
+  const ranked = ranking !== null && isRankingEligible(ranking);
+  const pageName = ranked
+    ? `${category.name} 영양제 가격효율 순위 TOP ${ranking.scores.length}`
+    : ranking
+      ? `${category.name} 영양제 가격효율 비교`
+      : `${category.name} 영양제 공식 등록 제품`;
   return {
-    title: ranking
-      ? `${category.name} 영양제 가격효율 비교 | 영양만점`
-      : `${category.name} 영양제 공식 등록 제품 | 영양만점`,
+    title: `${pageName} | 영양만점`,
     description,
     canonical: canonical(path),
     robots: "index,follow",
     structuredData: [
       {
         "@type": "CollectionPage",
-        name: ranking ? `${category.name} 영양제 가격효율 비교` : `${category.name} 영양제 공식 등록 제품`,
+        name: pageName,
         url: canonical(path),
         description,
         dateModified: UPDATED_AT,

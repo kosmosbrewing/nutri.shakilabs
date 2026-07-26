@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { UnitPriceRanking } from "@/utils/unit-price";
-import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon } from "@/utils/unit-price";
+import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon, isRankingEligible } from "@/utils/unit-price";
 
-defineProps<{ ranking: UnitPriceRanking }>();
+const props = defineProps<{ ranking: UnitPriceRanking }>();
+const ranked = computed(() => isRankingEligible(props.ranking));
 
 function splitBasisLabel(label: string): { name: string; amount: string } {
   const match = label.match(/^(.+?)\s+([\d,.]+(?:억)?\s+\S+당)$/u);
@@ -18,12 +20,13 @@ function splitBasisLabel(label: string): { name: string; amount: string } {
     <div class="container py-10 sm:py-14">
       <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
         <div>
-          <p class="eyebrow">종류별 가격 비교</p>
+          <p class="eyebrow">{{ ranked ? "종류별 가격효율 순위" : "종류별 가격 비교" }}</p>
           <h2 class="mt-2 break-keep font-brand text-3xl sm:text-4xl">
-            {{ ranking.category.name }} 가격효율 비교
+            {{ ranking.category.name }} {{ ranked ? `가격효율 순위 TOP ${ranking.scores.length}` : "가격효율 비교" }}
           </h2>
           <p class="mt-4 max-w-3xl break-keep text-sm leading-6 text-muted-foreground sm:text-base">
             {{ ranking.category.summary }}입니다. 배송비와 세트 수량을 포함하며 같은 카테고리 안에서만 비교합니다.
+            {{ ranked ? `공식 근거가 검증된 제품 ${ranking.scores.length}개를 단위가격이 낮은 순서로 정렬한 정량 순위이며, 효능·품질 순위가 아닙니다.` : "" }}
           </p>
         </div>
         <div class="rounded-xl border border-primary/20 bg-card p-4">
