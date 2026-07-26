@@ -8,6 +8,9 @@ const categorySchema = z.enum([
   "msm",
   "coenzyme-q10",
   "milk-thistle",
+  "vitamin-d",
+  "vitamin-c",
+  "calcium",
 ]);
 
 export const evidenceTargetSchema = z.object({
@@ -19,7 +22,7 @@ export const evidenceTargetSchema = z.object({
 
 export const evidenceTargetsSchema = z.object({
   schemaVersion: z.literal("unit-price-evidence-target-v1"),
-  targets: z.array(evidenceTargetSchema).length(18),
+  targets: z.array(evidenceTargetSchema).min(18).max(60),
 }).strict();
 
 const evidenceProductSchema = evidenceTargetSchema.extend({
@@ -33,27 +36,33 @@ export const unitPriceEvidenceSchema = z.object({
   schemaVersion: z.literal("unit-price-evidence-v1"),
   checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   sourceUrl: z.url(),
-  products: z.array(evidenceProductSchema).length(18),
+  products: z.array(evidenceProductSchema).min(18).max(60),
 }).strict();
 
 const activeLabels = {
   probiotics: /프로바이오틱스\s*수/i,
   "omega-3": /EPA\s*와\s*DHA\s*의\s*합/i,
   magnesium: /마그네슘/i,
-  msm: /(?:엠에스엠|MSM)/i,
+  msm: /(?:엠에스엠|MSM|디메틸설폰)/i,
   "coenzyme-q10": /코엔자임\s*Q10/i,
   "milk-thistle": /실리마린/i,
+  "vitamin-d": /비타민\s*D/i,
+  "vitamin-c": /비타민\s*C/i,
+  calcium: /칼슘/i,
 };
+// 카테고리별 표시량 단위 — 비타민D는 ㎍(ug), 프로바이오틱스는 CFU, 나머지는 mg
+const activeUnits = { probiotics: "CFU", "vitamin-d": "ug" };
 
 export function extractOfficialActiveAmount(categoryInput, standardInput) {
   const category = categorySchema.parse(categoryInput);
   const standard = z.string().trim().min(1).parse(standardInput)
     .replaceAll(" ", " ")
-    .replaceAll("㎎", "mg");
+    .replaceAll("㎎", "mg")
+    .replaceAll("㎍", "ug");
   const label = standard.match(activeLabels[category]);
   if (!label || label.index === undefined) return null;
   const section = standard.slice(label.index + label[0].length, label.index + label[0].length + 180);
-  const unit = category === "probiotics" ? "CFU" : "mg";
+  const unit = activeUnits[category] ?? "mg";
   const amount = section.match(new RegExp(`(?:표시량\\s*\\()?\\s*([\\d,.]+)\\s*(?:\\([^)]*\\))?\\s*${unit}`, "i"));
   if (!amount) return null;
   const parsed = Number(amount[1].replaceAll(",", ""));

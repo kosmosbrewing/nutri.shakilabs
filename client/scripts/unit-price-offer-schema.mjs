@@ -36,5 +36,5 @@ const productOfferSchema = z.object({
 
 export const categoryOfferFileSchema = z.object({
   categorySlug: expansionCategorySchema,
-  products: z.array(productOfferSchema).length(3),
+  products: z.array(productOfferSchema).min(3).max(12),
 }).strict();
