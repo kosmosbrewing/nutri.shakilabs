@@ -26,7 +26,7 @@ describe("unit-price-v1 dataset", () => {
     );
     expect(counts).toEqual({
       "vitamin-d": 4,
-      probiotics: 3,
+      probiotics: 4,
       "vitamin-c": 7,
       "omega-3": 4,
       magnesium: 4,
@@ -45,6 +45,7 @@ describe("unit-price-v1 dataset", () => {
       .map(({ category }) => category.slug);
     expect(eligible).toEqual([
       "vitamin-d",
+      "probiotics",
       "vitamin-c",
       "omega-3",
       "magnesium",
