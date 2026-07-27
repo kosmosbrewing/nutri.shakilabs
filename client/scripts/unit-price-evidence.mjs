@@ -45,7 +45,7 @@ const activeLabels = {
   magnesium: /마그네슘/i,
   msm: /(?:엠에스엠|MSM|디메틸설폰)/i,
   "coenzyme-q10": /코엔자임\s*Q10/i,
-  "milk-thistle": /실리마린/i,
+  "milk-thistle": /(?:실리마린|실린마린)/i,
   "vitamin-d": /비타민\s*D/i,
   "vitamin-c": /비타민\s*C/i,
   calcium: /칼슘/i,
