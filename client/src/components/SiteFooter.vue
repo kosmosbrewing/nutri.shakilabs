@@ -6,7 +6,7 @@ import { ShText } from "@shakilabs/ui";
   <footer class="mt-12 border-t border-border/70 bg-muted/35">
     <div class="container grid gap-7 py-8 sm:grid-cols-[1fr_auto] sm:items-start">
       <div class="max-w-xl">
-        <ShText variant="heading">영양만점</ShText>
+        <p class="font-brand text-lg">영양만점</p>
         <ShText class="mt-3" variant="caption" tone="muted">
           영양제 종류를 공식 데이터로 탐색하고, 근거가 완성된 제품군만 가격효율을 비교하는 ShakiLabs 데이터 도구입니다. 질환의 진단·치료·예방을 위한 의료 조언을 제공하지 않습니다.
         </ShText>
