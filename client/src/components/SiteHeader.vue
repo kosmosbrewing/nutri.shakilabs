@@ -5,22 +5,61 @@ import {
   ShPrimaryNavigation,
   type PrimaryNavigationItem,
 } from "@shakilabs/ui";
+import { trackAnalytics } from "@/utils/analytics";
+
+interface NutriNavigationItem extends PrimaryNavigationItem {
+  matchPaths: readonly string[];
+}
 
 const route = useRoute();
-const navigationItems: readonly PrimaryNavigationItem[] = [
-  { key: "home", label: "비교 홈", to: "/", href: "/nutri" },
-  { key: "categories", label: "종류 찾기", to: "/categories" },
-  { key: "ranking", label: "가격 순위", to: "/", href: "/nutri#ranking" },
-  { key: "methodology", label: "산정 기준", to: "/methodology" },
+
+// same grammar as finance: nav = direct ranking tabs + catalog hub + methodology
+const navigationItems: readonly NutriNavigationItem[] = [
+  { key: "multivitamin", label: "멀티비타민", to: "/", href: "/nutri#ranking", matchPaths: ["/"] },
+  { key: "vitamin-d", label: "비타민D", to: "/categories/vitamin-d", matchPaths: ["/categories/vitamin-d"] },
+  { key: "vitamin-c", label: "비타민C", to: "/categories/vitamin-c", matchPaths: ["/categories/vitamin-c"] },
+  { key: "probiotics", label: "유산균", to: "/categories/probiotics", matchPaths: ["/categories/probiotics"] },
+  { key: "omega-3", label: "오메가3", to: "/categories/omega-3", matchPaths: ["/categories/omega-3"] },
+  { key: "magnesium", label: "마그네슘", to: "/categories/magnesium", matchPaths: ["/categories/magnesium"] },
+  { key: "calcium", label: "칼슘", to: "/categories/calcium", matchPaths: ["/categories/calcium"] },
+  { key: "categories", label: "전체 종류", to: "/categories", matchPaths: ["/categories"] },
+  { key: "methodology", label: "산정 기준", to: "/methodology", matchPaths: ["/methodology"] },
 ];
 
-const activeItem = computed(() => {
-  if (route.path.startsWith("/categories")) return navigationItems[1];
-  if (route.path === "/" && route.hash === "#ranking") return navigationItems[2];
-  if (route.path === "/") return navigationItems[0];
-  if (route.path === "/methodology") return navigationItems[3];
-  return undefined;
+const mobileDefaultKeys = [
+  "multivitamin",
+  "vitamin-c",
+  "probiotics",
+  "omega-3",
+  "categories",
+  "methodology",
+] as const;
+
+function isActive(item: NutriNavigationItem): boolean {
+  // exact match only for "/" and "/categories" so child category tabs stay exclusive
+  if (item.key === "multivitamin" || item.key === "categories") {
+    return item.matchPaths.includes(route.path);
+  }
+  return item.matchPaths.some(
+    (path) => route.path === path || route.path.startsWith(`${path}/`),
+  );
+}
+
+const activeItem = computed(() => navigationItems.find(isActive));
+
+const mobileItems = computed(() => {
+  const keys: string[] = [...mobileDefaultKeys];
+  if (activeItem.value && !keys.includes(activeItem.value.key)) {
+    keys[3] = activeItem.value.key;
+  }
+  return keys
+    .map((key) => navigationItems.find((item) => item.key === key))
+    .filter((item): item is NutriNavigationItem => Boolean(item));
 });
+
+function trackNavigation(item: PrimaryNavigationItem): void {
+  trackAnalytics({ name: "nav_click", to_tool: item.key, placement: "primary_nav" });
+}
 </script>
 
 <template>
@@ -39,9 +78,11 @@ const activeItem = computed(() => {
   </header>
   <ShPrimaryNavigation
     :items="navigationItems"
+    :mobile-items="mobileItems"
     :active-key="activeItem?.key"
     :link-component="RouterLink"
     :mobile-columns="2"
     aria-label="영양만점 주요 메뉴"
+    @select="trackNavigation"
   />
 </template>
