@@ -5,13 +5,38 @@ import {
   ShPrimaryNavigation,
   type PrimaryNavigationItem,
 } from "@shakilabs/ui";
+import TickerBar from "@/components/common/TickerBar.vue";
 import { trackAnalytics } from "@/utils/analytics";
+import { formatUnitPriceWon, resolveUnitPriceRanking, unitPriceDataset } from "@/utils/unit-price";
 
 interface NutriNavigationItem extends PrimaryNavigationItem {
   matchPaths: readonly string[];
 }
 
 const route = useRoute();
+
+// same grammar as finance AppHeader: rotating fade ticker between logo and nav
+const totalProducts = unitPriceDataset.categories.reduce((sum, category) => sum + category.products.length, 0);
+const globalTickerMessages: readonly string[] = [
+  `가격 확인 ${unitPriceDataset.updatedAt.replaceAll("-", ".")} · 검증 제품 ${totalProducts}개`,
+  "전 종류 가격효율 순위 · 효능·품질 순위가 아닙니다",
+  "모든 가격 링크는 비제휴입니다",
+];
+
+const tickerMessages = computed<readonly string[]>(() => {
+  const match = /^\/categories\/([a-z0-9-]+)$/.exec(route.path);
+  if (match) {
+    const ranking = resolveUnitPriceRanking(match[1]);
+    const top = ranking?.scores[0];
+    if (ranking && top) {
+      return [
+        `${ranking.category.name} 가격효율 1위 ${top.product.displayName} · 1일 ${formatUnitPriceWon(top.dailyCostKrw)}`,
+        ...globalTickerMessages,
+      ];
+    }
+  }
+  return globalTickerMessages;
+});
 
 // same grammar as finance: nav = direct ranking tabs + catalog hub + methodology
 const navigationItems: readonly NutriNavigationItem[] = [
@@ -74,6 +99,9 @@ function trackNavigation(item: PrimaryNavigationItem): void {
         </svg>
         <span>영양만점</span>
       </a>
+      <div class="flex min-w-0 flex-1 items-center justify-center overflow-hidden px-2 sm:px-4">
+        <TickerBar :key="route.path" :messages="tickerMessages" />
+      </div>
     </div>
   </header>
   <ShPrimaryNavigation
