@@ -63,7 +63,7 @@ onMounted(() => {
               영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
             </ShText>
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 23개 영양소 가격효율로, 나머지 9개 종류는 핵심 성분 단위가격으로 비교합니다.
+              5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 23개 영양소 가격효율 랭킹으로, 나머지 9개 종류는 핵심 성분 단위가격 순위로 제공합니다.
             </p>
             <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
               <span class="trust-chip">10개 영양제 종류</span>

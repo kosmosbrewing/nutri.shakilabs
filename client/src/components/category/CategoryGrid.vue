@@ -12,7 +12,7 @@ const statusLabel = {
 } as const;
 
 const actionLabel = {
-  ranking: "가격효율 보기",
+  ranking: "순위 보기",
   unit_price: "가격효율 보기",
   official_catalog: "등록 예시 보기",
 } as const;

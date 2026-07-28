@@ -16,7 +16,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
     <main>
       <section class="hero-field border-b border-border/60">
         <div class="container py-10 sm:py-14">
-          <p class="eyebrow">종류별 비교</p>
+          <p class="eyebrow">종류별 가격효율 순위</p>
           <h1 class="mt-4 max-w-3xl break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">
             영양제는 목적이 다르면<br />점수표도 달라야 합니다.
           </h1>
@@ -36,7 +36,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
           <p class="eyebrow">10개 영양제 종류</p>
           <h2 class="mt-2 font-brand text-2xl sm:text-3xl">영양제 종류별로 확인하기</h2>
           <p class="mt-3 break-keep text-sm leading-6 text-muted-foreground">
-            멀티비타민은 23개 영양소 가격효율, 나머지 9개 종류는 핵심 성분 단위가격을 100점 기준으로 환산한 카테고리 가격효율을 제공합니다.
+            멀티비타민은 23개 영양소 종합 가격효율 랭킹, 나머지 9개 종류는 핵심 성분 단위가격을 100점 기준으로 환산한 가격효율 순위를 제공합니다.
           </p>
         </div>
         <CategoryGrid :categories="categoryCards" />

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import catalogInput from "@/data/category-catalog.json";
-import { unitPriceDataset } from "./unit-price";
+import { isRankingEligible, resolveUnitPriceRanking, unitPriceDataset } from "./unit-price";
 
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const slugSchema = z.string().regex(/^[a-z0-9][a-z0-9-]*$/);
@@ -71,13 +71,16 @@ export const categoryCards: CategoryCardItem[] = [
   multivitaminCard,
   ...catalogCategories.map((category) => {
     const comparison = unitPriceDataset.categories.find(({ slug }) => slug === category.slug);
+    // 순위 표기 기준(검증 제품 4개+·신선한 가격)을 충족한 카테고리만 ranking으로 승격
+    const ranking = comparison ? resolveUnitPriceRanking(category.slug) : null;
+    const ranked = ranking !== null && isRankingEligible(ranking);
     return {
       slug: category.slug,
       name: category.name,
       summary: comparison?.summary ?? category.summary,
       count: comparison?.products.length ?? category.recordCount,
       countLabel: comparison ? "검증 제품" : "공식 레코드",
-      status: comparison ? "unit_price" as const : "official_catalog" as const,
+      status: ranked ? "ranking" as const : comparison ? "unit_price" as const : "official_catalog" as const,
       href: `/nutri/categories/${category.slug}`,
     };
   }),
