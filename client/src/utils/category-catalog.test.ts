@@ -27,14 +27,16 @@ describe("official supplement category catalog", () => {
     }
   });
 
-  it("keeps the multivitamin ranking separate from nine unit-price categories", () => {
+  it("promotes every ranking-eligible category card to ranking status", () => {
     expect(categoryCards).toHaveLength(10);
     expect(categoryCards[0]).toMatchObject({
       slug: "multivitamin",
       count: 10,
       status: "ranking",
     });
-    expect(categoryCards.filter(({ status }) => status === "unit_price").map(({ slug }) => slug)).toEqual([
+    // 전 카테고리 순위화(2026-07-27) 이후: 검증 제품 4개+ 조건을 전부 충족
+    expect(categoryCards.filter(({ status }) => status === "ranking").map(({ slug }) => slug)).toEqual([
+      "multivitamin",
       "vitamin-d",
       "probiotics",
       "vitamin-c",
@@ -45,6 +47,7 @@ describe("official supplement category catalog", () => {
       "coenzyme-q10",
       "milk-thistle",
     ]);
+    expect(categoryCards.filter(({ status }) => status === "unit_price")).toHaveLength(0);
     expect(categoryCards.filter(({ status }) => status === "official_catalog")).toHaveLength(0);
   });
 

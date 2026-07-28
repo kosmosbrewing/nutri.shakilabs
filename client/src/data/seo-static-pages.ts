@@ -9,8 +9,8 @@ export interface SeoStaticPage {
 export const seoStaticPages: SeoStaticPage[] = [
   {
     name: "Categories",
-    title: "영양제 종류별 가격효율 비교 | 영양만점",
-    description: "비타민D, 유산균, 오메가3, 마그네슘 등 9개 영양제 종류의 카테고리 상대 가격효율지수와 단위가격을 비교합니다.",
+    title: "영양제 종류별 가격효율 순위 | 영양만점",
+    description: "비타민D, 유산균, 오메가3, 마그네슘 등 9개 영양제 종류의 핵심 성분 단위가격 순위와 가격효율지수를 제공합니다.",
     path: "/categories",
     type: "WebPage",
   },
