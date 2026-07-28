@@ -25,8 +25,9 @@ function totalDaysLabel(score: UnitPriceScore): string {
             {{ ranking.category.name }} {{ ranked ? `가격효율 순위 TOP ${ranking.scores.length}` : "가격효율 비교" }}
           </h2>
           <p class="mt-4 max-w-3xl break-keep text-sm leading-6 text-muted-foreground sm:text-base">
-            {{ ranking.category.summary }}입니다. 배송비와 세트 수량을 포함하며 같은 카테고리 안에서만 비교합니다.
-            {{ ranked ? `공식 근거가 검증된 제품 ${ranking.scores.length}개를 단위가격이 낮은 순서로 정렬한 정량 순위이며, 효능·품질 순위가 아닙니다.` : "" }}
+            {{ ranked
+              ? "배송비 포함 단위가격이 낮은 순서입니다. 효능·품질 순위가 아닙니다."
+              : `${ranking.category.summary}입니다. 배송비와 세트 수량을 포함하며 같은 카테고리 안에서만 비교합니다.` }}
           </p>
         </div>
         <p class="max-w-md break-keep text-xs leading-5 text-muted-foreground sm:text-right">
@@ -64,8 +65,9 @@ function totalDaysLabel(score: UnitPriceScore): string {
                 <h3 class="mt-2 break-keep text-lg font-semibold leading-snug sm:text-xl">
                   {{ score.product.displayName }}
                 </h3>
+                <!-- report number lives in the bottom strip only to reduce body density -->
                 <p class="mt-2 text-xs leading-5 text-muted-foreground">
-                  신고번호 {{ score.product.reportNo }} · {{ score.product.servingLabel }} · {{ score.product.packageLabel }} · {{ totalDaysLabel(score) }}
+                  {{ score.product.servingLabel }} · {{ score.product.packageLabel }} · {{ totalDaysLabel(score) }}
                 </p>
               </div>
 
@@ -113,7 +115,7 @@ function totalDaysLabel(score: UnitPriceScore): string {
 
             <div class="flex flex-wrap items-center justify-between gap-2 border-t border-border/60 bg-muted/25 px-4 py-2.5 text-xs text-muted-foreground sm:px-5">
               <span>가격 확인 {{ score.product.offer.capturedAt.replaceAll("-", ".") }} · {{ score.product.offer.seller }} · 비제휴 링크</span>
-              <span>신고번호 {{ score.product.reportNo }} 공식 데이터 대조</span>
+              <span>신고번호 {{ score.product.reportNo }}</span>
             </div>
           </article>
         </li>

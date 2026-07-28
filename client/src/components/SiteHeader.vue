@@ -3,7 +3,6 @@ import { computed } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import {
   ShPrimaryNavigation,
-  ShText,
   type PrimaryNavigationItem,
 } from "@shakilabs/ui";
 
@@ -28,10 +27,13 @@ const activeItem = computed(() => {
   <header class="border-b border-border bg-background">
     <div class="site-header__bar container flex min-h-16 items-center px-3 sm:px-4">
       <a class="site-logo touch-target inline-flex items-center gap-2.5 font-brand text-lg" href="/nutri">
-        <span class="site-logo__mark grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-sm text-primary-foreground">
-          영
-        </span>
-        <ShText as="span" variant="heading">영양만점</ShText>
+        <!-- same mark as favicon.svg -->
+        <svg class="h-9 w-9 shrink-0" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="18" fill="#4d7c0f" />
+          <path d="M18 19h9l5 10 5-10h9L36 37v10h-8V37L18 19Z" fill="#fffdf5" />
+          <circle cx="47" cy="16" r="5" fill="#d9f99d" />
+        </svg>
+        <span>영양만점</span>
       </a>
     </div>
   </header>

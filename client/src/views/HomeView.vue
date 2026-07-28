@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { ShSurface, ShText } from "@shakilabs/ui";
+import { ShSurface } from "@shakilabs/ui";
 import SiteHeader from "@/components/SiteHeader.vue";
 import HomeCategorySection from "@/components/category/HomeCategorySection.vue";
 import ComparisonTray from "@/components/compare/ComparisonTray.vue";
@@ -59,11 +59,12 @@ onMounted(() => {
         <div class="container grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
           <div class="relative z-10 max-w-2xl">
             <p class="eyebrow">공공데이터 + 판매가 근거 · 2026.07.10</p>
-            <ShText as="h1" variant="display" class="mt-4 break-keep">
+            <!-- ShText forces --sh-font-sans, which overrides font-brand; use the raw heading idiom shared by other views -->
+            <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">
               영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
-            </ShText>
+            </h1>
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              5,556건의 식약처 제공 데이터에서 10개 제품군을 분리했습니다. 멀티비타민은 23개 영양소 가격효율 랭킹으로, 나머지 9개 종류는 핵심 성분 단위가격 순위로 제공합니다.
+              식약처 5,556건 데이터로 10개 제품군을 나누고, 종류마다 가격효율 순위를 제공합니다.
             </p>
             <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
               <span class="trust-chip">10개 영양제 종류</span>
@@ -113,7 +114,7 @@ onMounted(() => {
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p class="eyebrow">가격효율 순위</p>
-            <ShText as="h2" variant="title" class="mt-2">가격당 영양효율 순위</ShText>
+            <h2 class="mt-2 font-brand text-2xl sm:text-3xl">가격당 영양효율 순위</h2>
           </div>
           <p class="max-w-md break-keep text-xs leading-5 text-muted-foreground sm:text-right">
             기본 정렬은 영양충족도 ÷ 배송비 포함 1일 비용입니다. 가격은 실시간 최저가를 보장하지 않습니다.
