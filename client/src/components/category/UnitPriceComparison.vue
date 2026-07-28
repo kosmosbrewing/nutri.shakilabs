@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { UnitPriceRanking } from "@/utils/unit-price";
+import type { UnitPriceRanking, UnitPriceScore } from "@/utils/unit-price";
 import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon, isRankingEligible } from "@/utils/unit-price";
 
 const props = defineProps<{ ranking: UnitPriceRanking }>();
 const ranked = computed(() => isRankingEligible(props.ranking));
 
-function splitBasisLabel(label: string): { name: string; amount: string } {
-  const match = label.match(/^(.+?)\s+([\d,.]+(?:억)?\s+\S+당)$/u);
-  return match ? { name: match[1], amount: match[2] } : { name: label, amount: "" };
+function totalDaysLabel(score: UnitPriceScore): string {
+  return `총 ${score.totalDays.toLocaleString("ko-KR")}일분`;
 }
 </script>
 
@@ -18,7 +17,8 @@ function splitBasisLabel(label: string): { name: string; amount: string } {
     :data-unit-price-section="ranking.category.slug"
   >
     <div class="container py-10 sm:py-14">
-      <div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
+      <!-- 멀티비타민 랭킹 섹션과 동일한 헤더 문법: 좌측 타이틀 블록 + 우측 기준 요약 -->
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p class="eyebrow">{{ ranked ? "종류별 가격효율 순위" : "종류별 가격 비교" }}</p>
           <h2 class="mt-2 break-keep font-brand text-3xl sm:text-4xl">
@@ -29,91 +29,91 @@ function splitBasisLabel(label: string): { name: string; amount: string } {
             {{ ranked ? `공식 근거가 검증된 제품 ${ranking.scores.length}개를 단위가격이 낮은 순서로 정렬한 정량 순위이며, 효능·품질 순위가 아닙니다.` : "" }}
           </p>
         </div>
-        <div class="rounded-xl border border-primary/20 bg-card p-4">
-          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">비교 기준</p>
-          <p class="mt-2 font-brand text-xl text-primary">{{ ranking.category.basisLabel }}</p>
-          <p class="mt-2 text-xs leading-5 text-muted-foreground">최고 효율 100점 · category-value-v1</p>
-          <p class="mt-1 text-xs leading-5 text-muted-foreground">unit-price-v1 · 가격 확인 {{ ranking.updatedAt.replaceAll("-", ".") }}</p>
-        </div>
+        <p class="max-w-md break-keep text-xs leading-5 text-muted-foreground sm:text-right">
+          비교 기준 {{ ranking.category.basisLabel }} · 최고 효율 100점 · unit-price-v1 ·
+          가격 확인 {{ ranking.updatedAt.replaceAll("-", ".") }}
+        </p>
       </div>
 
-      <ol class="mt-7 grid gap-4 lg:grid-cols-3">
-        <li
-          v-for="score in ranking.scores"
-          :key="score.product.id"
-          class="min-w-0 overflow-hidden rounded-xl border bg-card"
-          :class="score.rank === 1 ? 'border-primary/45 shadow-lift' : 'border-border'"
-          :data-unit-price-card="score.product.id"
-          :data-price-efficiency-score="score.priceEfficiencyIndex.toFixed(1)"
-        >
-          <article class="flex h-full flex-col">
-            <div class="flex items-center justify-between gap-3 border-b border-border/60 px-5 py-3">
-              <span
-                class="grid h-9 w-9 place-items-center rounded-full font-brand text-sm"
-                :class="score.rank === 1 ? 'bg-primary text-primary-foreground' : 'bg-muted'"
-                :aria-label="`${ranking.category.name} 가격효율 ${score.rank}위`"
-              >
-                {{ score.rank }}
-              </span>
-              <span class="confidence-badge">신뢰도 {{ score.product.confidence }}</span>
-            </div>
-
-            <div class="flex flex-1 flex-col p-5">
-              <p class="text-xs font-semibold text-primary">{{ score.product.brand }}</p>
-              <h3 class="mt-2 min-h-14 break-keep text-lg font-semibold leading-7">{{ score.product.displayName }}</h3>
-              <div class="unit-price-metrics mt-5 grid grid-cols-2 gap-2">
-                <div class="rounded-lg bg-primary p-4 text-primary-foreground">
-                  <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground">가격효율지수</p>
-                  <p class="mt-1 font-brand text-3xl tabular-nums">{{ formatPriceEfficiency(score.priceEfficiencyIndex) }}</p>
+      <!-- 멀티비타민 RankingCard와 동일한 행 리스트 문법 -->
+      <ol class="ranking-list mt-5 space-y-3">
+        <li v-for="score in ranking.scores" :key="score.product.id">
+          <article
+            class="ranking-card"
+            :class="score.rank === 1 ? 'ranking-card--top' : ''"
+            :data-unit-price-card="score.product.id"
+            :data-price-efficiency-score="score.priceEfficiencyIndex.toFixed(1)"
+          >
+            <div class="grid min-w-0 gap-4 p-4 sm:p-5 min-[900px]:grid-cols-[4rem_minmax(0,1.5fr)_minmax(8rem,0.8fr)_minmax(8rem,0.8fr)_7.5rem] min-[900px]:items-center">
+              <div class="flex items-center justify-between min-[900px]:block">
+                <div
+                  class="grid h-12 w-12 shrink-0 place-items-center rounded-full font-brand text-lg"
+                  :class="score.rank === 1 ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'"
+                  :aria-label="`${ranking.category.name} 가격효율 ${score.rank}위`"
+                >
+                  {{ score.rank }}
                 </div>
-                <div class="rounded-lg bg-accent/65 px-3 py-4">
-                  <p class="metric-label flex flex-wrap gap-x-1">
-                    <span>{{ splitBasisLabel(ranking.category.basisLabel).name }}</span>
-                    <span v-if="splitBasisLabel(ranking.category.basisLabel).amount" class="whitespace-nowrap">
-                      {{ splitBasisLabel(ranking.category.basisLabel).amount }}
-                    </span>
-                  </p>
-                  <p class="mt-1 font-brand text-2xl tabular-nums text-primary">{{ formatUnitPriceWon(score.unitPriceKrw) }}</p>
-                </div>
+                <span class="confidence-badge min-[900px]:mt-2">신뢰도 {{ score.product.confidence }}</span>
               </div>
 
-              <dl class="unit-price-facts mt-4 grid grid-cols-1 divide-y divide-border rounded-lg border border-border text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-                <div class="min-w-0 px-2">
-                  <dt class="text-[10px] text-muted-foreground">1일 함량</dt>
-                  <dd class="mt-1 text-xs font-semibold tabular-nums">{{ formatUnitPriceAmount(score.product.dailyActiveAmount, score.product.activeUnit) }}</dd>
+              <div class="min-w-0">
+                <div class="flex min-w-0 items-center gap-2">
+                  <span class="brand-mark" aria-hidden="true">{{ score.product.brand.slice(0, 1) }}</span>
+                  <p class="truncate text-xs font-semibold text-primary">{{ score.product.brand }}</p>
                 </div>
-                <div class="min-w-0 px-2">
-                  <dt class="text-[10px] text-muted-foreground">1일 비용</dt>
-                  <dd class="mt-1 text-xs font-semibold tabular-nums">{{ formatUnitPriceWon(score.dailyCostKrw) }}</dd>
-                </div>
-                <div class="min-w-0 px-2">
-                  <dt class="text-[10px] text-muted-foreground">30일 비용</dt>
-                  <dd class="mt-1 text-xs font-semibold tabular-nums">{{ formatUnitPriceWon(score.monthlyCostKrw) }}</dd>
-                </div>
-              </dl>
+                <h3 class="mt-2 break-keep text-lg font-semibold leading-snug sm:text-xl">
+                  {{ score.product.displayName }}
+                </h3>
+                <p class="mt-2 text-xs leading-5 text-muted-foreground">
+                  신고번호 {{ score.product.reportNo }} · {{ score.product.servingLabel }} · {{ score.product.packageLabel }} · {{ totalDaysLabel(score) }}
+                </p>
+              </div>
 
-              <p class="mt-4 break-keep text-xs leading-5 text-muted-foreground">
-                {{ score.product.servingLabel }} · {{ score.product.packageLabel }} · 총 {{ score.totalDays.toLocaleString("ko-KR") }}일분
-              </p>
-              <div class="mt-auto flex flex-wrap gap-2 pt-5 text-xs font-semibold">
-                <a
-                  class="touch-target inline-flex items-center rounded-lg border border-border px-3 hover:border-primary hover:text-primary"
-                  :href="score.product.officialSourceUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-unit-price-source="official"
-                >공식 데이터에서 신고번호 {{ score.product.reportNo }} 검색 ↗</a>
-                <a
-                  class="touch-target inline-flex items-center rounded-lg border border-border px-3 hover:border-primary hover:text-primary"
-                  :href="score.product.offer.url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-unit-price-source="price"
-                >가격 원문 ↗</a>
+              <div class="metric-block">
+                <p class="metric-label">배송비 포함 1일</p>
+                <p class="mt-1 text-2xl font-semibold tabular-nums text-foreground">
+                  {{ formatUnitPriceWon(score.dailyCostKrw) }}
+                </p>
+                <p class="mt-1 text-xs text-muted-foreground">월 {{ formatUnitPriceWon(score.monthlyCostKrw) }}</p>
+              </div>
+
+              <div class="metric-block">
+                <p class="metric-label">{{ ranking.category.basisLabel }}</p>
+                <p class="mt-1 text-2xl font-semibold tabular-nums text-foreground">
+                  {{ formatUnitPriceWon(score.unitPriceKrw) }}
+                </p>
+                <p class="mt-1 text-xs text-muted-foreground">
+                  1일 {{ formatUnitPriceAmount(score.product.dailyActiveAmount, score.product.activeUnit) }}
+                </p>
+              </div>
+
+              <div class="flex items-end justify-between gap-4 min-[900px]:block min-[900px]:text-right">
+                <div>
+                  <p class="metric-label">가격효율지수</p>
+                  <p class="mt-1 font-brand text-2xl text-primary">{{ formatPriceEfficiency(score.priceEfficiencyIndex) }}</p>
+                </div>
+                <div class="flex flex-wrap justify-end gap-1.5 min-[900px]:mt-2">
+                  <a
+                    class="touch-target inline-flex items-center rounded-lg border border-border px-2.5 text-xs font-semibold hover:border-primary hover:text-primary"
+                    :href="score.product.offer.url"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    data-unit-price-source="price"
+                  >가격 원문</a>
+                  <a
+                    class="touch-target inline-flex items-center rounded-lg border border-border px-2.5 text-xs font-semibold hover:border-primary hover:text-primary"
+                    :href="score.product.officialSourceUrl"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    data-unit-price-source="official"
+                  >공식 근거</a>
+                </div>
               </div>
             </div>
-            <div class="border-t border-border/60 bg-muted/25 px-5 py-2.5 text-[11px] text-muted-foreground">
-              배송비 포함 · {{ score.product.offer.seller }} · 비제휴 링크
+
+            <div class="flex flex-wrap items-center justify-between gap-2 border-t border-border/60 bg-muted/25 px-4 py-2.5 text-xs text-muted-foreground sm:px-5">
+              <span>가격 확인 {{ score.product.offer.capturedAt.replaceAll("-", ".") }} · {{ score.product.offer.seller }} · 비제휴 링크</span>
+              <span>신고번호 {{ score.product.reportNo }} 공식 데이터 대조</span>
             </div>
           </article>
         </li>
