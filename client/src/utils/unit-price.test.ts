@@ -26,20 +26,20 @@ describe("unit-price-v1 dataset", () => {
     );
     expect(counts).toEqual({
       "vitamin-d": 4,
-      probiotics: 4,
+      probiotics: 5,
       "vitamin-c": 7,
-      "omega-3": 4,
+      "omega-3": 5,
       magnesium: 4,
-      calcium: 4,
+      calcium: 5,
       msm: 4,
-      "coenzyme-q10": 4,
-      "milk-thistle": 4,
+      "coenzyme-q10": 5,
+      "milk-thistle": 5,
     });
   });
 
   it("marks only pools of four or more as ranking-eligible", () => {
     const eligible = unitPriceDataset.categories
-      .map(({ slug }) => resolveUnitPriceRanking(slug, "2026-07-27"))
+      .map(({ slug }) => resolveUnitPriceRanking(slug, "2026-07-29"))
       .filter((ranking): ranking is NonNullable<typeof ranking> => ranking !== null)
       .filter((ranking) => isRankingEligible(ranking))
       .map(({ category }) => category.slug);
@@ -65,7 +65,7 @@ describe("unit-price-v1 dataset", () => {
 
 describe("unit-price-v1 scoring", () => {
   it("includes set quantity and compares vitamin D per 10 ug", () => {
-    const ranking = resolveUnitPriceRanking("vitamin-d", "2026-07-27");
+    const ranking = resolveUnitPriceRanking("vitamin-d", "2026-07-29");
     expect(ranking?.scores.map(({ product }) => product.id)).toEqual([
       "nutri-sun-d3-5000",
       "nutri-sun-d3-2000",
@@ -82,7 +82,7 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("includes mandatory shipping and units per day", () => {
-    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-07-27");
+    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-07-29");
     const product = ranking?.scores.find(({ product }) => product.id === "korea-eundan-c-easy-d");
     expect(product?.totalDays).toBe(60);
     expect(product?.dailyCostKrw).toBeCloseTo(206.5, 2);
@@ -90,7 +90,7 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("ranks the expanded vitamin C pool by unit price", () => {
-    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-07-27");
+    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-07-29");
     expect(ranking?.scores.map(({ product }) => product.id)).toEqual([
       "ckd-vitamin-c-1000",
       "newmate-vitamin-c-1000",
@@ -104,7 +104,7 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("compares probiotics per one billion CFU", () => {
-    const ranking = resolveUnitPriceRanking("probiotics", "2026-07-27");
+    const ranking = resolveUnitPriceRanking("probiotics", "2026-07-29");
     expect(ranking?.category.basisAmount).toBe(1_000_000_000);
     expect(ranking?.scores.every(({ product }) => product.activeUnit === "cfu")).toBe(true);
     expect(ranking?.scores.every(({ priceEfficiencyIndex }) => (
@@ -115,7 +115,7 @@ describe("unit-price-v1 scoring", () => {
 
   it("normalizes the best current offer to 100 within every category", () => {
     for (const category of unitPriceDataset.categories) {
-      const ranking = resolveUnitPriceRanking(category.slug, "2026-07-27");
+      const ranking = resolveUnitPriceRanking(category.slug, "2026-07-29");
       expect(ranking?.scores).toHaveLength(category.products.length);
       expect(ranking?.scores[0].priceEfficiencyIndex).toBe(100);
       for (const score of ranking!.scores) {
@@ -128,11 +128,11 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("does not compare products across categories", () => {
-    expect(resolveUnitPriceRanking("multivitamin", "2026-07-27")).toBeNull();
-    expect(resolveUnitPriceRanking("../calcium", "2026-07-27")).toBeNull();
+    expect(resolveUnitPriceRanking("multivitamin", "2026-07-29")).toBeNull();
+    expect(resolveUnitPriceRanking("../calcium", "2026-07-29")).toBeNull();
   });
 
   it("excludes prices older than 30 days", () => {
-    expect(resolveUnitPriceRanking("calcium", "2026-08-27")?.scores).toHaveLength(0);
+    expect(resolveUnitPriceRanking("calcium", "2026-08-29")?.scores).toHaveLength(0);
   });
 });
