@@ -106,3 +106,18 @@ export function formatActiveAmount(amount: number, unit: "mg" | "ug"): string {
   const label = unit === "ug" ? "μg" : "mg";
   return `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 2 }).format(amount)} ${label}`;
 }
+
+// 등록부 함량 순위 — competition 방식(동일 함량 = 동일 순위, 다음 순위는 건너뜀).
+// 등록부는 함량 내림차순·미기재 후순위 정렬이 계약이므로 인덱스가 곧 순위 기준이 된다.
+export function buildRegistryRanks(registry: CategoryRegistryRecord[]): (number | null)[] {
+  let rank = 0;
+  let previousAmount: number | null = null;
+  return registry.map((record, index) => {
+    if (record.activeAmount === null) return null;
+    if (record.activeAmount !== previousAmount) {
+      rank = index + 1;
+      previousAmount = record.activeAmount;
+    }
+    return rank;
+  });
+}

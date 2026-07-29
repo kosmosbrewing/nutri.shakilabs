@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { ShSurface } from "@shakilabs/ui";
 import SiteHeader from "@/components/SiteHeader.vue";
 import HomeCategorySection from "@/components/category/HomeCategorySection.vue";
@@ -22,6 +22,19 @@ const {
   updateFilter,
   visibleItems,
 } = useRanking();
+
+// Show the top 5 first (each card is ~570px on mobile).
+// The rest stay in the DOM via v-show so indexed product data is preserved.
+const RANKING_PREVIEW_COUNT = 5;
+const showAllRanking = ref(false);
+const hiddenRankingCount = computed(() =>
+  Math.max(0, visibleItems.value.length - RANKING_PREVIEW_COUNT),
+);
+
+function expandRanking(): void {
+  showAllRanking.value = true;
+  trackAnalytics({ name: "ranking_expand", filter_name: "show_all" });
+}
 
 const topItem = allItems[0];
 const {
@@ -143,7 +156,11 @@ onMounted(() => {
         </div>
 
         <ol v-else class="ranking-list mt-5 space-y-3">
-          <li v-for="item in visibleItems" :key="item.product.id">
+          <li
+            v-for="(item, index) in visibleItems"
+            v-show="showAllRanking || index < RANKING_PREVIEW_COUNT"
+            :key="item.product.id"
+          >
             <RankingCard
               :compare-disabled="isLimitReached && !isSelected(item.product.id)"
               :item="item"
@@ -152,6 +169,15 @@ onMounted(() => {
             />
           </li>
         </ol>
+
+        <button
+          v-if="!showAllRanking && hiddenRankingCount > 0"
+          class="touch-target mt-4 w-full rounded-xl border border-border bg-card py-3 text-sm font-semibold text-primary hover:bg-accent"
+          type="button"
+          @click="expandRanking"
+        >
+          전체 제품 보기 ({{ visibleItems.length }})
+        </button>
       </section>
 
       <section id="method-note" class="border-y border-border/70 bg-muted/35">
