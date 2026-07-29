@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NutrientReference } from "@/data/types";
 import type { ComparisonEntry } from "@/utils/comparison";
-import { findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
+import { displayProductName, findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
 import { formatScore, formatWon } from "@/utils/ranking";
 
 defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
@@ -15,7 +15,7 @@ defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
           <p class="text-xs font-semibold text-primary">{{ entry.item.product.brand }}</p>
           <span class="confidence-badge">신뢰도 {{ entry.item.product.confidence }}</span>
         </div>
-        <h2 class="mt-2 break-keep text-xl font-semibold leading-snug">{{ entry.item.product.officialName }}</h2>
+        <h2 class="mt-2 break-keep text-xl font-semibold leading-snug">{{ displayProductName(entry.item.product.brand, entry.item.product.officialName) }}</h2>
         <p class="mt-2 text-xs text-muted-foreground">전체 가격효율 {{ entry.item.overallRank }}위</p>
       </header>
 

@@ -49,6 +49,12 @@ export function formatCoverageRatio(ratio: number): string {
   return `${(Math.min(ratio, 1) * 100).toFixed(0)}%`;
 }
 
+// 브랜드가 바로 옆에 표시되는 자리에서 "얼라이브 · 얼라이브 원스데일리…" 중복을 막는다
+export function displayProductName(brand: string, officialName: string): string {
+  const stripped = officialName.startsWith(brand) ? officialName.slice(brand.length).trim() : officialName;
+  return stripped.length > 0 ? stripped : officialName;
+}
+
 export function formatNutrientAmount(value: number): string {
   return value.toLocaleString("ko-KR", { maximumFractionDigits: 2 });
 }

@@ -10,7 +10,7 @@ import {
 } from "@shakilabs/ui";
 import type { NutrientReference } from "@/data/types";
 import type { ComparisonEntry } from "@/utils/comparison";
-import { findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
+import { displayProductName, findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
 import { formatScore, formatWon } from "@/utils/ranking";
 
 defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
@@ -32,7 +32,7 @@ defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
           <ShTableHead>비교 항목</ShTableHead>
           <ShTableHead v-for="entry in entries" :key="entry.item.product.id">
             <span class="text-xs font-semibold text-primary">{{ entry.item.product.brand }}</span>
-            <span class="mt-1 block break-keep leading-5">{{ entry.item.product.officialName }}</span>
+            <span class="mt-1 block break-keep leading-5">{{ displayProductName(entry.item.product.brand, entry.item.product.officialName) }}</span>
             <span class="mt-2 block text-[11px] font-normal text-muted-foreground">효율 {{ entry.item.overallRank }}위 · 신뢰도 {{ entry.item.product.confidence }}</span>
           </ShTableHead>
         </ShTableRow>
