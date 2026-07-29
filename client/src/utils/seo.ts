@@ -7,7 +7,7 @@ import { parseProductSlug } from "./product-detail";
 
 const SITE_BASE = "https://shakilabs.com/nutri";
 const OG_IMAGE = `${SITE_BASE}/og-image.png`;
-const UPDATED_AT = "2026-07-10";
+const UPDATED_AT = "2026-07-29";
 const routeInputSchema = z.object({
   name: z.string(),
   slug: z.unknown().optional(),

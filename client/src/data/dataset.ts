@@ -7,7 +7,7 @@ import { sources } from "./sources";
 
 export const nutriDataset: NutriDataset = {
   schemaVersion: "nutri-data-v1",
-  updatedAt: "2026-07-10",
+  updatedAt: "2026-07-29",
   products,
   nutrientReferences,
   productNutrients,
