@@ -121,9 +121,9 @@ function trackOfferClick(): void {
       </div>
     </div>
 
-    <div class="flex flex-wrap items-center justify-between gap-2 border-t border-border/60 bg-muted/25 px-4 py-2.5 text-xs text-muted-foreground sm:px-5">
+    <!-- 성분 충족률 산정 기준은 제품마다 같은 문구라 목록 상단에서 한 번만 안내한다 -->
+    <div class="border-t border-border/60 bg-muted/25 px-4 py-2.5 text-xs text-muted-foreground sm:px-5">
       <span>가격 확인 {{ capturedAt }} · 비제휴 링크</span>
-      <span>성분별 기준 충족률은 100%에서 상한</span>
     </div>
   </article>
 </template>

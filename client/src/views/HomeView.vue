@@ -118,6 +118,7 @@ onMounted(() => {
           </div>
           <p class="max-w-md break-keep text-xs leading-5 text-muted-foreground sm:text-right">
             기본 정렬은 영양충족도 ÷ 배송비 포함 1일 비용입니다. 가격은 실시간 최저가를 보장하지 않습니다.
+            성분별 기준 충족률은 100%에서 상한 처리합니다.
           </p>
         </div>
 
