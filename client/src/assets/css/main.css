@@ -73,6 +73,10 @@
     color: hsl(var(--foreground));
     font-family: "Pretendard", sans-serif;
     text-rendering: optimizeLegibility;
+    /* Korean breaks mid-word under the default `word-break: normal`.
+       keep-all forces wrapping at spaces; break-word keeps long numbers/URLs from overflowing. */
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   * {
