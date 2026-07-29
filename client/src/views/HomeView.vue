@@ -8,6 +8,8 @@ import RankingCard from "@/components/ranking/RankingCard.vue";
 import RankingFilters from "@/components/ranking/RankingFilters.vue";
 import { useComparison } from "@/composables/useComparison";
 import { useRanking } from "@/composables/useRanking";
+import { useRecentProducts } from "@/composables/useRecentProducts";
+import { nutriDataset } from "@/data/dataset";
 import { trackAnalytics } from "@/utils/analytics";
 import { formatScore, formatWon } from "@/utils/ranking";
 import type { RankingFilterKey } from "@/utils/ranking";
@@ -37,6 +39,12 @@ function expandRanking(): void {
 }
 
 const topItem = allItems[0];
+const updatedAtLabel = nutriDataset.updatedAt.replaceAll("-", ".");
+// Client-only strip; empty on SSR so the server HTML is identical for every visitor.
+const { recentIds } = useRecentProducts(allItems.map((item) => item.product.id));
+const recentItems = computed(() => recentIds.value
+  .map((id) => allItems.find((item) => item.product.id === id))
+  .filter((item): item is (typeof allItems)[number] => item !== undefined));
 const {
   canCompare,
   clearSelection,
@@ -71,7 +79,7 @@ onMounted(() => {
       <section class="hero-field overflow-hidden border-b border-border/60">
         <div class="container grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
           <div class="relative z-10 max-w-2xl">
-            <p class="eyebrow">공공데이터 + 판매가 근거 · 2026.07.10</p>
+            <p class="eyebrow">공공데이터 + 판매가 근거 · {{ updatedAtLabel }}</p>
             <!-- ShText forces --sh-font-sans, which overrides font-brand; use the raw heading idiom shared by other views -->
             <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">
               영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
@@ -125,6 +133,21 @@ onMounted(() => {
            category browsing moves below. With the ~1,800px category section in between,
            reaching the search/filter took about 4 screens of scrolling. -->
       <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14" :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''">
+        <div v-if="recentItems.length" class="mb-6 rounded-xl border border-border bg-card px-4 py-3">
+          <p class="text-[11px] font-semibold text-muted-foreground">최근 확인한 제품</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <a
+              v-for="item in recentItems"
+              :key="item.product.id"
+              :href="`/nutri/products/${item.product.slug}`"
+              class="touch-target inline-flex items-center gap-1.5 rounded-full border border-border px-3 text-xs font-semibold hover:border-primary/40 hover:text-primary"
+            >
+              <span class="text-primary">{{ item.overallRank }}위</span>
+              <span class="break-keep">{{ item.product.brand }}</span>
+            </a>
+          </div>
+        </div>
+
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p class="eyebrow">가격효율 순위</p>

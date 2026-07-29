@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
 import SourceCard from "@/components/evidence/SourceCard.vue";
@@ -7,7 +7,9 @@ import ProductNutritionTable from "@/components/product/ProductNutritionTable.vu
 import ProductAlternatives from "@/components/product/ProductAlternatives.vue";
 import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
+import { useRecentProducts } from "@/composables/useRecentProducts";
 import { buildProductDetail, parseProductSlug } from "@/utils/product-detail";
+import { buildPriceTrend, formatTrendPercent } from "@/utils/price-trend";
 import { formatScore, formatWon } from "@/utils/ranking";
 import { trackAnalytics } from "@/utils/analytics";
 
@@ -26,6 +28,18 @@ const pageError = computed(() => dataError
   ?? (detail.value ? null : "제품 근거를 구성할 수 없습니다."));
 const absentCount = computed(() => detail.value?.nutritionRows
   .filter((row) => row.nutrient.presence === "absent").length ?? 0);
+const priceTrend = computed(() => detail.value
+  ? buildPriceTrend(
+    detail.value.item.product.id,
+    detail.value.item.product.totalDays,
+    detail.value.item.score.dailyCostKrw,
+  )
+  : null);
+
+const { recordVisit } = useRecentProducts(allItems.map((item) => item.product.id));
+watch(() => detail.value?.item.product.id, (productId) => {
+  if (productId) recordVisit(productId);
+}, { immediate: true });
 
 function trackOfferClick(): void {
   if (!detail.value) return;
@@ -111,6 +125,7 @@ function trackOfferClick(): void {
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">묶음 수량</dt><dd class="font-semibold">{{ detail.item.offer.quantityMultiplier }}개</dd></div>
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">총 복용일</dt><dd class="font-semibold">{{ detail.item.product.totalDays * detail.item.offer.quantityMultiplier }}일</dd></div>
               <div class="flex justify-between gap-3 border-t border-border pt-3"><dt class="text-muted-foreground">확인일</dt><dd class="font-semibold">{{ detail.item.offer.capturedAt }}</dd></div>
+              <div v-if="priceTrend" class="flex justify-between gap-3"><dt class="text-muted-foreground">{{ priceTrend.baselineDateLabel }} 대비 1일 비용</dt><dd class="font-semibold tabular-nums" :class="priceTrend.changePercent < -0.5 ? 'text-primary' : priceTrend.changePercent > 0.5 ? 'text-status-warning' : ''">{{ formatTrendPercent(priceTrend.changePercent) }}</dd></div>
             </dl>
             <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="detail.item.offer.url" rel="noopener noreferrer" target="_blank" @click="trackOfferClick">
               가격 원문 · 비제휴 ↗
