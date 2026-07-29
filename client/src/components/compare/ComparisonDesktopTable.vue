@@ -12,8 +12,18 @@ import type { NutrientReference } from "@/data/types";
 import type { ComparisonEntry } from "@/utils/comparison";
 import { displayProductName, findNutrientCoverage, formatCoverageRatio, formatNutrientAmount } from "@/utils/comparison";
 import { formatScore, formatWon } from "@/utils/ranking";
+import { trackAnalytics } from "@/utils/analytics";
 
 defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
+
+function trackDetailOpen(productId: string): void {
+  trackAnalytics({
+    name: "related_tool_click",
+    from_tool: "compare",
+    to_tool: productId,
+    placement: "compare_header",
+  });
+}
 </script>
 
 <template>
@@ -32,7 +42,11 @@ defineProps<{ entries: ComparisonEntry[]; references: NutrientReference[] }>();
           <ShTableHead>비교 항목</ShTableHead>
           <ShTableHead v-for="entry in entries" :key="entry.item.product.id">
             <span class="text-xs font-semibold text-primary">{{ entry.item.product.brand }}</span>
-            <span class="mt-1 block break-keep leading-5">{{ displayProductName(entry.item.product.brand, entry.item.product.officialName) }}</span>
+            <a
+              :href="`/nutri/products/${entry.item.product.slug}`"
+              class="mt-1 block break-keep leading-5 underline decoration-primary/30 underline-offset-4 hover:text-primary hover:decoration-primary"
+              @click="trackDetailOpen(entry.item.product.id)"
+            >{{ displayProductName(entry.item.product.brand, entry.item.product.officialName) }}</a>
             <span class="mt-2 block text-[11px] font-normal text-muted-foreground">효율 {{ entry.item.overallRank }}위 · 신뢰도 {{ entry.item.product.confidence }}</span>
           </ShTableHead>
         </ShTableRow>
