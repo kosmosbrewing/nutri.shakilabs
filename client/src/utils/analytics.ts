@@ -37,7 +37,16 @@ const eventSchema = z.discriminatedUnion("name", [
     name: z.enum(["related_tool_impression", "related_tool_click"]),
     from_tool: z.string().regex(/^[a-z0-9-]+$/).max(80),
     to_tool: z.string().regex(/^[a-z0-9-]+$/).max(80),
-    placement: z.literal("similar_products"),
+    placement: z.enum(["similar_products", "compare_header", "category_quicklinks"]),
+  }).strict(),
+  z.object({
+    name: z.literal("nav_click"),
+    to_tool: z.string().regex(/^[a-z0-9-]+$/).max(80),
+    placement: z.literal("primary_nav"),
+  }).strict(),
+  z.object({
+    name: z.literal("ranking_expand"),
+    filter_name: z.literal("show_all"),
   }).strict(),
 ]);
 

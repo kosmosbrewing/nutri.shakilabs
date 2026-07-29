@@ -62,7 +62,13 @@ function trackAlternativeClick(toTool: string): void {
         class="flex flex-col"
       >
         <p class="text-xs font-semibold text-primary">{{ alternative.item.product.brand }}</p>
-        <ShText as="h3" variant="heading" class="mt-2">{{ alternative.item.product.officialName }}</ShText>
+        <ShText as="h3" variant="heading" class="mt-2">
+          <a
+            :href="`/nutri/products/${alternative.item.product.slug}`"
+            class="hover:text-primary hover:underline"
+            @click="trackAlternativeClick(alternative.item.product.id)"
+          >{{ alternative.item.product.officialName }}</a>
+        </ShText>
         <dl class="mt-4 grid grid-cols-2 gap-3 border-y border-border py-3 text-xs">
           <div><dt class="text-muted-foreground">배송비 포함 1일</dt><dd class="mt-1 font-semibold">{{ formatWon(alternative.item.score.dailyCostKrw) }}</dd></div>
           <div><dt class="text-muted-foreground">영양충족도</dt><dd class="mt-1 font-semibold">{{ formatScore(alternative.item.score.coverageScore) }}%</dd></div>

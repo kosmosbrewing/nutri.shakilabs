@@ -4,8 +4,9 @@ import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
 import UnitPriceComparison from "@/components/category/UnitPriceComparison.vue";
 import { publicDataSnapshot } from "@/data/public-snapshot";
-import { buildRegistryRanks, findCategory, formatActiveAmount } from "@/utils/category-catalog";
+import { buildRegistryRanks, categoryCards, findCategory, formatActiveAmount } from "@/utils/category-catalog";
 import { isRankingEligible, resolveUnitPriceRanking } from "@/utils/unit-price";
+import { trackAnalytics } from "@/utils/analytics";
 
 const route = useRoute();
 const category = computed(() => findCategory(route.params.slug));
@@ -16,6 +17,18 @@ const registryRows = computed(() => {
   const ranks = buildRegistryRanks(category.value.registry);
   return category.value.registry.map((record, index) => ({ record, rank: ranks[index] }));
 });
+// Second-click module: rankings for every other category, so the page never dead-ends.
+const otherCategoryCards = computed(() =>
+  categoryCards.filter((card) => card.slug !== category.value?.slug));
+
+function trackQuicklink(toSlug: string): void {
+  trackAnalytics({
+    name: "related_tool_click",
+    from_tool: category.value?.slug ?? "category",
+    to_tool: toSlug,
+    placement: "category_quicklinks",
+  });
+}
 </script>
 
 <template>
@@ -95,6 +108,25 @@ const registryRows = computed(() => {
             </ul>
             <a class="touch-target mt-6 inline-flex items-center text-sm font-semibold text-primary" :href="publicDataSnapshot.sourceUrl" target="_blank" rel="noopener noreferrer">공공데이터 원문 확인 ↗</a>
           </aside>
+        </div>
+      </section>
+
+      <section class="border-t border-border/60 bg-muted/20" aria-labelledby="category-quicklinks-title">
+        <div class="container py-10 sm:py-12">
+          <h2 id="category-quicklinks-title" class="font-brand text-2xl">다른 카테고리 가격효율 순위</h2>
+          <p class="mt-2 text-xs leading-5 text-muted-foreground">모든 카테고리는 같은 산정 기준(배송비 포함 단위가격·공식 등록 검증)을 사용합니다.</p>
+          <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            <a
+              v-for="card in otherCategoryCards"
+              :key="card.slug"
+              :href="card.href"
+              class="touch-target group flex flex-col rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:bg-accent"
+              @click="trackQuicklink(card.slug)"
+            >
+              <span class="break-keep font-semibold group-hover:text-primary">{{ card.name }}</span>
+              <span class="mt-1.5 text-[11px] text-muted-foreground">{{ card.countLabel }} {{ card.count.toLocaleString("ko-KR") }}</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
