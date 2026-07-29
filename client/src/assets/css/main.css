@@ -201,3 +201,30 @@
     to { opacity: 1; transform: translateY(0); }
   }
 }
+
+/* The mobile active tab is already marked by its background highlight (white 16%).
+   The shared nav indicator spans the whole tile, making it nearly twice the label width,
+   so on mobile we replace it with an underline matched to the label.
+   Desktop keeps the original indicator because it has no active background. */
+@media (max-width: 639px) {
+  .sh-primary-navigation__link--mobile .sh-primary-navigation__indicator {
+    display: none;
+  }
+
+  .sh-primary-navigation__link--mobile.sh-primary-navigation__link--active
+    .sh-primary-navigation__label {
+    position: relative;
+  }
+
+  .sh-primary-navigation__link--mobile.sh-primary-navigation__link--active
+    .sh-primary-navigation__label::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -0.25rem;
+    left: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+  }
+}
