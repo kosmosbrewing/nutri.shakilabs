@@ -2,10 +2,9 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
-import CategoryRecordCard from "@/components/category/CategoryRecordCard.vue";
 import UnitPriceComparison from "@/components/category/UnitPriceComparison.vue";
 import { publicDataSnapshot } from "@/data/public-snapshot";
-import { findCategory } from "@/utils/category-catalog";
+import { findCategory, formatActiveAmount } from "@/utils/category-catalog";
 import { isRankingEligible, resolveUnitPriceRanking } from "@/utils/unit-price";
 
 const route = useRoute();
@@ -42,14 +41,38 @@ const ranked = computed(() => unitPriceRanking.value !== null && isRankingEligib
 
       <section class="container py-10 sm:py-14">
         <div class="grid gap-8 lg:grid-cols-[1fr_18rem]">
-          <div>
+          <div class="min-w-0">
             <div class="mb-5">
               <p class="eyebrow">공식 등록 목록</p>
-              <h2 class="mt-2 font-brand text-2xl">식약처 제공 데이터 등록 예시</h2>
-              <p class="mt-3 break-keep text-xs leading-5 text-muted-foreground">등록 레코드에는 수입·신고 변형이 포함될 수 있으며 고유 상품 수나 판매 중인 상품 수와 같지 않습니다.</p>
+              <h2 class="mt-2 font-brand text-2xl">식약처 등록 전체 {{ category.registry.length.toLocaleString("ko-KR") }}건</h2>
+              <p class="mt-3 break-keep text-xs leading-5 text-muted-foreground">공공데이터 표준영양성분 스냅샷의 해당 카테고리 전체 목록입니다. 수입·신고 변형이 포함될 수 있으며 판매 중 여부·가격은 별개입니다. {{ category.activeUnit ? "함량이 높은 순으로 정렬했습니다." : "" }}</p>
             </div>
-            <div class="grid gap-3 sm:grid-cols-2">
-              <CategoryRecordCard v-for="record in category.records" :key="record.reportNo" :category="category" :record="record" />
+            <div class="overflow-x-auto rounded-xl border border-border bg-card">
+              <table class="w-full min-w-[36rem] text-sm">
+                <thead>
+                  <tr class="border-b border-border bg-muted/40 text-left text-[11px] font-semibold text-muted-foreground">
+                    <th class="px-3 py-2.5" scope="col">제품명</th>
+                    <th class="px-3 py-2.5" scope="col">제조사</th>
+                    <th class="whitespace-nowrap px-3 py-2.5" scope="col">1회 섭취</th>
+                    <th v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5 text-right" scope="col">1일 함량</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="record in category.registry"
+                    :key="record.reportNo"
+                    class="border-b border-border/60 last:border-b-0"
+                    data-official-record
+                  >
+                    <td class="break-keep px-3 py-2.5">{{ record.name }}<span class="mt-0.5 block text-[11px] text-muted-foreground">신고번호 {{ record.reportNo }}</span></td>
+                    <td class="break-keep px-3 py-2.5 text-xs text-muted-foreground">{{ record.manufacturer }}</td>
+                    <td class="whitespace-nowrap px-3 py-2.5 text-xs text-muted-foreground">{{ record.servingSize }} × {{ record.dailyFrequency }}</td>
+                    <td v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5 text-right font-semibold tabular-nums">
+                      {{ record.activeAmount !== null ? formatActiveAmount(record.activeAmount, category.activeUnit) : "미기재" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 

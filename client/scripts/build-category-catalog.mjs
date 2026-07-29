@@ -73,6 +73,36 @@ function selectRecords(rows, spec) {
   return selected;
 }
 
+// full official registry per category: identity-verified rows, deduped by reportNo,
+// sorted by daily active amount (nulls last) so the table reads as an amount lineup
+function buildRegistry(rows, spec) {
+  const seen = new Set();
+  const entries = [];
+  for (const row of rows) {
+    const reportNo = text(row.ITEM_MNFTR_RPT_NO);
+    if (text(row.FOOD_NM).length < 4 || !reportNo || !text(row.MFR_NM)) continue;
+    if (seen.has(reportNo)) continue;
+    seen.add(reportNo);
+    entries.push({
+      name: text(row.FOOD_NM),
+      manufacturer: text(row.MFR_NM),
+      reportNo,
+      servingSize: text(row.ONETM_QNT) || "-",
+      dailyFrequency: text(row.ONETM_INTK_NMTM) || "-",
+      activeAmount: activeAmount(row, spec.amount),
+    });
+  }
+  return entries.sort((left, right) => {
+    if (left.activeAmount !== null && right.activeAmount !== null) {
+      return right.activeAmount - left.activeAmount
+        || left.name.localeCompare(right.name, "ko");
+    }
+    if (left.activeAmount !== null) return -1;
+    if (right.activeAmount !== null) return 1;
+    return left.name.localeCompare(right.name, "ko");
+  });
+}
+
 const manifestInput = JSON.parse(await readFile(resolve(dataRoot, "manifests/latest.json"), "utf8"));
 const manifest = parseJsonResponse(manifestSchema, manifestInput, "Manifest");
 const rawContents = await readFile(resolve(dataRoot, manifest.rawFile), "utf8");
@@ -100,6 +130,7 @@ const catalogInput = {
       recordCount: rows.length,
       nextEvidence: spec.needs,
       records: selectRecords(rows, spec),
+      registry: buildRegistry(rows, spec),
     };
   }),
 };

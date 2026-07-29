@@ -13,6 +13,14 @@ const recordSchema = z.object({
   dataCreatedAt: dateSchema,
   activeAmount: z.number().nonnegative().nullable(),
 }).strict();
+const registryRecordSchema = z.object({
+  name: z.string().trim().min(1),
+  manufacturer: z.string().trim().min(1),
+  reportNo: z.string().trim().min(1),
+  servingSize: z.string().trim().min(1),
+  dailyFrequency: z.string().trim().min(1),
+  activeAmount: z.number().nonnegative().nullable(),
+}).strict();
 const categorySchema = z.object({
   slug: slugSchema,
   name: z.string().trim().min(1),
@@ -24,6 +32,7 @@ const categorySchema = z.object({
   recordCount: z.number().int().positive(),
   nextEvidence: z.array(z.string().trim().min(1)).min(2),
   records: z.array(recordSchema).length(6),
+  registry: z.array(registryRecordSchema).min(6),
 }).strict();
 const catalogSchema = z.object({
   schemaVersion: z.literal("category-catalog-v1"),
@@ -42,6 +51,7 @@ if (!catalogResult.success) {
 
 export type CategoryCatalogEntry = z.infer<typeof categorySchema>;
 export type CategoryCatalogRecord = z.infer<typeof recordSchema>;
+export type CategoryRegistryRecord = z.infer<typeof registryRecordSchema>;
 export type CategoryCardStatus = "ranking" | "unit_price" | "official_catalog";
 
 export interface CategoryCardItem {

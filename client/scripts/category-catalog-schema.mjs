@@ -13,6 +13,15 @@ export const categoryRecordSchema = z.object({
   activeAmount: z.number().nonnegative().nullable(),
 }).strict();
 
+export const registryRecordSchema = z.object({
+  name: z.string().trim().min(1),
+  manufacturer: z.string().trim().min(1),
+  reportNo: z.string().trim().min(1),
+  servingSize: z.string().trim().min(1),
+  dailyFrequency: z.string().trim().min(1),
+  activeAmount: z.number().nonnegative().nullable(),
+}).strict();
+
 export const categoryCatalogSchema = z.object({
   schemaVersion: z.literal("category-catalog-v1"),
   source: z.object({
@@ -31,6 +40,7 @@ export const categoryCatalogSchema = z.object({
     recordCount: z.number().int().positive(),
     nextEvidence: z.array(z.string().trim().min(1)).min(2),
     records: z.array(categoryRecordSchema).length(6),
+    registry: z.array(registryRecordSchema).min(6),
   }).strict().superRefine((category, context) => {
     const hasAmount = category.records.some((record) => record.activeAmount !== null);
     if ((category.activeUnit === null) === hasAmount) {
@@ -38,6 +48,12 @@ export const categoryCatalogSchema = z.object({
     }
     if (category.recordCount < category.records.length) {
       context.addIssue({ code: "custom", message: "Sample exceeds category record count" });
+    }
+    if (category.registry.length > category.recordCount) {
+      context.addIssue({ code: "custom", message: "Registry exceeds category record count" });
+    }
+    if (new Set(category.registry.map((record) => record.reportNo)).size !== category.registry.length) {
+      context.addIssue({ code: "custom", message: "Registry report numbers must be unique" });
     }
   })).length(9),
 }).strict();
