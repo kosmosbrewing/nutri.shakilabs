@@ -121,8 +121,9 @@ onMounted(() => {
         </div>
       </section>
 
-      <HomeCategorySection />
-
+      <!-- The hero previews the #1 product, so the full ranking follows it directly and
+           category browsing moves below. With the ~1,800px category section in between,
+           reaching the search/filter took about 4 screens of scrolling. -->
       <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14" :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -179,6 +180,8 @@ onMounted(() => {
           전체 제품 보기 ({{ visibleItems.length }})
         </button>
       </section>
+
+      <HomeCategorySection />
 
       <section id="method-note" class="border-y border-border/70 bg-muted/35">
         <div class="container grid gap-6 py-10 sm:grid-cols-3 sm:py-12">
