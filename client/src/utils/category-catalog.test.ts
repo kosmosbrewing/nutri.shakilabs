@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { publicDataSnapshot } from "@/data/public-snapshot";
 import {
+  buildRegistryRanks,
   catalogCategories,
   categoryCards,
   categoryCatalog,
@@ -64,6 +65,24 @@ describe("official supplement category catalog", () => {
     ]);
     expect(categoryCards.filter(({ status }) => status === "unit_price")).toHaveLength(0);
     expect(categoryCards.filter(({ status }) => status === "official_catalog")).toHaveLength(0);
+  });
+
+  it("assigns competition ranks by daily amount with nulls unranked", () => {
+    const record = (reportNo: string, activeAmount: number | null) => ({
+      name: `제품 ${reportNo}`,
+      manufacturer: "제조사",
+      reportNo,
+      servingSize: "1정",
+      dailyFrequency: "1회",
+      activeAmount,
+    });
+    expect(buildRegistryRanks([
+      record("1", 1000),
+      record("2", 1000),
+      record("3", 500),
+      record("4", null),
+    ])).toEqual([1, 1, 3, null]);
+    expect(buildRegistryRanks([])).toEqual([]);
   });
 
   it("parses route slugs and formats source amounts safely", () => {

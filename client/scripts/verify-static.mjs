@@ -172,10 +172,13 @@ for (const page of pages) {
   }
   if (page.route.startsWith("/categories/")) {
     const slug = page.route.replace("/categories/", "");
-    const expected = categoryCatalog.categories.find((category) => category.slug === slug)?.registry.length ?? 0;
+    const catalogCategory = categoryCatalog.categories.find((category) => category.slug === slug);
+    const expected = catalogCategory?.registry.length ?? 0;
     assert(expected >= 6, `${page.route}: registry missing from catalog`);
     assert((html.match(/data-official-record/g) ?? []).length === expected,
       `${page.route}: expected ${expected} official registry rows`);
+    assert(html.includes("1일 함량 순위") === Boolean(catalogCategory?.activeUnit),
+      `${page.route}: amount ranking label must match snapshot amount availability`);
   }
 }
 
