@@ -23,6 +23,7 @@ import ConsentSettings from "@/components/policy/ConsentSettings.vue";
 
     <h2>브라우저 저장</h2>
     <p>분석 동의 또는 거부 상태를 기억하기 위해 <strong>nutri-analytics-consent</strong> 값을 localStorage에 저장합니다. 브라우저 저장소를 삭제하면 다시 선택할 수 있습니다.</p>
+    <p>최근 확인한 제품 목록도 <strong>nutri-recent-products</strong> 값으로 이 브라우저에만 저장되며 서버로 전송하지 않습니다.</p>
 
     <h2>외부 링크</h2>
     <p>공공데이터, 제조사 및 판매 페이지를 열면 해당 사이트의 개인정보 처리방침이 적용됩니다. 영양만점은 현재 외부 판매 링크에 사용자 식별 query를 추가하지 않습니다.</p>
