@@ -171,8 +171,11 @@ for (const page of pages) {
       `${page.route}: expected 23 nutrient rows`);
   }
   if (page.route.startsWith("/categories/")) {
-    assert((html.match(/data-official-record/g) ?? []).length === 6,
-      `${page.route}: expected six official record samples`);
+    const slug = page.route.replace("/categories/", "");
+    const expected = categoryCatalog.categories.find((category) => category.slug === slug)?.registry.length ?? 0;
+    assert(expected >= 6, `${page.route}: registry missing from catalog`);
+    assert((html.match(/data-official-record/g) ?? []).length === expected,
+      `${page.route}: expected ${expected} official registry rows`);
   }
 }
 

@@ -27,6 +27,21 @@ describe("official supplement category catalog", () => {
     }
   });
 
+  it("ships the full official registry per category", () => {
+    for (const category of catalogCategories) {
+      expect(category.registry.length).toBeGreaterThanOrEqual(6);
+      expect(category.registry.length).toBeLessThanOrEqual(category.recordCount);
+      // 신고번호는 등록부의 기본키 — 중복은 dedup 누락 신호
+      expect(new Set(category.registry.map((record) => record.reportNo)).size).toBe(category.registry.length);
+      // 함량 열이 있는 카테고리는 함량 내림차순(미기재는 뒤) 정렬 계약을 지켜야 한다
+      const amounts = category.registry
+        .map((record) => record.activeAmount)
+        .filter((amount): amount is number => amount !== null);
+      expect([...amounts].sort((left, right) => right - left)).toEqual(amounts);
+      if (category.activeUnit === null) expect(amounts).toHaveLength(0);
+    }
+  });
+
   it("promotes every ranking-eligible category card to ranking status", () => {
     expect(categoryCards).toHaveLength(10);
     expect(categoryCards[0]).toMatchObject({

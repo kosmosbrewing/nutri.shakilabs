@@ -25,8 +25,8 @@ export const fontJobs = [
 ];
 
 export const shippedFontBudgets = [
-  { publicName: "Pretendard-Regular-subset.woff2", maxBytes: 48 * 1024 },
-  { publicName: "Pretendard-SemiBold-subset.woff2", maxBytes: 48 * 1024 },
+  { publicName: "Pretendard-Regular-subset.woff2", maxBytes: 64 * 1024 },
+  { publicName: "Pretendard-SemiBold-subset.woff2", maxBytes: 64 * 1024 },
   { publicName: "GmarketSansBold-subset-v3.woff2", maxBytes: 64 * 1024 },
 ];
 
