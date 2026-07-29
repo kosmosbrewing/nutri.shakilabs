@@ -26,6 +26,11 @@ const pageError = computed(() => {
 const entries = computed(() => parsedIds.value.success
   ? buildComparisonEntries(parsedIds.value.ids, allItems, nutriDataset.sources)
   : []);
+// Derive the price-check date from offer.capturedAt; a hardcoded date goes stale on refresh.
+const priceCheckedAt = computed(() => {
+  const dates = [...new Set(entries.value.map((entry) => entry.item.offer.capturedAt))].sort();
+  return dates.length > 0 ? dates[0].replaceAll("-", ".") : "";
+});
 
 onMounted(() => {
   if (entries.value.length >= 2 && entries.value.length <= 4) {
@@ -60,7 +65,7 @@ onMounted(() => {
 
       <template v-else>
         <div class="mt-7 rounded-xl border border-primary/20 bg-accent px-4 py-3 text-xs leading-5 text-accent-foreground">
-          비교 제품 {{ entries.length }}개 · 동일한 일반 성인 기준 · 가격 확인일 2026.07.10 · 자체 점수는 사용자 리뷰 평점이 아닙니다.
+          비교 제품 {{ entries.length }}개 · 동일한 일반 성인 기준 · 가격 확인일 {{ priceCheckedAt }} · 자체 점수는 사용자 리뷰 평점이 아닙니다.
         </div>
         <ComparisonSummaryBars :entries="entries" />
         <div class="mt-5">
