@@ -1,4 +1,10 @@
-# 영양만점
+# 영양만점 · shakilabs
+
+**▶ 라이브 서비스: <https://shakilabs.com/nutri>**
+
+주요 화면: [성분·가격 비교](https://shakilabs.com/nutri/compare) · [영양제 종류](https://shakilabs.com/nutri/categories) · [산정 방법](https://shakilabs.com/nutri/methodology)
+전체 서비스 12종: <https://shakilabs.com>
+
 
 공식 데이터와 검증된 판매 스냅샷을 결합해 멀티비타민과 9개 단일 핵심 성분 영양제의 가격효율을 설명 가능하게 비교하는 서비스.
 
@@ -8,7 +14,7 @@
 - Git 저장소명: `nutri.shakilabs`
 - 단계: 10개 카테고리 가격효율 구현 및 로컬 릴리스 gate 완료
 - production: 28개 indexable page 운영, 2026-07-14 sitemap/canonical audit 통과
-- 공통 UI: `@shakilabs/ui` `0.3.7` exact artifact
+- 공통 UI: `@shakilabs/ui` `0.3.9` exact artifact (2026-07-29)
 - APP_ID: `nutri`
 - 운영 경로: `https://shakilabs.com/nutri/`
 - 개발 포트: `6112`
