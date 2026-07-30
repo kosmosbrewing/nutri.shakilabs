@@ -31,12 +31,15 @@ export const shippedFontBudgets = [
 ];
 
 const textExtensions = new Set([
-  ".css", ".html", ".json", ".svg", ".ts", ".txt", ".vue", ".xml",
+  ".css", ".html", ".js", ".json", ".svg", ".ts", ".txt", ".vue", ".xml",
 ]);
 const contentRoots = [
   resolve(clientRoot, "src"),
   resolve(clientRoot, "index.html"),
   resolve(clientRoot, "public"),
+  // 공유 UI 패키지에도 화면에 찍히는 한글이 있다(푸터 서비스 목록 등) — 빠지면 두부 글자.
+  // 브랜드 폰트(GmarketSans)는 .vue만 스캔하므로 예산에 영향 없음
+  resolve(clientRoot, "node_modules/@shakilabs/ui/dist/index.js"),
 ];
 
 function listTextFiles(path) {
