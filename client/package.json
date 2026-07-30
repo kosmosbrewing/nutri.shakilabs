@@ -24,7 +24,9 @@
     "verify:static": "node scripts/verify-static.mjs",
     "check": "npm run release:check",
     "release:check": "npm run lint && npm run lint:layers && npm run typecheck && npm test && npm run validate:data && npm run build && npm audit --audit-level=high",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "registry-specs:build": "node scripts/build-registry-spec-evidence.mjs",
+    "fetch:registry-specs": "node scripts/fetch-registry-specs.mjs"
   },
   "dependencies": {
     "@shakilabs/ui": "file:vendor/shakilabs-ui-0.3.9.tgz",

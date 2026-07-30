@@ -27,8 +27,8 @@ const categorySchema = z.object({
   datasetLabel: z.string().trim().min(1),
   summary: z.string().trim().min(1),
   comparisonBasis: z.string().trim().min(1),
-  analysisState: z.enum(["amount_in_snapshot", "identity_only"]),
-  activeUnit: z.enum(["mg", "ug"]).nullable(),
+  analysisState: z.enum(["amount_in_snapshot", "amount_from_spec", "identity_only"]),
+  activeUnit: z.enum(["mg", "ug", "억 CFU"]).nullable(),
   recordCount: z.number().int().positive(),
   nextEvidence: z.array(z.string().trim().min(1)).min(2),
   records: z.array(recordSchema).length(6),
@@ -102,9 +102,11 @@ export function findCategory(slugInput: unknown): CategoryCatalogEntry | null {
   return catalogCategories.find((category) => category.slug === result.data) ?? null;
 }
 
-export function formatActiveAmount(amount: number, unit: "mg" | "ug"): string {
-  const label = unit === "ug" ? "μg" : "mg";
-  return `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 2 }).format(amount)} ${label}`;
+export function formatActiveAmount(amount: number, unit: "mg" | "ug" | "억 CFU"): string {
+  const formatted = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 2 }).format(amount);
+  // 균수는 "100억 CFU"처럼 단위가 숫자에 붙어 읽힌다
+  if (unit === "억 CFU") return `${formatted}억 CFU`;
+  return `${formatted} ${unit === "ug" ? "μg" : "mg"}`;
 }
 
 // 등록부 함량 순위 — competition 방식(동일 함량 = 동일 순위, 다음 순위는 건너뜀).
