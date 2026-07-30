@@ -91,7 +91,7 @@ function trackNavigation(item: PrimaryNavigationItem): void {
   <header class="border-b border-border bg-background">
     <div class="site-header__bar container flex min-h-16 items-center px-3 sm:px-4">
       <a class="site-logo touch-target inline-flex items-center gap-2.5 font-brand text-lg" href="/nutri">
-        <!-- same mark as favicon.svg -->
+        <!-- nutri product mark; the tab favicon uses the shakilabs common mark -->
         <svg class="h-9 w-9 shrink-0" viewBox="0 0 64 64" aria-hidden="true">
           <rect width="64" height="64" rx="18" fill="#4d7c0f" />
           <path d="M18 19h9l5 10 5-10h9L36 37v10h-8V37L18 19Z" fill="#fffdf5" />
