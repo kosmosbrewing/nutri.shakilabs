@@ -35,14 +35,15 @@ export const categoryCatalogSchema = z.object({
     datasetLabel: z.string().trim().min(1),
     summary: z.string().trim().min(1),
     comparisonBasis: z.string().trim().min(1),
-    analysisState: z.enum(["amount_in_snapshot", "identity_only"]),
-    activeUnit: z.enum(["mg", "ug"]).nullable(),
+    analysisState: z.enum(["amount_in_snapshot", "amount_from_spec", "identity_only"]),
+    activeUnit: z.enum(["mg", "ug", "억 CFU"]).nullable(),
     recordCount: z.number().int().positive(),
     nextEvidence: z.array(z.string().trim().min(1)).min(2),
     records: z.array(categoryRecordSchema).length(6),
     registry: z.array(registryRecordSchema).min(6),
   }).strict().superRefine((category, context) => {
-    const hasAmount = category.records.some((record) => record.activeAmount !== null);
+    const hasAmount = category.records.some((record) => record.activeAmount !== null)
+      || category.registry.some((record) => record.activeAmount !== null);
     if ((category.activeUnit === null) === hasAmount) {
       context.addIssue({ code: "custom", message: "Active unit and values must agree" });
     }

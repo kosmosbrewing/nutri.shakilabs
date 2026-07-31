@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "food-safety-snapshot-v1",
+  "downloadedAt": "2026-07-31T11:48:05.093Z",
+  "dataReferenceDate": "2026-07-31",
+  "services": [
+    {
+      "serviceId": "I0030",
+      "sourceUrl": "https://www.foodsafetykorea.go.kr/api/openApiInfo.do?svc_no=I0030",
+      "rawFile": "raw/food-safety-I0030-2026-07-31.json",
+      "sha256": "59561096fcc911c7a99f57175589c49d3bb5693c318429f317a0f3131f06b2d4",
+      "rowCount": 45304
+    },
+    {
+      "serviceId": "C003",
+      "sourceUrl": "https://www.foodsafetykorea.go.kr/api/openApiInfo.do?svc_no=C003",
+      "rawFile": "raw/food-safety-C003-2026-07-31.json",
+      "sha256": "1bb27769c8b4d41e6d08880c34bb3f180610345c989eba31ee0ec41b752b58e8",
+      "rowCount": 45304
+    }
+  ]
+}

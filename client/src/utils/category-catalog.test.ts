@@ -90,5 +90,6 @@ describe("official supplement category catalog", () => {
     expect(findCategory(["omega-3"])).toBeNull();
     expect(findCategory("unknown")).toBeNull();
     expect(formatActiveAmount(12.5, "ug")).toBe("12.5 μg");
+    expect(formatActiveAmount(100, "억 CFU")).toBe("100억 CFU");
   });
 });

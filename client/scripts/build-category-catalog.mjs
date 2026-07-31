@@ -3,6 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { categoryCatalogSchema } from "./category-catalog-schema.mjs";
+import { extractDailyAmount, REGISTRY_SPEC_RULES } from "./registry-spec-rules.mjs";
 import {
   manifestSchema,
   parseJsonResponse,
@@ -34,7 +35,7 @@ function text(value) {
 }
 
 function activeAmount(row, field) {
-  if (!field) return null;
+  if (!field) return specAmountByReportNo.get(text(row.ITEM_MNFTR_RPT_NO)) ?? null;
   const value = Number(text(row[field]).replaceAll(",", ""));
   return Number.isFinite(value) && value >= 0 ? value : null;
 }
@@ -103,6 +104,19 @@ function buildRegistry(rows, spec) {
   });
 }
 
+// 기준규격 증거(fetch-registry-specs.mjs 산출) — 스냅샷에 함량 컬럼이 없는 카테고리의 1일 함량 원천
+let specAmountByReportNo = new Map();
+try {
+  const specEvidence = JSON.parse(await readFile(resolve(dataRoot, "evidence/registry-standard-specs.json"), "utf8"));
+  for (const entry of specEvidence.entries) {
+    if (entry.status !== "ok") continue;
+    const parsed = extractDailyAmount(entry.categorySlug, entry.standardText);
+    if (parsed.reason === "ok") specAmountByReportNo.set(entry.reportNo, parsed.amount);
+  }
+} catch {
+  // 증거 파일이 없으면 스냅샷 컬럼만 사용한다
+}
+
 const manifestInput = JSON.parse(await readFile(resolve(dataRoot, "manifests/latest.json"), "utf8"));
 const manifest = parseJsonResponse(manifestSchema, manifestInput, "Manifest");
 const rawContents = await readFile(resolve(dataRoot, manifest.rawFile), "utf8");
@@ -119,18 +133,36 @@ const catalogInput = {
   },
   categories: categorySpecs.map((spec) => {
     const rows = snapshot.records.filter((row) => row.FOOD_LV4_NM === spec.label);
+    let registry = buildRegistry(rows, spec);
+    let records = selectRecords(rows, spec);
+    if (!spec.amount) {
+      // 부분 커버리지로 "순위"를 자처하면 오해를 부른다 — 30% 미만이면 함량을 아예 싣지 않는다
+      const parsed = registry.filter((entry) => entry.activeAmount !== null).length;
+      if (parsed > 0 && parsed / registry.length < 0.3) {
+        registry = registry
+          .map((entry) => ({ ...entry, activeAmount: null }))
+          .sort((left, right) => left.name.localeCompare(right.name, "ko"));
+        records = records.map((record) => ({ ...record, activeAmount: null }));
+        process.stdout.write(`  ${spec.slug}: 함량 파싱 ${parsed}/${registry.length} — 30% 미만이라 이번 빌드에서 제외
+`);
+      }
+    }
     return {
       slug: spec.slug,
       name: spec.name,
       datasetLabel: spec.label,
       summary: spec.summary,
       comparisonBasis: spec.basis,
-      analysisState: spec.amount ? "amount_in_snapshot" : "identity_only",
-      activeUnit: spec.unit ?? null,
+      analysisState: spec.amount
+        ? "amount_in_snapshot"
+        : (registry.some((entry) => entry.activeAmount !== null) ? "amount_from_spec" : "identity_only"),
+      activeUnit: spec.amount
+        ? spec.unit
+        : (registry.some((entry) => entry.activeAmount !== null) ? REGISTRY_SPEC_RULES[spec.slug]?.unit ?? null : null),
       recordCount: rows.length,
       nextEvidence: spec.needs,
-      records: selectRecords(rows, spec),
-      registry: buildRegistry(rows, spec),
+      records,
+      registry,
     };
   }),
 };

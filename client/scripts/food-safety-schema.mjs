@@ -45,5 +45,5 @@ export const foodSafetyManifestSchema = z.object({
     rawFile: z.string().regex(/^raw\/food-safety-(I0030|C003)-\d{4}-\d{2}-\d{2}\.json$/),
     sha256: z.string().regex(/^[a-f0-9]{64}$/),
     rowCount: z.number().int().nonnegative(),
-  }).strict()).length(2),
+  }).strict()).min(1).max(2),
 }).strict();
