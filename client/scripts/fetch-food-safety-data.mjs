@@ -14,7 +14,11 @@ if (!keyResult.success) {
 }
 
 const apiBase = "https://openapi.foodsafetykorea.go.kr/api";
-const services = foodSafetyServiceSchema.array().length(2).parse(["I0030", "C003"]);
+// 기본은 두 서비스 전부. 한쪽이 장기 장애일 때 `--services C003`처럼 부분 수집을 허용한다.
+const servicesArg = process.argv.find((arg) => arg.startsWith("--services="))?.split("=")[1]
+  ?? (process.argv.includes("--services") ? process.argv[process.argv.indexOf("--services") + 1] : null);
+const services = foodSafetyServiceSchema.array().min(1).max(2)
+  .parse(servicesArg ? servicesArg.split(",").map((value) => value.trim()) : ["I0030", "C003"]);
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const dataRoot = resolve(scriptDir, "../../data");
 const pageSize = 1_000;
