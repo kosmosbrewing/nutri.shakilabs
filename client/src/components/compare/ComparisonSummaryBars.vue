@@ -2,7 +2,8 @@
 import { computed, useId } from "vue";
 import type { ComparisonEntry } from "@/utils/comparison";
 import { displayProductName } from "@/utils/comparison";
-import { positiveBarWidth } from "@/utils/chartMath";
+// 그래프 계산식은 공통 패키지 하나로 유지한다
+import { positiveBarWidth } from "@shakilabs/ui";
 import { formatScore, formatWon } from "@/utils/ranking";
 
 type MetricValue = { key: string; order: number; brand: string; value: number; emphasized: boolean };
