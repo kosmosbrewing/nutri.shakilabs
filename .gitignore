@@ -7,6 +7,12 @@ client/.env.*
 *.log
 data/raw/
 data/.staging/
+
+# SBOM 등 생성 산출물은 커밋하지 않는다 — timestamp·documentNamespace(UUID)가 매번 달라져
+# 저장소를 오염시키고, 스캐폴딩 복사 시 남의 앱 SBOM이 따라붙는 사고의 원인이 된다.
+# 아래 /artifacts/* 는 루트 고정이라 client/artifacts/ 를 덮지 못한다 — 별도 규칙이 필요하다.
+client/artifacts/
+
 /artifacts/*
 !/artifacts/ui-audit/
 /artifacts/ui-audit/*

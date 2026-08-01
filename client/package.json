@@ -22,14 +22,15 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify:static": "node scripts/verify-static.mjs",
+    "verify:supply-chain": "node scripts/verify-sbom-identity.mjs && node scripts/verify-vendor-readme.mjs",
     "check": "npm run release:check",
-    "release:check": "npm run lint && npm run lint:layers && npm run typecheck && npm test && npm run validate:data && npm run build && npm audit --audit-level=high",
+    "release:check": "npm run lint && npm run lint:layers && npm run typecheck && npm test && npm run validate:data && npm run build && npm run verify:supply-chain && npm audit --audit-level=high",
     "preview": "vite preview",
     "registry-specs:build": "node scripts/build-registry-spec-evidence.mjs",
     "fetch:registry-specs": "node scripts/fetch-registry-specs.mjs"
   },
   "dependencies": {
-    "@shakilabs/ui": "file:vendor/shakilabs-ui-0.3.10.tgz",
+    "@shakilabs/ui": "file:vendor/shakilabs-ui-0.3.11.tgz",
     "vue": "^3.5.25",
     "vue-router": "^4.6.4",
     "zod": "^4.3.6"
