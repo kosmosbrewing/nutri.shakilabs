@@ -28,4 +28,7 @@ jobs:
       - run: npm test
       - run: npm run validate:data
       - run: npm run build
+      # 네트워크·npm 재실행 없이 신원만 대조하는 결정적 검사. 커밋된 산출물이 없으면 no-op.
+      - name: Verify vendored artifacts
+        run: npm run verify:supply-chain
       - run: npm audit --audit-level=high
