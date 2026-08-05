@@ -50,7 +50,7 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
       <section class="mt-10" aria-labelledby="unit-price-source-title" data-unit-price-evidence>
         <p class="eyebrow">가격 비교 근거</p>
         <h2 id="unit-price-source-title" class="mt-2 font-brand text-2xl">가격효율·단위가격 비교 출처</h2>
-        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">공공데이터포털 스냅샷과 식품안전나라의 신고번호·1일 핵심 함량을 비회원 일반 판매가·필수 배송비와 연결한 비교 근거입니다.</p>
+        <p class="mt-3 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">공공데이터포털 스냅샷과 <a class="font-semibold text-primary underline underline-offset-4" href="https://www.foodsafetykorea.go.kr" target="_blank" rel="noopener noreferrer">식품안전나라 ↗</a>의 신고번호·1일 핵심 함량을 비회원 일반 판매가·필수 배송비와 연결한 비교 근거입니다.</p>
         <p class="mt-3 rounded-lg border border-status-warning/30 bg-card px-4 py-3 text-xs leading-5 text-muted-foreground">공식 사이트가 안정적인 제품별 상세 주소를 제공하지 않는 항목은 데이터셋 또는 제품 검색 화면으로 연결합니다. 카드의 신고번호를 검색해 같은 제품인지 확인하세요.</p>
         <div class="mt-4 space-y-3">
           <details v-for="(group, index) in unitPriceGroups" :key="group.category.slug" class="surface-panel group overflow-hidden" :open="index === 0">

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
 import ConsentSettings from "@/components/policy/ConsentSettings.vue";
+import { privacyAdsClosing, privacyAdsSection, privacyOptOutLinks } from "@/data/policy-content";
 </script>
 
 <template>
@@ -20,6 +21,15 @@ import ConsentSettings from "@/components/policy/ConsentSettings.vue";
       <li>비교한 제품 수, 출처 유형, 제품 내부 ID와 비제휴 여부</li>
     </ul>
     <p>건강정보, 복약 정보, 자유 입력 원문과 개인 식별정보는 분석 이벤트 스키마에서 허용하지 않습니다. Google의 데이터 처리는 Google 정책의 적용을 받습니다.</p>
+
+    <h2>{{ privacyAdsSection.title }}</h2>
+    <p v-for="paragraph in privacyAdsSection.paragraphs" :key="paragraph">{{ paragraph }}</p>
+    <ul>
+      <li v-for="link in privacyOptOutLinks" :key="link.href">
+        <a :href="link.href" target="_blank" rel="noopener noreferrer">{{ link.label }} ↗</a> {{ link.note }}
+      </li>
+    </ul>
+    <p>{{ privacyAdsClosing }}</p>
 
     <h2>브라우저 저장</h2>
     <p>분석 동의 또는 거부 상태를 기억하기 위해 <strong>nutri-analytics-consent</strong> 값을 localStorage에 저장합니다. 브라우저 저장소를 삭제하면 다시 선택할 수 있습니다.</p>
