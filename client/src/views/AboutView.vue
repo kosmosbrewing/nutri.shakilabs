@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
+import { aboutMethodology, aboutOperatorParagraph } from "@/data/policy-content";
 </script>
 
 <template>
@@ -10,6 +11,8 @@ import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
   >
     <h2>운영 주체</h2>
     <p><strong>영양만점</strong>은 ShakiLabs가 운영하는 멀티비타민 데이터 비교 도구입니다. 의료기관, 약국, 건강기능식품 제조사 또는 판매자의 공식 서비스가 아닙니다.</p>
+    <p>{{ aboutOperatorParagraph }}</p>
+    <p><strong>운영: ShakiLabs · 문의: <a href="mailto:skdba1313@gmail.com">skdba1313@gmail.com</a></strong></p>
 
     <h2>제작 목적</h2>
     <p>패키지 수량과 섭취량이 다른 제품을 배송비 포함 1일 비용으로 환산하고, 공개된 전체 영양 라벨을 동일한 기준으로 비교할 수 있게 만드는 것이 목적입니다.</p>
@@ -21,6 +24,7 @@ import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
       <li>가격, 필수 배송비, 수량과 확인일을 기록하고 원문 해시를 보관합니다.</li>
       <li>결측·단위·가격 신선도 gate와 자동 테스트를 통과한 제품만 순위에 포함합니다.</li>
     </ul>
+    <p>{{ aboutMethodology.lead }}<a :href="aboutMethodology.href" target="_blank" rel="noopener noreferrer">{{ aboutMethodology.linkLabel }} ↗</a>{{ aboutMethodology.tail }}</p>
 
     <h2>전문성의 범위</h2>
     <p>보유하지 않은 의료 자격, 임상 검수 또는 실사용 효능 검증을 주장하지 않습니다. 공개 자료의 구조화와 계산 재현성에 책임 범위를 한정합니다.</p>
