@@ -91,7 +91,7 @@ const metrics = computed<Metric[]>(() => {
           </div>
           <div class="h-3 overflow-hidden rounded-full bg-muted">
             <svg viewBox="0 0 100 12" preserveAspectRatio="none" class="block h-full w-full" aria-hidden="true">
-              <rect :width="positiveBarWidth(item.value, metric.maximum)" height="12" rx="4" :class="item.emphasized ? 'fill-primary' : 'fill-muted-foreground/45'" />
+              <rect :width="positiveBarWidth(item.value, metric.maximum)" height="12" :class="item.emphasized ? 'fill-primary' : 'fill-muted-foreground/45'" />
             </svg>
           </div>
         </div>
