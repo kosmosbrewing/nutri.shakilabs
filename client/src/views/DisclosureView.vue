@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
+import { disclosureExtraSections } from "@/data/policy-content";
 </script>
 
 <template>
@@ -23,6 +24,11 @@ import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
 
     <h2>광고 원칙</h2>
     <p>광고가 활성화되면 <strong>광고</strong> 레이블과 별도 영역을 사용하고 자연 순위 카드 안에 삽입하지 않습니다. 계산·비교 버튼과 혼동되는 위치, 오류·404·noindex 화면에는 광고를 두지 않습니다.</p>
+
+    <template v-for="section in disclosureExtraSections" :key="section.title">
+      <h2>{{ section.title }}</h2>
+      <p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
+    </template>
 
     <h2>문의</h2>
     <p>표시 누락이나 이해관계 관련 문의는 <a href="mailto:skdba1313@gmail.com">skdba1313@gmail.com</a>으로 접수합니다.</p>

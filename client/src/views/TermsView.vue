@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
-import { termsAdsSections } from "@/data/policy-content";
+import { termsAdsSections, termsExtraSections } from "@/data/policy-content";
 </script>
 
 <template>
@@ -28,6 +28,11 @@ import { termsAdsSections } from "@/data/policy-content";
 
     <h2>허용되지 않는 이용</h2>
     <p>서비스 운영을 방해하는 자동 요청, 데이터 출처를 제거한 오인성 재배포, 점수를 의료 효능이나 전문가 보증으로 변조하는 행위를 금지합니다.</p>
+
+    <template v-for="section in termsExtraSections" :key="section.title">
+      <h2>{{ section.title }}</h2>
+      <p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
+    </template>
 
     <template v-for="section in termsAdsSections" :key="section.title">
       <h2>{{ section.title }}</h2>

@@ -96,6 +96,40 @@ export const categoryCards: CategoryCardItem[] = [
   }),
 ];
 
+export interface CategoryGuideRow {
+  slug: string;
+  name: string;
+  status: CategoryCardStatus;
+  basis: string;
+  countLabel: string;
+  href: string;
+}
+
+// 허브에서 종류별 "무엇을 비교하는가"를 보여주기 위해 카드 상태와 카탈로그 비교 기준을 합친다.
+const multivitaminGuideRow: CategoryGuideRow = {
+  slug: multivitaminCard.slug,
+  name: multivitaminCard.name,
+  status: multivitaminCard.status,
+  basis: "23개 영양소 충족률과 배송비 포함 1일 비용",
+  countLabel: `검증 제품 ${multivitaminCard.count}개`,
+  href: multivitaminCard.href,
+};
+
+export const categoryGuideRows: CategoryGuideRow[] = [
+  multivitaminGuideRow,
+  ...catalogCategories.map((category) => {
+    const card = categoryCards.find(({ slug }) => slug === category.slug);
+    return {
+      slug: category.slug,
+      name: category.name,
+      status: card?.status ?? "official_catalog" as const,
+      basis: category.comparisonBasis,
+      countLabel: `공식 레코드 ${category.recordCount.toLocaleString("ko-KR")}건`,
+      href: `/nutri/categories/${category.slug}`,
+    };
+  }),
+];
+
 export function findCategory(slugInput: unknown): CategoryCatalogEntry | null {
   const result = slugSchema.safeParse(slugInput);
   if (!result.success) return null;
