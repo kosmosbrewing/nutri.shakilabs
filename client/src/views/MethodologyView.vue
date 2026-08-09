@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SiteHeader from "@/components/SiteHeader.vue";
+import { methodologyLimits } from "@/data/policy-content";
 import { unitPriceDataset } from "@/utils/unit-price";
 </script>
 
@@ -100,6 +101,16 @@ import { unitPriceDataset } from "@/utils/unit-price";
           <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">B</dt><dd class="text-muted-foreground">공식 제품·함량 상세와 구조화된 가격비교 또는 판매 페이지를 함께 확보한 상태</dd></div>
           <div class="grid gap-2 p-5 sm:grid-cols-[5rem_1fr]"><dt class="font-semibold text-primary">C</dt><dd class="text-muted-foreground">OCR 또는 비정형 일부 자료 의존 상태. 공개 랭킹에서는 제외</dd></div>
         </dl>
+      </section>
+
+      <section class="mt-10 surface-panel p-5 sm:p-6" aria-labelledby="method-scope-title">
+        <p class="eyebrow">{{ methodologyLimits.eyebrow }}</p>
+        <h2 id="method-scope-title" class="mt-2 break-keep font-brand text-2xl">{{ methodologyLimits.heading }}</h2>
+        <p
+          v-for="paragraph in methodologyLimits.paragraphs"
+          :key="paragraph"
+          class="mt-3 max-w-3xl break-keep text-sm leading-7 text-muted-foreground"
+        >{{ paragraph }}</p>
       </section>
 
       <section class="mt-10 rounded-xl border border-status-warning/30 bg-card p-5 sm:p-6">

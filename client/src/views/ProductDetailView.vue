@@ -9,6 +9,7 @@ import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
 import { useRecentProducts } from "@/composables/useRecentProducts";
 import { buildProductDetail, parseProductSlug } from "@/utils/product-detail";
+import { buildProductNarrative } from "@/utils/product-narrative";
 import { buildPriceTrend, formatTrendPercent } from "@/utils/price-trend";
 import { formatScore, formatWon } from "@/utils/ranking";
 import { trackAnalytics } from "@/utils/analytics";
@@ -28,6 +29,9 @@ const pageError = computed(() => dataError
   ?? (detail.value ? null : "제품 근거를 구성할 수 없습니다."));
 const absentCount = computed(() => detail.value?.nutritionRows
   .filter((row) => row.nutrient.presence === "absent").length ?? 0);
+const narrative = computed(() => (detail.value
+  ? buildProductNarrative(detail.value.item, allItems)
+  : null));
 const priceTrend = computed(() => detail.value
   ? buildPriceTrend(
     detail.value.item.product.id,
@@ -134,6 +138,32 @@ function trackOfferClick(): void {
               점수 계산법 보기
             </RouterLink>
           </aside>
+        </section>
+
+        <section v-if="narrative" class="mt-10 surface-panel p-5 sm:p-7" aria-labelledby="product-narrative-title" data-product-narrative>
+          <p class="eyebrow">{{ narrative.eyebrow }}</p>
+          <h2 id="product-narrative-title" class="mt-2 break-keep font-brand text-2xl">{{ narrative.heading }}</h2>
+          <p
+            v-for="paragraph in narrative.paragraphs"
+            :key="paragraph"
+            class="mt-4 max-w-3xl break-keep text-sm leading-7 text-muted-foreground"
+          >{{ paragraph }}</p>
+
+          <h3 class="mt-7 text-sm font-semibold">{{ narrative.factsHeading }}</h3>
+          <dl class="mt-3 divide-y divide-border border-y border-border text-sm">
+            <div
+              v-for="fact in narrative.facts"
+              :key="fact.label"
+              class="grid gap-1 py-3 sm:grid-cols-[12rem_1fr] sm:gap-4"
+            >
+              <dt class="text-muted-foreground">{{ fact.label }}</dt>
+              <dd class="break-keep leading-6">{{ fact.value }}</dd>
+            </div>
+          </dl>
+
+          <p class="mt-5 max-w-3xl break-keep pt-1 text-xs leading-6 text-muted-foreground">
+            {{ narrative.disclaimer }}
+          </p>
         </section>
 
         <ProductAlternatives :current-item="detail.item" :items="allItems" />

@@ -2,7 +2,14 @@
 import SiteHeader from "@/components/SiteHeader.vue";
 import CategoryGrid from "@/components/category/CategoryGrid.vue";
 import { publicDataSnapshot } from "@/data/public-snapshot";
-import { categoryCards, categoryCatalog } from "@/utils/category-catalog";
+import {
+  categoryGuideClosing,
+  categoryGuideIntro,
+  categoryGuideTable,
+  categoryStatusGuides,
+  categoryStatusLabels,
+} from "@/data/category-guide";
+import { categoryCards, categoryCatalog, categoryGuideRows } from "@/utils/category-catalog";
 
 const officialRecordCount = categoryCatalog.categories.reduce(
   (sum, category) => sum + category.recordCount,
@@ -40,6 +47,66 @@ const officialRecordCount = categoryCatalog.categories.reduce(
           </p>
         </div>
         <CategoryGrid :categories="categoryCards" />
+      </section>
+
+      <section class="container pb-10 sm:pb-14" aria-labelledby="category-guide-title">
+        <div class="max-w-3xl">
+          <p class="eyebrow">{{ categoryGuideIntro.eyebrow }}</p>
+          <h2 id="category-guide-title" class="mt-2 break-keep font-brand text-2xl sm:text-3xl">
+            {{ categoryGuideIntro.heading }}
+          </h2>
+          <p
+            v-for="paragraph in categoryGuideIntro.paragraphs"
+            :key="paragraph"
+            class="mt-3 break-keep text-sm leading-7 text-muted-foreground"
+          >{{ paragraph }}</p>
+        </div>
+
+        <div class="mt-6 grid gap-3 lg:grid-cols-3">
+          <article
+            v-for="guide in categoryStatusGuides"
+            :key="guide.status"
+            class="rounded-xl border border-border bg-card p-5"
+            :data-category-status-guide="guide.status"
+          >
+            <span
+              class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold"
+              :class="guide.status === 'ranking' ? 'bg-primary text-primary-foreground' : guide.status === 'unit_price' ? 'bg-accent text-primary' : 'bg-muted text-muted-foreground'"
+            >{{ guide.label }}</span>
+            <h3 class="mt-3 break-keep font-semibold">{{ guide.title }}</h3>
+            <p class="mt-2 break-keep text-sm leading-6 text-muted-foreground">{{ guide.body }}</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container pb-10 sm:pb-14" aria-labelledby="category-basis-title">
+        <div class="max-w-3xl">
+          <p class="eyebrow">{{ categoryGuideTable.eyebrow }}</p>
+          <h2 id="category-basis-title" class="mt-2 break-keep font-brand text-2xl sm:text-3xl">
+            {{ categoryGuideTable.heading }}
+          </h2>
+          <p class="mt-3 break-keep text-sm leading-6 text-muted-foreground">{{ categoryGuideTable.lead }}</p>
+        </div>
+
+        <ul class="mt-6 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+          <li
+            v-for="row in categoryGuideRows"
+            :key="row.slug"
+            class="grid gap-2 p-4 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:gap-4"
+            :data-category-basis="row.slug"
+          >
+            <a class="touch-target inline-flex items-center font-semibold text-primary" :href="row.href">{{ row.name }}</a>
+            <p class="break-keep text-sm leading-6 text-muted-foreground">
+              <span class="text-foreground">{{ categoryGuideTable.basisLabel }}</span> · {{ row.basis }}
+            </p>
+            <p class="text-xs text-muted-foreground sm:text-right">
+              {{ categoryStatusLabels[row.status] }}<br class="hidden sm:block" />
+              <span class="tabular-nums">{{ row.countLabel }}</span>
+            </p>
+          </li>
+        </ul>
+
+        <p class="mt-5 max-w-3xl break-keep text-sm leading-6 text-muted-foreground">{{ categoryGuideClosing }}</p>
       </section>
 
       <section class="border-y border-border/70 bg-muted/35">

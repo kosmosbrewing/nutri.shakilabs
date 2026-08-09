@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
-import { aboutMethodology, aboutOperatorParagraph } from "@/data/policy-content";
+import { aboutExtraSections, aboutMethodology, aboutOperatorParagraph } from "@/data/policy-content";
 </script>
 
 <template>
@@ -25,6 +25,11 @@ import { aboutMethodology, aboutOperatorParagraph } from "@/data/policy-content"
       <li>결측·단위·가격 신선도 gate와 자동 테스트를 통과한 제품만 순위에 포함합니다.</li>
     </ul>
     <p>{{ aboutMethodology.lead }}<a :href="aboutMethodology.href" target="_blank" rel="noopener noreferrer">{{ aboutMethodology.linkLabel }} ↗</a>{{ aboutMethodology.tail }}</p>
+
+    <template v-for="section in aboutExtraSections" :key="section.title">
+      <h2>{{ section.title }}</h2>
+      <p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
+    </template>
 
     <h2>전문성의 범위</h2>
     <p>보유하지 않은 의료 자격, 임상 검수 또는 실사용 효능 검증을 주장하지 않습니다. 공개 자료의 구조화와 계산 재현성에 책임 범위를 한정합니다.</p>
