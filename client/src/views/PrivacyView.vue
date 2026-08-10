@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
 import ConsentSettings from "@/components/policy/ConsentSettings.vue";
-import { privacyAdsClosing, privacyAdsSection, privacyExtraSections, privacyOptOutLinks } from "@/data/policy-content";
+import {
+  privacyAdsClosing,
+  privacyAdsSection,
+  privacyExtraSections,
+  privacyInputSections,
+  privacyOptOutLinks,
+} from "@/data/policy-content";
 </script>
 
 <template>
@@ -12,6 +18,11 @@ import { privacyAdsClosing, privacyAdsSection, privacyExtraSections, privacyOptO
   >
     <h2>기본 원칙</h2>
     <p>영양만점은 계정, 이름, 전화번호, 주소, 생년월일, 질환, 복약 정보와 영양제 섭취 내역을 요구하거나 저장하지 않습니다. 검색·필터·비교는 브라우저 안에서 처리됩니다.</p>
+
+    <template v-for="section in privacyInputSections" :key="section.title">
+      <h2>{{ section.title }}</h2>
+      <p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
+    </template>
 
     <h2>선택적 이용 분석</h2>
     <p>사용자가 동의하고 환경에 Google Analytics 측정 ID가 설정된 경우에만 분석 스크립트를 로드할 수 있습니다. 이때 다음과 같이 제한된 이벤트만 전송합니다.</p>

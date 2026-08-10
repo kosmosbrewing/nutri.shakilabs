@@ -71,6 +71,27 @@ function expectedCanonical(route) {
   return route === "/" ? siteBase : `${siteBase}${route}`;
 }
 
+// 애드센스 로더 판정. 셸에 하나만 있으므로 정적 산출물에서 직접 센다.
+const adsenseLoaderPattern = /<script\b[^>]*(?:pagead2\.googlesyndication\.com|adsbygoogle)[^>]*>/gi;
+
+function countAdsenseLoaders(html) {
+  return (html.match(adsenseLoaderPattern) ?? []).length;
+}
+
+// 얇은 콘텐츠 판정용 본문 자수. <main> 안의 텍스트만 센다(헤더·푸터·내비 제외).
+// 하이드레이션 후에도 같은 DOM이 남으므로 정적 측정과 렌더 후 측정이 일치한다.
+function mainTextLength(html) {
+  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+  return main
+    .replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<nav\b[^>]*>[\s\S]*?<\/nav>/gi, " ")
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z]+;|&#\d+;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim().length;
+}
+
 const productRoot = resolve(distRoot, "products");
 const productFiles = readdirSync(productRoot)
   .filter((file) => file.endsWith(".html"))
@@ -148,6 +169,13 @@ for (const page of pages) {
   assert(ogImage === ogImageUrl, `${page.route}: invalid OG image`);
   assert(h1Count === 1, `${page.route}: expected one H1, received ${h1Count}`);
   assert(html.includes('id="app" data-server-rendered="true"'), `${page.route}: missing SSR body`);
+  // 404에서 로더를 떼는 변환이 색인 페이지까지 건드리지 않았는지 역방향으로 검증한다.
+  assert(countAdsenseLoaders(html) === 1,
+    `${page.route}: indexable page must carry exactly one AdSense loader`);
+  // 얇은 콘텐츠 바닥선. 게시자 콘텐츠가 얇으면 "가치가 별로 없는 콘텐츠"로 거절된다.
+  const textLength = mainTextLength(html);
+  assert(textLength >= 1_500,
+    `${page.route}: main content is thin (${textLength} chars, floor 1,500)`);
   const jsonLd = JSON.stringify(getJsonLd(html));
   assert(!jsonLd.includes('"@type":"Product"'), `${page.route}: Product schema is forbidden`);
   assert(!jsonLd.includes('"@type":"Offer"'), `${page.route}: Offer schema is forbidden`);
@@ -192,6 +220,10 @@ assert(privacyHtml.includes("nutri-analytics-consent"), "Privacy page must discl
 const disclosureHtml = read(resolve(distRoot, "disclosure.html"));
 assert(disclosureHtml.includes("모든 가격·판매처 링크는 비제휴"),
   "Disclosure page must state the current non-affiliate status");
+// 이 약속은 아래 404 광고 어서션과 한 쌍이다. 문구만 남고 산출물이 어긋나면 심사자가
+// 404를 열어보는 순간 자사 문서와의 모순이 드러난다.
+assert(disclosureHtml.includes("오류·404·noindex 화면에는 광고를 두지 않습니다"),
+  "Disclosure page must keep the no-ads-on-404 promise that the 404 gate enforces");
 assert(!pages.some((page) => read(page.path).includes("googletagmanager.com/gtag/js")),
   "Static HTML must not load analytics before consent");
 
@@ -200,6 +232,14 @@ assert(getMeta(notFoundHtml, "name", "robots") === "noindex,nofollow",
   "404.html must be noindex,nofollow");
 assert(getCanonical(notFoundHtml) === null, "404.html must not declare a canonical");
 assert((notFoundHtml.match(/<h1\b/g) ?? []).length === 1, "404.html must contain one H1");
+assert(notFoundHtml.includes('href="/nutri"'), "404.html must contain a recovery link");
+// Google "Valuable Inventory": 게시자 콘텐츠가 없는 화면에 광고를 실으면 안 된다.
+// /disclosure가 "오류·404·noindex 화면에는 광고를 두지 않습니다"라고 명문화하고 있어,
+// 로더가 남아 있으면 자사 공개 문서와 모순된다.
+assert(countAdsenseLoaders(notFoundHtml) === 0,
+  "404.html must not load the AdSense script (Valuable Inventory: no ads on a contentless screen)");
+assert(!/adsbygoogle|googlesyndication/i.test(notFoundHtml),
+  "404.html must not reference AdSense at all");
 
 const sitemap = read(resolve(distRoot, "sitemap.xml"));
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);

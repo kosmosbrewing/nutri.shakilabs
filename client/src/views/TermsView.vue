@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PolicyPageLayout from "@/components/policy/PolicyPageLayout.vue";
-import { termsAdsSections, termsExtraSections } from "@/data/policy-content";
+import { termsAdsSections, termsExtraSections, termsScopeSections } from "@/data/policy-content";
 </script>
 
 <template>
@@ -11,6 +11,11 @@ import { termsAdsSections, termsExtraSections } from "@/data/policy-content";
   >
     <h2>서비스의 성격</h2>
     <p>영양만점은 공개된 제품 라벨과 판매 조건을 구조화해 비교하는 정보 도구입니다. 의료 진단, 치료, 예방, 처방 또는 특정 제품 구매를 지시하지 않습니다.</p>
+
+    <template v-for="section in termsScopeSections" :key="section.title">
+      <h2>{{ section.title }}</h2>
+      <p v-for="paragraph in section.paragraphs" :key="paragraph">{{ paragraph }}</p>
+    </template>
 
     <h2>정보와 가격의 한계</h2>
     <ul>
