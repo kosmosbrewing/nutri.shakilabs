@@ -75,7 +75,9 @@ const metrics = computed<Metric[]>(() => {
     <p class="mt-2 text-xs leading-5 text-muted-foreground">비용은 낮을수록, 영양충족도·가격효율지수는 높을수록 강조합니다.</p>
     <ul class="mt-4 space-y-1.5">
       <li v-for="item in legend" :key="item.key" class="flex items-baseline gap-2 text-xs">
-        <span class="inline-flex h-5 w-5 shrink-0 items-center justify-center self-center rounded-full bg-primary/10 font-bold tabular-nums text-primary">{{ item.order }}</span>
+        <!-- bg-primary/10은 배경에 브랜드색을 더해 text-primary 대비를 4.41:1까지 낮춘다.
+             같은 조합을 만드는 CategoryGrid처럼 --accent 값으로 바꾸면 4.83:1이 되어 기준을 만족한다. -->
+        <span class="inline-flex h-5 w-5 shrink-0 items-center justify-center self-center rounded-full bg-accent font-bold tabular-nums text-primary">{{ item.order }}</span>
         <span class="shrink-0 font-semibold text-primary">{{ item.brand }}</span>
         <span class="break-keep text-muted-foreground">{{ item.name }}</span>
       </li>

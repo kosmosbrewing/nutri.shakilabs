@@ -39,10 +39,14 @@
     --accent: 86 76% 95%;
     --accent-foreground: 86 78% 24%;
     --border: 75 18% 82%;
-    --status-success: 148 61% 36%;
-    --status-warning: 43 88% 39%;
-    --status-danger: 0 70% 48%;
-    --status-info: 212 83% 42%;
+    /* WCAG AA 본문 기준(4.5:1)은 배경 --background(48 100% 98%) 위에서 측정한다.
+       이전 값 148 61% 36%는 3.79:1, 43 88% 39%는 3.08:1로 미달이라 어둡게 내렸다.
+       finance·card·house와 동일한 리터럴을 써서 앱 간 의미색을 통일한다.
+       브랜드 hue(--primary 86)는 의미색과 별개이므로 건드리지 않는다. */
+    --status-success: 142 64% 24%; /* 7.06:1 */
+    --status-warning: 24 83% 31%; /* 6.91:1 */
+    --status-danger: 0 70% 48%; /* 5.19:1 */
+    --status-info: 212 83% 42%; /* 5.58:1 */
     --radius: 0.7rem;
   }
 

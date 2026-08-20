@@ -28,6 +28,10 @@ jobs:
       - run: npm test
       - run: npm run validate:data
       - run: npm run build
+      # 빌드가 갱신한 lastmod 대장이 커밋되지 않으면, 내용이 그대로인데도 재배포마다
+      # 날짜가 오늘로 밀려 lastmod가 거짓 신호가 된다. 폰트 서브셋 매니페스트와 같은 이유로 커밋을 강제한다.
+      - name: Verify sitemap lastmod ledger is committed
+        run: git diff --exit-code public/sitemap.xml scripts/sitemap-lastmod.json
       # 네트워크·npm 재실행 없이 신원만 대조하는 결정적 검사. 커밋된 산출물이 없으면 no-op.
       - name: Verify vendored artifacts
         run: npm run verify:supply-chain

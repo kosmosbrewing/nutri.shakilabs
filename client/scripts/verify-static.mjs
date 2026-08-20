@@ -9,6 +9,7 @@ import {
   shippedFontBudgets,
 } from "./font-subset-config.mjs";
 import { verifyDeployment } from "./verify-deployment.mjs";
+import { verifyTokenContrast } from "./verify-token-contrast.mjs";
 
 const scriptRoot = dirname(fileURLToPath(import.meta.url));
 const clientRoot = resolve(scriptRoot, "..");
@@ -260,5 +261,7 @@ assert(appHeaders.some((header) => header.key === "X-Content-Type-Options"), "Mi
 const fontCache = vercel.headers?.find((rule) => rule.source === "/fonts/(.*)")?.headers ?? [];
 assert(!fontCache.some((header) => header.value.includes("immutable")), "Fixed font URLs must revalidate");
 
-console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, and noindex 404.`);
+const contrastChecks = verifyTokenContrast({ distRoot, assert });
+
+console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, noindex 404, and ${contrastChecks} shipped color-contrast pairs.`);
 await import("./verify-unit-price-pages.mjs");
