@@ -6,6 +6,9 @@ import { FOOTER_SECTIONS } from "@/data/footerNav";
 const year = new Date().getFullYear();
 
 const policyLinks = [
+  // 다른 서비스(root)의 /blog 로 나가는 링크 — href를 주면 ShSiteFooter가 RouterLink 대신 <a href>로 그린다
+  // to 는 타입상 필수라 사용하지 않는다
+  { to: "", href: "/blog", label: "블로그" },
   { to: "/about", label: "운영 정보" },
   { to: "/terms", label: "이용약관" },
   { to: "/privacy", label: "개인정보" },
