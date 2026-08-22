@@ -2,7 +2,7 @@
   "schemaVersion": "sitemap-lastmod-v1",
   "routes": {
     "/": {
-      "contentHash": "01321de90eb709f3",
+      "contentHash": "99fde313fe1e306e",
       "lastmod": "2026-08-22"
     },
     "/about": {
@@ -14,39 +14,39 @@
       "lastmod": "2026-08-21"
     },
     "/categories/calcium": {
-      "contentHash": "5c5bc8e98b869947",
+      "contentHash": "145ab68fdfe81e3a",
       "lastmod": "2026-08-22"
     },
     "/categories/coenzyme-q10": {
-      "contentHash": "491af3ca0634e11c",
+      "contentHash": "ba11e7b340e83241",
       "lastmod": "2026-08-22"
     },
     "/categories/magnesium": {
-      "contentHash": "638b63c7c016ba3f",
+      "contentHash": "e52cc5c1a7260e1b",
       "lastmod": "2026-08-22"
     },
     "/categories/milk-thistle": {
-      "contentHash": "277ab50aeafbabb3",
+      "contentHash": "6ac6da579075c247",
       "lastmod": "2026-08-22"
     },
     "/categories/msm": {
-      "contentHash": "41ec0fb47eee1d28",
+      "contentHash": "6c9b204dee458cf0",
       "lastmod": "2026-08-22"
     },
     "/categories/omega-3": {
-      "contentHash": "6b7b30cc82e73072",
+      "contentHash": "93ce51d8b000010f",
       "lastmod": "2026-08-22"
     },
     "/categories/probiotics": {
-      "contentHash": "6a2cda3f06cf13d6",
+      "contentHash": "88c54eb7d58239e0",
       "lastmod": "2026-08-22"
     },
     "/categories/vitamin-c": {
-      "contentHash": "dd33a6e96dcd9cad",
+      "contentHash": "22a796a9984358cf",
       "lastmod": "2026-08-22"
     },
     "/categories/vitamin-d": {
-      "contentHash": "b6deee2d02967cf8",
+      "contentHash": "addc2c8de646c8aa",
       "lastmod": "2026-08-22"
     },
     "/compare": {

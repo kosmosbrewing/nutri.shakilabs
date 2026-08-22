@@ -24,9 +24,13 @@ function totalDaysLabel(score: UnitPriceScore): string {
 </script>
 
 <template>
+  <!-- The ranking's own clock is published here so the build gate can catch a regression
+       where the badge is right but the ranking still measures against a stale date. -->
   <section
     class="border-b border-border/60 bg-accent/25"
     :data-unit-price-section="ranking.category.slug"
+    :data-price-ranking-freshness="ranking.freshness"
+    :data-price-ranking-age-days="ranking.ageDays"
   >
     <div class="container py-10 sm:py-14">
       <!-- 멀티비타민 랭킹 섹션과 동일한 헤더 문법: 좌측 타이틀 블록 + 우측 기준 요약 -->

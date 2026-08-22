@@ -93,9 +93,15 @@ function routeOf(path) {
 
 const badgePattern = /data-price-freshness="([a-z_]+)"\s+data-price-age-days="([^"]*)"/g;
 const noticePattern = /data-price-freshness-notice="([a-z_]+)"/g;
+// The ranking's own verdict, emitted by the section that scored the offers. A badge can be
+// right while the ranking still measures against the dataset's own date, which is exactly
+// the defect this gate exists for, so both clocks are checked separately.
+const rankingClockPattern = /data-price-ranking-freshness="([a-z_]+)"\s+data-price-ranking-age-days="([^"]*)"/g;
 const badgeCounts = new Map();
 const noticeCounts = new Map();
+const rankingClockCounts = new Map();
 let totalBadges = 0;
+let totalRankingClocks = 0;
 
 for (const path of htmlFiles) {
   const route = routeOf(path);
@@ -124,6 +130,19 @@ for (const path of htmlFiles) {
   assert(expectedState !== "fresh" || notices.length === 0,
     `${route}: every price is fresh, so no freshness notice may render`);
   noticeCounts.set(route, notices.length);
+
+  const looseClocks = (html.match(/data-price-ranking-freshness="/g) ?? []).length;
+  const clocks = [...html.matchAll(rankingClockPattern)];
+  assert(clocks.length === looseClocks,
+    `${route}: ${looseClocks - clocks.length} ranking clock(s) are missing data-price-ranking-age-days`);
+  for (const [, state, age] of clocks) {
+    assert(state === expectedState,
+      `${route}: the ranking scored prices as "${state}" but the rule resolves to "${expectedState}"`);
+    assert(age === String(expectedAgeDays),
+      `${route}: the ranking measured ${age} days but ${policy.capturedAt}→${asOf} is ${expectedAgeDays} days`);
+  }
+  rankingClockCounts.set(route, clocks.length);
+  totalRankingClocks += clocks.length;
 }
 
 // 3. Per-surface coverage: one badge per published price, one notice per ranking section.
@@ -136,9 +155,12 @@ function badgesOn(route) {
 const multivitaminOffers = 10;
 assert(badgesOn("/") === multivitaminOffers,
   `/: expected ${multivitaminOffers} price badges, found ${badgesOn("/")}`);
+assert(rankingClockCounts.get("/") === 1, "/: the multivitamin ranking must publish its freshness clock");
 for (const [slug, count] of productCountBySlug) {
   const route = `/categories/${slug}`;
   assert(badgesOn(route) === count, `${route}: expected ${count} price badges, found ${badgesOn(route)}`);
+  assert(rankingClockCounts.get(route) === 1,
+    `${route}: the price-efficiency ranking must publish its freshness clock`);
 }
 const productRoutes = [...badgeCounts.keys()].filter((route) => route.startsWith("/products/"));
 assert(productRoutes.length === multivitaminOffers,
@@ -212,5 +234,6 @@ for (const path of htmlFiles) {
 
 process.stdout.write(
   `Verified price freshness: ${policy.capturedAt}→${asOf} = ${expectedAgeDays} days (${expectedState}),`
-  + ` ${totalBadges} badges across ${htmlFiles.length} pages, ${policy.overdueBehavior} behaviour matches published rule.\n`,
+  + ` ${totalBadges} badges and ${totalRankingClocks} ranking clocks across ${htmlFiles.length} pages,`
+  + ` ${policy.overdueBehavior} behaviour matches published rule.\n`,
 );

@@ -46,6 +46,9 @@ const updatedAtLabel = nutriDataset.updatedAt.replaceAll("-", ".");
 const { resolve: resolveFreshness } = usePriceFreshness();
 const rankingFreshness = computed(() =>
   worstFreshness(allItems.map((item) => resolveFreshness(item.offer.capturedAt))));
+// What the scoring pass itself measured, published for the build gate. If this ever
+// disagrees with the badges, the ranking is grading prices against the wrong clock.
+const scoredFreshness = worstFreshness(allItems.map((item) => item.score));
 // Client-only strip; empty on SSR so the server HTML is identical for every visitor.
 const { recentIds } = useRecentProducts(allItems.map((item) => item.product.id));
 const recentItems = computed(() => recentIds.value
@@ -138,7 +141,13 @@ onMounted(() => {
       <!-- The hero previews the #1 product, so the full ranking follows it directly and
            category browsing moves below. With the ~1,800px category section in between,
            reaching the search/filter took about 4 screens of scrolling. -->
-      <section id="ranking" class="container scroll-mt-4 py-10 sm:py-14" :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''">
+      <section
+        id="ranking"
+        class="container scroll-mt-4 py-10 sm:py-14"
+        :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''"
+        :data-price-ranking-freshness="scoredFreshness.freshness"
+        :data-price-ranking-age-days="scoredFreshness.ageDays"
+      >
         <div v-if="recentItems.length" class="mb-6 rounded-xl border border-border bg-card px-4 py-3">
           <p class="text-[11px] font-semibold text-muted-foreground">최근 확인한 제품</p>
           <div class="mt-2 flex flex-wrap gap-2">
