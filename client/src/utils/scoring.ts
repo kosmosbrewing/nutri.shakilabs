@@ -1,3 +1,8 @@
+import {
+  OVERDUE_AFTER_DAYS,
+  OVERDUE_BEHAVIOR,
+  REFRESH_REQUIRED_AFTER_DAYS,
+} from "@/data/price-freshness";
 import type {
   ConfidenceGrade,
   NutrientReference,
@@ -9,7 +14,10 @@ import type {
 
 export const SCORE_VERSION = "value-v1" as const;
 
-export type PriceFreshness = "fresh" | "refresh_required" | "stale";
+// "overdue" replaced the old "stale": the value is past the published review window but
+// still ranked while OVERDUE_BEHAVIOR is "grace". The old name implied removal, which is
+// exactly the mismatch this module used to publish.
+export type PriceFreshness = "fresh" | "refresh_required" | "overdue";
 
 export interface NutrientCoverage {
   nutrientId: string;
@@ -29,7 +37,8 @@ export interface ProductScore {
   dailyCostKrw: number;
   monthlyCostKrw: number;
   valueIndex: number;
-  freshness: Exclude<PriceFreshness, "stale">;
+  freshness: PriceFreshness;
+  ageDays: number;
   coverage: NutrientCoverage[];
 }
 
@@ -37,7 +46,7 @@ export type ScoreResult =
   | { success: true; score: ProductScore }
   | {
       success: false;
-      reason: "not_rankable" | "missing_nutrient" | "unknown_nutrient" | "invalid_offer" | "stale_offer";
+      reason: "not_rankable" | "missing_nutrient" | "unknown_nutrient" | "invalid_offer" | "overdue_offer";
       detail: string;
     };
 
@@ -56,14 +65,44 @@ function calendarDay(value: string): number {
   return Date.parse(`${value}T00:00:00Z`) / 86_400_000;
 }
 
-export function getPriceFreshness(capturedAt: string, asOf: string): PriceFreshness {
+export function getPriceAgeDays(capturedAt: string, asOf: string): number {
   const ageDays = calendarDay(asOf) - calendarDay(capturedAt);
   if (!Number.isFinite(ageDays) || ageDays < 0) {
     throw new Error("Offer capture date must not be in the future");
   }
-  if (ageDays > 30) return "stale";
-  if (ageDays > 14) return "refresh_required";
+  return ageDays;
+}
+
+export function getPriceFreshness(capturedAt: string, asOf: string): PriceFreshness {
+  const ageDays = getPriceAgeDays(capturedAt, asOf);
+  if (ageDays > OVERDUE_AFTER_DAYS) return "overdue";
+  if (ageDays > REFRESH_REQUIRED_AFTER_DAYS) return "refresh_required";
   return "fresh";
+}
+
+/** Whether an overdue price still takes part in a ranking. Published on /methodology. */
+export function isRankableFreshness(freshness: PriceFreshness): boolean {
+  return freshness !== "overdue" || OVERDUE_BEHAVIOR === "grace";
+}
+
+export const FRESHNESS_SEVERITY: Record<PriceFreshness, number> = {
+  fresh: 0,
+  refresh_required: 1,
+  overdue: 2,
+};
+
+/** A section-level notice must describe the weakest price on screen, not the average. */
+export function worstFreshness<T extends { freshness: PriceFreshness; ageDays: number }>(
+  states: readonly T[],
+): { freshness: PriceFreshness; ageDays: number } {
+  return states.reduce<{ freshness: PriceFreshness; ageDays: number }>(
+    (worst, current) => (FRESHNESS_SEVERITY[current.freshness] > FRESHNESS_SEVERITY[worst.freshness]
+      || (FRESHNESS_SEVERITY[current.freshness] === FRESHNESS_SEVERITY[worst.freshness]
+        && current.ageDays > worst.ageDays)
+      ? { freshness: current.freshness, ageDays: current.ageDays }
+      : worst),
+    { freshness: "fresh", ageDays: 0 },
+  );
 }
 
 export function calculateDailyCost(product: Product, offer: OfferSnapshot): number {
@@ -125,9 +164,10 @@ export function scoreProduct(input: {
     return { success: false, reason: "invalid_offer", detail: offer.id };
   }
 
+  const ageDays = getPriceAgeDays(offer.capturedAt, asOf);
   const freshness = getPriceFreshness(offer.capturedAt, asOf);
-  if (freshness === "stale") {
-    return { success: false, reason: "stale_offer", detail: offer.capturedAt };
+  if (!isRankableFreshness(freshness)) {
+    return { success: false, reason: "overdue_offer", detail: offer.capturedAt };
   }
   const coverage = buildCoverage(product, references, nutrients);
   if (!Array.isArray(coverage)) return coverage;
@@ -150,6 +190,7 @@ export function scoreProduct(input: {
       monthlyCostKrw: dailyCostKrw * 30,
       valueIndex: 100 * coverageScore / dailyCostKrw,
       freshness,
+      ageDays,
       coverage,
     },
   };

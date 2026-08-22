@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import PriceFreshnessBadge from "@/components/common/PriceFreshnessBadge.vue";
+import PriceFreshnessNotice from "@/components/common/PriceFreshnessNotice.vue";
+import { usePriceFreshness } from "@/composables/usePriceFreshness";
+import { worstFreshness } from "@/utils/scoring";
 import type { UnitPriceRanking, UnitPriceScore } from "@/utils/unit-price";
 import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon, isRankingEligible } from "@/utils/unit-price";
 
 const props = defineProps<{ ranking: UnitPriceRanking }>();
 const ranked = computed(() => isRankingEligible(props.ranking));
+
+const { resolve } = usePriceFreshness();
+
+function freshnessOf(score: UnitPriceScore) {
+  return resolve(score.product.offer.capturedAt);
+}
+
+const sectionFreshness = computed(() => worstFreshness(props.ranking.scores.map(freshnessOf)));
 
 function totalDaysLabel(score: UnitPriceScore): string {
   return `총 ${score.totalDays.toLocaleString("ko-KR")}일분`;
@@ -12,9 +24,13 @@ function totalDaysLabel(score: UnitPriceScore): string {
 </script>
 
 <template>
+  <!-- The ranking's own clock is published here so the build gate can catch a regression
+       where the badge is right but the ranking still measures against a stale date. -->
   <section
     class="border-b border-border/60 bg-accent/25"
     :data-unit-price-section="ranking.category.slug"
+    :data-price-ranking-freshness="ranking.freshness"
+    :data-price-ranking-age-days="ranking.ageDays"
   >
     <div class="container py-10 sm:py-14">
       <!-- 멀티비타민 랭킹 섹션과 동일한 헤더 문법: 좌측 타이틀 블록 + 우측 기준 요약 -->
@@ -35,6 +51,12 @@ function totalDaysLabel(score: UnitPriceScore): string {
           가격 확인 {{ ranking.updatedAt.replaceAll("-", ".") }}
         </p>
       </div>
+
+      <PriceFreshnessNotice
+        class="mb-5"
+        :freshness="sectionFreshness.freshness"
+        :age-days="sectionFreshness.ageDays"
+      />
 
       <!-- 멀티비타민 RankingCard와 동일한 행 리스트 문법 -->
       <ol class="ranking-list mt-5 space-y-3">
@@ -114,7 +136,13 @@ function totalDaysLabel(score: UnitPriceScore): string {
             </div>
 
             <div class="flex flex-wrap items-center justify-between gap-2 border-t border-border/60 bg-muted/25 px-4 py-2.5 text-xs text-muted-foreground sm:px-5">
-              <span>가격 확인 {{ score.product.offer.capturedAt.replaceAll("-", ".") }} · {{ score.product.offer.seller }} · 비제휴 링크</span>
+              <span class="flex flex-wrap items-center gap-2">
+                <PriceFreshnessBadge
+                  :freshness="freshnessOf(score).freshness"
+                  :age-days="freshnessOf(score).ageDays"
+                />
+                <span>가격 확인 {{ score.product.offer.capturedAt.replaceAll("-", ".") }} · {{ score.product.offer.seller }} · 비제휴 링크</span>
+              </span>
               <span>신고번호 {{ score.product.reportNo }}</span>
             </div>
           </article>

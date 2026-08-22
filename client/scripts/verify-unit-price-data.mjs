@@ -38,6 +38,16 @@ for (const field of ["id", "reportNo"]) {
 if (products.some((product) => product.offer.capturedAt !== dataset.updatedAt)) {
   throw new Error("Every offer must be verified on the dataset update date");
 }
+// freshness.json is the single source the app reads for the capture date; catch drift here
+// so a mismatch fails validate:data instead of waiting for the rendered-output gate.
+const freshnessPolicy = JSON.parse(
+  await readFile(resolve(scriptDir, "../src/data/freshness.json"), "utf8"),
+);
+if (freshnessPolicy.capturedAt !== dataset.updatedAt) {
+  throw new Error(
+    `freshness.json capturedAt (${freshnessPolicy.capturedAt}) must equal the dataset update date (${dataset.updatedAt})`,
+  );
+}
 if (products.some((product) => product.offer.affiliate || product.offer.availability !== "in_stock")) {
   throw new Error("Only current non-affiliate offers may be ranked");
 }

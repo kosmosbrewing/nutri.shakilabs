@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PRICE_CAPTURED_AT } from "@/data/price-freshness";
 import { seoProducts } from "@/data/seo-products";
 import { seoStaticPages } from "@/data/seo-static-pages";
 import { categoryCards } from "./category-catalog";
@@ -7,7 +8,7 @@ import { parseProductSlug } from "./product-detail";
 
 const SITE_BASE = "https://shakilabs.com/nutri";
 const OG_IMAGE = `${SITE_BASE}/og-image.png`;
-const UPDATED_AT = "2026-07-29";
+const UPDATED_AT = PRICE_CAPTURED_AT;
 const routeInputSchema = z.object({
   name: z.string(),
   slug: z.unknown().optional(),

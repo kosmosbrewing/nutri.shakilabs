@@ -1,6 +1,7 @@
+import { PRICE_CAPTURED_AT } from "./price-freshness";
 import type { OfferSnapshot } from "./types";
 
-const CAPTURED_AT = "2026-07-29";
+const CAPTURED_AT = PRICE_CAPTURED_AT;
 
 export const offers: OfferSnapshot[] = [
   ["centrum-men-50", 19900, 0, 1, "https://prod.danawa.com/info/?pcode=5824834", "centrum-men-evidence"],

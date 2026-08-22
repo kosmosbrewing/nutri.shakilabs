@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SiteHeader from "@/components/SiteHeader.vue";
 import { methodologyLimits } from "@/data/policy-content";
+import { priceFreshnessContractNote, priceFreshnessRules } from "@/data/price-freshness";
 import { unitPriceDataset } from "@/utils/unit-price";
 </script>
 
@@ -79,15 +80,19 @@ import { unitPriceDataset } from "@/utils/unit-price";
           </dl>
         </article>
 
-        <article class="surface-panel p-5 sm:p-6">
+        <!-- Every line below is generated from the same object the ranking code reads,
+             and verify-price-freshness.mjs re-derives it from freshness.json. -->
+        <article class="surface-panel p-5 sm:p-6" data-price-freshness-rules>
           <p class="eyebrow">가격 갱신 기준</p>
           <h2 class="mt-2 text-xl font-semibold">가격 갱신 규칙</h2>
           <ul class="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
-            <li><strong class="text-foreground">0~14일:</strong> 최신 가격으로 표시합니다.</li>
-            <li><strong class="text-foreground">15~30일:</strong> 갱신 필요 배지를 표시하되 계산은 유지합니다.</li>
-            <li><strong class="text-foreground">31일 이상:</strong> 가격이 오래된 제품은 순위 계산에서 제외합니다.</li>
-            <li>필수 배송비와 묶음 수량을 포함하며 쿠폰·회원가·카드 할인은 제외합니다.</li>
+            <li v-for="rule in priceFreshnessRules" :key="rule.id" :data-price-freshness-rule="rule.id">
+              <strong class="text-foreground">{{ rule.term }}:</strong> {{ rule.detail }}
+            </li>
           </ul>
+          <p class="mt-4 break-keep text-xs leading-5 text-muted-foreground" data-price-freshness-contract>
+            {{ priceFreshnessContractNote }}
+          </p>
         </article>
       </section>
 

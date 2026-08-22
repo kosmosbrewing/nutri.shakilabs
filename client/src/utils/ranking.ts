@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PRICE_AS_OF } from "@/data/price-freshness";
 import type { NutriDataset, OfferSnapshot, Product } from "@/data/types";
 import { rankScores, scoreProduct, type ProductScore } from "./scoring";
 
@@ -41,7 +42,11 @@ const budgetLimits: Record<RankingFilters["budget"], number> = {
   "under-20000": 20_000,
 };
 
-export function buildRankingItems(dataset: NutriDataset): RankingBuildResult {
+export function buildRankingItems(
+  dataset: NutriDataset,
+  // Same reason as resolveUnitPriceRanking: dataset.updatedAt made age self-referential.
+  asOf: string = PRICE_AS_OF,
+): RankingBuildResult {
   const scorePairs: Array<{ product: Product; offer: OfferSnapshot; score: ProductScore }> = [];
 
   for (const product of dataset.products) {
@@ -52,7 +57,7 @@ export function buildRankingItems(dataset: NutriDataset): RankingBuildResult {
       offer,
       references: dataset.nutrientReferences,
       nutrients: dataset.productNutrients.filter((item) => item.productId === product.id),
-      asOf: dataset.updatedAt,
+      asOf,
     });
     if (!result.success) {
       return { success: false, detail: `${product.id}: ${result.reason} (${result.detail})` };

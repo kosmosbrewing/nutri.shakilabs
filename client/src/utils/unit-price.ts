@@ -1,7 +1,14 @@
 import { z } from "zod";
+import { PRICE_AS_OF } from "@/data/price-freshness";
 import unitPriceDatasetInput from "@/data/unit-price-products.json";
 import type { UnitPriceCategoryInput, UnitPriceProductInput } from "@/data/unit-price-types";
-import { getPriceFreshness, type PriceFreshness } from "./scoring";
+import {
+  getPriceAgeDays,
+  getPriceFreshness,
+  isRankableFreshness,
+  worstFreshness,
+  type PriceFreshness,
+} from "./scoring";
 
 const idSchema = z.string().regex(/^[a-z0-9][a-z0-9-]*$/);
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((value) => {
@@ -84,12 +91,18 @@ export interface UnitPriceScore {
   monthlyCostKrw: number;
   unitPriceKrw: number;
   freshness: PriceFreshness;
+  ageDays: number;
 }
 
 export interface UnitPriceRanking {
   category: UnitPriceCategoryInput;
   scores: UnitPriceScore[];
   updatedAt: string;
+  /** Calendar day the freshness of this ranking was evaluated against. */
+  asOf: string;
+  /** Worst freshness in the ranking — drives the section-level notice. */
+  freshness: PriceFreshness;
+  ageDays: number;
 }
 
 export function validateUnitPriceDataset(input: unknown) {
@@ -116,12 +129,15 @@ export function calculateUnitPrice(
     monthlyCostKrw: dailyCostKrw * 30,
     unitPriceKrw: dailyCostKrw / (product.dailyActiveAmount / category.basisAmount),
     freshness: getPriceFreshness(product.offer.capturedAt, asOf),
+    ageDays: getPriceAgeDays(product.offer.capturedAt, asOf),
   };
 }
 
 export function resolveUnitPriceRanking(
   slugInput: unknown,
-  asOfInput: unknown = unitPriceDataset.updatedAt,
+  // PRICE_AS_OF, not the dataset's own updatedAt: comparing the data against itself made
+  // the published freshness rule unreachable (age was pinned at 0 forever).
+  asOfInput: unknown = PRICE_AS_OF,
 ): UnitPriceRanking | null {
   const slugResult = idSchema.safeParse(slugInput);
   const asOfResult = dateSchema.safeParse(asOfInput);
@@ -132,7 +148,7 @@ export function resolveUnitPriceRanking(
   const candidates = category.products
     .filter(({ offer }) => offer.availability === "in_stock")
     .map((product) => calculateUnitPrice(category, product, asOfResult.data))
-    .filter(({ freshness }) => freshness !== "stale")
+    .filter(({ freshness }) => isRankableFreshness(freshness))
     .sort((a, b) => a.unitPriceKrw - b.unitPriceKrw
       || confidenceOrder[a.product.confidence] - confidenceOrder[b.product.confidence]
       || b.product.offer.capturedAt.localeCompare(a.product.offer.capturedAt)
@@ -143,7 +159,15 @@ export function resolveUnitPriceRanking(
     rank: index + 1,
     priceEfficiencyIndex: bestUnitPrice ? bestUnitPrice / score.unitPriceKrw * 100 : 0,
   }));
-  return { category, scores, updatedAt: unitPriceDataset.updatedAt };
+  const worst = worstFreshness(scores);
+  return {
+    category,
+    scores,
+    updatedAt: unitPriceDataset.updatedAt,
+    asOf: asOfResult.data,
+    freshness: worst.freshness,
+    ageDays: worst.ageDays,
+  };
 }
 
 // 순위 표기 최소 기준 — 비교군이 이보다 작으면 "비교"로만 표기해 과대 해석을 막는다

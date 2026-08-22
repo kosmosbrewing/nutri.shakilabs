@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
+import { OVERDUE_BEHAVIOR } from "@/data/price-freshness";
 import type { ProductScore } from "./scoring";
 import {
   calculateDailyCost,
   convertAmount,
+  getPriceAgeDays,
   getPriceFreshness,
+  isRankableFreshness,
   rankScores,
   scoreProduct,
+  worstFreshness,
 } from "./scoring";
 import { makeNutrients, makeProduct, makeReferences } from "./scoring.fixtures";
 import { validNutrient, validOffer, validReference } from "./validation.fixtures";
@@ -64,7 +68,43 @@ describe("value-v1 scoring", () => {
     expect(getPriceFreshness("2026-06-26", "2026-07-10")).toBe("fresh");
     expect(getPriceFreshness("2026-06-25", "2026-07-10")).toBe("refresh_required");
     expect(getPriceFreshness("2026-06-10", "2026-07-10")).toBe("refresh_required");
-    expect(getPriceFreshness("2026-06-09", "2026-07-10")).toBe("stale");
+    expect(getPriceFreshness("2026-06-09", "2026-07-10")).toBe("overdue");
+  });
+
+  it("reports the age the published badge shows and rejects future capture dates", () => {
+    expect(getPriceAgeDays("2026-06-26", "2026-07-10")).toBe(14);
+    expect(getPriceAgeDays("2026-07-10", "2026-07-10")).toBe(0);
+    expect(() => getPriceAgeDays("2026-07-11", "2026-07-10")).toThrow(/must not be in the future/);
+  });
+
+  it("keeps overdue prices rankable while the published behaviour is a grace period", () => {
+    // Guards the fix: the ranking used to drop overdue offers while nothing on screen
+    // ever reached the overdue state, so the promise was unfalsifiable.
+    expect(OVERDUE_BEHAVIOR).toBe("grace");
+    expect(isRankableFreshness("overdue")).toBe(true);
+    const product = makeProduct();
+    const references = makeReferences(2);
+    const result = scoreProduct({
+      product,
+      references,
+      nutrients: makeNutrients(product.id, [1, 1], references),
+      offer: validOffer,
+      asOf: "2026-09-30",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.score.freshness).toBe("overdue");
+      expect(result.score.ageDays).toBe(getPriceAgeDays(validOffer.capturedAt, "2026-09-30"));
+    }
+  });
+
+  it("reports the weakest freshness on screen", () => {
+    expect(worstFreshness([
+      { freshness: "fresh", ageDays: 0 },
+      { freshness: "overdue", ageDays: 40 },
+      { freshness: "refresh_required", ageDays: 20 },
+    ])).toEqual({ freshness: "overdue", ageDays: 40 });
+    expect(worstFreshness([])).toEqual({ freshness: "fresh", ageDays: 0 });
   });
 
   it("recalculates the two report examples under value-v1", () => {
@@ -105,6 +145,7 @@ describe("ranking tie breakers", () => {
     monthlyCostKrw: 3000,
     valueIndex: 100,
     freshness: "fresh",
+    ageDays: 0,
     coverage: [],
   };
 

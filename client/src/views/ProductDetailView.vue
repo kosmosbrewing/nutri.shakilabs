@@ -2,9 +2,11 @@
 import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
+import PriceFreshnessBadge from "@/components/common/PriceFreshnessBadge.vue";
 import SourceCard from "@/components/evidence/SourceCard.vue";
 import ProductNutritionTable from "@/components/product/ProductNutritionTable.vue";
 import ProductAlternatives from "@/components/product/ProductAlternatives.vue";
+import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
 import { useRecentProducts } from "@/composables/useRecentProducts";
@@ -23,6 +25,11 @@ const detail = computed(() => {
   if (!currentSlug.success) return null;
   const item = allItems.find((candidate) => candidate.product.slug === currentSlug.slug);
   return item ? buildProductDetail(nutriDataset, item) : null;
+});
+const { resolve: resolveFreshness } = usePriceFreshness();
+const priceFreshness = computed(() => {
+  const capturedAt = detail.value?.item.offer.capturedAt;
+  return capturedAt ? resolveFreshness(capturedAt) : null;
 });
 const pageError = computed(() => dataError
   ?? (slugResult.value.success ? null : slugResult.value.detail)
@@ -128,7 +135,7 @@ function trackOfferClick(): void {
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">필수 배송비</dt><dd class="font-semibold">{{ formatWon(detail.item.offer.mandatoryShippingKrw) }}</dd></div>
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">묶음 수량</dt><dd class="font-semibold">{{ detail.item.offer.quantityMultiplier }}개</dd></div>
               <div class="flex justify-between gap-3"><dt class="text-muted-foreground">총 복용일</dt><dd class="font-semibold">{{ detail.item.product.totalDays * detail.item.offer.quantityMultiplier }}일</dd></div>
-              <div class="flex justify-between gap-3 border-t border-border pt-3"><dt class="text-muted-foreground">확인일</dt><dd class="font-semibold">{{ detail.item.offer.capturedAt }}</dd></div>
+              <div class="flex justify-between gap-3 border-t border-border pt-3"><dt class="text-muted-foreground">확인일</dt><dd class="flex flex-wrap items-center justify-end gap-2 font-semibold"><PriceFreshnessBadge v-if="priceFreshness" :freshness="priceFreshness.freshness" :age-days="priceFreshness.ageDays" /><span>{{ detail.item.offer.capturedAt }}</span></dd></div>
               <div v-if="priceTrend" class="flex justify-between gap-3"><dt class="text-muted-foreground">{{ priceTrend.baselineDateLabel }} 대비 1일 비용</dt><dd class="font-semibold tabular-nums" :class="priceTrend.changePercent < -0.5 ? 'text-primary' : priceTrend.changePercent > 0.5 ? 'text-status-warning' : ''">{{ formatTrendPercent(priceTrend.changePercent) }}</dd></div>
             </dl>
             <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="detail.item.offer.url" rel="noopener noreferrer" target="_blank" @click="trackOfferClick">
