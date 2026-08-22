@@ -46,7 +46,7 @@ monthlyCost = dailyCost * 30
 - 순위는 같은 카테고리 안에서 `unitPrice`가 낮은 순서다.
 - 핵심 성분 외 영양소, 원료 형태, 흡수율, 알약 크기와 개인 적합성은 점수에 반영하지 않는다.
 - 낮은 단위가격이나 높은 함량을 복용 권장으로 해석하지 않도록 모든 비교 영역에 고지를 표시한다.
-- 품절, 30일 초과 가격, 공식 신고번호·핵심 함량·총 복용일수 중 하나라도 불명확한 제품은 제외한다.
+- 품절, 공식 신고번호·핵심 함량·총 복용일수 중 하나라도 불명확한 제품은 제외한다. 30일 초과 가격은 `overdueBehavior`를 따른다.
 - 동점은 confidence, 가격 확인일, 제품명 순으로 정렬한다.
 
 ## category-value-v1
@@ -151,7 +151,7 @@ type SourceEvidence = {
 - 전체 라벨 근거가 있어 `absent`와 `unknown`을 구분할 수 있다.
 - 필수 목표 영양소의 `unknown`이 0개다.
 - 가격, 배송비, 패키지 배수가 확인된다.
-- 가격 확인일이 30일 이내다.
+- 가격 확인일이 30일 이내다. 초과 시 `overdueBehavior`에 따라 경고 동반 유지 또는 제외로 갈린다.
 - 모든 영양소와 가격에 source evidence가 연결된다.
 - confidence가 A 또는 B다. C는 상세 열람만 가능하고 랭킹에서 제외한다.
 
@@ -193,7 +193,11 @@ valueIndex(i) = 100 × coverageScore(i) / dailyCost(i)
 - 기본 가격은 비회원이 조건 없이 결제 가능한 판매가다.
 - 필수 배송비는 포함하고 선택 배송·적립금은 제외한다.
 - 회원가, 카드 할인, 쿠폰, 구독 할인은 기본 점수에서 제외한다.
-- 14일 초과는 `갱신 필요`, 30일 초과는 `stale`로 랭킹 제외한다.
+- 신선도 기준의 단일 출처는 `client/src/data/freshness.json`이다. `capturedAt`(재수집일), `asOf`(빌드가 평가하는 날짜), 임계값, `overdueBehavior`를 여기서만 정의하고 화면 문구·게이트가 모두 이 값을 다시 읽는다.
+- 14일 초과는 `refresh_required`(갱신 필요 배지), 30일 초과는 `overdue`로 표시한다.
+- `overdueBehavior: "grace"`(현행)에서 `overdue` 오퍼는 순위에 남고 경고를 동반한다. `"exclude"`로 바꾸면 랭킹에서 제외되며, 공개 문구도 같은 값에서 자동으로 바뀐다.
+- `asOf`는 데이터셋 자신의 `updatedAt`이 아니다. 자기참조로 두면 age가 0에 고정돼 규칙이 영원히 발동하지 않는다(2026-08 수정 이력).
+- `client/scripts/verify-price-freshness.mjs`가 렌더된 dist에서 배지·경고·문구를 추출해 이 규칙과 대조하며, 어긋나면 빌드를 세운다.
 - 품절 오퍼는 즉시 제외하고 다음 검증 오퍼를 사용한다.
 
 ## 신뢰도
@@ -211,6 +215,7 @@ valueIndex(i) = 100 × coverageScore(i) / dailyCost(i)
 - 배송비 포함 가격
 - 세트 수량과 총복용일수
 - `unknown` 점수 거부와 `absent` 0 처리
-- 14일·30일 가격 경계
+- 14일·30일 가격 경계와 `overdue` 상태의 순위 유지 여부
+- 공개 문구(`priceFreshnessRules`)와 `overdueBehavior`의 일치
 - 동점 정렬
 - 보고서 예제 2개를 재검증한 golden fixture

@@ -1,5 +1,6 @@
 import type { ExtractionMethod, SourceEvidence, SourceType } from "./types";
 import { TARGET_SOURCE_ID } from "./nutrients";
+import { PRICE_CAPTURED_AT } from "./price-freshness";
 
 const publicRows = [
   ["centrum-men-50", "센트룸포맨(50정)", "78bb0042f865115077874a555c96df3a5f554e76807cd7e5712569ec33c6001f"],
@@ -56,7 +57,8 @@ const publicSources: SourceEvidence[] = publicRows.map(([productId, title, hash]
   fields: ["officialName", "reportNo", "manufacturer", "serving"],
 }));
 
-// 가격 근거는 2026-07-29 전량 재수집·재해시. 성분표 근거는 07-10 검증본 유지(당일 미재확인).
+// Price evidence was re-captured and re-hashed in bulk on PRICE_CAPTURED_AT.
+// Label evidence keeps its 2026-07-10 verification date (not re-checked that day).
 const PRICE_SOURCE_IDS = new Set([
   "centrum-men-evidence", "centrum-women-price", "centrum-silver-men-evidence",
   "centrum-silver-women-evidence", "alive-men-price", "alive-women-evidence",
@@ -64,7 +66,7 @@ const PRICE_SOURCE_IDS = new Set([
 ]);
 const evidenceSources: SourceEvidence[] = evidenceSpecs.map((source) => ({
   id: source.id, productId: source.productId, type: source.type, title: source.title,
-  url: source.url, verifiedAt: PRICE_SOURCE_IDS.has(source.id) ? "2026-07-29" : "2026-07-10",
+  url: source.url, verifiedAt: PRICE_SOURCE_IDS.has(source.id) ? PRICE_CAPTURED_AT : "2026-07-10",
   rawHash: `sha256:${source.hash}`,
   extraction: source.extraction, fields: source.fields,
 }));

@@ -52,7 +52,7 @@
 
 - 데이터 변경은 원문 URL, 확인일, 원문 hash, 검증자 메모를 남긴다.
 - `unknown` 영양값을 0으로 바꾸지 않는다.
-- 가격이 30일보다 오래되면 랭킹에서 제외한다.
+- 신선도 규칙의 단일 출처는 `client/src/data/freshness.json`이다. 가격이 30일보다 오래되면 순위에는 남기되 "기준일 경과" 경고를 붙인다(`overdueBehavior: grace`). 제외로 되돌리려면 `overdueBehavior`를 `exclude`로 바꾼다 — 문구는 자동으로 따라간다.
 - 단위가격 오퍼 27개의 최근 확인일은 2026-07-11이며 품절·회원가·쿠폰가는 제외한다.
 - 점수 산식 버전을 데이터와 함께 노출한다.
 - Launch queue는 완료됐으며 후속 작업은 `ISSUES.md` deferred 조건과 `docs/RALPH_LOOP_PLAN.md` gate에 따라 한 이슈씩 진행한다.

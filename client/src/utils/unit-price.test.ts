@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { PRICE_AS_OF, PRICE_CAPTURED_AT } from "@/data/price-freshness";
 import unitPriceDatasetInput from "@/data/unit-price-products.json";
+import { getPriceAgeDays } from "./scoring";
 import {
   formatPriceEfficiency,
   isRankingEligible,
@@ -132,7 +134,40 @@ describe("unit-price-v1 scoring", () => {
     expect(resolveUnitPriceRanking("../calcium", "2026-07-29")).toBeNull();
   });
 
-  it("excludes prices older than 30 days", () => {
-    expect(resolveUnitPriceRanking("calcium", "2026-08-29")?.scores).toHaveLength(0);
+  it("keeps prices past the 30-day window ranked and flags them instead", () => {
+    // The published rule used to say these drop out, but the freshness clock compared the
+    // dataset against its own capture date so the branch was unreachable. The rule now
+    // grants an explicit grace period, and every card must carry the overdue state.
+    const ranking = resolveUnitPriceRanking("calcium", "2026-08-29");
+    expect(ranking?.scores).toHaveLength(5);
+    expect(ranking?.freshness).toBe("overdue");
+    expect(ranking?.ageDays).toBe(31);
+    expect(ranking?.scores.every((score) => score.freshness === "overdue")).toBe(true);
+    expect(ranking?.asOf).toBe("2026-08-29");
+  });
+
+  it("evaluates freshness against the injected build date, not the dataset's own date", () => {
+    const ranking = resolveUnitPriceRanking("calcium");
+    expect(ranking?.asOf).toBe(PRICE_AS_OF);
+    expect(ranking?.ageDays).toBe(getPriceAgeDays(PRICE_CAPTURED_AT, PRICE_AS_OF));
+    // The regression this replaces: asOf defaulted to the dataset updatedAt, pinning age at 0.
+    expect(ranking?.ageDays).toBe(
+      Math.round((Date.parse(`${PRICE_AS_OF}T00:00:00Z`) - Date.parse(`${PRICE_CAPTURED_AT}T00:00:00Z`)) / 86_400_000),
+    );
+  });
+
+  it("moves every card through the published boundaries as the build date advances", () => {
+    const boundaries = [
+      { asOf: "2026-07-29", expected: "fresh" },
+      { asOf: "2026-08-12", expected: "fresh" },
+      { asOf: "2026-08-13", expected: "refresh_required" },
+      { asOf: "2026-08-28", expected: "refresh_required" },
+      { asOf: "2026-08-29", expected: "overdue" },
+    ] as const;
+    for (const { asOf, expected } of boundaries) {
+      const ranking = resolveUnitPriceRanking("calcium", asOf);
+      expect(ranking?.scores).toHaveLength(5);
+      expect(ranking?.freshness).toBe(expected);
+    }
   });
 });

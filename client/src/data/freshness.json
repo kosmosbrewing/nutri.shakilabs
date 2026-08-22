@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "price-freshness-v1",
+  "capturedAt": "2026-07-29",
+  "asOf": "2026-08-22",
+  "refreshRequiredAfterDays": 14,
+  "overdueAfterDays": 30,
+  "overdueBehavior": "grace"
+}

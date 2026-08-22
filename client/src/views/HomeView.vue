@@ -3,16 +3,19 @@ import { computed, onMounted, ref } from "vue";
 import { ShSurface } from "@shakilabs/ui";
 import SiteHeader from "@/components/SiteHeader.vue";
 import HomeCategorySection from "@/components/category/HomeCategorySection.vue";
+import PriceFreshnessNotice from "@/components/common/PriceFreshnessNotice.vue";
 import ComparisonTray from "@/components/compare/ComparisonTray.vue";
 import RankingCard from "@/components/ranking/RankingCard.vue";
 import RankingFilters from "@/components/ranking/RankingFilters.vue";
 import { useComparison } from "@/composables/useComparison";
+import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { useRanking } from "@/composables/useRanking";
 import { useRecentProducts } from "@/composables/useRecentProducts";
 import { nutriDataset } from "@/data/dataset";
 import { trackAnalytics } from "@/utils/analytics";
 import { formatScore, formatWon } from "@/utils/ranking";
 import type { RankingFilterKey } from "@/utils/ranking";
+import { worstFreshness } from "@/utils/scoring";
 
 const {
   allItems,
@@ -40,6 +43,9 @@ function expandRanking(): void {
 
 const topItem = allItems[0];
 const updatedAtLabel = nutriDataset.updatedAt.replaceAll("-", ".");
+const { resolve: resolveFreshness } = usePriceFreshness();
+const rankingFreshness = computed(() =>
+  worstFreshness(allItems.map((item) => resolveFreshness(item.offer.capturedAt))));
 // Client-only strip; empty on SSR so the server HTML is identical for every visitor.
 const { recentIds } = useRecentProducts(allItems.map((item) => item.product.id));
 const recentItems = computed(() => recentIds.value
@@ -158,6 +164,12 @@ onMounted(() => {
             성분별 기준 충족률은 100%에서 상한 처리합니다.
           </p>
         </div>
+
+        <PriceFreshnessNotice
+          class="mb-5"
+          :freshness="rankingFreshness.freshness"
+          :age-days="rankingFreshness.ageDays"
+        />
 
         <RankingFilters
           :brands="brands"

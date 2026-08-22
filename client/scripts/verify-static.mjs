@@ -265,3 +265,4 @@ const contrastChecks = verifyTokenContrast({ distRoot, assert });
 
 console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, noindex 404, and ${contrastChecks} shipped color-contrast pairs.`);
 await import("./verify-unit-price-pages.mjs");
+await import("./verify-price-freshness.mjs");
