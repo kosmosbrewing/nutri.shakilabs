@@ -47,9 +47,20 @@
     --status-warning: 24 83% 31%; /* 6.91:1 */
     --status-danger: 0 70% 48%; /* 5.19:1 */
     --status-info: 212 83% 42%; /* 5.58:1 */
+    /* @shakilabs/ui derives --sh-color-danger / --sh-color-on-danger from these two.
+       While they were undeclared the package fell back to its own literals
+       (0 72% 45% / 0 0% 100%), which nothing in this app could gate. Own them here,
+       reusing the --status-danger literal so there is one danger colour per theme. */
+    --destructive: 0 70% 48%; /* 5.14:1 on --background */
+    --destructive-foreground: 0 0% 100%; /* 5.23:1 on --destructive */
     --radius: 0.7rem;
   }
 
+  /* Dormant palette. Nothing puts `.dark` on <html>, and Tailwind purges this block
+     out of the shipped bundle because no source file references the class, so these
+     values are never painted today. verify-token-contrast checks them from source
+     anyway: whoever wires a theme toggle later should inherit a palette that already
+     passes, not one that quietly rotted while unused. */
   .dark {
     --background: 84 28% 8%;
     --foreground: 72 30% 95%;
@@ -66,6 +77,8 @@
     --status-warning: 43 95% 70%;
     --status-danger: 0 86% 73%;
     --status-info: 205 90% 72%;
+    --destructive: 0 86% 73%; /* 7.01:1 on dark --background */
+    --destructive-foreground: 0 60% 12%; /* 6.92:1 on dark --destructive */
   }
 
   body {
