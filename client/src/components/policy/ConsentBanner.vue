@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { ShSurface } from "@shakilabs/ui";
 import { useConsent } from "@/composables/useConsent";
 
 const { decide, decision, ready } = useConsent();
 </script>
 
 <template>
-  <ShSurface
+  <!-- Plain <section>, not ShSurface. This bar is an inverted palette: dark surface,
+       light type. @shakilabs/ui ships after main.css and its `.sh-surface--plain`
+       sets `background: transparent` at the same specificity as `bg-foreground`,
+       so the utility loses on source order and the dark bar never paints. Only the
+       children keep `text-background`, which left light text on the light page
+       background at a measured 1.00:1. ShSurface adds nothing else here. -->
+  <section
     v-if="ready && decision === null"
-    as="section"
-    variant="plain"
-    padding="none"
     aria-labelledby="analytics-consent-title"
     aria-live="polite"
     class="border-b border-primary/30 bg-foreground text-background"
@@ -33,5 +35,5 @@ const { decide, decision, ready } = useConsent();
         </button>
       </div>
     </div>
-  </ShSurface>
+  </section>
 </template>

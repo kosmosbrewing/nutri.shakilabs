@@ -9,6 +9,7 @@ import {
   shippedFontBudgets,
 } from "./font-subset-config.mjs";
 import { verifyDeployment } from "./verify-deployment.mjs";
+import { verifyRouterSitemap } from "./verify-router-sitemap.mjs";
 import { verifyTokenContrast } from "./verify-token-contrast.mjs";
 
 const scriptRoot = dirname(fileURLToPath(import.meta.url));
@@ -261,8 +262,12 @@ assert(appHeaders.some((header) => header.key === "X-Content-Type-Options"), "Mi
 const fontCache = vercel.headers?.find((rule) => rule.source === "/fonts/(.*)")?.headers ?? [];
 assert(!fontCache.some((header) => header.value.includes("immutable")), "Fixed font URLs must revalidate");
 
-const contrastChecks = verifyTokenContrast({ distRoot, assert });
+const contrastChecks = verifyTokenContrast({ distRoot, clientRoot, assert });
+// 위 사이트맵 어서션은 verify-static이 들고 있는 손목록과만 대조한다. 라우터가 진실의
+// 원천인지는 따로 봐야 한다 — 라우터에만 추가된 라우트는 그 손목록에도 없기 때문이다.
+const routerSitemap = verifyRouterSitemap({ clientRoot, distRoot, siteBase, assert });
 
-console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, noindex 404, and ${contrastChecks} shipped color-contrast pairs.`);
+console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, noindex 404, and ${contrastChecks} color-contrast pairs.`);
+console.log(`Router/sitemap cross-check: ${routerSitemap.staticChecked} static routes vs ${routerSitemap.sitemapUrls} sitemap URLs, both directions.`);
 await import("./verify-unit-price-pages.mjs");
 await import("./verify-price-freshness.mjs");
