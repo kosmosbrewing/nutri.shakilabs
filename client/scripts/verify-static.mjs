@@ -271,3 +271,4 @@ console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categorie
 console.log(`Router/sitemap cross-check: ${routerSitemap.staticChecked} static routes vs ${routerSitemap.sitemapUrls} sitemap URLs, both directions.`);
 await import("./verify-unit-price-pages.mjs");
 await import("./verify-price-freshness.mjs");
+await import("./verify-utility-emission.mjs");
