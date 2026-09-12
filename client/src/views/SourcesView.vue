@@ -17,10 +17,16 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
   category,
   products: category.products,
 }));
-// Every retailer URL this page renders; the input deciding whether the disclosure shows.
+// Every outbound URL this page actually renders as an anchor; the input deciding whether the
+// disclosure shows. nutriDataset.offers is deliberately absent: this page links their evidence
+// sources, not the offers themselves, and claiming otherwise would show the notice on a page
+// with no affiliate link.
 const offerUrls = [
-  ...nutriDataset.offers.map((offer) => offer.url),
-  ...unitPriceDataset.categories.flatMap((category) => category.products.map((product) => product.offer.url)),
+  ...nutriDataset.sources.map((source) => source.url),
+  ...unitPriceDataset.categories.flatMap((category) => category.products.flatMap((product) => [
+    product.offer.url,
+    product.officialSourceUrl,
+  ])),
 ];
 </script>
 
