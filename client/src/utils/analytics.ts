@@ -27,9 +27,14 @@ const eventSchema = z.discriminatedUnion("name", [
     name: z.literal("source_open"),
     source_type: z.enum(["public_api", "manufacturer_label", "official_store", "retailer"]),
   }).strict(),
+  // 제휴 클릭 측정. product_slug·retailer는 "어느 제품의 어느 판매처에서 수익이 나는가"를
+  // 보기 위한 값이고, affiliate는 그 클릭이 실제로 수수료 대상이었는지를 남긴다
+  // (파트너스 ID 미주입 빌드에서는 항상 false).
   z.object({
     name: z.literal("affiliate_click"),
     product_id: z.string().regex(/^[a-z0-9-]+$/).max(80),
+    product_slug: z.string().regex(/^[a-z0-9-]+$/).max(80),
+    retailer: z.string().min(1).max(80),
     seller: z.string().min(1).max(80),
     affiliate: z.boolean(),
   }).strict(),

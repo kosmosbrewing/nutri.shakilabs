@@ -1,6 +1,11 @@
 // Long-form Korean policy copy lives in this .ts module instead of .vue templates.
 // Why: the brand font subset collects glyphs from every .vue file and its 64 KiB
 // budget is nearly full, while .ts files only feed the body font subsets.
+import {
+  linkHandlingParagraph,
+  revenueModelParagraph,
+  sellerNeutralityParagraph,
+} from "./affiliate-disclosure";
 
 export interface PolicySection {
   title: string;
@@ -110,11 +115,12 @@ export const aboutExtraSections: PolicySection[] = [
 ];
 
 // Disclosure: 수익 모델 현황·광고 배치·이해관계 변동 절차. 필수 문구는 뷰에 그대로 둔다.
+// 제휴 여부에 따라 참·거짓이 갈리는 문장은 손으로 적지 않고 affiliate-disclosure.ts에서 파생시킨다.
 export const disclosureExtraSections: PolicySection[] = [
   {
     title: "수익 구조",
     paragraphs: [
-      "현재 이 사이트의 수익원은 광고 하나뿐입니다. 판매 페이지로 나가는 링크에서는 수수료를 받지 않고, 제조사·판매자에게 게재비나 원고료를 받지 않습니다. 유료 회원이나 데이터 판매도 하지 않습니다.",
+      revenueModelParagraph,
       "광고 수익은 조회수에서 나오지만, 순위를 흔들어 조회수를 올리는 방식은 쓰지 않습니다. 순위를 만드는 입력값은 공개 가격, 필수 배송비, 총 복용일수, 공식 함량 네 가지뿐이며 광고 성과는 어떤 계산에도 들어가지 않습니다.",
     ],
   },
@@ -129,7 +135,7 @@ export const disclosureExtraSections: PolicySection[] = [
   {
     title: "판매 링크를 다루는 방식",
     paragraphs: [
-      "판매처 링크는 가격을 확인한 바로 그 화면으로 보냅니다. 중간에 추적 주소를 끼우거나 방문자를 구분하는 값을 붙이지 않으므로, 링크를 눌러도 이 사이트가 누가 무엇을 샀는지 알 수 없습니다.",
+      linkHandlingParagraph,
       "가격이 바뀌어 링크와 화면의 값이 어긋나면 링크를 고치는 대신 값을 다시 확인해 기록합니다. 확인일이 지나 근거가 약해진 값은 순위에 남기더라도 재확인 전이라는 경고를 함께 달아, 옛 가격을 최신인 것처럼 보여 주지 않습니다.",
     ],
   },
@@ -138,7 +144,7 @@ export const disclosureExtraSections: PolicySection[] = [
     paragraphs: [
       "제조사나 판매자가 순위를 올려 달라고 요청해도 반영하지 않습니다. 제품을 목록에 넣는 기준은 공식 등록 정보와 전체 라벨, 그리고 확인 가능한 판매 조건을 모두 갖췄는지 하나뿐입니다.",
       "광고를 많이 붙일 수 있는 종류라고 해서 더 앞에 두거나, 광고가 붙지 않는 종류를 뒤로 미루지 않습니다. 종류 목록의 순서는 공식 등록 건수와 근거가 찬 정도로만 정합니다.",
-      "판매 링크는 값을 확인한 원문으로 연결하기 위한 것입니다. 그 링크에서 무엇을 사든 이 사이트의 수익은 달라지지 않으므로, 특정 판매처로 몰아 보낼 이유가 없습니다.",
+      sellerNeutralityParagraph,
     ],
   },
   {

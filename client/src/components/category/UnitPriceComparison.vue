@@ -2,10 +2,14 @@
 import { computed } from "vue";
 import PriceFreshnessBadge from "@/components/common/PriceFreshnessBadge.vue";
 import PriceFreshnessNotice from "@/components/common/PriceFreshnessNotice.vue";
+import AffiliateNotice from "@/components/common/AffiliateNotice.vue";
 import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { worstFreshness } from "@/utils/scoring";
 import type { UnitPriceRanking, UnitPriceScore } from "@/utils/unit-price";
 import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon, isRankingEligible } from "@/utils/unit-price";
+import { isAffiliateLink, outboundRel, outboundUrl, retailerOf } from "@/utils/affiliate";
+import { linkBadgeLabel } from "@/data/affiliate-disclosure";
+import { trackAnalytics } from "@/utils/analytics";
 
 const props = defineProps<{ ranking: UnitPriceRanking }>();
 const ranked = computed(() => isRankingEligible(props.ranking));
@@ -20,6 +24,29 @@ const sectionFreshness = computed(() => worstFreshness(props.ranking.scores.map(
 
 function totalDaysLabel(score: UnitPriceScore): string {
   return `총 ${score.totalDays.toLocaleString("ko-KR")}일분`;
+}
+
+// Every retailer URL this section actually renders; the disclosure shows only if one is affiliate.
+const offerUrls = computed(() => props.ranking.scores.map((score) => score.product.offer.url));
+
+// Unit-price products have no route slug; the id is the stable identifier for that slot.
+function offerHref(score: UnitPriceScore): string {
+  return outboundUrl(score.product.offer.url, score.product.id);
+}
+
+function offerAffiliate(score: UnitPriceScore): boolean {
+  return isAffiliateLink(score.product.offer.url) || score.product.offer.affiliate;
+}
+
+function trackOfferClick(score: UnitPriceScore): void {
+  trackAnalytics({
+    name: "affiliate_click",
+    product_id: score.product.id,
+    product_slug: score.product.id,
+    retailer: retailerOf(score.product.offer.url),
+    seller: score.product.offer.seller,
+    affiliate: offerAffiliate(score),
+  });
 }
 </script>
 
@@ -57,6 +84,8 @@ function totalDaysLabel(score: UnitPriceScore): string {
         :freshness="sectionFreshness.freshness"
         :age-days="sectionFreshness.ageDays"
       />
+
+      <AffiliateNotice class="mb-5" :urls="offerUrls" />
 
       <!-- 멀티비타민 RankingCard와 동일한 행 리스트 문법 -->
       <ol class="ranking-list mt-5 space-y-3">
@@ -119,10 +148,11 @@ function totalDaysLabel(score: UnitPriceScore): string {
                 <div class="flex flex-wrap justify-end gap-1.5 min-[900px]:mt-2">
                   <a
                     class="touch-target inline-flex items-center rounded-lg border border-border px-2.5 text-xs font-semibold hover:border-primary hover:text-primary"
-                    :href="score.product.offer.url"
-                    rel="noopener noreferrer"
+                    :href="offerHref(score)"
+                    :rel="outboundRel(score.product.offer.url)"
                     target="_blank"
                     data-unit-price-source="price"
+                    @click="trackOfferClick(score)"
                   >가격 원문</a>
                   <a
                     class="touch-target inline-flex items-center rounded-lg border border-border px-2.5 text-xs font-semibold hover:border-primary hover:text-primary"
@@ -141,7 +171,7 @@ function totalDaysLabel(score: UnitPriceScore): string {
                   :freshness="freshnessOf(score).freshness"
                   :age-days="freshnessOf(score).ageDays"
                 />
-                <span>가격 확인 {{ score.product.offer.capturedAt.replaceAll("-", ".") }} · {{ score.product.offer.seller }} · 비제휴 링크</span>
+                <span>가격 확인 {{ score.product.offer.capturedAt.replaceAll("-", ".") }} · {{ score.product.offer.seller }} · {{ linkBadgeLabel(offerAffiliate(score)) }}</span>
               </span>
               <span>신고번호 {{ score.product.reportNo }}</span>
             </div>

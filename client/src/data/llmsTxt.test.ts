@@ -3,6 +3,8 @@ import llmsTxt from "../../public/llms.txt?raw";
 import { OVERDUE_AFTER_DAYS, PRICE_CAPTURED_AT, REFRESH_REQUIRED_AFTER_DAYS } from "./price-freshness";
 import { publicDataSnapshot } from "./public-snapshot";
 import { routes } from "@/router";
+// @ts-expect-error — 빌드 스크립트 ESM 모듈(타입 선언 없음)
+import { FORBIDDEN_BLANKET_CLAIMS } from "../../scripts/affiliate-honesty-rules.mjs";
 
 // llms.txt는 크롤러가 읽는 정적 텍스트라 빌드 시 아무것도 생성해주지 않는다. 여기서
 // 실제 코드가 읽는 상수를 import해 텍스트와 직접 대조해야 한다 — 날짜를 손으로 옮겨 적으면
@@ -53,6 +55,18 @@ describe("client/public/llms.txt", () => {
     });
 
     expect(offendingLines).toEqual([]);
+  });
+
+  // llms.txt는 정적 파일 하나라 제휴 빌드와 비제휴 빌드가 같은 텍스트를 받는다.
+  // 따라서 제휴 상태를 단정하면 둘 중 한쪽에서 반드시 거짓이 된다 — 양쪽에서 참인 문장만 쓴다.
+  it("제휴 여부를 사이트 전역으로 단정하지 않는다", () => {
+    const offending = (FORBIDDEN_BLANKET_CLAIMS as string[]).filter((claim) => llmsTxt.includes(claim));
+    expect(offending).toEqual([]);
+  });
+
+  it("제휴 링크 표시 규칙과 순위 독립성을 함께 적는다", () => {
+    expect(llmsTxt).toContain("쿠팡 파트너스 제휴 링크일 수 있습니다");
+    expect(llmsTxt).toContain("순위 산식은 광고비·제휴 여부·판매자 수수료를 입력값으로 쓰지 않습니다");
   });
 
   it("가격 확인일·공공데이터 기준일·갱신 규칙 일수가 실제 상수와 같다", () => {

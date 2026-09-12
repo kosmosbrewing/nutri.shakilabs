@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { siteLinkNoteShort } from "@/data/affiliate-disclosure";
 
 const props = withDefaults(
   defineProps<{
@@ -19,7 +20,7 @@ const prefersReducedMotion = ref(false);
 const safeMessages = computed(() =>
   props.messages.length > 0
     ? props.messages
-    : ["모든 가격 링크는 비제휴입니다."]
+    : [siteLinkNoteShort]
 );
 
 const currentMessage = computed(

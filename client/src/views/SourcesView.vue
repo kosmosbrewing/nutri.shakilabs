@@ -4,6 +4,9 @@ import SourceCard from "@/components/evidence/SourceCard.vue";
 import { nutriDataset } from "@/data/dataset";
 import { publicDataSnapshot } from "@/data/public-snapshot";
 import { formatUnitPriceAmount, unitPriceDataset } from "@/utils/unit-price";
+import AffiliateNotice from "@/components/common/AffiliateNotice.vue";
+import { isAffiliateLink, outboundRel, outboundUrl } from "@/utils/affiliate";
+import { linkBadgeLabel } from "@/data/affiliate-disclosure";
 
 const generalSources = nutriDataset.sources.filter((source) => source.productId === null);
 const productGroups = nutriDataset.products.map((product) => ({
@@ -14,6 +17,11 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
   category,
   products: category.products,
 }));
+// Every retailer URL this page renders; the input deciding whether the disclosure shows.
+const offerUrls = [
+  ...nutriDataset.offers.map((offer) => offer.url),
+  ...unitPriceDataset.categories.flatMap((category) => category.products.map((product) => product.offer.url)),
+];
 </script>
 
 <template>
@@ -30,6 +38,8 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
         <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">숫자마다 원문과 확인일을 연결합니다</h1>
         <p class="mt-5 break-keep text-base leading-7 text-muted-foreground">공공데이터는 제품 식별의 기준축으로, 제조사·판매 페이지는 전체 라벨과 가격의 보강 근거로 사용합니다. 원문 이미지 대신 구조화 값과 링크, 검증 해시를 보관합니다.</p>
       </header>
+
+      <AffiliateNotice class="mt-5" :urls="offerUrls" />
 
       <section class="mt-8 surface-panel overflow-hidden" aria-labelledby="snapshot-title">
         <div class="grid gap-px bg-border/70 sm:grid-cols-[1.6fr_repeat(3,0.8fr)]">
@@ -69,10 +79,10 @@ const unitPriceGroups = unitPriceDataset.categories.map((category) => ({
                 </div>
                 <h3 class="mt-4 break-keep text-sm font-semibold leading-6">{{ product.displayName }}</h3>
                 <p class="mt-2 text-xs leading-5 text-muted-foreground">신고번호 <span class="break-all">{{ product.reportNo }}</span> · 1일 {{ formatUnitPriceAmount(product.dailyActiveAmount, product.activeUnit) }}</p>
-                <p class="mt-1 text-xs text-muted-foreground">가격 확인 {{ product.offer.capturedAt }} · 비제휴</p>
+                <p class="mt-1 text-xs text-muted-foreground">가격 확인 {{ product.offer.capturedAt }} · {{ linkBadgeLabel(isAffiliateLink(product.offer.url)) }}</p>
                 <div class="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
                   <a class="touch-target inline-flex items-center text-primary" :href="product.officialSourceUrl" target="_blank" rel="noopener noreferrer">신고번호 검색 ↗</a>
-                  <a class="touch-target inline-flex items-center text-primary" :href="product.offer.url" target="_blank" rel="noopener noreferrer">가격 원문 ↗</a>
+                  <a class="touch-target inline-flex items-center text-primary" :href="outboundUrl(product.offer.url, product.id)" target="_blank" :rel="outboundRel(product.offer.url)">가격 원문 ↗</a>
                 </div>
               </article>
             </div>
