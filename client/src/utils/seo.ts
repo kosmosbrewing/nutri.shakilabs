@@ -9,6 +9,10 @@ import { parseProductSlug } from "./product-detail";
 const SITE_BASE = "https://shakilabs.com/nutri";
 const OG_IMAGE = `${SITE_BASE}/og-image.png`;
 const UPDATED_AT = PRICE_CAPTURED_AT;
+// 정본 title 레시피(§11.1): {페이지} | {카테고리} | ShakiLabs.
+// "영양만점"은 상품명이라 카테고리 자리에 단독으로 쓰지 않는다(금지 패턴).
+const TITLE_CATEGORY = "영양제 가격 비교";
+const TITLE_BRAND_SUFFIX = ` | ${TITLE_CATEGORY} | ShakiLabs`;
 const routeInputSchema = z.object({
   name: z.string(),
   slug: z.unknown().optional(),
@@ -56,7 +60,7 @@ const validSlugs = seoProducts.map((product) => product.slug);
 function homePage(): SeoPage {
   const description = "식약처 제공 데이터로 10개 영양제 종류를 탐색하고, 9개 종류의 가격효율·단위가격과 멀티비타민 10개의 배송비 포함 영양효율을 비교합니다.";
   return {
-    title: "영양제 종류·멀티비타민 가격 비교 | 영양만점",
+    title: "영양제 종류·멀티비타민 가격 비교 | ShakiLabs",
     description,
     canonical: canonical("/"),
     robots: "index,follow",
@@ -104,7 +108,7 @@ function productPage(slugInput: unknown): SeoPage | null {
   const path = `/products/${product.slug}`;
   const description = `${product.name}의 배송비 포함 1일 비용 ${product.dailyCostLabel}, 23개 영양소 충족도 ${product.coverageLabel}와 신고번호·라벨·가격 출처를 확인하세요.`;
   return {
-    title: `${product.name} 성분·1일 가격 | 영양만점`,
+    title: `${product.name} 성분·1일 가격${TITLE_BRAND_SUFFIX}`,
     description,
     canonical: canonical(path),
     robots: "index,follow",
@@ -168,7 +172,7 @@ function contentPage(
 
 function notFoundPage(): SeoPage {
   return {
-    title: "페이지를 찾을 수 없습니다 | 영양만점",
+    title: `페이지를 찾을 수 없습니다${TITLE_BRAND_SUFFIX}`,
     description: "요청한 영양만점 페이지를 찾을 수 없습니다.",
     canonical: null,
     robots: "noindex,nofollow",

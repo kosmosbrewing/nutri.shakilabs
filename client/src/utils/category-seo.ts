@@ -34,7 +34,7 @@ export function resolveCategorySeoPage(slugInput: unknown): CategorySeoPage | nu
       ? `${category.name} 영양제 가격효율 비교`
       : `${category.name} 영양제 공식 등록 제품`;
   return {
-    title: `${pageName} | 영양만점`,
+    title: `${pageName} | 영양제 가격 비교 | ShakiLabs`,
     description,
     canonical: canonical(path),
     robots: "index,follow",
