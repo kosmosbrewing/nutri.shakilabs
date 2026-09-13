@@ -6,6 +6,7 @@ import PriceFreshnessBadge from "@/components/common/PriceFreshnessBadge.vue";
 import SourceCard from "@/components/evidence/SourceCard.vue";
 import ProductNutritionTable from "@/components/product/ProductNutritionTable.vue";
 import ProductAlternatives from "@/components/product/ProductAlternatives.vue";
+import AffiliateNotice from "@/components/common/AffiliateNotice.vue";
 import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { useRanking } from "@/composables/useRanking";
 import { nutriDataset } from "@/data/dataset";
@@ -15,6 +16,8 @@ import { buildProductNarrative } from "@/utils/product-narrative";
 import { buildPriceTrend, formatTrendPercent } from "@/utils/price-trend";
 import { formatScore, formatWon } from "@/utils/ranking";
 import { trackAnalytics } from "@/utils/analytics";
+import { isAffiliateLink, outboundRel, outboundUrl, retailerOf } from "@/utils/affiliate";
+import { offerLinkLabel } from "@/data/affiliate-disclosure";
 
 const route = useRoute();
 const { allItems, dataError } = useRanking();
@@ -52,13 +55,22 @@ watch(() => detail.value?.item.product.id, (productId) => {
   if (productId) recordVisit(productId);
 }, { immediate: true });
 
+const offerUrl = computed(() => detail.value?.item.offer.url ?? null);
+const offerHref = computed(() => (detail.value
+  ? outboundUrl(detail.value.item.offer.url, detail.value.item.product.slug)
+  : ""));
+const offerAffiliate = computed(() => Boolean(detail.value
+  && (isAffiliateLink(detail.value.item.offer.url) || detail.value.item.offer.affiliate)));
+
 function trackOfferClick(): void {
   if (!detail.value) return;
   trackAnalytics({
     name: "affiliate_click",
     product_id: detail.value.item.product.id,
+    product_slug: detail.value.item.product.slug,
+    retailer: retailerOf(detail.value.item.offer.url),
     seller: detail.value.item.offer.seller,
-    affiliate: detail.value.item.offer.affiliate,
+    affiliate: offerAffiliate.value,
   });
 }
 </script>
@@ -138,9 +150,10 @@ function trackOfferClick(): void {
               <div class="flex justify-between gap-3 border-t border-border pt-3"><dt class="text-muted-foreground">확인일</dt><dd class="flex flex-wrap items-center justify-end gap-2 font-semibold"><PriceFreshnessBadge v-if="priceFreshness" :freshness="priceFreshness.freshness" :age-days="priceFreshness.ageDays" /><span>{{ detail.item.offer.capturedAt }}</span></dd></div>
               <div v-if="priceTrend" class="flex justify-between gap-3"><dt class="text-muted-foreground">{{ priceTrend.baselineDateLabel }} 대비 1일 비용</dt><dd class="font-semibold tabular-nums" :class="priceTrend.changePercent < -0.5 ? 'text-primary' : priceTrend.changePercent > 0.5 ? 'text-status-warning' : ''">{{ formatTrendPercent(priceTrend.changePercent) }}</dd></div>
             </dl>
-            <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="detail.item.offer.url" rel="noopener noreferrer" target="_blank" @click="trackOfferClick">
-              가격 원문 · 비제휴 ↗
+            <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="offerHref" :rel="outboundRel(detail.item.offer.url)" target="_blank" @click="trackOfferClick">
+              {{ offerLinkLabel(offerAffiliate) }}
             </a>
+            <AffiliateNotice class="mt-3" :urls="offerUrl ? [offerUrl] : []" />
             <RouterLink class="touch-target mt-2 inline-flex w-full items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground" to="/methodology">
               점수 계산법 보기
             </RouterLink>

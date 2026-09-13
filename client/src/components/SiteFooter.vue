@@ -2,6 +2,7 @@
 import { RouterLink } from "vue-router";
 import { ShSiteFooter, ShText } from "@shakilabs/ui";
 import { FOOTER_SECTIONS } from "@/data/footerNav";
+import { siteLinkNote } from "@/data/affiliate-disclosure";
 
 const year = new Date().getFullYear();
 
@@ -21,7 +22,7 @@ const policyLinks = [
     app="nutri"
     :sections="FOOTER_SECTIONS"
     :policy-links="policyLinks"
-    note="현재 공개된 모든 가격 링크는 비제휴입니다."
+    :note="siteLinkNote"
     site-label="shakilabs.com/nutri"
     :copyright="`Copyright © ${year} shakilabs.com`"
     :link-component="RouterLink"

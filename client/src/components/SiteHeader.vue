@@ -8,6 +8,7 @@ import {
 import TickerBar from "@/components/common/TickerBar.vue";
 import { trackAnalytics } from "@/utils/analytics";
 import { formatUnitPriceWon, resolveUnitPriceRanking, unitPriceDataset } from "@/utils/unit-price";
+import { siteLinkNoteShort } from "@/data/affiliate-disclosure";
 
 interface NutriNavigationItem extends PrimaryNavigationItem {
   matchPaths: readonly string[];
@@ -20,7 +21,7 @@ const totalProducts = unitPriceDataset.categories.reduce((sum, category) => sum 
 const globalTickerMessages: readonly string[] = [
   `가격 확인 ${unitPriceDataset.updatedAt.replaceAll("-", ".")} · 검증 제품 ${totalProducts}개`,
   "전 종류 가격효율 순위 · 효능·품질 순위가 아닙니다",
-  "모든 가격 링크는 비제휴입니다",
+  siteLinkNoteShort,
 ];
 
 const tickerMessages = computed<readonly string[]>(() => {

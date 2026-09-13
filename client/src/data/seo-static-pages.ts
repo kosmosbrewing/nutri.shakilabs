@@ -1,3 +1,5 @@
+import { disclosureMetaDescription } from "./affiliate-disclosure";
+
 export interface SeoStaticPage {
   name: string;
   title: string;
@@ -59,7 +61,7 @@ export const seoStaticPages: SeoStaticPage[] = [
   {
     name: "Disclosure",
     title: "광고·제휴 공개 원칙 | 영양만점",
-    description: "현재 비제휴 상태와 자연 순위 독립성, 향후 제휴 링크·광고의 명확한 표시와 배치 원칙을 공개합니다.",
+    description: disclosureMetaDescription,
     path: "/disclosure",
     type: "WebPage",
   },

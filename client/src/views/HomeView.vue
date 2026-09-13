@@ -4,6 +4,7 @@ import { ShSurface } from "@shakilabs/ui";
 import SiteHeader from "@/components/SiteHeader.vue";
 import HomeCategorySection from "@/components/category/HomeCategorySection.vue";
 import PriceFreshnessNotice from "@/components/common/PriceFreshnessNotice.vue";
+import AffiliateNotice from "@/components/common/AffiliateNotice.vue";
 import ComparisonTray from "@/components/compare/ComparisonTray.vue";
 import RankingCard from "@/components/ranking/RankingCard.vue";
 import RankingFilters from "@/components/ranking/RankingFilters.vue";
@@ -16,6 +17,9 @@ import { trackAnalytics } from "@/utils/analytics";
 import { formatScore, formatWon } from "@/utils/ranking";
 import type { RankingFilterKey } from "@/utils/ranking";
 import { worstFreshness } from "@/utils/scoring";
+
+// Every retailer URL the ranking list renders; the input deciding whether the disclosure shows.
+const offerUrls = nutriDataset.offers.map((offer) => offer.url);
 
 const {
   allItems,
@@ -188,6 +192,8 @@ onMounted(() => {
           @reset="resetFilters"
           @update="handleFilterUpdate"
         />
+
+        <AffiliateNotice class="mt-5" :urls="offerUrls" />
 
         <div v-if="dataError || filterError" class="mt-5 rounded-xl border border-status-danger/30 bg-card p-5 text-sm text-status-danger" role="alert">
           데이터를 표시할 수 없습니다. {{ dataError ?? filterError }}

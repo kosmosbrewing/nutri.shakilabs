@@ -11,6 +11,7 @@ import {
 import { verifyDeployment } from "./verify-deployment.mjs";
 import { verifyRouterSitemap } from "./verify-router-sitemap.mjs";
 import { verifyTokenContrast } from "./verify-token-contrast.mjs";
+import { verifyAffiliateHonesty } from "./verify-affiliate-honesty.mjs";
 
 const scriptRoot = dirname(fileURLToPath(import.meta.url));
 const clientRoot = resolve(scriptRoot, "..");
@@ -220,8 +221,10 @@ assert((sourcesHtml.match(/data-source-card/g) ?? []).length === 25,
 const privacyHtml = read(resolve(distRoot, "privacy.html"));
 assert(privacyHtml.includes("nutri-analytics-consent"), "Privacy page must disclose local consent storage");
 const disclosureHtml = read(resolve(distRoot, "disclosure.html"));
-assert(disclosureHtml.includes("모든 가격·판매처 링크는 비제휴"),
-  "Disclosure page must state the current non-affiliate status");
+// 제휴 상태 단정은 빌드 모드에 따라 갈리므로 verifyAffiliateHonesty가 양쪽을 판정한다.
+// 여기서는 모드와 무관하게 늘 참이어야 하는 순위 독립성 선언만 고정한다.
+assert(disclosureHtml.includes("광고비, 제휴 여부, 판매자 요청과 수수료율을 입력값으로 사용하지 않습니다"),
+  "Disclosure page must keep the ranking-independence promise in both affiliate modes");
 // 이 약속은 아래 404 광고 어서션과 한 쌍이다. 문구만 남고 산출물이 어긋나면 심사자가
 // 404를 열어보는 순간 자사 문서와의 모순이 드러난다.
 assert(disclosureHtml.includes("오류·404·noindex 화면에는 광고를 두지 않습니다"),
@@ -266,8 +269,15 @@ const contrastChecks = verifyTokenContrast({ distRoot, clientRoot, assert });
 // 위 사이트맵 어서션은 verify-static이 들고 있는 손목록과만 대조한다. 라우터가 진실의
 // 원천인지는 따로 봐야 한다 — 라우터에만 추가된 라우트는 그 손목록에도 없기 때문이다.
 const routerSitemap = verifyRouterSitemap({ clientRoot, distRoot, siteBase, assert });
+const affiliate = verifyAffiliateHonesty({
+  pages,
+  read,
+  assert,
+  partnerIdInput: process.env.VITE_COUPANG_PARTNER_ID,
+});
 
 console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, noindex 404, and ${contrastChecks} color-contrast pairs.`);
+console.log(`Affiliate honesty: ${affiliate.mode} build (partner ${affiliate.partnerId ?? "unset"}), ${affiliate.affiliateAnchors} affiliate anchors, ${affiliate.disclosurePages} pages carrying the disclosure.`);
 console.log(`Router/sitemap cross-check: ${routerSitemap.staticChecked} static routes vs ${routerSitemap.sitemapUrls} sitemap URLs, both directions.`);
 await import("./verify-unit-price-pages.mjs");
 await import("./verify-price-freshness.mjs");
