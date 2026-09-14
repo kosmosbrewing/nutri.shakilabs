@@ -28,57 +28,66 @@
 
 @layer base {
   :root {
-    --background: 48 100% 98%;
-    --foreground: 88 41% 10%;
-    --card: 45 100% 99%;
-    --card-foreground: 88 41% 10%;
+    /* v3 §2.1 중성 토큰(레시피 §4) — canvas/ink/ink-muted/card/line은 hex에서 역산
+       (반올림 왕복 검증 완료). 이전 값은 배경(48 100% 98%)과 카드(45 100% 99%)가
+       둘 다 크림톤으로 거의 구분이 안 됐다 — v3는 카드를 순백(#FFFFFF)으로 분리한다.
+       --primary(브랜드 hue 86)는 그대로 둔다 — 건드리는 건 구조색뿐. */
+    --background: 60 11.11% 96.47%; /* color.canvas #F7F7F5 */
+    --foreground: 0 0% 3.92%; /* color.ink #0A0A0A */
+    --card: 0 0% 100%; /* color.card #FFFFFF */
+    --card-foreground: 0 0% 3.92%;
     --muted: 72 32% 93%;
-    --muted-foreground: 84 14% 34%;
+    --muted-foreground: 60 3.37% 34.9%; /* color.ink-muted #5C5C56 */
     --primary: 86 78% 27%;
     --primary-foreground: 0 0% 100%;
     --accent: 86 76% 95%;
     --accent-foreground: 86 78% 24%;
-    --border: 75 18% 82%;
-    /* WCAG AA 본문 기준(4.5:1)은 배경 --background(48 100% 98%) 위에서 측정한다.
+    --border: 60 8% 90.2%; /* color.line #E8E8E4 */
+    /* WCAG AA 본문 기준(4.5:1)은 배경 --background 위에서 측정한다.
        이전 값 148 61% 36%는 3.79:1, 43 88% 39%는 3.08:1로 미달이라 어둡게 내렸다.
        finance·card·house와 동일한 리터럴을 써서 앱 간 의미색을 통일한다.
-       브랜드 hue(--primary 86)는 의미색과 별개이므로 건드리지 않는다. */
-    --status-success: 142 64% 24%; /* 7.06:1 */
-    --status-warning: 24 83% 31%; /* 6.91:1 */
-    --status-danger: 0 70% 48%; /* 5.19:1 */
-    --status-info: 212 83% 42%; /* 5.58:1 */
+       브랜드 hue(--primary 86)는 의미색과 별개이므로 건드리지 않는다.
+       토큰 교체 후 재측정(새 --background #F7F7F5 기준, 도구 산출 — aa-check.mjs):
+       status-success 6.74:1 · status-warning 6.55:1 · status-danger/destructive 4.93:1 ·
+       status-info 5.31:1 — 전부 4.5:1 통과 유지. */
+    --status-success: 142 64% 24%; /* 7.06:1 on old bg → 6.74:1 on new bg */
+    --status-warning: 24 83% 31%; /* 6.91:1 on old bg → 6.55:1 on new bg */
+    --status-danger: 0 70% 48%; /* 5.19:1 on old bg → 4.93:1 on new bg */
+    --status-info: 212 83% 42%; /* 5.58:1 on old bg → 5.31:1 on new bg */
     /* @shakilabs/ui derives --sh-color-danger / --sh-color-on-danger from these two.
        While they were undeclared the package fell back to its own literals
        (0 72% 45% / 0 0% 100%), which nothing in this app could gate. Own them here,
        reusing the --status-danger literal so there is one danger colour per theme. */
-    --destructive: 0 70% 48%; /* 5.14:1 on --background */
+    --destructive: 0 70% 48%; /* 4.93:1 on new --background */
     --destructive-foreground: 0 0% 100%; /* 5.23:1 on --destructive */
     --radius: 0.7rem;
   }
 
-  /* Dormant palette. Nothing puts `.dark` on <html>, and Tailwind purges this block
-     out of the shipped bundle because no source file references the class, so these
-     values are never painted today. verify-token-contrast checks them from source
-     anyway: whoever wires a theme toggle later should inherit a palette that already
-     passes, not one that quietly rotted while unused. */
+  /* v3 §2.1 다크 중성 토큰(레시피 §4). 이 블록의 예전 주석("Nothing puts .dark on <html>,
+     dormant palette")은 낡은 기록이다 — SiteHeader.vue가 모든 뷰에서 ThemeToggle을 렌더하고
+     그 컴포넌트가 documentElement.classList.toggle("dark", …)를 실제로 호출하며,
+     빌드 산출물(dist/assets/app-*.css)에도 이 블록이 그대로 실려 있다(직접 확인, 09-14).
+     즉 다크는 살아있는 테마이고, 레시피 §4의 "다크 모드가 있으면 양 테마 AA 재측정 필수"가
+     적용된다. canvas/ink/ink-muted/card/line은 travel과 같은 v3 다크 팔레트로 교체하고
+     양 테마 AA를 재측정했다(아래 게이트 자기검증 포함). */
   .dark {
-    --background: 84 28% 8%;
-    --foreground: 72 30% 95%;
-    --card: 84 22% 12%;
-    --card-foreground: 72 30% 95%;
+    --background: 0 0% 7.06%; /* color.canvas dark #121212 */
+    --foreground: 0 0% 96.08%; /* color.ink dark #F5F5F5 */
+    --card: 0 0% 10.98%; /* color.card dark #1C1C1C */
+    --card-foreground: 0 0% 96.08%;
     --muted: 84 18% 17%;
-    --muted-foreground: 75 16% 70%;
+    --muted-foreground: 60 3.33% 64.71%; /* color.ink-muted dark #A8A8A2 */
     --primary: 84 70% 55%;
     --primary-foreground: 84 70% 10%;
     --accent: 84 50% 20%;
     --accent-foreground: 84 72% 78%;
-    --border: 84 14% 27%;
+    --border: 0 0% 16.47%; /* color.line dark #2A2A2A */
     --status-success: 148 63% 66%;
     --status-warning: 43 95% 70%;
     --status-danger: 0 86% 73%;
     --status-info: 205 90% 72%;
-    --destructive: 0 86% 73%; /* 7.01:1 on dark --background */
-    --destructive-foreground: 0 60% 12%; /* 6.92:1 on dark --destructive */
+    --destructive: 0 86% 73%; /* 7.01:1 on old dark bg → 7.34:1 on new dark bg */
+    --destructive-foreground: 0 60% 12%; /* 6.92:1 on --destructive (미변경) */
   }
 
   body {

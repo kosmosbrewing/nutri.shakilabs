@@ -70,6 +70,7 @@ function isActive(item: NutriNavigationItem): boolean {
 }
 
 const activeItem = computed(() => navigationItems.find(isActive));
+const navActiveKey = computed(() => activeItem.value?.key ?? "");
 
 function trackNavigation(item: PrimaryNavigationItem): void {
   trackAnalytics({ name: "nav_click", to_tool: item.key, placement: "primary_nav" });
@@ -82,6 +83,9 @@ function trackNavigation(item: PrimaryNavigationItem): void {
     brand="ShakiLabs"
     :links="headerLinks"
     :link-component="RouterLink"
+    :nav-items="navigationItems"
+    :nav-active-key="navActiveKey"
+    nav-title="영양 도구"
   >
     <template #utility>
       <ThemeToggle />
@@ -93,6 +97,7 @@ function trackNavigation(item: PrimaryNavigationItem): void {
     </div>
   </div>
   <ShPrimaryNavigation
+    class="tab-navigation--desktop-only"
     :items="navigationItems"
     :active-key="activeItem?.key"
     :link-component="RouterLink"
@@ -100,3 +105,13 @@ function trackNavigation(item: PrimaryNavigationItem): void {
     @select="trackNavigation"
   />
 </template>
+
+<style scoped>
+/* v3 §3.3-1 — 모바일(<48rem)은 헤더의 좌측 드로어가 대신한다.
+   링크는 드로어에 그대로 렌더되므로 크롤 경로는 유지된다(레시피 §3). */
+@media (max-width: 47.99rem) {
+  .tab-navigation--desktop-only {
+    display: none;
+  }
+}
+</style>

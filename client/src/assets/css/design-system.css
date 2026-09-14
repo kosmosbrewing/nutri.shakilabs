@@ -116,8 +116,9 @@ html {
 }
 
 .sh-primary-navigation {
-  /* ShGlobalHeader와 같은 top:0 sticky라 겹친다 — 헤더 높이만큼 내려서 그 아래에 고정한다. */
-  top: var(--header-h, 56px);
+  /* top 오버라이드는 0.3.16에서 제거 — 패키지가
+     :root:has(.sh-global-header) { --sh-secondary-nav-top: var(--sh-header-h) }로
+     헤더 아래에 자동 배치한다(레시피 §2). 여기 남는 건 BL-006 중성화(카드 배경 + underline)뿐. */
   background: hsl(var(--card));
   color: hsl(var(--foreground));
   border-bottom: 1px solid hsl(var(--border));
