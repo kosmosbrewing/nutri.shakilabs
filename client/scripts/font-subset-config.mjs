@@ -64,12 +64,28 @@ export function collectFontCharacters() {
   return collectCharacters({ includeJson: true });
 }
 
+// 브랜드 폰트는 화면에 찍히는 글자만 필요하다. 주석은 렌더되지 않는데도 스캐너가
+// 삼켜서 서브셋을 부풀린다(BL-020 작업에서 한글 주석 몇 줄에 +3.2KB, 64KB 예산 초과).
+// `//` 는 줄 전체가 주석일 때만 지운다 — 문자열 안의 "https://" 를 잘라내면
+// 그 줄 뒤쪽 한글이 통째로 사라진다.
+function stripComments(source) {
+  return source
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/\/\*[\s\S]*?\*\//g, " ")
+    .split("\n")
+    .filter((line) => !line.trimStart().startsWith("//"))
+    .join("\n");
+}
+
 export function collectBrandFontCharacters() {
   const categoryNames = "비타민D프로바이오틱스비타민C오메가3마그네슘칼슘MSM코엔자임Q10밀크씨슬";
   const productPath = resolve(clientRoot, "src/data/products.ts");
   const brandPaths = listTextFiles(resolve(clientRoot, "src"))
     .filter((path) => extname(path) === ".vue" || path === productPath);
-  return [...new Set(`${collectCharacters({ includeJson: false, paths: brandPaths })}${categoryNames}`)]
-    .sort()
-    .join("");
+  const characters = new Set();
+  for (const path of brandPaths) {
+    for (const character of stripComments(readFileSync(path, "utf8"))) characters.add(character);
+  }
+  for (const character of categoryNames) characters.add(character);
+  return [...characters].sort().join("");
 }

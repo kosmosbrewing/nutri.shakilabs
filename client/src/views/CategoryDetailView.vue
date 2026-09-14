@@ -48,8 +48,8 @@ function trackQuicklink(toSlug: string): void {
               <p class="mt-5 max-w-2xl break-keep text-base leading-7 text-muted-foreground">{{ unitPriceRanking ? unitPriceRanking.category.summary : `${category.summary}을 보여줍니다. 아래 제품은 최근 생성일과 제조사 다양성을 기준으로 추린 예시입니다.` }}</p>
             </div>
             <dl class="grid grid-cols-2 divide-x divide-border rounded-xl border border-border bg-card py-4 text-center">
-              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "검증 제품" : "공식 레코드" }}</dt><dd class="mt-1 font-brand text-2xl text-primary">{{ unitPriceRanking ? unitPriceRanking.scores.length : category.recordCount.toLocaleString("ko-KR") }}</dd></div>
-              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "가격 기준일" : "표시 예시" }}</dt><dd class="mt-1 font-brand" :class="unitPriceRanking ? 'text-base' : 'text-2xl'">{{ unitPriceRanking ? unitPriceRanking.updatedAt.replaceAll("-", ".") : category.records.length }}</dd></div>
+              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "검증 제품" : "공식 레코드" }}</dt><dd class="mt-1 font-numeral text-[1.625rem] leading-tight text-primary">{{ unitPriceRanking ? unitPriceRanking.scores.length : category.recordCount.toLocaleString("ko-KR") }}</dd></div>
+              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "가격 기준일" : "표시 예시" }}</dt><dd class="mt-1 font-numeral" :class="unitPriceRanking ? 'text-base' : 'text-[1.625rem] leading-tight'">{{ unitPriceRanking ? unitPriceRanking.updatedAt.replaceAll("-", ".") : category.records.length }}</dd></div>
             </dl>
           </div>
         </div>
