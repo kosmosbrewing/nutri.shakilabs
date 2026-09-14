@@ -94,3 +94,70 @@ body {
 .design-system-shell [class*="hover:-translate-"]:hover {
   transform: none;
 }
+
+/* v3 AppShell — BL-006 SecondaryNav 중성화. 풀폭 녹 바(--sh-color-primary) -> 카드 배경 +
+   accent underline. 모바일도 항상 데스크톱 가로 스크롤 변형을 강제한다(2~3행 그리드 금지, §3.3).
+   패키지가 mobile(<640px)에서 __mobile 그리드를, 그 이상에서 __desktop 가로 스크롤을 고르는데
+   그 분기를 지워 전 폭에서 __desktop 한 줄만 쓴다. */
+:root {
+  --accent-hsl: var(--primary);
+  --accent-muted-hsl: 86 78% 96%;
+  --header-h: 56px;
+  --secondary-nav-h: 45px;
+}
+
+.dark {
+  --accent-hsl: var(--primary);
+  --accent-muted-hsl: 84 50% 20%;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h, 56px) + var(--secondary-nav-h, 0px) + 8px);
+}
+
+.sh-primary-navigation {
+  /* top 오버라이드는 0.3.16에서 제거 — 패키지가
+     :root:has(.sh-global-header) { --sh-secondary-nav-top: var(--sh-header-h) }로
+     헤더 아래에 자동 배치한다(레시피 §2). 여기 남는 건 BL-006 중성화(카드 배경 + underline)뿐. */
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.sh-primary-navigation__container::after {
+  background: linear-gradient(to left, hsl(var(--card)), transparent);
+}
+
+.sh-primary-navigation__mobile {
+  display: none !important;
+}
+
+.sh-primary-navigation__desktop {
+  display: flex !important;
+}
+
+.sh-primary-navigation__container {
+  padding: 0 0.75rem !important;
+}
+
+.sh-primary-navigation__link {
+  color: hsl(var(--muted-foreground));
+}
+
+.sh-primary-navigation__link--active {
+  color: hsl(var(--foreground));
+}
+
+.sh-primary-navigation__link:hover {
+  color: hsl(var(--foreground));
+}
+
+.sh-primary-navigation__link:focus-visible {
+  outline-color: hsl(var(--foreground));
+}
+
+.sh-primary-navigation__link--desktop.sh-primary-navigation__link--active .sh-primary-navigation__label::after,
+.sh-primary-navigation__link--mobile.sh-primary-navigation__link--active .sh-primary-navigation__label::after {
+  background: hsl(var(--accent-hsl));
+  height: 3px;
+}
