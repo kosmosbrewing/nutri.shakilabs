@@ -5,8 +5,9 @@ const { decide, decision, ready } = useConsent();
 </script>
 
 <template>
-  <!-- Plain <section>, not ShSurface. This bar is an inverted palette: dark surface,
-       light type. @shakilabs/ui ships after main.css and its `.sh-surface--plain`
+  <!-- v3 section 6.8: fixed bottom bar, occludes less than 30vh, 2 buttons.
+       Consent gate logic (useConsent) is unchanged; only position moved to bottom-fixed.
+       Plain <section>, not ShSurface. @shakilabs/ui ships after main.css and its `.sh-surface--plain`
        sets `background: transparent` at the same specificity as `bg-foreground`,
        so the utility loses on source order and the dark bar never paints. Only the
        children keep `text-background`, which left light text on the light page
@@ -15,7 +16,7 @@ const { decide, decision, ready } = useConsent();
     v-if="ready && decision === null"
     aria-labelledby="analytics-consent-title"
     aria-live="polite"
-    class="border-b border-primary/30 bg-foreground text-background"
+    class="consent-bar fixed inset-x-0 bottom-0 z-[90] max-h-[30vh] overflow-y-auto border-t border-primary/30 bg-foreground text-background"
     role="region"
   >
     <div class="container flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
@@ -37,3 +38,11 @@ const { decide, decision, ready } = useConsent();
     </div>
   </section>
 </template>
+
+<style scoped>
+/* 30vh 상한은 Tailwind 임의값(max-h-[30vh])으로 이미 적용된다 — 내용이 많아도
+   바 자체가 화면의 30%를 초과하지 않도록 내부 스크롤로 흡수한다. */
+.consent-bar {
+  box-shadow: 0 -8px 24px -16px rgb(0 0 0 / 45%);
+}
+</style>

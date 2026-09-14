@@ -25,6 +25,34 @@
       content="일반 성인용 멀티비타민의 1일 비용과 영양성분 충족도를 같은 기준으로 비교합니다."
     />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9470410471278501" crossorigin="anonymous" data-adsense="true"></script>
+
+    <script>
+      // 사이트 전역 테마 키(v3 §6.10) — shakilabs.com/* 전체가 같은 origin이라 앱마다
+      // 다른 키를 쓰면 앱을 넘나들 때 테마가 리셋된다. hydration 전에 .dark를 붙여야
+      // 첫 페인트에서 테마가 깜빡이지 않는다.
+      (() => {
+        try {
+          const key = "shakilabs:theme:v1";
+          const saved = localStorage.getItem(key);
+          const prefersDark =
+            typeof window.matchMedia === "function" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme =
+            saved === "dark" || saved === "light"
+              ? saved
+              : prefersDark
+                ? "dark"
+                : "light";
+
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+          document.documentElement.style.colorScheme = theme;
+        } catch {
+          // no-op
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

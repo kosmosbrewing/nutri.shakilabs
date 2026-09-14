@@ -88,7 +88,7 @@ onMounted(() => {
   <div class="min-h-screen">
     <SiteHeader />
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero-field overflow-hidden border-b border-border/60">
         <div class="container grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
           <div class="relative z-10 max-w-2xl">

@@ -2,9 +2,12 @@
 import { computed } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import {
+  ShGlobalHeader,
   ShPrimaryNavigation,
+  type GlobalHeaderLink,
   type PrimaryNavigationItem,
 } from "@shakilabs/ui";
+import ThemeToggle from "@/components/layout/ThemeToggle.vue";
 import TickerBar from "@/components/common/TickerBar.vue";
 import { trackAnalytics } from "@/utils/analytics";
 import { formatUnitPriceWon, resolveUnitPriceRanking, unitPriceDataset } from "@/utils/unit-price";
@@ -16,7 +19,11 @@ interface NutriNavigationItem extends PrimaryNavigationItem {
 
 const route = useRoute();
 
-// same grammar as finance AppHeader: rotating fade ticker between logo and nav
+// v3 3.2 — GlobalHeader 내용은 로고 + 사이트 링크 + 테마 버튼뿐이다.
+// 카테고리 메뉴·안내 문구는 SecondaryNav/Banner로 내린다(BL-005).
+const headerLinks: GlobalHeaderLink[] = [{ to: "/methodology", label: "산정 기준" }];
+
+// same grammar as finance AppHeader: rotating fade ticker, now a thin banner below the header
 const totalProducts = unitPriceDataset.categories.reduce((sum, category) => sum + category.products.length, 0);
 const globalTickerMessages: readonly string[] = [
   `가격 확인 ${unitPriceDataset.updatedAt.replaceAll("-", ".")} · 검증 제품 ${totalProducts}개`,
@@ -52,15 +59,6 @@ const navigationItems: readonly NutriNavigationItem[] = [
   { key: "methodology", label: "산정 기준", to: "/methodology", matchPaths: ["/methodology"] },
 ];
 
-const mobileDefaultKeys = [
-  "multivitamin",
-  "vitamin-c",
-  "probiotics",
-  "omega-3",
-  "categories",
-  "methodology",
-] as const;
-
 function isActive(item: NutriNavigationItem): boolean {
   // exact match only for "/" and "/categories" so child category tabs stay exclusive
   if (item.key === "multivitamin" || item.key === "categories") {
@@ -73,44 +71,31 @@ function isActive(item: NutriNavigationItem): boolean {
 
 const activeItem = computed(() => navigationItems.find(isActive));
 
-const mobileItems = computed(() => {
-  const keys: string[] = [...mobileDefaultKeys];
-  if (activeItem.value && !keys.includes(activeItem.value.key)) {
-    keys[3] = activeItem.value.key;
-  }
-  return keys
-    .map((key) => navigationItems.find((item) => item.key === key))
-    .filter((item): item is NutriNavigationItem => Boolean(item));
-});
-
 function trackNavigation(item: PrimaryNavigationItem): void {
   trackAnalytics({ name: "nav_click", to_tool: item.key, placement: "primary_nav" });
 }
 </script>
 
 <template>
-  <header class="border-b border-border bg-background">
-    <div class="site-header__bar container flex min-h-16 items-center px-3 sm:px-4">
-      <a class="site-logo touch-target inline-flex items-center gap-2.5 font-brand text-lg" href="/nutri">
-        <!-- nutri product mark; the tab favicon uses the shakilabs common mark -->
-        <svg class="h-9 w-9 shrink-0" viewBox="0 0 64 64" aria-hidden="true">
-          <rect width="64" height="64" rx="18" fill="#4d7c0f" />
-          <path d="M18 19h9l5 10 5-10h9L36 37v10h-8V37L18 19Z" fill="#fffdf5" />
-          <circle cx="47" cy="16" r="5" fill="#d9f99d" />
-        </svg>
-        <span>영양만점</span>
-      </a>
-      <div class="flex min-w-0 flex-1 items-center justify-center overflow-hidden px-2 sm:px-4">
-        <TickerBar :key="route.path" :messages="tickerMessages" />
-      </div>
+  <ShGlobalHeader
+    home-href="/"
+    brand="ShakiLabs"
+    :links="headerLinks"
+    :link-component="RouterLink"
+  >
+    <template #utility>
+      <ThemeToggle />
+    </template>
+  </ShGlobalHeader>
+  <div class="site-ticker border-b border-border bg-background">
+    <div class="container flex min-h-7 items-center justify-center px-3 py-1 sm:px-4">
+      <TickerBar :key="route.path" :messages="tickerMessages" />
     </div>
-  </header>
+  </div>
   <ShPrimaryNavigation
     :items="navigationItems"
-    :mobile-items="mobileItems"
     :active-key="activeItem?.key"
     :link-component="RouterLink"
-    :mobile-columns="2"
     aria-label="영양만점 주요 메뉴"
     @select="trackNavigation"
   />

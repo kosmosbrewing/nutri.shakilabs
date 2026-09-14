@@ -42,7 +42,7 @@ onMounted(() => {
 <template>
   <div class="min-h-screen">
     <SiteHeader />
-    <main class="container py-8 sm:py-12">
+    <main id="main-content" tabindex="-1" class="container py-8 sm:py-12">
       <a class="touch-target inline-flex items-center text-sm font-semibold text-primary" href="/nutri#ranking">
         ← 순위로 돌아가기
       </a>

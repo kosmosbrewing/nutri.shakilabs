@@ -34,7 +34,7 @@ function trackQuicklink(toSlug: string): void {
 <template>
   <div class="min-h-screen">
     <SiteHeader />
-    <main v-if="category">
+    <main id="main-content" tabindex="-1" v-if="category">
       <section class="hero-field border-b border-border/60">
         <div class="container py-9 sm:py-12">
           <a class="touch-target inline-flex items-center text-sm font-semibold text-primary" href="/nutri/categories">← 전체 영양제 종류</a>
@@ -130,7 +130,7 @@ function trackQuicklink(toSlug: string): void {
         </div>
       </section>
     </main>
-    <main v-else class="page-shell">
+    <main id="main-content" tabindex="-1" v-else class="page-shell">
       <h1 class="font-brand text-3xl">카테고리를 찾을 수 없습니다</h1>
       <a class="touch-target mt-5 inline-flex items-center font-semibold text-primary" href="/nutri/categories">전체 종류로 돌아가기</a>
     </main>

@@ -20,7 +20,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
 <template>
   <div class="min-h-screen">
     <SiteHeader />
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero-field border-b border-border/60">
         <div class="container py-10 sm:py-14">
           <p class="eyebrow">종류별 가격효율 순위</p>
