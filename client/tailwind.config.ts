@@ -40,6 +40,8 @@ export default {
       },
       fontFamily: {
         sans: ["Pretendard", ...fontFamily.sans],
+        // 제목·히어로 수치 공용 브랜드 스택. 서브셋이 "제목+숫자"라 한글 제목과
+        // 숫자가 같은 파일에서 나온다 — 스택을 둘로 나눌 이유가 없다(BL-020 개정).
         brand: ["GmarketSans", "Pretendard", ...fontFamily.sans],
       },
       borderRadius: {

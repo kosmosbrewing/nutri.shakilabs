@@ -18,9 +18,13 @@
   font-display: swap;
 }
 
+/* 브랜드 폰트 — 제목(font-brand)과 히어로 수치에만 쓴다(BL-020 개정판 레시피).
+   서브셋 문자셋은 "GmarketSans로 렌더되는 요소의 직속 텍스트 ∪ 숫자·단위"다
+   (scripts/collect-brand-charset.mjs가 빌드 산출물에서 수집한다).
+   옛 파일(-subset-v3)은 .vue 소스를 통째로 훑어 465자·64KB였다. */
 @font-face {
   font-family: "GmarketSans";
-  src: url("/fonts/GmarketSansBold-subset-v3.woff2") format("woff2");
+  src: url("/fonts/GmarketSansBold-brand-v1.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

@@ -108,7 +108,7 @@ function trackOfferClick(): void {
       <div class="flex items-end justify-between gap-4 min-[900px]:block min-[900px]:text-right">
         <div>
           <p class="metric-label">가격효율지수</p>
-          <p class="mt-1 font-brand text-2xl text-primary">{{ formatScore(item.score.valueIndex) }}</p>
+          <p class="mt-1 text-2xl font-semibold tabular-nums text-primary">{{ formatScore(item.score.valueIndex) }}</p>
         </div>
         <div class="flex flex-wrap justify-end gap-1.5 min-[900px]:mt-2">
           <a

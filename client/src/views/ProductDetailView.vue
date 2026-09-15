@@ -18,6 +18,7 @@ import { formatScore, formatWon } from "@/utils/ranking";
 import { trackAnalytics } from "@/utils/analytics";
 import { isAffiliateLink, outboundRel, outboundUrl, retailerOf } from "@/utils/affiliate";
 import { offerLinkLabel } from "@/data/affiliate-disclosure";
+import ResultHero from "@/components/common/ResultHero.vue";
 
 const route = useRoute();
 const { allItems, dataError } = useRanking();
@@ -107,22 +108,27 @@ function trackOfferClick(): void {
             </p>
           </div>
 
+          <!-- 대표 수치는 "배송비 포함 1일"(비교 기준과 같은 값) 하나만 히어로로 올리고
+               나머지 셋은 같은 Pretendard tabular 문법으로 맞춘다(BL-020). -->
           <div class="product-summary-grid surface-panel grid grid-cols-2 gap-px overflow-hidden bg-border/70">
-            <div class="bg-card p-4">
-              <p class="metric-label">배송비 포함 1일</p>
-              <p class="mt-1 text-xl font-semibold">{{ formatWon(detail.item.score.dailyCostKrw) }}</p>
+            <div class="col-span-2 bg-card p-4">
+              <ResultHero
+                label="배송비 포함 1일"
+                :value="formatWon(detail.item.score.dailyCostKrw)"
+                value-class="text-primary"
+              />
             </div>
             <div class="bg-card p-4">
               <p class="metric-label">월 환산</p>
-              <p class="mt-1 text-xl font-semibold">{{ formatWon(detail.item.score.monthlyCostKrw) }}</p>
+              <p class="mt-1 text-2xl font-semibold tabular-nums">{{ formatWon(detail.item.score.monthlyCostKrw) }}</p>
             </div>
             <div class="bg-card p-4">
               <p class="metric-label">영양충족도</p>
-              <p class="mt-1 text-xl font-semibold">{{ formatScore(detail.item.score.coverageScore) }}%</p>
+              <p class="mt-1 text-2xl font-semibold tabular-nums">{{ formatScore(detail.item.score.coverageScore) }}%</p>
             </div>
-            <div class="bg-card p-4">
+            <div class="col-span-2 bg-card p-4">
               <p class="metric-label">가격효율지수</p>
-              <p class="mt-1 text-xl font-semibold text-primary">{{ formatScore(detail.item.score.valueIndex) }}</p>
+              <p class="mt-1 text-2xl font-semibold tabular-nums text-primary">{{ formatScore(detail.item.score.valueIndex) }}</p>
             </div>
           </div>
         </header>
