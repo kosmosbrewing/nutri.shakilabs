@@ -104,6 +104,9 @@ body {
   --accent-muted-hsl: 86 78% 96%;
   --header-h: 56px;
   --secondary-nav-h: 45px;
+  /* BL-UX-008: ConsentBanner.vue가 ResizeObserver로 실측해 덮어쓴다.
+     기본값 0px은 배너가 없거나 JS 실행 전(SSR/초기 페인트) 안전값이다. */
+  --consent-bar-height: 0px;
 }
 
 .dark {
