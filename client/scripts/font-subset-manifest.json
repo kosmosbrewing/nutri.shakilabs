@@ -1,25 +1,27 @@
 {
   "schemaVersion": 1,
   "characterCount": 845,
-  "characterSha256": "1ba15d971306b24d7100bb6274b8cd955af0f1d36f5abc5e057226dca3f3feed",
+  "characterSha256": "78d0c931b0f4d186b542853a99b040182f17160e81ab1e4d4989b05f465319bf",
   "fonts": [
     {
       "publicName": "Pretendard-Regular-subset.woff2",
-      "bytes": 60668,
+      "bytes": 60460,
       "characterCount": 845,
-      "sha256": "db0d2b0d894cac460460b5536165c942b0d18f309e694110485903197e680397"
+      "sha256": "82234fbb2d15115481d2addfd4f2ed4ce7180c86b0bfb4f57d83073e16b27b58"
     },
     {
       "publicName": "Pretendard-SemiBold-subset.woff2",
-      "bytes": 53728,
+      "bytes": 53576,
       "characterCount": 845,
-      "sha256": "4a54ddfc9ee389c0d7f4b8239fb0dd0213ee27c61ee2d2d92ab9ff3cdc025635"
+      "sha256": "58ce422a0e3b0d1f64290e0ca01e38cd6183bfc5d97b79794e83ea78bc082451"
     },
     {
-      "publicName": "GmarketSansBold-subset-v3.woff2",
-      "bytes": 64380,
-      "characterCount": 465,
-      "sha256": "f9a4dae715f180fb1139e86d63265e67d68c9907ec08288083487fa14d7b67ee"
+      "publicName": "GmarketSansBold-brand-v1.woff2",
+      "bytes": 11520,
+      "characterCount": 195,
+      "sha256": "4d115a98df6ccf0118ffffe1f7193db83922b84f42a1c67ce28d737d9413ede2",
+      "shippedCharacters": " %()+,-./0123456789CDMOPQST~·가간개거건것게격결계고공과관광교그근급기까나내네년눴는니다단달당데도등라량렇로록루룸류르른를리마만맨먼멀메면명목무문민밀바발배버법베별보부분브비산서선성세센소수순숫슘스슬습시식실심씨안않야약양억얼없엇에엔연영오온옴요용우운원월위유율은을의이인일읽임자적전점정제조종준지찾처천체초출카칼코크타택터테통트티틱페포표품프하할함합핵확회효휴",
+      "droppedCharacters": ""
     }
   ]
 }

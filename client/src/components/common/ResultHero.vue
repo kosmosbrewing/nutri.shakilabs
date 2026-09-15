@@ -2,7 +2,7 @@
 // 대표 수치의 단일 문법(BL-020). nutri는 계산기가 아니라 목록·비교 사이트라
 // 히어로는 "제품 상세의 대표 수치" 한 곳뿐이다. 순위 행의 숫자는 열이므로
 // 강조 폰트를 붙이지 않는다 — 브랜드 폰트는 제목과 이 히어로에만 쓴다.
-// 라벨(11px muted) → 수치(26px, font-numeral = GmarketSans, tabular-nums)
+// 라벨(11px muted) → 수치(26px, font-brand = GmarketSans, tabular-nums)
 // → 선택적 보조 문장(14px muted). 브랜드/의미색은 이 히어로 수치에만 쓰고
 // 나머지 보조 수치는 Pretendard tabular로 남긴다.
 //
@@ -132,7 +132,7 @@ onBeforeUnmount(cancelRaf);
 <template>
   <div data-result-hero>
     <p class="metric-label">{{ label }}</p>
-    <p class="mt-1 font-numeral text-[1.625rem] font-bold leading-tight tabular-nums" :class="valueClass">
+    <p class="mt-1 font-brand text-[1.625rem] font-bold leading-tight tabular-nums" :class="valueClass">
       {{ displayValue }}
     </p>
     <p v-if="$slots.secondary" class="mt-1 text-xs text-muted-foreground">

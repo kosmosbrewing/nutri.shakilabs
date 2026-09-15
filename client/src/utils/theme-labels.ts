@@ -1,5 +1,6 @@
-// GmarketSansBold(브랜드 폰트) 서브셋 스캐너는 .vue 파일의 모든 텍스트를 훑는다(font-brand
-// 클래스로 스코프되지 않음). 이 라벨은 스크린리더 전용 aria-label이라 브랜드 폰트로 렌더될 일이
-// 없는데도 .vue 안에 두면 예산을 갉아먹는다 — .ts로 빼서 스캔 대상에서 제외한다.
+// 스크린리더 전용 aria-label. 예전에는 브랜드 폰트 스캐너가 .vue 전체를 훑어서
+// 화면에 안 보이는 이 문구까지 서브셋에 넣었고, 그걸 피하려고 .ts로 뺐다.
+// 지금은 수집이 렌더 실측이라(scripts/collect-brand-charset.mjs) 그 이유는 사라졌다 —
+// 라벨을 한곳에 모아 두는 값만 남아서 파일을 유지한다.
 export const THEME_TOGGLE_LABEL_TO_DARK = "다크 모드로 전환";
 export const THEME_TOGGLE_LABEL_TO_LIGHT = "라이트 모드로 전환";

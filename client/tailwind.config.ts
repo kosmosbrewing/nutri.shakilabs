@@ -40,12 +40,9 @@ export default {
       },
       fontFamily: {
         sans: ["Pretendard", ...fontFamily.sans],
+        // 제목·히어로 수치 공용 브랜드 스택. 서브셋이 "제목+숫자"라 한글 제목과
+        // 숫자가 같은 파일에서 나온다 — 스택을 둘로 나눌 이유가 없다(BL-020 개정).
         brand: ["GmarketSans", "Pretendard", ...fontFamily.sans],
-        // 강조 숫자 전용 스택(BL-020). 스택 자체는 brand와 같지만 이름을 나눠 둔다 —
-        // house/card는 GmarketSans를 숫자 전용 45자 서브셋으로 줄였고, nutri는
-        // 브랜드 폰트를 한글 제목 30여 곳에 쓰기 때문에 같은 축소를 할 수 없다.
-        // 나중에 제목을 Pretendard로 옮기면 이 스택만 숫자 서브셋으로 갈아끼우면 된다.
-        numeral: ["GmarketSans", "Pretendard", ...fontFamily.sans],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 6px)",
