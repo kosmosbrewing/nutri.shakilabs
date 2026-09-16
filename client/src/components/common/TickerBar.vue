@@ -108,7 +108,7 @@ onUnmounted(() => {
 <template>
   <div role="status" aria-live="polite" aria-atomic="true" class="w-full min-w-0">
     <Transition name="ticker-fade" mode="out-in">
-      <p :key="currentMessage" class="w-full min-w-0 truncate px-0.5 text-center text-[0.72rem] leading-tight text-foreground/75 sm:px-0 sm:text-sm">
+      <p :key="currentMessage" class="w-full min-w-0 truncate px-0.5 text-center text-[0.72rem] leading-tight sm:px-0 sm:text-sm">
         {{ currentMessage }}
       </p>
     </Transition>
@@ -116,13 +116,36 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.ticker-fade-enter-active,
-.ticker-fade-leave-active {
-  transition: opacity 0.2s ease;
+.ticker-fade-enter-active {
+  /* 들어올 때를 나갈 때보다 길고 부드럽게 — 대칭이면 '툭 꺼졌다 툭 켜지는' 느낌이 난다 */
+  transition: opacity 0.42s cubic-bezier(0, 0, 0.2, 1), transform 0.42s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.ticker-fade-enter-from,
+.ticker-fade-leave-active {
+  transition: opacity 0.26s cubic-bezier(0.4, 0, 1, 1), transform 0.26s cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* 아래에서 올라와 위로 빠진다. 같은 방향으로 흐르게 해야 교체가 이어진 동작으로 읽힌다 */
+.ticker-fade-enter-from {
+  opacity: 0;
+  transform: translateY(0.35em);
+}
+
 .ticker-fade-leave-to {
   opacity: 0;
+  transform: translateY(-0.35em);
+}
+
+/* 모션을 줄이면 이동은 빼고 아주 짧은 페이드만 남긴다 */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-fade-enter-active,
+  .ticker-fade-leave-active {
+    transition: opacity 0.12s linear;
+  }
+
+  .ticker-fade-enter-from,
+  .ticker-fade-leave-to {
+    transform: none;
+  }
 }
 </style>
