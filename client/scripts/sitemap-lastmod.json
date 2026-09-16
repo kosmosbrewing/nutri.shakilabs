@@ -2,116 +2,116 @@
   "schemaVersion": "sitemap-lastmod-v1",
   "routes": {
     "/": {
-      "contentHash": "ca5447b2b30452f8",
-      "lastmod": "2026-09-15"
+      "contentHash": "ced5a03a9d7da854",
+      "lastmod": "2026-09-16"
     },
     "/about": {
-      "contentHash": "619e89e938560902",
-      "lastmod": "2026-09-15"
+      "contentHash": "2aace4954fa0cce7",
+      "lastmod": "2026-09-16"
     },
     "/categories": {
-      "contentHash": "669a326514e5fb34",
-      "lastmod": "2026-09-15"
+      "contentHash": "7c69a81cbbfb0fd9",
+      "lastmod": "2026-09-16"
     },
     "/categories/calcium": {
-      "contentHash": "b67496769639b858",
-      "lastmod": "2026-09-15"
+      "contentHash": "efd5f658b08df87a",
+      "lastmod": "2026-09-16"
     },
     "/categories/coenzyme-q10": {
-      "contentHash": "2e03d31968f63566",
-      "lastmod": "2026-09-15"
+      "contentHash": "2d8c88312b8e2dc5",
+      "lastmod": "2026-09-16"
     },
     "/categories/magnesium": {
-      "contentHash": "004ef4c30bd57017",
-      "lastmod": "2026-09-15"
+      "contentHash": "87a143be6aad6859",
+      "lastmod": "2026-09-16"
     },
     "/categories/milk-thistle": {
-      "contentHash": "c07acf704801fae0",
-      "lastmod": "2026-09-15"
+      "contentHash": "977b6f7959205f87",
+      "lastmod": "2026-09-16"
     },
     "/categories/msm": {
-      "contentHash": "616056e48e5ab729",
-      "lastmod": "2026-09-15"
+      "contentHash": "e37a1a90143fcedc",
+      "lastmod": "2026-09-16"
     },
     "/categories/omega-3": {
-      "contentHash": "1a38b821f9d6142d",
-      "lastmod": "2026-09-15"
+      "contentHash": "cd27386fc7e69a36",
+      "lastmod": "2026-09-16"
     },
     "/categories/probiotics": {
-      "contentHash": "060000060589998f",
-      "lastmod": "2026-09-15"
+      "contentHash": "c9c0a8d7a73e5d5b",
+      "lastmod": "2026-09-16"
     },
     "/categories/vitamin-c": {
-      "contentHash": "d3d693e380ac7678",
-      "lastmod": "2026-09-15"
+      "contentHash": "a0cd08b5db9a94fa",
+      "lastmod": "2026-09-16"
     },
     "/categories/vitamin-d": {
-      "contentHash": "fee1904f0493789c",
-      "lastmod": "2026-09-15"
+      "contentHash": "258fa9fbf20b263d",
+      "lastmod": "2026-09-16"
     },
     "/compare": {
-      "contentHash": "79cc0dc09bf358dc",
-      "lastmod": "2026-09-15"
+      "contentHash": "1f1187b5832157c0",
+      "lastmod": "2026-09-16"
     },
     "/disclosure": {
-      "contentHash": "38d5e1a769c7a7ae",
-      "lastmod": "2026-09-15"
+      "contentHash": "96da643e96ba9d4c",
+      "lastmod": "2026-09-16"
     },
     "/methodology": {
-      "contentHash": "eef0413843457b20",
-      "lastmod": "2026-09-15"
+      "contentHash": "3d7e11a06f0d3193",
+      "lastmod": "2026-09-16"
     },
     "/privacy": {
-      "contentHash": "6db01804b2e93f8e",
-      "lastmod": "2026-09-15"
+      "contentHash": "e8b6808abe370dfe",
+      "lastmod": "2026-09-16"
     },
     "/products/acebiome-multivitamin-60": {
-      "contentHash": "e0c7e4cc71a02b5d",
-      "lastmod": "2026-09-15"
+      "contentHash": "8fbc3bfe2e26a0f9",
+      "lastmod": "2026-09-16"
     },
     "/products/alive-50-plus-60": {
-      "contentHash": "9ee5a29bfd37553a",
-      "lastmod": "2026-09-15"
+      "contentHash": "59c41e92f4696319",
+      "lastmod": "2026-09-16"
     },
     "/products/alive-men-60": {
-      "contentHash": "a735c4fd788abc00",
-      "lastmod": "2026-09-15"
+      "contentHash": "3cbf6e558c3b9646",
+      "lastmod": "2026-09-16"
     },
     "/products/alive-milk-thistle-60": {
-      "contentHash": "dfe31bf2ff00e419",
-      "lastmod": "2026-09-15"
+      "contentHash": "6c00105433433295",
+      "lastmod": "2026-09-16"
     },
     "/products/alive-women-80": {
-      "contentHash": "a4fda1b67846f0f2",
-      "lastmod": "2026-09-15"
+      "contentHash": "63b25ae5bcdd31f1",
+      "lastmod": "2026-09-16"
     },
     "/products/berocca-30": {
-      "contentHash": "0c5ddcda499a5789",
-      "lastmod": "2026-09-15"
+      "contentHash": "0c17ae92d9e5f2ef",
+      "lastmod": "2026-09-16"
     },
     "/products/centrum-men-50": {
-      "contentHash": "a63a494d493871ba",
-      "lastmod": "2026-09-15"
+      "contentHash": "6e47531102451cff",
+      "lastmod": "2026-09-16"
     },
     "/products/centrum-silver-men-112": {
-      "contentHash": "67d65f65867d337b",
-      "lastmod": "2026-09-15"
+      "contentHash": "b3bfd48776fcbfe7",
+      "lastmod": "2026-09-16"
     },
     "/products/centrum-silver-women-50": {
-      "contentHash": "b8d56f87b390beaf",
-      "lastmod": "2026-09-15"
+      "contentHash": "4ffea82673d362cd",
+      "lastmod": "2026-09-16"
     },
     "/products/centrum-women-112": {
-      "contentHash": "e2b54837b9cb4f3e",
-      "lastmod": "2026-09-15"
+      "contentHash": "31103e5f8d703c8c",
+      "lastmod": "2026-09-16"
     },
     "/sources": {
-      "contentHash": "413764143c61f2a1",
-      "lastmod": "2026-09-15"
+      "contentHash": "ce232125fd3ae682",
+      "lastmod": "2026-09-16"
     },
     "/terms": {
-      "contentHash": "b98af27f94ba6e2e",
-      "lastmod": "2026-09-15"
+      "contentHash": "7b6d94016e9c4f3b",
+      "lastmod": "2026-09-16"
     }
   }
 }
