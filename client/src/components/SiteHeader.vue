@@ -19,11 +19,11 @@ interface NutriNavigationItem extends PrimaryNavigationItem {
 
 const route = useRoute();
 
-// v3 3.2 — GlobalHeader 내용은 로고 + 사이트 링크 + 테마 버튼뿐이다.
-// 카테고리 메뉴·안내 문구는 SecondaryNav/Banner로 내린다(BL-005).
+// v3 3.2 — GlobalHeader는 로고 + 사이트 링크 + 테마 버튼을 담는다.
+// 카테고리 메뉴는 별도 PrimaryNavigation으로 내린다(BL-005).
 const headerLinks: GlobalHeaderLink[] = [{ to: "/methodology", label: "산정 기준" }];
 
-// same grammar as finance AppHeader: rotating fade ticker, now a thin banner below the header
+// same grammar as finance AppHeader: rotating fade ticker, now header's own #tip slot (0.3.24)
 const totalProducts = unitPriceDataset.categories.reduce((sum, category) => sum + category.products.length, 0);
 const globalTickerMessages: readonly string[] = [
   `가격 확인 ${unitPriceDataset.updatedAt.replaceAll("-", ".")} · 검증 제품 ${totalProducts}개`,
@@ -87,15 +87,15 @@ function trackNavigation(item: PrimaryNavigationItem): void {
     :nav-active-key="navActiveKey"
     nav-title="영양 도구"
   >
+    <!-- 한 줄 말줄임 절대 위치라 문구 길이가 56px 헤더 높이에 영향을 주지 않는다(BL-005) -->
+    <template #tip>
+      <TickerBar :key="route.path" :messages="tickerMessages" />
+    </template>
+
     <template #utility>
       <ThemeToggle />
     </template>
   </ShGlobalHeader>
-  <div class="site-ticker border-b border-border bg-background">
-    <div class="container flex min-h-7 items-center justify-center px-3 py-1 sm:px-4">
-      <TickerBar :key="route.path" :messages="tickerMessages" />
-    </div>
-  </div>
   <ShPrimaryNavigation
     class="tab-navigation--desktop-only"
     :items="navigationItems"
