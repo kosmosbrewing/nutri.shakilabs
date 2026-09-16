@@ -64,12 +64,128 @@ const contentRoots = [
   resolve(clientRoot, "node_modules/@shakilabs/ui/dist/index.js"),
 ];
 
+// 테스트 픽스처는 화면에 찍히지 않는다 — 주석과 같은 이유로 문자셋에서 뺀다.
+// (이 규칙이 없으면 폰트 게이트 테스트가 쓰는 한글이 그대로 폰트에 실린다.)
+const TEST_FILE_PATTERN = /\.(test|spec)\.[cm]?[jt]s$/;
+
 function listTextFiles(path) {
-  if (!statSync(path).isDirectory()) return [path];
+  if (!statSync(path).isDirectory()) return TEST_FILE_PATTERN.test(path) ? [] : [path];
   return readdirSync(path, { withFileTypes: true }).flatMap((entry) => {
     const child = resolve(path, entry.name);
-    return entry.isDirectory() ? listTextFiles(child) : [child];
+    return entry.isDirectory() ? listTextFiles(child) : listTextFiles(child);
   });
+}
+
+// 주석은 화면에 찍히지 않는데도 문자셋에 들어와 예산과 해시 게이트를 흔든다
+// (이번 주에만 2회: 브랜드 472→502자로 64KB 초과, UI 845→852자로 해시 red).
+// 위험한 쪽은 과대 수집이 아니라 **과소 수집**이다 — `//` 뒤를 무작정 자르면
+// 텍스트 노드의 `https://` 뒤에 있는 한글까지 사라진다. 그래서 문자열·템플릿
+// 리터럴을 추적하는 스캐너를 쓰고, .vue는 블록별로 문법을 갈라 적용한다.
+const COMMENT_SYNTAX = {
+  // CSS에 `//` 주석은 없다. url(//cdn...)을 자르지 않으려면 블록 주석만 봐야 한다.
+  css: { line: false, block: true, html: false },
+  js: { line: true, block: true, html: false },
+  // 템플릿·마크업의 `//`는 주석이 아니라 URL이다
+  markup: { line: false, block: false, html: true },
+  none: { line: false, block: false, html: false },
+};
+
+const EXTENSION_SYNTAX = {
+  ".css": COMMENT_SYNTAX.css,
+  ".js": COMMENT_SYNTAX.js,
+  ".ts": COMMENT_SYNTAX.js,
+  ".mjs": COMMENT_SYNTAX.js,
+  ".html": COMMENT_SYNTAX.markup,
+  ".svg": COMMENT_SYNTAX.markup,
+  ".xml": COMMENT_SYNTAX.markup,
+  ".json": COMMENT_SYNTAX.none,
+  ".txt": COMMENT_SYNTAX.none,
+};
+
+/**
+ * 주석만 빼고 원문을 되돌린다. 문자 집합만 쓰므로 위치·공백은 보존하지 않는다.
+ * 문자열/템플릿 리터럴 안에서는 어떤 주석 토큰도 열지 않는다 — 과소 수집 방지.
+ */
+function stripComments(source, syntax) {
+  if (!syntax.line && !syntax.block && !syntax.html) return source;
+
+  let out = "";
+  let index = 0;
+  const length = source.length;
+
+  while (index < length) {
+    const character = source[index];
+
+    // 문자열·템플릿 리터럴은 통째로 통과시킨다(내용에 한글이 있을 수 있다)
+    if (character === "'" || character === '"' || character === "`") {
+      const quote = character;
+      out += character;
+      index += 1;
+      while (index < length) {
+        const inner = source[index];
+        if (inner === "\\") {
+          out += source.slice(index, index + 2);
+          index += 2;
+          continue;
+        }
+        out += inner;
+        index += 1;
+        if (inner === quote) break;
+      }
+      continue;
+    }
+
+    if (syntax.html && source.startsWith("<!--", index)) {
+      const end = source.indexOf("-->", index + 4);
+      index = end === -1 ? length : end + 3;
+      continue;
+    }
+
+    if (syntax.block && source.startsWith("/*", index)) {
+      const end = source.indexOf("*/", index + 2);
+      index = end === -1 ? length : end + 2;
+      continue;
+    }
+
+    if (syntax.line && source.startsWith("//", index)) {
+      const end = source.indexOf("\n", index + 2);
+      index = end === -1 ? length : end;
+      continue;
+    }
+
+    out += character;
+    index += 1;
+  }
+
+  return out;
+}
+
+// .vue 한 파일 안에 세 문법이 공존한다. 템플릿의 `https://`를 JS 규칙으로 자르면
+// 그 줄 뒤의 한글이 통째로 사라지므로 블록 경계를 실제로 갈라야 한다.
+const VUE_BLOCK_PATTERN = /<(script|style)\b[^>]*>([\s\S]*?)<\/\1>/gi;
+
+function stripVueComments(source) {
+  let out = "";
+  let cursor = 0;
+  for (const match of source.matchAll(VUE_BLOCK_PATTERN)) {
+    const start = match.index ?? 0;
+    out += stripComments(source.slice(cursor, start), COMMENT_SYNTAX.markup);
+    const syntax = match[1].toLowerCase() === "style" ? COMMENT_SYNTAX.css : COMMENT_SYNTAX.js;
+    out += stripComments(match[2], syntax);
+    cursor = start + match[0].length;
+  }
+  out += stripComments(source.slice(cursor), COMMENT_SYNTAX.markup);
+  return out;
+}
+
+/** 확장자별 주석 규칙을 적용한다. 테스트가 이 경계를 직접 찌른다. */
+export function stripSourceComments(source, extension) {
+  if (extension === ".vue") return stripVueComments(source);
+  return stripComments(source, EXTENSION_SYNTAX[extension] ?? COMMENT_SYNTAX.none);
+}
+
+function readContentText(path) {
+  return stripSourceComments(readFileSync(path, "utf8"), extname(path));
 }
 
 function collectCharacters({ includeJson, paths = contentRoots.flatMap(listTextFiles) }) {
@@ -77,7 +193,7 @@ function collectCharacters({ includeJson, paths = contentRoots.flatMap(listTextF
   for (const path of paths) {
     if (!textExtensions.has(extname(path))) continue;
     if (!includeJson && extname(path) === ".json") continue;
-    for (const character of readFileSync(path, "utf8")) characters.add(character);
+    for (const character of readContentText(path)) characters.add(character);
   }
   return [...characters].sort().join("");
 }
