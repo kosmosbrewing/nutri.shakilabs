@@ -156,7 +156,7 @@ function trackOfferClick(): void {
               <div class="flex justify-between gap-3 border-t border-border pt-3"><dt class="text-muted-foreground">확인일</dt><dd class="flex flex-wrap items-center justify-end gap-2 font-semibold"><PriceFreshnessBadge v-if="priceFreshness" :freshness="priceFreshness.freshness" :age-days="priceFreshness.ageDays" /><span>{{ detail.item.offer.capturedAt }}</span></dd></div>
               <div v-if="priceTrend" class="flex justify-between gap-3"><dt class="text-muted-foreground">{{ priceTrend.baselineDateLabel }} 대비 1일 비용</dt><dd class="font-semibold tabular-nums" :class="priceTrend.changePercent < -0.5 ? 'text-primary' : priceTrend.changePercent > 0.5 ? 'text-status-warning' : ''">{{ formatTrendPercent(priceTrend.changePercent) }}</dd></div>
             </dl>
-            <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent" :href="offerHref" :rel="outboundRel(detail.item.offer.url)" target="_blank" @click="trackOfferClick">
+            <a class="touch-target mt-5 inline-flex w-full items-center justify-center rounded-lg border border-primary text-sm font-semibold text-primary hover:bg-accent hover:text-accent-foreground" :href="offerHref" :rel="outboundRel(detail.item.offer.url)" target="_blank" @click="trackOfferClick">
               {{ offerLinkLabel(offerAffiliate) }}
             </a>
             <AffiliateNotice class="mt-3" :urls="offerUrl ? [offerUrl] : []" />

@@ -34,36 +34,47 @@
   :root {
     /* v3 §2.1 중성 토큰(레시피 §4) — canvas/ink/ink-muted/card/line은 hex에서 역산
        (반올림 왕복 검증 완료). 이전 값은 배경(48 100% 98%)과 카드(45 100% 99%)가
-       둘 다 크림톤으로 거의 구분이 안 됐다 — v3는 카드를 순백(#FFFFFF)으로 분리한다.
-       --primary(브랜드 hue 86)는 그대로 둔다 — 건드리는 건 구조색뿐. */
+       둘 다 크림톤으로 거의 구분이 안 됐다 — v3는 카드를 순백(#FFFFFF)으로 분리한다. */
     --background: 60 11.11% 96.47%; /* color.canvas #F7F7F5 */
     --foreground: 0 0% 3.92%; /* color.ink #0A0A0A */
     --card: 0 0% 100%; /* color.card #FFFFFF */
     --card-foreground: 0 0% 3.92%;
-    --muted: 72 32% 93%;
+    /* muted는 폐기한 연두(hue 86)에서 파생된 틴트였다. hue를 그룹 청록으로 옮기면서
+       명도를 93%→96%로 올렸다 — v3 고정 경고색(#B45309)이 93% 표면 위에서 4.38:1로
+       AA를 못 넘겼기 때문이다(96%에서 4.65:1). */
+    --muted: 174 26% 96%;
     --muted-foreground: 60 3.37% 34.9%; /* color.ink-muted #5C5C56 */
-    --primary: 86 78% 27%;
+    /* 소비·생활 그룹(card·nutri·baby) 공통 청록. 세 앱이 같은 리터럴을 쓰므로
+       앱마다 재계산하지 않는다 — scripts/verify-accent-tokens.mjs가 문자열로 대조한다.
+       폐기 사유: 연두(86)는 status-success와 같은 초록 계열이라 "브랜드"인지
+       "이득"인지 화면에서 구분되지 않았다(v3 §4.3 "경고/성공을 대체하는 브랜드 금지").
+       --accent-foreground는 파생 공식값 30%가 아니라 28%다: 30%는 이 틴트 위
+       4.37:1로 AA 미달이고 28%는 4.92:1이다(공식보다 실측이 이긴다). */
+    --primary: 174 70% 24%;
     --primary-foreground: 0 0% 100%;
-    --accent: 86 76% 95%;
-    --accent-foreground: 86 78% 24%;
+    --secondary: 174 15% 91%;
+    --secondary-foreground: 222 47% 11%;
+    --accent: 174 68% 95%;
+    --accent-foreground: 174 70% 28%;
+    /* 포커스 링. 선언하지 않는 동안 @shakilabs/ui의 --sh-color-focus가 패키지 리터럴
+       (222 47% 20%, 슬레이트)로 조용히 폴백했고 어떤 게이트도 그 값을 보지 못했다. */
+    --ring: 174 70% 24%;
     --border: 60 8% 90.2%; /* color.line #E8E8E4 */
-    /* WCAG AA 본문 기준(4.5:1)은 배경 --background 위에서 측정한다.
-       이전 값 148 61% 36%는 3.79:1, 43 88% 39%는 3.08:1로 미달이라 어둡게 내렸다.
-       finance·card·house와 동일한 리터럴을 써서 앱 간 의미색을 통일한다.
-       브랜드 hue(--primary 86)는 의미색과 별개이므로 건드리지 않는다.
-       토큰 교체 후 재측정(새 --background #F7F7F5 기준, 도구 산출 — aa-check.mjs):
-       status-success 6.74:1 · status-warning 6.55:1 · status-danger/destructive 4.93:1 ·
-       status-info 5.31:1 — 전부 4.5:1 통과 유지. */
-    --status-success: 142 64% 24%; /* 7.06:1 on old bg → 6.74:1 on new bg */
-    --status-warning: 24 83% 31%; /* 6.91:1 on old bg → 6.55:1 on new bg */
-    --status-danger: 0 70% 48%; /* 5.19:1 on old bg → 4.93:1 on new bg */
-    --status-info: 212 83% 42%; /* 5.58:1 on old bg → 5.31:1 on new bg */
+    /* v3 §2.1 고정 의미색(#1B7A4A·#B45309·#C62828·#1D4E8C)의 HSL 역산. 12개 앱이
+       같은 값을 써야 "초록=이득"이 앱을 옮겨도 같은 뜻으로 읽힌다. 자리올림 없이
+       hex로 되돌아오는 소수 표기를 골랐다 — 게이트가 hex로 대조한다.
+       WCAG AA 본문 기준(4.5:1)은 텍스트가 실제로 얹히는 세 표면
+       (--background·--card·--muted) 전부에서 verify-token-contrast.mjs가 재측정한다. */
+    --status-success: 149.7 63.8% 29.2%;
+    --status-warning: 26 90.5% 37.1%;
+    --status-danger: 0 66.4% 46.7%;
+    --status-info: 213.5 65.7% 33.1%;
     /* @shakilabs/ui derives --sh-color-danger / --sh-color-on-danger from these two.
        While they were undeclared the package fell back to its own literals
        (0 72% 45% / 0 0% 100%), which nothing in this app could gate. Own them here,
        reusing the --status-danger literal so there is one danger colour per theme. */
-    --destructive: 0 70% 48%; /* 4.93:1 on new --background */
-    --destructive-foreground: 0 0% 100%; /* 5.23:1 on --destructive */
+    --destructive: 0 66.4% 46.7%; /* = --status-danger. 한 화면에 빨강은 한 종류만 */
+    --destructive-foreground: 0 0% 100%;
     --radius: 0.7rem;
   }
 
@@ -79,19 +90,23 @@
     --foreground: 0 0% 96.08%; /* color.ink dark #F5F5F5 */
     --card: 0 0% 10.98%; /* color.card dark #1C1C1C */
     --card-foreground: 0 0% 96.08%;
-    --muted: 84 18% 17%;
+    --muted: 174 18% 17%;
     --muted-foreground: 60 3.33% 64.71%; /* color.ink-muted dark #A8A8A2 */
-    --primary: 84 70% 55%;
-    --primary-foreground: 84 70% 10%;
-    --accent: 84 50% 20%;
-    --accent-foreground: 84 72% 78%;
+    --primary: 174 70% 45%;
+    --primary-foreground: 174 70% 10%;
+    --secondary: 174 15% 20%;
+    --secondary-foreground: 210 40% 96%;
+    --accent: 174 50% 22%;
+    --accent-foreground: 174 70% 78%;
+    --ring: 174 70% 45%;
     --border: 0 0% 16.47%; /* color.line dark #2A2A2A */
-    --status-success: 148 63% 66%;
-    --status-warning: 43 95% 70%;
-    --status-danger: 0 86% 73%;
-    --status-info: 205 90% 72%;
-    --destructive: 0 86% 73%; /* 7.01:1 on old dark bg → 7.34:1 on new dark bg */
-    --destructive-foreground: 0 60% 12%; /* 6.92:1 on --destructive (미변경) */
+    /* v3 §2.1 고정 다크 의미색(#5DCA8E·#F0B429·#F07171·#8BB4E8)의 HSL 역산 */
+    --status-success: 147 50.7% 57.8%;
+    --status-warning: 41.9 86.9% 55.1%;
+    --status-danger: 0 80.9% 69.2%;
+    --status-info: 213.5 66.9% 72.7%;
+    --destructive: 0 80.9% 69.2%; /* = --status-danger */
+    --destructive-foreground: 0 60% 12%;
   }
 
   body {
@@ -118,7 +133,9 @@
   }
 
   :focus-visible {
-    outline: 2px solid hsl(var(--primary));
+    /* --ring을 쓴다. 값은 --primary와 같지만 역할이 다르고, 패키지의
+       --sh-color-focus도 --ring에서 가져가므로 출처를 하나로 모은다. */
+    outline: 2px solid hsl(var(--ring));
     outline-offset: 3px;
   }
 

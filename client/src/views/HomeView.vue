@@ -201,7 +201,7 @@ onMounted(() => {
 
         <div v-else-if="visibleItems.length === 0" class="mt-5 rounded-xl border border-border bg-card px-5 py-12 text-center">
           <p class="font-semibold">조건에 맞는 제품이 없습니다.</p>
-          <button class="touch-target mt-3 rounded-lg px-4 text-sm font-semibold text-primary hover:bg-accent" type="button" @click="resetFilters">
+          <button class="touch-target mt-3 rounded-lg px-4 text-sm font-semibold text-primary hover:bg-accent hover:text-accent-foreground" type="button" @click="resetFilters">
             전체 제품 다시 보기
           </button>
         </div>
@@ -223,7 +223,7 @@ onMounted(() => {
 
         <button
           v-if="!showAllRanking && hiddenRankingCount > 0"
-          class="touch-target mt-4 w-full rounded-xl border border-border bg-card py-3 text-sm font-semibold text-primary hover:bg-accent"
+          class="touch-target mt-4 w-full rounded-xl border border-border bg-card py-3 text-sm font-semibold text-primary hover:bg-accent hover:text-accent-foreground"
           type="button"
           @click="expandRanking"
         >
