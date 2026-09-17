@@ -77,7 +77,7 @@ const metrics = computed<Metric[]>(() => {
       <li v-for="item in legend" :key="item.key" class="flex items-baseline gap-2 text-xs">
         <!-- bg-primary/10은 배경에 브랜드색을 더해 text-primary 대비를 4.41:1까지 낮춘다.
              같은 조합을 만드는 CategoryGrid처럼 --accent 값으로 바꾸면 4.83:1이 되어 기준을 만족한다. -->
-        <span class="inline-flex h-5 w-5 shrink-0 items-center justify-center self-center rounded-full bg-accent font-bold tabular-nums text-primary">{{ item.order }}</span>
+        <span class="inline-flex h-5 w-5 shrink-0 items-center justify-center self-center rounded-full bg-accent font-bold tabular-nums text-accent-foreground">{{ item.order }}</span>
         <span class="shrink-0 font-semibold text-primary">{{ item.brand }}</span>
         <span class="break-keep text-muted-foreground">{{ item.name }}</span>
       </li>

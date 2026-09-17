@@ -76,7 +76,7 @@ function trackAlternativeClick(toTool: string): void {
         <p class="mt-3 text-xs text-muted-foreground">현재 제품과 1일 비용 차이 {{ formatWon(alternative.dailyCostGapKrw) }}</p>
         <RouterLink
           :to="compareLocation(alternative.item)"
-          class="touch-target mt-4 inline-flex items-center justify-center border border-primary px-3 text-sm font-semibold text-primary hover:bg-accent"
+          class="touch-target mt-4 inline-flex items-center justify-center border border-primary px-3 text-sm font-semibold text-primary hover:bg-accent hover:text-accent-foreground"
           @click="trackAlternativeClick(alternative.item.product.id)"
         >
           현재 제품과 2개 비교

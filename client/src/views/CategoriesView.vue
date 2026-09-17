@@ -71,7 +71,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
           >
             <span
               class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold"
-              :class="guide.status === 'ranking' ? 'bg-primary text-primary-foreground' : guide.status === 'unit_price' ? 'bg-accent text-primary' : 'bg-muted text-muted-foreground'"
+              :class="guide.status === 'ranking' ? 'bg-primary text-primary-foreground' : guide.status === 'unit_price' ? 'bg-accent text-accent-foreground' : 'bg-muted text-muted-foreground'"
             >{{ guide.label }}</span>
             <h3 class="mt-3 break-keep font-semibold">{{ guide.title }}</h3>
             <p class="mt-2 break-keep text-sm leading-6 text-muted-foreground">{{ guide.body }}</p>

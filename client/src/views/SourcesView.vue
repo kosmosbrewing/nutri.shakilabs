@@ -80,7 +80,7 @@ const offerUrls = [
             <div class="grid gap-3 border-t border-border bg-muted/25 p-4 sm:grid-cols-2 lg:grid-cols-3">
               <article v-for="product in group.products" :key="product.id" class="rounded-xl border border-border bg-card p-5" data-unit-price-evidence-card>
                 <div class="flex items-center justify-between gap-3">
-                  <span class="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold text-primary">{{ group.category.name }}</span>
+                  <span class="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold text-accent-foreground">{{ group.category.name }}</span>
                   <span class="confidence-badge">신뢰도 {{ product.confidence }}</span>
                 </div>
                 <h3 class="mt-4 break-keep text-sm font-semibold leading-6">{{ product.displayName }}</h3>
