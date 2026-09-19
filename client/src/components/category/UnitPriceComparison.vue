@@ -59,7 +59,7 @@ function trackOfferClick(score: UnitPriceScore): void {
     :data-price-ranking-freshness="ranking.freshness"
     :data-price-ranking-age-days="ranking.ageDays"
   >
-    <div class="container py-10 sm:py-14">
+    <div class="sh-container sh-container--tool py-10 sm:py-14">
       <!-- 멀티비타민 랭킹 섹션과 동일한 헤더 문법: 좌측 타이틀 블록 + 우측 기준 요약 -->
       <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>

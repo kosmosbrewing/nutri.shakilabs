@@ -2,12 +2,13 @@ body {
   background: hsl(var(--background));
 }
 
+/* 각형 카드 규약(--sh-card-radius: 0px 등)의 로컬 선행 적용본을 제거한다.
+   nutri가 이 규약의 파일럿이었으나(2026-07-11, "complete square surface coverage") 근거로
+   지목된 ADR-002는 실존하지 않고(002번은 Drizzle 채택건), 이후 패키지 0.3.32가 같은 4줄을
+   compatibility.css에서 걷어내며 :root 토큰(8px/4px)을 그대로 쓰도록 정리됐다.
+   값을 바꾸려면 여기가 아니라 패키지 tokens.css 한 곳만 고칠 것. */
 .design-system-shell {
-  --sh-card-radius: 0px;
   --sh-color-card-border: hsl(var(--border) / 0.7);
-  --sh-radius-sm: 0.125rem;
-  --sh-radius-md: 0.125rem;
-  --sh-radius-lg: 0.25rem;
 }
 
 .design-system-shell .hero-field {

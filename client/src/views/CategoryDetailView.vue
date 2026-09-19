@@ -36,7 +36,7 @@ function trackQuicklink(toSlug: string): void {
     <SiteHeader />
     <main id="main-content" tabindex="-1" v-if="category">
       <section class="hero-field border-b border-border/60">
-        <div class="container py-9 sm:py-12">
+        <div class="sh-container sh-container--tool py-9 sm:py-12">
           <a class="touch-target inline-flex items-center text-sm font-semibold text-primary" href="/nutri/categories">← 전체 영양제 종류</a>
           <div class="mt-6 grid gap-7 lg:grid-cols-[1fr_20rem] lg:items-end">
             <div>
@@ -57,7 +57,7 @@ function trackQuicklink(toSlug: string): void {
 
       <UnitPriceComparison v-if="unitPriceRanking" :ranking="unitPriceRanking" />
 
-      <section class="container py-10 sm:py-14">
+      <section class="sh-container sh-container--tool py-10 sm:py-14">
         <div class="grid gap-8 lg:grid-cols-[1fr_18rem]">
           <div class="min-w-0">
             <div class="mb-5">
@@ -112,7 +112,7 @@ function trackQuicklink(toSlug: string): void {
       </section>
 
       <section class="border-t border-border/60 bg-muted/20" aria-labelledby="category-quicklinks-title">
-        <div class="container py-10 sm:py-12">
+        <div class="sh-container sh-container--tool py-10 sm:py-12">
           <h2 id="category-quicklinks-title" class="font-brand text-2xl">다른 카테고리 가격효율 순위</h2>
           <p class="mt-2 text-xs leading-5 text-muted-foreground">모든 카테고리는 같은 산정 기준(배송비 포함 단위가격·공식 등록 검증)을 사용합니다.</p>
           <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">

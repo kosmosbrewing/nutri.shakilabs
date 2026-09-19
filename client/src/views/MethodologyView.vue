@@ -8,7 +8,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
 <template>
   <div class="min-h-screen">
     <SiteHeader />
-    <main id="main-content" tabindex="-1" class="container py-8 sm:py-12">
+    <main id="main-content" tabindex="-1" class="sh-container sh-container--prose py-8 sm:py-12">
       <nav aria-label="현재 위치" class="text-xs text-muted-foreground">
         <a class="touch-target inline-flex items-center font-semibold text-primary" href="/nutri">영양만점</a>
         <span class="mx-2" aria-hidden="true">/</span><span>산정 방법</span>
