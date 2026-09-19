@@ -6,7 +6,7 @@ const featuredCategories = categoryCards.slice(0, 6);
 </script>
 
 <template>
-  <section id="categories" class="container scroll-mt-4 py-10 sm:py-14">
+  <section id="categories" class="sh-container sh-container--page scroll-mt-4 py-10 sm:py-14">
     <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
         <p class="eyebrow">영양제 종류</p>

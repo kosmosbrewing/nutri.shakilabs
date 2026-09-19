@@ -79,7 +79,7 @@ function trackOfferClick(): void {
 <template>
   <div class="min-h-screen">
     <SiteHeader />
-    <main id="main-content" tabindex="-1" class="container py-8 sm:py-12">
+    <main id="main-content" tabindex="-1" class="sh-container sh-container--tool py-8 sm:py-12">
       <nav aria-label="현재 위치" class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
         <a class="touch-target inline-flex items-center font-semibold text-primary" href="/nutri#ranking">가격효율 순위</a>
         <span aria-hidden="true">/</span>

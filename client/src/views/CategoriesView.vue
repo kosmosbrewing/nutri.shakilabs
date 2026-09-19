@@ -22,7 +22,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
     <SiteHeader />
     <main id="main-content" tabindex="-1">
       <section class="hero-field border-b border-border/60">
-        <div class="container py-10 sm:py-14">
+        <div class="sh-container sh-container--page py-10 sm:py-14">
           <p class="eyebrow">종류별 가격효율 순위</p>
           <h1 class="mt-4 max-w-3xl break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">
             영양제는 목적이 다르면<br />점수표도 달라야 합니다.
@@ -38,7 +38,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
         </div>
       </section>
 
-      <section class="container py-10 sm:py-14">
+      <section class="sh-container sh-container--page py-10 sm:py-14">
         <div class="mb-6 max-w-2xl">
           <p class="eyebrow">10개 영양제 종류</p>
           <h2 class="mt-2 font-brand text-2xl sm:text-3xl">영양제 종류별로 확인하기</h2>
@@ -49,7 +49,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
         <CategoryGrid :categories="categoryCards" />
       </section>
 
-      <section class="container pb-10 sm:pb-14" aria-labelledby="category-guide-title">
+      <section class="sh-container sh-container--page pb-10 sm:pb-14" aria-labelledby="category-guide-title">
         <div class="max-w-3xl">
           <p class="eyebrow">{{ categoryGuideIntro.eyebrow }}</p>
           <h2 id="category-guide-title" class="mt-2 break-keep font-brand text-2xl sm:text-3xl">
@@ -79,7 +79,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
         </div>
       </section>
 
-      <section class="container pb-10 sm:pb-14" aria-labelledby="category-basis-title">
+      <section class="sh-container sh-container--page pb-10 sm:pb-14" aria-labelledby="category-basis-title">
         <div class="max-w-3xl">
           <p class="eyebrow">{{ categoryGuideTable.eyebrow }}</p>
           <h2 id="category-basis-title" class="mt-2 break-keep font-brand text-2xl sm:text-3xl">
@@ -110,7 +110,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
       </section>
 
       <section class="border-y border-border/70 bg-muted/35">
-        <div class="container grid gap-6 py-10 sm:grid-cols-3">
+        <div class="sh-container sh-container--page grid gap-6 py-10 sm:grid-cols-3">
           <div><p class="method-number">01</p><h2 class="mt-2 font-semibold">등록과 판매를 구분</h2><p class="mt-2 text-sm leading-6 text-muted-foreground">공식 레코드는 현재 판매 여부나 재고를 보장하지 않습니다.</p></div>
           <div><p class="method-number">02</p><h2 class="mt-2 font-semibold">종류별 독립 기준</h2><p class="mt-2 text-sm leading-6 text-muted-foreground">오메가3와 유산균처럼 핵심 단위가 다른 제품을 한 점수로 합치지 않습니다.</p></div>
           <div><p class="method-number">03</p><h2 class="mt-2 font-semibold">근거가 찬 뒤 랭킹</h2><p class="mt-2 text-sm leading-6 text-muted-foreground">핵심 함량·총 복용일수·최신 가격을 검증한 뒤에만 순위를 엽니다.</p></div>

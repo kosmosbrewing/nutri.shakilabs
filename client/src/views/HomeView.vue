@@ -90,7 +90,7 @@ onMounted(() => {
 
     <main id="main-content" tabindex="-1">
       <section class="hero-field overflow-hidden border-b border-border/60">
-        <div class="container grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
+        <div class="sh-container sh-container--page grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
           <div class="relative z-10 max-w-2xl">
             <p class="eyebrow">공공데이터 + 판매가 근거 · {{ updatedAtLabel }}</p>
             <!-- ShText forces --sh-font-sans, which overrides font-brand; use the raw heading idiom shared by other views -->
@@ -147,7 +147,7 @@ onMounted(() => {
            reaching the search/filter took about 4 screens of scrolling. -->
       <section
         id="ranking"
-        class="container scroll-mt-4 py-10 sm:py-14"
+        class="sh-container sh-container--page scroll-mt-4 py-10 sm:py-14"
         :class="selectedItems.length ? 'pb-36 sm:pb-44' : ''"
         :data-price-ranking-freshness="scoredFreshness.freshness"
         :data-price-ranking-age-days="scoredFreshness.ageDays"
@@ -234,7 +234,7 @@ onMounted(() => {
       <HomeCategorySection />
 
       <section id="method-note" class="border-y border-border/70 bg-muted/35">
-        <div class="container grid gap-6 py-10 sm:grid-cols-3 sm:py-12">
+        <div class="sh-container sh-container--page grid gap-6 py-10 sm:grid-cols-3 sm:py-12">
           <div>
             <p class="method-number">01</p>
             <h2 class="mt-2 font-semibold">함량 과대평가 방지</h2>
