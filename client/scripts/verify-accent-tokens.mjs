@@ -32,7 +32,9 @@ const EXPECTED = {
     "--secondary-foreground": "222 47% 11%",
     "--accent": "174 68% 95%",
     "--accent-foreground": "174 70% 28%",
-    "--ring": "174 70% 24%",
+    // focus 링은 카테고리 액센트가 아니라 잉크다(v3 §2.1 color.focus) — 액센트로 두면
+    // 그룹 색이 바뀔 때마다 링도 흔들리고, 옅은 액센트 앱에서는 링이 사라진다.
+    "--ring": "0 0% 3.92%",
   },
   dark: {
     "--primary": "174 70% 45%",
@@ -41,7 +43,7 @@ const EXPECTED = {
     "--secondary-foreground": "210 40% 96%",
     "--accent": "174 50% 22%",
     "--accent-foreground": "174 70% 78%",
-    "--ring": "174 70% 45%",
+    "--ring": "0 0% 96.08%",
   },
 };
 

@@ -58,7 +58,7 @@
     --accent-foreground: 174 70% 28%;
     /* 포커스 링. 선언하지 않는 동안 @shakilabs/ui의 --sh-color-focus가 패키지 리터럴
        (222 47% 20%, 슬레이트)로 조용히 폴백했고 어떤 게이트도 그 값을 보지 못했다. */
-    --ring: 174 70% 24%;
+    --ring: 0 0% 3.92%;
     --border: 60 8% 90.2%; /* color.line #E8E8E4 */
     /* v3 §2.1 고정 의미색(#1B7A4A·#B45309·#C62828·#1D4E8C)의 HSL 역산. 12개 앱이
        같은 값을 써야 "초록=이득"이 앱을 옮겨도 같은 뜻으로 읽힌다. 자리올림 없이
@@ -98,7 +98,7 @@
     --secondary-foreground: 210 40% 96%;
     --accent: 174 50% 22%;
     --accent-foreground: 174 70% 78%;
-    --ring: 174 70% 45%;
+    --ring: 0 0% 96.08%;
     --border: 0 0% 16.47%; /* color.line dark #2A2A2A */
     /* v3 §2.1 고정 다크 의미색(#5DCA8E·#F0B429·#F07171·#8BB4E8)의 HSL 역산 */
     --status-success: 147 50.7% 57.8%;
@@ -133,7 +133,8 @@
   }
 
   :focus-visible {
-    /* --ring을 쓴다. 값은 --primary와 같지만 역할이 다르고, 패키지의
+    /* --ring을 쓴다. 값은 카테고리 액센트가 아니라 잉크다(v3 §2.1 color.focus) —
+       액센트로 두면 그룹 색이 바뀔 때마다 링도 흔들린다. 패키지의
        --sh-color-focus도 --ring에서 가져가므로 출처를 하나로 모은다. */
     outline: 2px solid hsl(var(--ring));
     outline-offset: 3px;

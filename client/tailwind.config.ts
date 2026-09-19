@@ -8,7 +8,9 @@ export default {
     container: {
       center: true,
       padding: "1rem",
-      screens: { xl: "960px" },
+      // 검정 헤더(.sh-global-header__inner)가 72rem(1152px)인데 본문 컨테이너만 960px이면
+      // 헤더만 혼자 넓어 보인다 — 72rem + 좌우 padding 32px = 1184px로 맞춘다.
+      screens: { xl: "1184px" },
     },
     extend: {
       colors: {
