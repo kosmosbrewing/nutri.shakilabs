@@ -1,11 +1,11 @@
 # ShakiLabs UI artifact
 
-`shakilabs-ui-0.3.32.tgz` is the active exact artifact for `@shakilabs/ui` 0.3.32.
+`shakilabs-ui-0.3.34.tgz` is the active exact artifact for `@shakilabs/ui` 0.3.34.
 
 - Source repository: `kosmosbrewing/00.root-shakilabs`
-- Source commit: `0c07d4887abd79b2158bd9509dce661795da4c7b`
-- SHA-256: `f4dc81f7e082573daa3fc6abc5d38f8bd954fdf8e103439899d57486d90af955`
-- Consumed by: `client/package.json` → `"@shakilabs/ui": "file:vendor/shakilabs-ui-0.3.32.tgz"`
+- Source commit: `eb92e35dda998e533be27ad8867f826a819202eb`
+- SHA-256: `33e602b792eaddaf7426ae349eb7c36eb090bf137a015f8b3b43afa0149e9d18`
+- Consumed by: `client/package.json` → `"@shakilabs/ui": "file:vendor/shakilabs-ui-0.3.34.tgz"`
 - Rollback artifacts: available from Git history when needed
 
 활성 산출물 하나만 커밋한다 — 격리된 Vercel 체크아웃이 프라이빗 레지스트리 토큰 없이 `npm ci`를 돌릴 수 있어야 하기 때문이다.
@@ -16,7 +16,7 @@
 버전만 맞추고 해시를 방치하면 무결성 검증을 하려는 사람에게 오답을 주게 된다.
 
 ```sh
-shasum -a 256 client/vendor/shakilabs-ui-0.3.32.tgz   # 위 SHA-256과 일치해야 한다
+shasum -a 256 client/vendor/shakilabs-ui-0.3.34.tgz   # 위 SHA-256과 일치해야 한다
 node client/scripts/verify-vendor-readme.mjs   # 파일명·이 문서·client/package.json 3자 대조
 ```
 
