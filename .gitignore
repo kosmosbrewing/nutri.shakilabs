@@ -22,3 +22,14 @@ client/artifacts/
 /artifacts/text-layout-audit/*
 !/artifacts/text-layout-audit/report.md
 !/artifacts/text-layout-audit/issues.json
+
+# ── 세션 측정 산출물 (재발 방지) ──────────────────────────────────────────
+# 검증 스크립트가 만드는 스크린샷·JSON은 PR 본문에 수치로 남기므로 저장소에 둘 이유가
+# 없다. 2026-09 폭 통일 웨이브에서 12개 저장소에 64MB가 미추적으로 쌓였다.
+# 의도적으로 보존할 before/after 캡처는 docs/design-docs/<주제>/에 두고 명시적으로
+# git add 한다 — 아래 규칙은 스크래치 경로와 측정 JSON만 막는다.
+docs/design-docs/_scratch/
+**/after-measurements.json
+**/before-measurements.json
+# 저장소 루트에 흘린 캡처 (측정 스크립트 기본 출력 경로)
+/*.png
