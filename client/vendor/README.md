@@ -3,8 +3,8 @@
 `shakilabs-ui-0.3.38.tgz` is the active exact artifact for `@shakilabs/ui` 0.3.38.
 
 - Source repository: `kosmosbrewing/00.root-shakilabs`
-- Source commit: `878fd55741b54b241ee97e8e3b3254ad9153b64c`
-- SHA-256: `a3773ea2cc1aa1c9627fa70fc8e4abd11853006f3cf611c33a78e73dc99907af`
+- Source commit: `c61e6b26877b44c01d928923bec469b4104d37e8`
+- SHA-256: `9d32b6febae9da102cb54224061a5fdfc92a93494a06fc073f97733d74fd0478`
 - Consumed by: `client/package.json` → `"@shakilabs/ui": "file:vendor/shakilabs-ui-0.3.38.tgz"`
 - Rollback artifacts: available from Git history when needed
 

@@ -79,7 +79,7 @@
   }
 
   /* v3 §2.1 다크 중성 토큰(레시피 §4). 이 블록의 예전 주석("Nothing puts .dark on <html>,
-     dormant palette")은 낡은 기록이다 — SiteHeader.vue가 모든 뷰에서 ThemeToggle을 렌더하고
+     dormant palette")은 낡은 기록이다 — SiteHeader.vue가 모든 뷰에서 패키지 ShThemeToggle을 렌더하고
      그 컴포넌트가 documentElement.classList.toggle("dark", …)를 실제로 호출하며,
      빌드 산출물(dist/assets/app-*.css)에도 이 블록이 그대로 실려 있다(직접 확인, 09-14).
      즉 다크는 살아있는 테마이고, 레시피 §4의 "다크 모드가 있으면 양 테마 AA 재측정 필수"가

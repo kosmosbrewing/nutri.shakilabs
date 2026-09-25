@@ -4,10 +4,10 @@ import { RouterLink, useRoute } from "vue-router";
 import {
   ShGlobalHeader,
   ShPrimaryNavigation,
+  ShThemeToggle,
   type GlobalHeaderLink,
   type PrimaryNavigationItem,
 } from "@shakilabs/ui";
-import ThemeToggle from "@/components/layout/ThemeToggle.vue";
 import { trackAnalytics } from "@/utils/analytics";
 
 interface NutriNavigationItem extends PrimaryNavigationItem {
@@ -67,7 +67,7 @@ function trackNavigation(item: PrimaryNavigationItem): void {
     :nav-active-key="navActiveKey"
   >
     <template #utility>
-      <ThemeToggle />
+      <ShThemeToggle storage-key="shakilabs:theme:v1" />
     </template>
   </ShGlobalHeader>
   <!-- 모바일(<48rem)에서는 패키지가 이 탭 줄을 숨기고 헤더 ☰가 같은 목록을 연다(0.3.38). -->

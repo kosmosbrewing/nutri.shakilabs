@@ -2,115 +2,115 @@
   "schemaVersion": "sitemap-lastmod-v1",
   "routes": {
     "/": {
-      "contentHash": "f8f73475a34cd04e",
+      "contentHash": "2e783d8f21bf05a8",
       "lastmod": "2026-09-25"
     },
     "/about": {
-      "contentHash": "7aae4c12b471c268",
+      "contentHash": "3e524aafc3f622e1",
       "lastmod": "2026-09-25"
     },
     "/categories": {
-      "contentHash": "9ab2230338df512a",
+      "contentHash": "397b5eb6ea647935",
       "lastmod": "2026-09-25"
     },
     "/categories/calcium": {
-      "contentHash": "25699c15f99de7c5",
+      "contentHash": "eb9ff99efef17a22",
       "lastmod": "2026-09-25"
     },
     "/categories/coenzyme-q10": {
-      "contentHash": "1370b6a85448c8f0",
+      "contentHash": "83cfb6f8fbdcb55f",
       "lastmod": "2026-09-25"
     },
     "/categories/magnesium": {
-      "contentHash": "c0711384bb0cafd1",
+      "contentHash": "72914b2cee5aed6d",
       "lastmod": "2026-09-25"
     },
     "/categories/milk-thistle": {
-      "contentHash": "992f592bbfe1c9b4",
+      "contentHash": "5e3a14d69de8e9a1",
       "lastmod": "2026-09-25"
     },
     "/categories/msm": {
-      "contentHash": "be0161fc6569cb1a",
+      "contentHash": "07317d2af80668b1",
       "lastmod": "2026-09-25"
     },
     "/categories/omega-3": {
-      "contentHash": "89054178873705f0",
+      "contentHash": "fba56d0228b34ff1",
       "lastmod": "2026-09-25"
     },
     "/categories/probiotics": {
-      "contentHash": "ba983128432fd598",
+      "contentHash": "b9a4b95d4ba8660d",
       "lastmod": "2026-09-25"
     },
     "/categories/vitamin-c": {
-      "contentHash": "5f544fd4160e4383",
+      "contentHash": "f007729d111f3fa0",
       "lastmod": "2026-09-25"
     },
     "/categories/vitamin-d": {
-      "contentHash": "0a9f4f242cafc87b",
+      "contentHash": "bdcc44ba7f4fcde8",
       "lastmod": "2026-09-25"
     },
     "/compare": {
-      "contentHash": "b166b3201ad30278",
+      "contentHash": "f81293a5ae9e2cba",
       "lastmod": "2026-09-25"
     },
     "/disclosure": {
-      "contentHash": "019e5087a9985975",
+      "contentHash": "80e9ee1da4ae4f6c",
       "lastmod": "2026-09-25"
     },
     "/methodology": {
-      "contentHash": "c2677999f909224f",
+      "contentHash": "da2b635252a0534e",
       "lastmod": "2026-09-25"
     },
     "/privacy": {
-      "contentHash": "bf426aa31cfe98b4",
+      "contentHash": "60bac60d8a6bcf19",
       "lastmod": "2026-09-25"
     },
     "/products/acebiome-multivitamin-60": {
-      "contentHash": "51a6dd0cd8247c80",
+      "contentHash": "e1f8807837102a20",
       "lastmod": "2026-09-25"
     },
     "/products/alive-50-plus-60": {
-      "contentHash": "92b2774bc28ed877",
+      "contentHash": "633586d50ea76ce5",
       "lastmod": "2026-09-25"
     },
     "/products/alive-men-60": {
-      "contentHash": "a4354315f1a2078a",
+      "contentHash": "227b249b6d6d6d56",
       "lastmod": "2026-09-25"
     },
     "/products/alive-milk-thistle-60": {
-      "contentHash": "9364135a1c2cb07c",
+      "contentHash": "e8ab9223fbdc2978",
       "lastmod": "2026-09-25"
     },
     "/products/alive-women-80": {
-      "contentHash": "b38ccb77b82edbdc",
+      "contentHash": "4359a6aa65ffdad5",
       "lastmod": "2026-09-25"
     },
     "/products/berocca-30": {
-      "contentHash": "af1c766616ff0d1a",
+      "contentHash": "13c80dd15de2298f",
       "lastmod": "2026-09-25"
     },
     "/products/centrum-men-50": {
-      "contentHash": "3917a1832250de2f",
+      "contentHash": "76a0219d1bb907af",
       "lastmod": "2026-09-25"
     },
     "/products/centrum-silver-men-112": {
-      "contentHash": "e37c6547007b979d",
+      "contentHash": "5125fd49940e0f74",
       "lastmod": "2026-09-25"
     },
     "/products/centrum-silver-women-50": {
-      "contentHash": "d5fcc009ed678c0b",
+      "contentHash": "7d1832b4654904c6",
       "lastmod": "2026-09-25"
     },
     "/products/centrum-women-112": {
-      "contentHash": "e76379102d39b203",
+      "contentHash": "535e18f41b7a0615",
       "lastmod": "2026-09-25"
     },
     "/sources": {
-      "contentHash": "0343a1e31955859a",
+      "contentHash": "b606aeefbd5c9c66",
       "lastmod": "2026-09-25"
     },
     "/terms": {
-      "contentHash": "e04b0dcb6147b71f",
+      "contentHash": "cbfcea670e81677e",
       "lastmod": "2026-09-25"
     }
   }
