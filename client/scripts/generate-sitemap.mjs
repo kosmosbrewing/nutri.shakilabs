@@ -51,6 +51,10 @@ function fingerprint(html) {
   const normalized = html
     .replace(/<script\b[^>]*\bsrc=[^>]*><\/script>/gi, "")
     .replace(/<link\b[^>]*\/assets\/[^>]*>/gi, "")
+    // 푸터 "Copyright © YYYY"는 해가 바뀌면 전 페이지에서 바뀐다. 내용 변화가 아니므로 지문에서 뺀다 —
+    // 빼지 않으면 1월 1일마다 전 라우트 lastmod가 그날로 재스탬프되고 원장 검사(CI)가 red가 된다
+    // (2027-01-02로 속인 빌드에서 baby 10/10·nutri 28/28 라우트 변동 실측).
+    .replace(/(Copyright ©\s*)\d{4}/g, "$1@year")
     .trim();
   return createHash("sha256").update(normalized).digest("hex").slice(0, 16);
 }
