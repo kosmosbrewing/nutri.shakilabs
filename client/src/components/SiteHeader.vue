@@ -8,10 +8,7 @@ import {
   type PrimaryNavigationItem,
 } from "@shakilabs/ui";
 import ThemeToggle from "@/components/layout/ThemeToggle.vue";
-import TickerBar from "@/components/common/TickerBar.vue";
 import { trackAnalytics } from "@/utils/analytics";
-import { formatUnitPriceWon, resolveUnitPriceRanking, unitPriceDataset } from "@/utils/unit-price";
-import { siteLinkNoteShort } from "@/data/affiliate-disclosure";
 
 interface NutriNavigationItem extends PrimaryNavigationItem {
   matchPaths: readonly string[];
@@ -19,32 +16,14 @@ interface NutriNavigationItem extends PrimaryNavigationItem {
 
 const route = useRoute();
 
-// v3 3.2 — GlobalHeader는 로고 + 사이트 링크 + 테마 버튼을 담는다.
-// 카테고리 메뉴는 별도 PrimaryNavigation으로 내린다(BL-005).
-const headerLinks: GlobalHeaderLink[] = [{ to: "/methodology", label: "산정 기준" }];
-
-// same grammar as finance AppHeader: rotating fade ticker, now header's own #tip slot (0.3.24)
-const totalProducts = unitPriceDataset.categories.reduce((sum, category) => sum + category.products.length, 0);
-const globalTickerMessages: readonly string[] = [
-  `가격 확인 ${unitPriceDataset.updatedAt.replaceAll("-", ".")} · 검증 제품 ${totalProducts}개`,
-  "전 종류 가격효율 순위 · 효능·품질 순위가 아닙니다",
-  siteLinkNoteShort,
+// v3 3.2 — GlobalHeader는 로고 / 앱 이름 + 사이트 링크 + 테마 버튼 + ☰만 담는다.
+// 0.3.38 "순수 내비게이션"(2026-09-25): 회전 안내(티커)는 정보라 뺐다 — 가격 확인일·순위 성격은
+// 각 순위 화면이, 제휴 고지는 AffiliateNotice·푸터가 이미 싣는다. 산정 기준은 탭·☰에 있다.
+// 사이트 링크 — 블로그는 포털 소유라 href, 소개는 이 앱 라우트라 RouterLink(to). 모바일에서는 ☰ 안으로 들어간다.
+const headerLinks: GlobalHeaderLink[] = [
+  { href: "/blog", label: "블로그" },
+  { to: "/about", label: "소개" },
 ];
-
-const tickerMessages = computed<readonly string[]>(() => {
-  const match = /^\/categories\/([a-z0-9-]+)$/.exec(route.path);
-  if (match) {
-    const ranking = resolveUnitPriceRanking(match[1]);
-    const top = ranking?.scores[0];
-    if (ranking && top) {
-      return [
-        `${ranking.category.name} 가격효율 1위 ${top.product.displayName} · 1일 ${formatUnitPriceWon(top.dailyCostKrw)}`,
-        ...globalTickerMessages,
-      ];
-    }
-  }
-  return globalTickerMessages;
-});
 
 // same grammar as finance: nav = direct ranking tabs + catalog hub + methodology
 const navigationItems: readonly NutriNavigationItem[] = [
@@ -79,25 +58,20 @@ function trackNavigation(item: PrimaryNavigationItem): void {
 
 <template>
   <ShGlobalHeader
+    app="nutri"
     home-href="/"
     brand="ShakiLabs"
     :links="headerLinks"
     :link-component="RouterLink"
     :nav-items="navigationItems"
     :nav-active-key="navActiveKey"
-    nav-title="영양 도구"
   >
-    <!-- 한 줄 말줄임 절대 위치라 문구 길이가 56px 헤더 높이에 영향을 주지 않는다(BL-005) -->
-    <template #tip>
-      <TickerBar :key="route.path" :messages="tickerMessages" />
-    </template>
-
     <template #utility>
       <ThemeToggle />
     </template>
   </ShGlobalHeader>
+  <!-- 모바일(<48rem)에서는 패키지가 이 탭 줄을 숨기고 헤더 ☰가 같은 목록을 연다(0.3.38). -->
   <ShPrimaryNavigation
-    class="tab-navigation--desktop-only"
     :items="navigationItems"
     :active-key="activeItem?.key"
     :link-component="RouterLink"
@@ -105,13 +79,3 @@ function trackNavigation(item: PrimaryNavigationItem): void {
     @select="trackNavigation"
   />
 </template>
-
-<style scoped>
-/* v3 §3.3-1 — 모바일(<48rem)은 헤더의 좌측 드로어가 대신한다.
-   링크는 드로어에 그대로 렌더되므로 크롤 경로는 유지된다(레시피 §3). */
-@media (max-width: 47.99rem) {
-  .tab-navigation--desktop-only {
-    display: none;
-  }
-}
-</style>
