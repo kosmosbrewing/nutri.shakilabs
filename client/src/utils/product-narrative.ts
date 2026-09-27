@@ -157,11 +157,6 @@ function buildFacts(item: RankingItem, items: RankingItem[]): ProductNarrativeFa
   const highest = byMultiple
     .slice(0, 5)
     .map((entry) => `${name(entry.nutrientId)} ${amount(entry.dailyAmount, entry.unit)} ${Math.round(100 * entry.dailyAmount / entry.target).toLocaleString("ko-KR")}%`);
-  const lowest = item.score.coverage
-    .filter((entry) => entry.ratio < 1 && entry.dailyAmount > 0)
-    .sort((left, right) => left.ratio - right.ratio)
-    .slice(0, 5)
-    .map((entry) => `${name(entry.nutrientId)} ${amount(entry.dailyAmount, entry.unit)} 대 기준 ${amount(entry.target, entry.unit)} ${Math.round(entry.ratio * 100)}%`);
   const met = item.score.coverage.filter((entry) => entry.ratio >= 1).length;
   const monthly = items.map((entry) => entry.score.monthlyCostKrw).sort((left, right) => left - right);
   const above = items[item.overallRank - 2];
@@ -170,9 +165,6 @@ function buildFacts(item: RankingItem, items: RankingItem[]): ProductNarrativeFa
     above ? `위 ${above.overallRank}위 ${above.product.officialName} 지수 ${one(above.score.valueIndex)}` : null,
     below ? `아래 ${below.overallRank}위 ${below.product.officialName} 지수 ${one(below.score.valueIndex)}` : null,
   ].filter(Boolean).join(" · ");
-  const absent = item.score.coverage
-    .filter((entry) => entry.dailyAmount === 0)
-    .map((entry) => name(entry.nutrientId));
   const siblings = items.filter((entry) =>
     entry.product.brand === item.product.brand && entry.product.id !== item.product.id);
   const days = item.product.totalDays * item.offer.quantityMultiplier;
@@ -181,6 +173,7 @@ function buildFacts(item: RankingItem, items: RankingItem[]): ProductNarrativeFa
     { label: "순위 이웃", value: neighbours },
   ];
   // 값이 "없음"으로만 찍히는 줄은 아예 빼서 제품마다 표의 구성 자체가 갈리게 한다.
+  // 기준치 미달·라벨 미표시 목록은 상세 첫머리의 기준치 판정(product-contrast.ts)이 전부 싣는다.
   if (leading.length > 0) {
     facts.push({ label: "비교군 최고 함량 항목", value: leading.join(", ") });
   }
@@ -188,12 +181,6 @@ function buildFacts(item: RankingItem, items: RankingItem[]): ProductNarrativeFa
     label: "기준치 대비 높은 항목",
     value: `${highest.join(", ")} · 가장 높은 ${name(richest.nutrientId)}도 충족률은 100%에서 끊습니다`,
   });
-  if (lowest.length > 0) {
-    facts.push({ label: "충족률이 낮은 항목", value: lowest.join(", ") });
-  }
-  if (absent.length > 0) {
-    facts.push({ label: "전체 라벨 미표시", value: `${absent.length}개 · ${absent.join(", ")}` });
-  }
   if (met > 0) {
     facts.push({
       label: "충족 항목 1개당 하루 비용",

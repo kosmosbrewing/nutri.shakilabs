@@ -3,8 +3,10 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import SiteHeader from "@/components/SiteHeader.vue";
 import UnitPriceComparison from "@/components/category/UnitPriceComparison.vue";
+import CategoryDigest from "@/components/category/CategoryDigest.vue";
 import { publicDataSnapshot } from "@/data/public-snapshot";
 import { buildRegistryRanks, categoryCards, findCategory, formatActiveAmount } from "@/utils/category-catalog";
+import { registryCaveatSentence } from "@/utils/category-digest";
 import { isRankingEligible, resolveUnitPriceRanking } from "@/utils/unit-price";
 import { trackAnalytics } from "@/utils/analytics";
 
@@ -57,13 +59,15 @@ function trackQuicklink(toSlug: string): void {
 
       <UnitPriceComparison v-if="unitPriceRanking" :ranking="unitPriceRanking" />
 
+      <CategoryDigest :category="category" :ranking="unitPriceRanking" />
+
       <section class="sh-container sh-container--tool py-10 sm:py-14">
         <div class="grid gap-8 lg:grid-cols-[1fr_18rem]">
           <div class="min-w-0">
             <div class="mb-5">
               <p class="eyebrow">공식 등록 목록</p>
               <h2 class="mt-2 font-brand text-2xl">식약처 등록 전체 {{ category.registry.length.toLocaleString("ko-KR") }}건{{ category.activeUnit ? " · 1일 함량 순위" : "" }}</h2>
-              <p class="mt-3 break-keep text-xs leading-5 text-muted-foreground">공공데이터 표준영양성분 스냅샷의 해당 카테고리 전체 목록입니다. 수입·신고 변형이 포함될 수 있으며 판매 중 여부·가격은 별개입니다. {{ category.activeUnit ? "함량이 높은 순 순위이며 동일 함량은 동일 순위입니다. 효능·품질 순위가 아닙니다." : "" }}</p>
+              <p class="mt-3 break-keep text-xs leading-5 text-muted-foreground">{{ registryCaveatSentence(category) }} {{ category.activeUnit ? "함량이 높은 순 순위이며 동일 함량은 동일 순위입니다. 효능·품질 순위가 아닙니다." : "" }}</p>
             </div>
             <div class="overflow-x-auto rounded-xl border border-border bg-card">
               <table class="w-full min-w-[36rem] text-sm">
@@ -114,7 +118,6 @@ function trackQuicklink(toSlug: string): void {
       <section class="border-t border-border/60 bg-muted/20" aria-labelledby="category-quicklinks-title">
         <div class="sh-container sh-container--tool py-10 sm:py-12">
           <h2 id="category-quicklinks-title" class="font-brand text-2xl">다른 카테고리 가격효율 순위</h2>
-          <p class="mt-2 text-xs leading-5 text-muted-foreground">모든 카테고리는 같은 산정 기준(배송비 포함 단위가격·공식 등록 검증)을 사용합니다.</p>
           <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             <a
               v-for="card in otherCategoryCards"

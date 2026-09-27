@@ -200,6 +200,11 @@ for (const page of pages) {
   if (page.route.startsWith("/products/")) {
     assert((html.match(/data-nutrient-row/g) ?? []).length === 23,
       `${page.route}: expected 23 nutrient rows`);
+    // 같은 브랜드 제품끼리 공통 틀(23행 표)로 시작해 닮아 보이던 문제의 재발 방지:
+    // 이 제품만의 값(기준치 판정·가장 비슷한 제품과의 차이)이 표보다 먼저 나와야 한다.
+    const contrastAt = html.indexOf("data-product-contrast");
+    assert(contrastAt !== -1 && contrastAt < html.indexOf("data-nutrient-row"),
+      `${page.route}: product-specific contrast must render before the shared nutrient table`);
   }
   if (page.route.startsWith("/categories/")) {
     const slug = page.route.replace("/categories/", "");
@@ -210,6 +215,11 @@ for (const page of pages) {
       `${page.route}: expected ${expected} official registry rows`);
     assert(html.includes("1일 함량 순위") === Boolean(catalogCategory?.activeUnit),
       `${page.route}: amount ranking label must match snapshot amount availability`);
+    // 종류 페이지 템플릿 중복(외부 점검 09-27: 문장 54~94% 공유)의 해법이 사라지지 않게 —
+    // 등록부·검증 제품에서 계산한 발견이 SSR 본문에 8개 이상 실려야 한다.
+    const digestFindings = (html.match(/data-digest-finding=/g) ?? []).length;
+    assert(html.includes("data-category-digest") && digestFindings >= 8,
+      `${page.route}: category digest must render at least 8 derived findings, found ${digestFindings}`);
   }
 }
 

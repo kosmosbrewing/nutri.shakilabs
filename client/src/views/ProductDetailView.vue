@@ -6,6 +6,8 @@ import PriceFreshnessBadge from "@/components/common/PriceFreshnessBadge.vue";
 import SourceCard from "@/components/evidence/SourceCard.vue";
 import ProductNutritionTable from "@/components/product/ProductNutritionTable.vue";
 import ProductAlternatives from "@/components/product/ProductAlternatives.vue";
+import ProductContrast from "@/components/product/ProductContrast.vue";
+import ProductNarrative from "@/components/product/ProductNarrative.vue";
 import AffiliateNotice from "@/components/common/AffiliateNotice.vue";
 import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { useRanking } from "@/composables/useRanking";
@@ -133,6 +135,12 @@ function trackOfferClick(): void {
           </div>
         </header>
 
+        <!-- 이 제품에서만 나오는 값(기준치 판정·가장 비슷한 제품과의 차이·순위 해설)을
+             공통 틀(23행 영양소 표·대안·근거)보다 먼저 둔다 — 같은 브랜드 제품끼리 페이지가
+             같은 표로 시작해 닮아 보이던 문제(외부 점검 09-27, 센트룸 쌍 유사도 0.72~0.76). -->
+        <ProductContrast :item="detail.item" :items="allItems" />
+        <ProductNarrative v-if="narrative" :narrative="narrative" />
+
         <section class="mt-10 grid gap-5 lg:grid-cols-[1fr_18rem] lg:items-start">
           <div>
             <div class="mb-4">
@@ -164,32 +172,6 @@ function trackOfferClick(): void {
               점수 계산법 보기
             </RouterLink>
           </aside>
-        </section>
-
-        <section v-if="narrative" class="mt-10 surface-panel p-5 sm:p-7" aria-labelledby="product-narrative-title" data-product-narrative>
-          <p class="eyebrow">{{ narrative.eyebrow }}</p>
-          <h2 id="product-narrative-title" class="mt-2 break-keep font-brand text-2xl">{{ narrative.heading }}</h2>
-          <p
-            v-for="paragraph in narrative.paragraphs"
-            :key="paragraph"
-            class="mt-4 max-w-3xl break-keep text-sm leading-7 text-muted-foreground"
-          >{{ paragraph }}</p>
-
-          <h3 class="mt-7 text-sm font-semibold">{{ narrative.factsHeading }}</h3>
-          <dl class="mt-3 divide-y divide-border border-y border-border text-sm">
-            <div
-              v-for="fact in narrative.facts"
-              :key="fact.label"
-              class="grid gap-1 py-3 sm:grid-cols-[12rem_1fr] sm:gap-4"
-            >
-              <dt class="text-muted-foreground">{{ fact.label }}</dt>
-              <dd class="break-keep leading-6">{{ fact.value }}</dd>
-            </div>
-          </dl>
-
-          <p class="mt-5 max-w-3xl break-keep pt-1 text-xs leading-6 text-muted-foreground">
-            {{ narrative.disclaimer }}
-          </p>
         </section>
 
         <ProductAlternatives :current-item="detail.item" :items="allItems" />

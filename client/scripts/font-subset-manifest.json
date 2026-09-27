@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "characterCount": 780,
-  "characterSha256": "bb7d71f23c8e21ef796b94f41c95671c6e54197c7e9ae408f07819a79dd5aa5d",
+  "characterCount": 795,
+  "characterSha256": "e70b7309bbeaaadd205ac08529793b7dbda82c9bbac4279c370d9dbbbdea5415",
   "fonts": [
     {
       "publicName": "Pretendard-Regular-subset.woff2",
-      "bytes": 56444,
-      "characterCount": 780,
-      "sha256": "9bb14f266483bc0e05d36782366d5a3e6398d89329091f04b9f9fb5b0f3d19f5"
+      "bytes": 57080,
+      "characterCount": 795,
+      "sha256": "67d4e9bb366837745eb82d6013f8a2225950fe935056749ec9563438000ebab8"
     },
     {
       "publicName": "Pretendard-SemiBold-subset.woff2",
-      "bytes": 49628,
-      "characterCount": 780,
-      "sha256": "b13a1d177d2b223606d88c7c4f53f30b2355c1ab36ef2af0bce03d112a555dd5"
+      "bytes": 50556,
+      "characterCount": 795,
+      "sha256": "517054c2f5fcc6cdf9c4436cb011ec077146ea08555b3642c5845f45311738b1"
     },
     {
       "publicName": "GmarketSansBold-brand-v1.woff2",
-      "bytes": 11520,
-      "characterCount": 195,
-      "sha256": "4d115a98df6ccf0118ffffe1f7193db83922b84f42a1c67ce28d737d9413ede2",
-      "shippedCharacters": " %()+,-./0123456789CDMOPQST~·가간개거건것게격결계고공과관광교그근급기까나내네년눴는니다단달당데도등라량렇로록루룸류르른를리마만맨먼멀메면명목무문민밀바발배버법베별보부분브비산서선성세센소수순숫슘스슬습시식실심씨안않야약양억얼없엇에엔연영오온옴요용우운원월위유율은을의이인일읽임자적전점정제조종준지찾처천체초출카칼코크타택터테통트티틱페포표품프하할함합핵확회효휴",
+      "bytes": 11576,
+      "characterCount": 196,
+      "sha256": "f73b6850873bbf75c877e42c1580f8a45fb5a80501d93a6bb3d4959f5f3fb63b",
+      "shippedCharacters": " %()+,-./0123456789CDMOPQST~·가간값개거건것게격결계고공과관광교그근급기까나내네년눴는니다단달당데도등라량렇로록루룸류르른를리마만맨먼멀메면명목무문민밀바발배버법베별보부분브비산서선성세센소수순숫슘스슬습시식실심씨안않야약양억얼없엇에엔연영오온옴요용우운원월위유율은을의이인일읽임자적전점정제조종준지찾처천체초출카칼코크타택터테통트티틱페포표품프하할함합핵확회효휴",
       "droppedCharacters": ""
     }
   ]
