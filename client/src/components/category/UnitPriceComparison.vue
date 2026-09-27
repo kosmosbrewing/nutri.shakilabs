@@ -7,6 +7,7 @@ import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { worstFreshness } from "@/utils/scoring";
 import type { UnitPriceRanking, UnitPriceScore } from "@/utils/unit-price";
 import { formatPriceEfficiency, formatUnitPriceAmount, formatUnitPriceWon, isRankingEligible } from "@/utils/unit-price";
+import { rankingOrderSentence, topScoreSentence } from "@/utils/category-digest";
 import { isAffiliateLink, outboundRel, outboundUrl, retailerOf } from "@/utils/affiliate";
 import { linkBadgeLabel } from "@/data/affiliate-disclosure";
 import { trackAnalytics } from "@/utils/analytics";
@@ -69,7 +70,7 @@ function trackOfferClick(score: UnitPriceScore): void {
           </h2>
           <p class="mt-4 max-w-3xl break-keep text-sm leading-6 text-muted-foreground sm:text-base">
             {{ ranked
-              ? "배송비 포함 단위가격이 낮은 순서입니다. 효능·품질 순위가 아닙니다."
+              ? `${rankingOrderSentence(ranking)} 효능·품질 순위가 아닙니다.`
               : `${ranking.category.summary}입니다. 배송비와 세트 수량을 포함하며 같은 카테고리 안에서만 비교합니다.` }}
           </p>
         </div>
@@ -181,7 +182,7 @@ function trackOfferClick(score: UnitPriceScore): void {
 
       <div class="mt-5 rounded-xl border border-status-warning/30 bg-card px-5 py-4 text-sm leading-6">
         <strong class="font-semibold">해석 주의</strong>
-        <span class="ml-2 break-keep text-muted-foreground">가격효율 100점은 현재 같은 카테고리 비교군에서 단위가격이 가장 낮다는 뜻입니다. 낮은 단위가격은 구매 판단의 한 요소일 뿐이며 복용 권장이나 개인 적합성을 뜻하지 않습니다.</span>
+        <span class="ml-2 break-keep text-muted-foreground">{{ topScoreSentence(ranking) }} 낮은 단위가격은 구매 판단의 한 요소일 뿐이며 복용 권장이나 개인 적합성을 뜻하지 않습니다.</span>
       </div>
     </div>
   </section>

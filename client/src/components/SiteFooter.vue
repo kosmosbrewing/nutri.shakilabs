@@ -14,6 +14,8 @@ const policyLinks = [
   { to: "/terms", label: "이용약관" },
   { to: "/privacy", label: "개인정보" },
   { to: "/disclosure", label: "광고·제휴" },
+  // 문의는 root 앱의 /contact(shakilabs.com/contact)로 — 블로그와 같은 크로스앱 링크라 href로 나간다
+  { to: "", href: "/contact", label: "문의" },
 ];
 </script>
 

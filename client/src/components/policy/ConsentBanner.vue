@@ -4,6 +4,10 @@ import { useConsent } from "@/composables/useConsent";
 
 const { decide, decision, ready } = useConsent();
 const visible = computed(() => ready.value && decision.value === null);
+// 고지 전문은 접어 두고 한 줄 바만 띄운다 — 두 줄 고지 + 세로로 쌓인 버튼이 iPhone 13 첫 화면의
+// 25%(169/664px)를 가렸다(2026-09-27 외부 점검). 전문은 "자세히"로 그 자리에서 펼치고,
+// 펼치지 않아도 aria-describedby로 스크린리더에는 전문이 읽힌다.
+const expanded = ref(false);
 
 const barEl = ref<HTMLElement | null>(null);
 let resizeObserver: ResizeObserver | null = null;
@@ -67,57 +71,61 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- v3 section 6.8: fixed bottom bar, occludes less than 30vh, 2 buttons.
-       Consent gate logic (useConsent) is unchanged; only position moved to bottom-fixed.
+  <!-- v3 section 6.8: fixed bottom bar with 2 buttons. Consent gate logic (useConsent) is unchanged —
+       same storage key, same decide() calls, nothing loads before "동의".
        Plain <section>, not ShSurface. @shakilabs/ui ships after main.css and its `.sh-surface--plain`
        sets `background: transparent` at the same specificity as `bg-foreground`,
        so the utility loses on source order and the dark bar never paints. Only the
        children keep `text-background`, which left light text on the light page
        background at a measured 1.00:1. ShSurface adds nothing else here.
 
-       BL-UX-008: Mobile(<640px)에서 세로 스택 시 220px대까지 커져 콘텐츠를 가렸다.
-       고지 문단은 sm: 이상(PC)에서 기존처럼 한 줄로 펼치고, Mobile에서는 1줄로 clamp한다 —
-       전문은 링크(개인정보 처리 안내)로 계속 접근 가능하니 텍스트를 지우지 않고 시각적으로만 줄인다. -->
+       한 줄 바: 제목 + 자세히 | 거부·동의. 버튼 줄 높이(44px 터치 타깃) + 위아래 8px이 바 전체라
+       390×664에서 첫 화면의 10% 안에 든다. `consent-actions`(≤400px 전폭 버튼 규칙)는
+       설정 화면용이라 여기서는 쓰지 않는다 — 그 규칙이 버튼을 세로로 쌓아 바를 169px로 키웠다. -->
   <section
     v-if="visible"
     ref="barEl"
     aria-labelledby="analytics-consent-title"
+    aria-describedby="analytics-consent-detail"
     aria-live="polite"
     class="consent-bar fixed inset-x-0 bottom-0 z-[90] max-h-[30vh] overflow-y-auto border-t border-primary/30 bg-foreground text-background"
     role="region"
   >
-    <div class="container flex flex-col gap-2 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:py-3">
-      <div class="min-w-0">
-        <div class="flex items-baseline justify-between gap-2 sm:block">
+    <div class="container py-2">
+      <p v-show="expanded" id="analytics-consent-detail" class="pb-2 text-xs leading-5 text-background/80">
+        동의한 경우에만 페이지·필터·비교 이용 이벤트를 수집합니다. 건강정보, 검색어 원문, 예산 원값과 개인 식별정보는 전송하지 않습니다.
+        <RouterLink class="ml-1 inline-flex min-h-6 items-center font-semibold text-background underline underline-offset-4" to="/privacy">
+          개인정보 처리 안내
+        </RouterLink>
+      </p>
+      <div class="flex items-center justify-between gap-2 sm:gap-3">
+        <div class="flex min-w-0 flex-wrap items-center gap-x-2">
           <h2 id="analytics-consent-title" class="text-xs font-semibold sm:text-sm">선택적 이용 분석</h2>
-          <RouterLink
-            class="shrink-0 text-[11px] font-semibold text-background underline underline-offset-4 sm:hidden"
-            to="/privacy"
+          <button
+            class="inline-flex min-h-6 items-center text-[11px] font-semibold text-background underline underline-offset-4 sm:text-xs"
+            type="button"
+            aria-controls="analytics-consent-detail"
+            :aria-expanded="expanded"
+            @click="expanded = !expanded"
           >
-            개인정보 처리 안내
-          </RouterLink>
+            {{ expanded ? "접기" : "자세히" }}
+          </button>
         </div>
-        <p class="mt-1 line-clamp-1 text-xs leading-5 text-background/80 sm:line-clamp-none">
-          동의한 경우에만 페이지·필터·비교 이용 이벤트를 수집합니다. 건강정보, 검색어 원문, 예산 원값과 개인 식별정보는 전송하지 않습니다.
-          <RouterLink class="ml-1 hidden font-semibold text-background underline underline-offset-4 sm:inline" to="/privacy">
-            개인정보 처리 안내
-          </RouterLink>
-        </p>
-      </div>
-      <div class="consent-actions flex shrink-0 justify-end gap-2">
-        <button class="touch-target rounded-lg border border-background/40 px-4 text-sm font-semibold hover:bg-background/10" type="button" @click="decide('rejected')">
-          거부
-        </button>
-        <button class="touch-target rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" type="button" @click="decide('accepted')">
-          동의
-        </button>
+        <div class="flex shrink-0 gap-2">
+          <button class="touch-target rounded-lg border border-background/40 px-4 text-sm font-semibold hover:bg-background/10" type="button" @click="decide('rejected')">
+            거부
+          </button>
+          <button class="touch-target rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" type="button" @click="decide('accepted')">
+            동의
+          </button>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-/* 30vh 상한은 Tailwind 임의값(max-h-[30vh])으로 이미 적용된다 — 내용이 많아도
+/* 30vh 상한은 Tailwind 임의값(max-h-[30vh])으로 이미 적용된다 — 전문을 펼쳐도
    바 자체가 화면의 30%를 초과하지 않도록 내부 스크롤로 흡수한다. */
 .consent-bar {
   box-shadow: 0 -8px 24px -16px rgb(0 0 0 / 45%);
