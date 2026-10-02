@@ -163,6 +163,8 @@ export function disableAnalytics(input: unknown): boolean {
 
 export function trackAnalytics(input: unknown): boolean {
   if (typeof window === "undefined") return false;
+  // 자동화 브라우저(Playwright·헤드리스 점검)는 수집하지 않는다 — 2026-09 라이브 점검이 192페이지를 렌더해 GA4를 오염시켰다
+  if (navigator.webdriver) return false;
   if (readAnalyticsConsent() !== "accepted") return false;
   const analyticsWindow = window as AnalyticsWindow;
   if (!analyticsWindow.dataLayer || !document.querySelector("script[data-nutri-ga]")) return false;
