@@ -62,7 +62,9 @@ function trackAlternativeClick(toTool: string): void {
         class="flex flex-col"
       >
         <p class="text-xs font-semibold text-primary">{{ alternative.item.product.brand }}</p>
-        <ShText as="h3" variant="heading" class="mt-2">
+        <!-- v8: 다른 카드 제품명(RankingCard 등)과 같이 keep-all을 명시한다 — 390px 카드 폭에서
+             "얼라이브 원스데일리" 같은 이름이 음절 중간에서 끊기지 않게 (Why). -->
+        <ShText as="h3" variant="heading" class="mt-2 break-keep">
           <a
             :href="`/nutri/products/${alternative.item.product.slug}`"
             class="hover:text-primary hover:underline"
