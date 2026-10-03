@@ -29,20 +29,20 @@ interface SourceSpec {
 type EvidenceRow = [string, string, SourceType, string, string, string];
 
 const evidenceRows: EvidenceRow[] = [
-  ["centrum-men-evidence", "centrum-men-50", "retailer", "다나와 센트룸 포맨 50정", "https://prod.danawa.com/info/?pcode=5824834", "1bad71c2d70d29c89abfee3cda199148f90ef40df78a54ff43f717ec117b979b"],
+  ["centrum-men-evidence", "centrum-men-50", "retailer", "다나와 센트룸 포맨 50정", "https://prod.danawa.com/info/?pcode=5824834", "6fc426bcdccbe7052656b73486d0033f1bd990b34f9d0c3c2e31b62c627cecb9"],
   ["centrum-women-label", "centrum-women-112", "retailer", "다나와 센트룸 포 우먼 성분표", "https://prod.danawa.com/info/?pcode=65999897", "1bb02c7c6e76972f1d5757d22d48f8c6004eea124c0146380d9f7b25adf6e6e9"],
-  ["centrum-women-price", "centrum-women-112", "retailer", "다나와 센트룸 우먼 112정 가격", "https://prod.danawa.com/info/?pcode=109990749", "1be6db206f1dcbc36ce0aaf8e60bd3d8ec2499ba0675c7f55ba00ac8fd8a423f"],
-  ["centrum-silver-men-evidence", "centrum-silver-men-112", "retailer", "다나와 센트룸 실버맨 112정", "https://prod.danawa.com/info/?pcode=5979054", "fd1ee12b2f6b39c689b8f4f322ecc9b95becdde2d26ed67bc342056067e6cf1e"],
-  ["centrum-silver-women-evidence", "centrum-silver-women-50", "retailer", "다나와 센트룸 실버 우먼 50정", "https://prod.danawa.com/info/?pcode=5825000", "fc0aea4e2c8c0006a6db93d025f911e0fd37fe18a111e8d1f59012efecec953f"],
+  ["centrum-women-price", "centrum-women-112", "retailer", "다나와 센트룸 우먼 112정 가격", "https://prod.danawa.com/info/?pcode=109990749", "72fcda3aff5d4e6960f409aa6654020935b37060408d4d3df3280f33c325786f"],
+  ["centrum-silver-men-evidence", "centrum-silver-men-112", "retailer", "다나와 센트룸 실버맨 112정", "https://prod.danawa.com/info/?pcode=5979054", "e2e16fc0bcac0b60ac17e2bee2938e2734ce0a4d7c955958daf7ef01cae2d0c9"],
+  ["centrum-silver-women-evidence", "centrum-silver-women-50", "retailer", "다나와 센트룸 실버 우먼 50정", "https://prod.danawa.com/info/?pcode=5825000", "93a2284bd6dd3cf805647ff750345d812bcee4eb1fd91af06df575823fb32d92"],
   ["alive-men-label", "alive-men-60", "retailer", "SSG 얼라이브 포 맨 영양정보", "https://www.ssg.com/item/itemView.ssg?itemId=1000010266770", "e7f033c26336dbc0328a6da3d66267308d50cf3365e4eba34df64c253c9bb74f"],
-  ["alive-men-price", "alive-men-60", "retailer", "다나와 얼라이브 포 맨 60정 가격", "https://prod.danawa.com/info/?pcode=5323240", "ef9244399041290ea15d4972a43e108d7bf740c2195e74b2fa7dcc5936a927ef"],
-  ["alive-women-evidence", "alive-women-80", "retailer", "다나와 얼라이브 포 우먼 80정", "https://prod.danawa.com/info/?pcode=29239046", "60bac95a903754d4f37d64af1ee3c6f32e5a3ced78d78ffbd8cfd523c8daa5d8"],
-  ["alive-50-evidence", "alive-50-plus-60", "retailer", "다나와 얼라이브 50+ 60정", "https://prod.danawa.com/info/?pcode=15515066", "3674bcf1825735f69db65e518cc00398cae74903f28be458626c2299a1e9eed8"],
+  ["alive-men-price", "alive-men-60", "retailer", "다나와 얼라이브 포 맨 60정 가격", "https://prod.danawa.com/info/?pcode=5323240", "d4833214f2467f71fb6165138c173a9e6d614c1de92d4932c92c4b240be415bf"],
+  ["alive-women-evidence", "alive-women-80", "retailer", "다나와 얼라이브 포 우먼 80정", "https://prod.danawa.com/info/?pcode=29239046", "8abfcf3ac78d743e1ec30a628f67605a5555d4071a0a35122e3edd568098750c"],
+  ["alive-50-evidence", "alive-50-plus-60", "retailer", "다나와 얼라이브 50+ 60정", "https://prod.danawa.com/info/?pcode=15515066", "b6e3610a838ea358e2343f027c294b54d2dfe01bbb23edd7286cc79b3acb26fc"],
   ["alive-milk-label", "alive-milk-thistle-60", "retailer", "다나와 얼라이브 밀크씨슬 성분표", "https://prod.danawa.com/info/?pcode=14844986", "7cd597910cb3afd78b6286a7c1396713c700244baca55cab55a9f7caa9c9f538"],
-  ["alive-milk-price", "alive-milk-thistle-60", "retailer", "다나와 얼라이브 밀크씨슬 60정 2개 가격", "https://prod.danawa.com/info/?pcode=14844986", "2649016d0747e9e92d482c13c1b063821820c6bf0200255a11583675ab339215"],
+  ["alive-milk-price", "alive-milk-thistle-60", "retailer", "다나와 얼라이브 밀크씨슬 60정 2개 가격", "https://prod.danawa.com/info/?pcode=14844986", "2f9d1a40b260e8e71e821af56e1aca503fdc8ad5d3d6f453d42bad432e280b43"],
   ["berocca-label", "berocca-30", "manufacturer_label", "바이엘 베로카 제품정보 PDF", "https://www.bayer.com/sites/default/files/2025-07/pi-berocca-20250630.pdf", "7db0b00614e37a51a546c4b8b3619ceff948700ca6a57f41d3093dbdbd5161f6"],
-  ["berocca-price", "berocca-30", "retailer", "다나와 베로카 30정 가격", "https://prod.danawa.com/info/?pcode=119684681", "f1ba0c692204c499e7196073f1bf6c69d80f1de5fbedc5f7de6fe80af6b696e0"],
-  ["acebiome-evidence", "acebiome-multivitamin-60", "retailer", "다나와 에이스바이옴 60정", "https://prod.danawa.com/info/?pcode=79073921", "a85147423215e4d768b1ab9cc3b2d5da3134b234b2c17606f5caaf90c1bca604"],
+  ["berocca-price", "berocca-30", "retailer", "다나와 베로카 30정 가격", "https://prod.danawa.com/info/?pcode=119684681", "258ba5e2a2fc2c732a57a78d672bf6b001bf10567e0f2a24d22d47c0bbb0f789"],
+  ["acebiome-evidence", "acebiome-multivitamin-60", "retailer", "다나와 에이스바이옴 60정", "https://prod.danawa.com/info/?pcode=79073921", "e0070445657b1cba44af8024f453fb1b9129a58a6e1584cb3c1688c4f601f721"],
 ];
 
 const evidenceSpecs: SourceSpec[] = evidenceRows.map(([id, productId, type, title, url, hash]) => ({

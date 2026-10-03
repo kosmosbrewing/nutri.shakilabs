@@ -2,8 +2,21 @@
   "schemaVersion": "price-recheck-v1",
   "checkedOn": "2026-10-03",
   "timezone": "Asia/Seoul",
-  "applied": false,
-  "appliedReason": "54개 오퍼 중 1개(extreme-cockle-calcium)가 같은 판매처(다나와 같은 pcode)에서 일시 품절이라 오늘 가격을 확인하지 못했다. 신선도 계약은 모든 오퍼가 같은 날 확인돼야 확인일을 옮긴다(freshness.json capturedAt = 데이터셋 updatedAt = 모든 offer.capturedAt). 그래서 확인된 53개 값도 공개 데이터에 반영하지 않고, 공개 화면은 2026-07-29 가격과 '기준일 경과' 경고를 그대로 유지한다. 반영하려면 같은 날 전 오퍼 재확인이 필요하다.",
+  "applied": true,
+  "appliedReason": "확인된 53개 값을 기록 그대로(판매가+필수 배송비) 공개 데이터에 반영하고 확인일을 2026-10-03으로 옮겼다. 미확인 1건(extreme-cockle-calcium)은 같은 판매처(다나와 같은 pcode)에서 일시 품절이라 docs/DATA_SCORING_SPEC.md 가격 규칙 '품절 오퍼는 즉시 제외'대로 공개 오퍼에서 뺐다(칼슘 5→4, 순위 표기 조건 4개 이상 유지). 옛 값을 새 날짜로 옮겨 적지 않았다.",
+  "excludedOffers": [
+    {
+      "productId": "extreme-cockle-calcium",
+      "reason": "sold_out",
+      "rule": "docs/DATA_SCORING_SPEC.md 가격 규칙: 품절 오퍼는 즉시 제외하고 다음 검증 오퍼를 사용한다.",
+      "lastPublished": {
+        "listedPriceKrw": 22500,
+        "mandatoryShippingKrw": 0,
+        "packageCount": 2,
+        "capturedAt": "2026-07-29"
+      }
+    }
+  ],
   "procedure": {
     "danawa": "prod.danawa.com/info/?pcode= 의 JSON-LD offers.lowPrice(다나와 헤드라인 최저가) + 그 가격 판매처 행의 배송비(box__delivery 문구와 data-delivery-price 일치 확인). 회원·카드 혜택가(멤버십 영역)는 제외.",
     "11st": "catalog.11st.co.kr 카탈로그의 minPrice + dlvPrc (최저가 판매자 finalDscPrc·dlvcstInclDscPrc와 일치 확인).",
@@ -36,7 +49,7 @@
     "checkedAt": "2026-10-03",
     "records": 40,
     "changedFieldsVsCommitted": [],
-    "note": "식품안전나라 상세 40건을 요청 간격 4~6초로 다시 받아 커밋된 근거와 대조했다. 날짜 계약상 가격을 반영하지 않았으므로 이 결과는 저장소 근거 파일(unit-price-food-safety.json)에 덮어쓰지 않았다."
+    "note": "식품안전나라 상세 40건을 요청 간격 4~6초로 다시 받아 커밋된 근거와 대조했다(바뀐 필드 0건). 저장소 근거 파일 unit-price-food-safety.json을 이 결과(checkedAt 2026-10-03)로 교체했다."
   },
   "offers": [
     {
@@ -1099,7 +1112,7 @@
         "packageCount": 2,
         "capturedAt": "2026-07-29"
       },
-      "note": "다나와 같은 pcode가 '일시 품절'(판매처 0, nMinPrice 0)이라 오늘 가격을 확인하지 못했다. 공개 값은 2026-07-29 값 그대로 두고 미확인으로 표시한다."
+      "note": "다나와 같은 pcode가 '일시 품절'(판매처 0, nMinPrice 0)이라 오늘 가격을 확인하지 못했다. 추정값을 넣지 않고 스펙대로 공개 오퍼에서 제외했다."
     },
     {
       "productId": "healthiamin-calcium-mg-d3",

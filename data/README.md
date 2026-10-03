@@ -4,7 +4,7 @@
 
 - `raw/`는 공공데이터포털 원문 전체 스냅샷이며 Git에 포함하지 않는다.
 - `evidence/`는 식품안전나라 공식 상세와 가격 원문을 연결한 재현 입력이며 Git에 포함한다.
-- `evidence/price-recheck-YYYY-MM-DD.json`은 가격 재확인 기록이다. 오퍼별 확인 시각·원문 sha256·발췌·이전 값을 남기며 원문 HTML은 저장소 밖에 둔다. `applied: false`면 전 오퍼를 같은 날 확인하지 못해 공개 데이터에 반영하지 않은 기록이다.
+- `evidence/price-recheck-YYYY-MM-DD.json`은 가격 재확인 기록이다. 오퍼별 확인 시각·원문 sha256·발췌·이전 값을 남기며 원문 HTML은 저장소 밖에 둔다. `applied`는 그 확인값을 공개 데이터에 반영했는지(전 오퍼 같은 날 확인 또는 품절 제외 후)를 뜻한다.
 - `manifests/latest.json`은 출처, 기준일, 행·열 수, SHA-256을 기록한다.
 - 브라우저 번들에는 검증·정규화된 공개 subset만 포함한다.
 - `client/src/data/category-catalog.json`은 원본에서 재현 생성한 9개 카테고리 compact subset이다.
