@@ -12,6 +12,12 @@ import { verifyDeployment } from "./verify-deployment.mjs";
 import { verifyRouterSitemap } from "./verify-router-sitemap.mjs";
 import { verifyTokenContrast } from "./verify-token-contrast.mjs";
 import { verifyAffiliateHonesty } from "./verify-affiliate-honesty.mjs";
+import {
+  BRAND_TITLE_SUFFIX,
+  FORBIDDEN_META_WORDS,
+  SITE_TITLE_ROUTES,
+  SITE_TITLE_SUFFIX,
+} from "./seo-title-rules.mjs";
 
 const scriptRoot = dirname(fileURLToPath(import.meta.url));
 const clientRoot = resolve(scriptRoot, "..");
@@ -72,6 +78,26 @@ function getJsonLd(html) {
 
 function expectedCanonical(route) {
   return route === "/" ? siteBase : `${siteBase}${route}`;
+}
+
+// 제목 레시피 게이트(크롤러가 받는 HTML 기준). 도구 페이지는 "{페이지} | ShakiLabs",
+// 허브·정책·404는 "{페이지} · 영양제 가격 비교 | ShakiLabs". <title>이 둘이면(셸 기본값·SVG title)
+// 어느 쪽이 검색 결과에 쓰일지 알 수 없으므로 정확히 하나만 허용한다.
+function assertTitleRecipe(route, html, { siteRoute }) {
+  const titleTags = (html.match(/<title\b/g) ?? []).length;
+  assert(titleTags === 1, `${route}: expected exactly one <title>, found ${titleTags}`);
+  const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
+  assert(title.endsWith(BRAND_TITLE_SUFFIX) && title.split(" | ").length === 2,
+    `${route}: title must be "{page} | ShakiLabs" without a middle app name: ${title}`);
+  assert(title.endsWith(SITE_TITLE_SUFFIX) === siteRoute,
+    `${route}: ${siteRoute ? "site pages must carry" : "tool pages must not carry"} the app name: ${title}`);
+  const description = getMeta(html, "name", "description") ?? "";
+  const ogTitle = getMeta(html, "property", "og:title") ?? "";
+  const ogDescription = getMeta(html, "property", "og:description") ?? "";
+  assert(ogTitle === title, `${route}: og:title must equal <title>`);
+  for (const [field, text] of [["title", title], ["description", description], ["og:description", ogDescription]]) {
+    assert(!FORBIDDEN_META_WORDS.test(text), `${route}: ${field} carries a forbidden YMYL word: ${text}`);
+  }
 }
 
 // 애드센스 로더 판정. 셸에 하나만 있으므로 정적 산출물에서 직접 센다.
@@ -165,6 +191,7 @@ for (const page of pages) {
   const hash = createHash("sha256").update(body).digest("hex");
 
   assert(title && title.length <= 60, `${page.route}: invalid title`);
+  assertTitleRecipe(page.route, html, { siteRoute: SITE_TITLE_ROUTES.has(page.route) });
   assert(description && description.length <= 155, `${page.route}: invalid description`);
   assert(robots === "index,follow", `${page.route}: must be index,follow`);
   assert(canonical === expectedCanonical(page.route), `${page.route}: invalid canonical`);
@@ -243,6 +270,7 @@ assert(!pages.some((page) => read(page.path).includes("googletagmanager.com/gtag
   "Static HTML must not load analytics before consent");
 
 const notFoundHtml = read(resolve(distRoot, "404.html"));
+assertTitleRecipe("/404", notFoundHtml, { siteRoute: true });
 assert(getMeta(notFoundHtml, "name", "robots") === "noindex,nofollow",
   "404.html must be noindex,nofollow");
 assert(getCanonical(notFoundHtml) === null, "404.html must not declare a canonical");
