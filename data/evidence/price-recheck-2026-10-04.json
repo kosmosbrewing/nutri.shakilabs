@@ -1,0 +1,5741 @@
+{
+ "schemaVersion": "price-recheck-v2",
+ "checkedOn": "2026-10-04",
+ "timezone": "Asia/Seoul",
+ "rule": "total",
+ "ruleDecision": "사용자 결정 2026-10-04: 판매처는 필수 배송비를 포함한 총액이 가장 낮은 곳(헤드라인 최저가 + 그 판매처 배송비 규칙 폐기). 10-03 근거의 reference.lowestVisibleTotalKrw가 헤드라인 규칙보다 싼 오퍼가 14개였다.",
+ "applied": true,
+ "appliedReason": "확인된 53개 값을 그대로 공개 데이터에 반영하고 확인일을 2026-10-04로 옮겼다. 미확인 1건(extreme-cockle-calcium)은 판매처 목록이 비어(품절·미등록) 10-03과 같이 공개 오퍼에서 제외 상태를 유지했다.",
+ "procedure": {
+  "danawa": "prod.danawa.com/info/?pcode= 정적 HTML의 '쇼핑몰별 최저가' 목록(ul.list__mall-price) 행 전부: 판매처·판매가(text__num, 헤드라인 행은 data-base-price)·배송비(box__delivery 첫 금액, '무료배송'=0). 판매가+배송비 최솟값 행을 고른다(동률이면 헤드라인 행). 멤버십·카드 혜택 영역은 이 목록 밖이라 제외.",
+  "verification": "헤드라인 행 판매가 == 화면 상단 '최저가'(intMinFee) · 모든 행 배송비 판독 · 페이지 제목이 10-03과 같음(' : 다나와 가격비교' 접미사 제외). JSON-LD lowPrice는 일부 페이지에서 화면보다 낡아 판정에 쓰지 않고 staleIndicators로 기록.",
+  "11st": "catalog.11st.co.kr(sortCds=DLV_INCLUDE) 카탈로그 머리의 dlvcstInclDscPrc(배송비 포함가)·dlvPrc·nckNm — 배송비 포함가 목록 최솟값과 일치 확인.",
+  "gnm": "GNM 공식몰 product:price:amount = sale_price, 배송비 무료, 품절 아이콘 F, 비회원 구매 제한 F.",
+  "pacing": "요청 간격 5~8초, 차단 신호 0건."
+ },
+ "rawStorage": "원문 HTML은 저장소 밖 01_shakishaki/_nutri-raw/2026-10-04/<productId>.html에 보관하고 여기에는 sha256만 남긴다(10-03 원문은 임시 작업 영역에 있다가 소실됐다 — 이번부터 영구 폴더).",
+ "summary": {
+  "all": {
+   "total": 54,
+   "verified": 53
+  },
+  "ruleChangedSeller": 11,
+  "changedVs20261003": 19
+ },
+ "unverified": [
+  "extreme-cockle-calcium"
+ ],
+ "excludedOffers": [
+  {
+   "productId": "extreme-cockle-calcium",
+   "reason": "no_listing",
+   "rule": "docs/DATA_SCORING_SPEC.md 가격 규칙: 품절 오퍼는 즉시 제외",
+   "lastPublished": {
+    "listedPriceKrw": 22500,
+    "mandatoryShippingKrw": 0,
+    "packageCount": 2,
+    "capturedAt": "2026-07-29"
+   }
+  }
+ ],
+ "offers": [
+  {
+   "productId": "nutri-sun-d3-5000",
+   "group": "unit-price",
+   "category": "vitamin-d",
+   "url": "https://prod.danawa.com/info/?pcode=12897467",
+   "fetchedAt": "2026-10-04T08:02:47.238+09:00",
+   "httpStatus": 200,
+   "rawSha256": "b4b247d70e8f202bcfe0e766acd738059d96ec02f9e041e8512f819e2c5bf17f",
+   "pageTitle": "건강아름드리 뉴트리 썬 비타민 디3 5000IU 180캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "헬스뉴트리 네이버페이",
+    "listedPriceKrw": 10780,
+    "mandatoryShippingKrw": 2800,
+    "totalKrw": 13580
+   },
+   "headline": {
+    "seller": "헬스뉴트리 네이버페이",
+    "listedPriceKrw": 10780,
+    "mandatoryShippingKrw": 2800,
+    "totalKrw": 13580
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "헬스뉴트리 네이버페이",
+     "basePriceKrw": 10780,
+     "deliveryKrw": 2800,
+     "totalKrw": 13580,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 10970,
+     "deliveryKrw": 3000,
+     "totalKrw": 13970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 10970,
+     "deliveryKrw": 3000,
+     "totalKrw": 13970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 10970,
+     "deliveryKrw": 3000,
+     "totalKrw": 13970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 11370,
+     "deliveryKrw": 3000,
+     "totalKrw": 14370,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 12120,
+     "deliveryKrw": 3000,
+     "totalKrw": 15120,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 12120,
+     "deliveryKrw": 3000,
+     "totalKrw": 15120,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 12120,
+     "deliveryKrw": 3000,
+     "totalKrw": 15120,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "오늘의집",
+     "basePriceKrw": 14800,
+     "deliveryKrw": 0,
+     "totalKrw": 14800,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 10780,
+    "visibleLowest": 10780,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 10780,
+    "mandatoryShippingKrw": 2800,
+    "seller": "헬스뉴트리",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "nutri-sun-d3-2000",
+   "group": "unit-price",
+   "category": "vitamin-d",
+   "url": "https://prod.danawa.com/info/?pcode=12928019",
+   "fetchedAt": "2026-10-04T08:02:55.267+09:00",
+   "httpStatus": 200,
+   "rawSha256": "a4262ec1bd91e1c7eabed8716fe93c45366c60035362189da94cca12994355c0",
+   "pageTitle": "건강아름드리 뉴트리 썬 비타민 디3 2000IU 180캡슐 (4개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 48440,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 48440
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 48440,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 48440
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 48440,
+     "deliveryKrw": 0,
+     "totalKrw": 48440,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 48440,
+     "deliveryKrw": 0,
+     "totalKrw": 48440,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 48440,
+     "deliveryKrw": 0,
+     "totalKrw": 48440,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "헬스뉴트리 네이버페이",
+     "basePriceKrw": 49510,
+     "deliveryKrw": 0,
+     "totalKrw": 49510,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 49980,
+     "deliveryKrw": 0,
+     "totalKrw": 49980,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 48440,
+    "visibleLowest": 48440,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 48440,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "yuyu-haessaltoktok-d-1000",
+   "group": "unit-price",
+   "category": "vitamin-d",
+   "url": "https://prod.danawa.com/info/?pcode=110640913",
+   "fetchedAt": "2026-10-04T08:03:01.378+09:00",
+   "httpStatus": 200,
+   "rawSha256": "5c686a1c0cf2d0f9f4f369e7d6ba9d2242fd22d41aef05c7f894650b9dccde2a",
+   "pageTitle": "유유제약 햇살톡톡 츄어블 비타민D 1000IU 90캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 12580,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 12580
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 12580,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 12580
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 12580,
+     "deliveryKrw": 0,
+     "totalKrw": 12580,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 12580,
+     "deliveryKrw": 0,
+     "totalKrw": 12580,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 12590,
+     "deliveryKrw": 0,
+     "totalKrw": 12590,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 12870,
+     "deliveryKrw": 0,
+     "totalKrw": 12870,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 12970,
+     "deliveryKrw": 0,
+     "totalKrw": 12970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 12970,
+     "deliveryKrw": 0,
+     "totalKrw": 12970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 12970,
+     "deliveryKrw": 0,
+     "totalKrw": 12970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 13160,
+     "deliveryKrw": 0,
+     "totalKrw": 13160,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 12580,
+    "visibleLowest": 12580,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 12580,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "nutriday-plus-d-1000",
+   "group": "unit-price",
+   "category": "vitamin-d",
+   "url": "https://prod.danawa.com/info/?pcode=119495206",
+   "fetchedAt": "2026-10-04T08:03:08.890+09:00",
+   "httpStatus": 200,
+   "rawSha256": "1cddb4fa132bf0a9cde5e2b3f0ee87612bd32428d2435d9decedd9133d384579",
+   "pageTitle": "뉴트리디데이 플러스 비타민D 1000IU 60정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 7840,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 7840
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 7840,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 7840
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 7840,
+     "deliveryKrw": 0,
+     "totalKrw": 7840,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 7921,
+     "deliveryKrw": 0,
+     "totalKrw": 7921,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 7921,
+     "deliveryKrw": 0,
+     "totalKrw": 7921,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 7921,
+     "deliveryKrw": 0,
+     "totalKrw": 7921,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 8010,
+     "deliveryKrw": 0,
+     "totalKrw": 8010,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 8440,
+     "deliveryKrw": 0,
+     "totalKrw": 8440,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 8440,
+     "deliveryKrw": 0,
+     "totalKrw": 8440,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "쇼핑엔티",
+     "basePriceKrw": 8900,
+     "deliveryKrw": 0,
+     "totalKrw": 8900,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 7840,
+    "visibleLowest": 7840,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 7840,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "gnm-probiotics-10b",
+   "group": "unit-price",
+   "category": "probiotics",
+   "url": "https://www.gnm.co.kr/product/detail.html?cate_no=1&display_group=10&product_no=2353",
+   "fetchedAt": "2026-10-04T08:03:17.090+09:00",
+   "httpStatus": 200,
+   "rawSha256": "c5122fe14cefa38e3f0bbd02f747944ebae30bd81b018ef2032182368ebde969",
+   "pageTitle": "100억 생 유산균 비피더스 락토 프로바이오틱스 30캡슐 x 2박스(총 2개월분) | GNM자연의품격",
+   "verified": true,
+   "chosen": {
+    "seller": "GNM 공식몰",
+    "listedPriceKrw": 34900,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 34900
+   },
+   "headline": null,
+   "ruleEffectKrw": 0,
+   "rows": null,
+   "checks": {
+    "http200": true,
+    "priceParsed": true,
+    "saleEqualsPrice": true,
+    "notSoldOut": true,
+    "nonmemberAllowed": true,
+    "freeDelivery": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": null,
+   "previous": {
+    "listedPriceKrw": 34900,
+    "mandatoryShippingKrw": 0,
+    "seller": "GNM 공식몰",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "lactofit-gold-50",
+   "group": "unit-price",
+   "category": "probiotics",
+   "url": "https://prod.danawa.com/info/?pcode=18590933",
+   "fetchedAt": "2026-10-04T08:03:24.941+09:00",
+   "httpStatus": 200,
+   "rawSha256": "30e9245077eef8b43ea718c160d01bb3d742dcf6e6d8da66540765bae16a3555",
+   "pageTitle": "종근당건강 락토핏 생유산균 골드 2g 50포 (리뉴얼) (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 8290,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 11290
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 8290,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 11290
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 8290,
+     "deliveryKrw": 3000,
+     "totalKrw": 11290,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 8300,
+     "deliveryKrw": 4000,
+     "totalKrw": 12300,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "A-O Company 네이버페이",
+     "basePriceKrw": 8390,
+     "deliveryKrw": 3000,
+     "totalKrw": 11390,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 8660,
+     "deliveryKrw": 3000,
+     "totalKrw": 11660,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 8880,
+     "deliveryKrw": 3000,
+     "totalKrw": 11880,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 9053,
+     "deliveryKrw": 3000,
+     "totalKrw": 12053,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 9280,
+     "deliveryKrw": 3000,
+     "totalKrw": 12280,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 9380,
+     "deliveryKrw": 3000,
+     "totalKrw": 12380,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 9550,
+     "deliveryKrw": 3000,
+     "totalKrw": 12550,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 9675,
+     "deliveryKrw": 3000,
+     "totalKrw": 12675,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 8290,
+    "visibleLowest": 8290,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 8300,
+    "mandatoryShippingKrw": 4000,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "lactofit-core",
+   "group": "unit-price",
+   "category": "probiotics",
+   "url": "https://prod.danawa.com/info/?pcode=18591848",
+   "fetchedAt": "2026-10-04T08:03:33.655+09:00",
+   "httpStatus": 200,
+   "rawSha256": "c08402466899bd3a9bf07b9e894da2863f209d053bd090ff83c8ce5030829752",
+   "pageTitle": "종근당건강 락토핏 5X 생유산균 코어 2g 60포 (3개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 37530,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 37530
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 37530,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 37530
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 37530,
+     "deliveryKrw": 0,
+     "totalKrw": 37530,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 37530,
+     "deliveryKrw": 4000,
+     "totalKrw": 41530,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 37950,
+     "deliveryKrw": 0,
+     "totalKrw": 37950,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 38200,
+     "deliveryKrw": 0,
+     "totalKrw": 38200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 38780,
+     "deliveryKrw": 0,
+     "totalKrw": 38780,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 39200,
+     "deliveryKrw": 0,
+     "totalKrw": 39200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 39960,
+     "deliveryKrw": 0,
+     "totalKrw": 39960,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "더블에이쇼핑 네이버페이",
+     "basePriceKrw": 41200,
+     "deliveryKrw": 0,
+     "totalKrw": 41200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 41420,
+     "deliveryKrw": 0,
+     "totalKrw": 41420,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 41420,
+     "deliveryKrw": 0,
+     "totalKrw": 41420,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 37530,
+    "visibleLowest": 37530,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 37330,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "duolac-daily-kids-strawberry",
+   "group": "unit-price",
+   "category": "probiotics",
+   "url": "https://prod.danawa.com/info/?pcode=10598364",
+   "fetchedAt": "2026-10-04T08:03:40.526+09:00",
+   "httpStatus": 200,
+   "rawSha256": "b5ac04bc8c2be380eca77dd0127f0d0af0a11bd2e6d61fc492c5c15c4a3b8e92",
+   "pageTitle": "듀오락 데일리 키즈 프로바이오틱스 딸기맛 60정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 42200,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 42200
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 42200,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 42200
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 42200,
+     "deliveryKrw": 0,
+     "totalKrw": 42200,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 42210,
+     "deliveryKrw": 0,
+     "totalKrw": 42210,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 42500,
+     "deliveryKrw": 0,
+     "totalKrw": 42500,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 44540,
+     "deliveryKrw": 0,
+     "totalKrw": 44540,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "써클홀딩스 네이버페이",
+     "basePriceKrw": 50000,
+     "deliveryKrw": 0,
+     "totalKrw": 50000,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 42200,
+    "visibleLowest": 42200,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 42200,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "duolac-daily-kids-plus",
+   "group": "unit-price",
+   "category": "probiotics",
+   "url": "https://prod.danawa.com/info/?pcode=115126003",
+   "fetchedAt": "2026-10-04T08:03:48.765+09:00",
+   "httpStatus": 200,
+   "rawSha256": "9584a970294600ed707e04597a6a9eeb9facbbeb67374a24286210e2c064830f",
+   "pageTitle": "듀오락 데일리 키즈 플러스 프로바이오틱스 60정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 58480,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 58480
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 58480,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 58480
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 58480,
+     "deliveryKrw": 0,
+     "totalKrw": 58480,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 58490,
+     "deliveryKrw": 0,
+     "totalKrw": 58490,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 59170,
+     "deliveryKrw": 0,
+     "totalKrw": 59170,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 64300,
+     "deliveryKrw": 0,
+     "totalKrw": 64300,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 58480,
+    "visibleLowest": 58480,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 58480,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "vitamin-village-mega-c-1000",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=79073120",
+   "fetchedAt": "2026-10-04T08:03:55.944+09:00",
+   "httpStatus": 200,
+   "rawSha256": "9a17ce61a497b719842fc5fe30ab7fc16b7dc039e52c99d2a69b773b8df1a1d2",
+   "pageTitle": "비타민마을 메가씨 비타민C 1000 1100mg 300정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 14310,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 14310
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 14310,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 14310
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 14310,
+     "deliveryKrw": 0,
+     "totalKrw": 14310,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 15970,
+     "deliveryKrw": 0,
+     "totalKrw": 15970,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 16460,
+     "deliveryKrw": 0,
+     "totalKrw": 16460,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 16470,
+     "deliveryKrw": 0,
+     "totalKrw": 16470,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 16711,
+     "deliveryKrw": 0,
+     "totalKrw": 16711,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 16720,
+     "deliveryKrw": 0,
+     "totalKrw": 16720,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 17385,
+     "deliveryKrw": 0,
+     "totalKrw": 17385,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 17385,
+     "deliveryKrw": 0,
+     "totalKrw": 17385,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "nsmall",
+     "basePriceKrw": 17910,
+     "deliveryKrw": 0,
+     "totalKrw": 17910,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "W쇼핑",
+     "basePriceKrw": 17910,
+     "deliveryKrw": 0,
+     "totalKrw": 17910,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 14310,
+    "visibleLowest": 14310,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 14160,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "korea-eundan-c-gold-powerup",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=10632927",
+   "fetchedAt": "2026-10-04T08:04:04.186+09:00",
+   "httpStatus": 200,
+   "rawSha256": "38a919dc051ec269510ee495c75f3b4f78cf4f3e41ad4f3b0a62d3a5eefc675e",
+   "pageTitle": "고려은단 비타민C 골드 플러스 파워업 240정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "고려은단몰 네이버페이",
+    "listedPriceKrw": 39900,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 39900
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 39440,
+    "mandatoryShippingKrw": 4000,
+    "totalKrw": 43440
+   },
+   "ruleEffectKrw": 3540,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 39440,
+     "deliveryKrw": 4000,
+     "totalKrw": 43440,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "고려은단몰 네이버페이",
+     "basePriceKrw": 39900,
+     "deliveryKrw": 0,
+     "totalKrw": 39900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 40670,
+     "deliveryKrw": 3000,
+     "totalKrw": 43670,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 41010,
+     "deliveryKrw": 3000,
+     "totalKrw": 44010,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 42130,
+     "deliveryKrw": 3000,
+     "totalKrw": 45130,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 44760,
+     "deliveryKrw": 3000,
+     "totalKrw": 47760,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 45730,
+     "deliveryKrw": 3000,
+     "totalKrw": 48730,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 47380,
+     "deliveryKrw": 0,
+     "totalKrw": 47380,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 47680,
+     "deliveryKrw": 5000,
+     "totalKrw": 52680,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 51500,
+     "deliveryKrw": 0,
+     "totalKrw": 51500,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 39440,
+    "visibleLowest": 39440,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 39440,
+    "mandatoryShippingKrw": 4000,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "korea-eundan-c-easy-d",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=14329055",
+   "fetchedAt": "2026-10-04T08:04:11.883+09:00",
+   "httpStatus": 200,
+   "rawSha256": "614823c446906356f86082cdc288b5beadc6591c6a61148c5eeae8a32e53d274",
+   "pageTitle": "고려은단 비타민C1000 이지 + 비타민D 120정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 9000,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 12000
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 9000,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 12000
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 9000,
+     "deliveryKrw": 3000,
+     "totalKrw": 12000,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 9000,
+     "deliveryKrw": 3000,
+     "totalKrw": 12000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 9100,
+     "deliveryKrw": 3000,
+     "totalKrw": 12100,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 9270,
+     "deliveryKrw": 3000,
+     "totalKrw": 12270,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 9510,
+     "deliveryKrw": 3000,
+     "totalKrw": 12510,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 9710,
+     "deliveryKrw": 3000,
+     "totalKrw": 12710,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 9780,
+     "deliveryKrw": 3000,
+     "totalKrw": 12780,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 9906,
+     "deliveryKrw": 3000,
+     "totalKrw": 12906,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 9906,
+     "deliveryKrw": 3000,
+     "totalKrw": 12906,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 9906,
+     "deliveryKrw": 3000,
+     "totalKrw": 12906,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 9000,
+    "visibleLowest": 9000,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 9000,
+    "mandatoryShippingKrw": 3000,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "korea-eundan-c-1000",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=2012426",
+   "fetchedAt": "2026-10-04T08:04:19.171+09:00",
+   "httpStatus": 200,
+   "rawSha256": "d30173ec07ed6be83add0a223510dd4e7e4fb25b2214a3a6a0eddf56e70711c1",
+   "pageTitle": "고려은단 비타민C 1000 600정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "nsmall",
+    "listedPriceKrw": 43900,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 43900
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 40950,
+    "mandatoryShippingKrw": 3200,
+    "totalKrw": 44150
+   },
+   "ruleEffectKrw": 250,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 40950,
+     "deliveryKrw": 3200,
+     "totalKrw": 44150,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 40950,
+     "deliveryKrw": 3200,
+     "totalKrw": 44150,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "aveni 네이버페이",
+     "basePriceKrw": 41400,
+     "deliveryKrw": 5000,
+     "totalKrw": 46400,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 42660,
+     "deliveryKrw": 3000,
+     "totalKrw": 45660,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 42800,
+     "deliveryKrw": 3000,
+     "totalKrw": 45800,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "nsmall",
+     "basePriceKrw": 43900,
+     "deliveryKrw": 0,
+     "totalKrw": 43900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 45080,
+     "deliveryKrw": 0,
+     "totalKrw": 45080,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 46920,
+     "deliveryKrw": 0,
+     "totalKrw": 46920,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 48060,
+     "deliveryKrw": 0,
+     "totalKrw": 48060,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 49900,
+     "deliveryKrw": 0,
+     "totalKrw": 49900,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 40950,
+    "visibleLowest": 40950,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 40950,
+    "mandatoryShippingKrw": 3200,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "korea-eundan-c-neutral",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=19549181",
+   "fetchedAt": "2026-10-04T08:04:27.684+09:00",
+   "httpStatus": 200,
+   "rawSha256": "45629f646f0641e765eaf2b3b06eacd083e62ec715427b5a97195bc9a59977e4",
+   "pageTitle": "고려은단 속편한 비타민C 1000 120정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "고려은단몰 네이버페이",
+    "listedPriceKrw": 17900,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 17900
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 17200,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 20200
+   },
+   "ruleEffectKrw": 2300,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 17200,
+     "deliveryKrw": 3000,
+     "totalKrw": 20200,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 17210,
+     "deliveryKrw": 3000,
+     "totalKrw": 20210,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 17210,
+     "deliveryKrw": 3000,
+     "totalKrw": 20210,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "고려은단몰 네이버페이",
+     "basePriceKrw": 17900,
+     "deliveryKrw": 0,
+     "totalKrw": 17900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "nsmall",
+     "basePriceKrw": 18900,
+     "deliveryKrw": 0,
+     "totalKrw": 18900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 19440,
+     "deliveryKrw": 0,
+     "totalKrw": 19440,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 19855,
+     "deliveryKrw": 0,
+     "totalKrw": 19855,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 19855,
+     "deliveryKrw": 0,
+     "totalKrw": 19855,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 19855,
+     "deliveryKrw": 0,
+     "totalKrw": 19855,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "건강스토어",
+     "basePriceKrw": 19900,
+     "deliveryKrw": 3000,
+     "totalKrw": 22900,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 17200,
+    "visibleLowest": 17200,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 17210,
+    "mandatoryShippingKrw": 3000,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "ckd-vitamin-c-1000",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=4280991",
+   "fetchedAt": "2026-10-04T08:04:34.398+09:00",
+   "httpStatus": 200,
+   "rawSha256": "d771105b76f0d6ec8a76ed0e08b648517d4bc24ea6a581c8fbb77872335109a3",
+   "pageTitle": "종근당 비타민C 1000mg 600정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 27550,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 27550
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 26350,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 29350
+   },
+   "ruleEffectKrw": 1800,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 26350,
+     "deliveryKrw": 3000,
+     "totalKrw": 29350,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 3000,
+     "totalKrw": 30000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 27550,
+     "deliveryKrw": 0,
+     "totalKrw": 27550,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 27970,
+     "deliveryKrw": 3500,
+     "totalKrw": 31470,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 29000,
+     "deliveryKrw": 0,
+     "totalKrw": 29000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 29000,
+     "deliveryKrw": 0,
+     "totalKrw": 29000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 29000,
+     "deliveryKrw": 0,
+     "totalKrw": 29000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "달콤한과일팜 네이버페이",
+     "basePriceKrw": 30000,
+     "deliveryKrw": 3000,
+     "totalKrw": 33000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 30290,
+     "deliveryKrw": 0,
+     "totalKrw": 30290,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 31600,
+     "deliveryKrw": 0,
+     "totalKrw": 31600,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 26350,
+    "visibleLowest": 26350,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 26350,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "newmate-vitamin-c-1000",
+   "group": "unit-price",
+   "category": "vitamin-c",
+   "url": "https://prod.danawa.com/info/?pcode=66503120",
+   "fetchedAt": "2026-10-04T08:04:41.012+09:00",
+   "httpStatus": 200,
+   "rawSha256": "0075d308a965cdcb116a5be0928f0f90b7504b752278fcb46559fbd9b7102f50",
+   "pageTitle": "뉴메이트 비타민C 1000 700정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 27030,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 27030
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 27030,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 27030
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 27030,
+     "deliveryKrw": 0,
+     "totalKrw": 27030,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 28090,
+     "deliveryKrw": 0,
+     "totalKrw": 28090,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 28400,
+     "deliveryKrw": 0,
+     "totalKrw": 28400,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "와이코마트 네이버페이",
+     "basePriceKrw": 30670,
+     "deliveryKrw": 4000,
+     "totalKrw": 34670,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 30850,
+     "deliveryKrw": 0,
+     "totalKrw": 30850,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 33731,
+     "deliveryKrw": 0,
+     "totalKrw": 33731,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 33731,
+     "deliveryKrw": 0,
+     "totalKrw": 33731,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 33731,
+     "deliveryKrw": 0,
+     "totalKrw": 33731,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "W쇼핑",
+     "basePriceKrw": 34110,
+     "deliveryKrw": 0,
+     "totalKrw": 34110,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 35400,
+     "deliveryKrw": 0,
+     "totalKrw": 35400,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 27030,
+    "visibleLowest": 27030,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 27030,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "promega-rtg-omega3-dual-plus",
+   "group": "unit-price",
+   "category": "omega-3",
+   "url": "https://prod.danawa.com/info/?pcode=21206930",
+   "fetchedAt": "2026-10-04T08:04:48.271+09:00",
+   "httpStatus": 200,
+   "rawSha256": "5a29f84d285e6a9bd4e67df5ceaec533572b7426c4de8794c32cf65b6da2c1e5",
+   "pageTitle": "종근당건강 프로메가 알티지 오메가3 듀얼 플러스 520mg 60캡슐 (3개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 43860,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 43860
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 43850,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 46850
+   },
+   "ruleEffectKrw": 2990,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 43850,
+     "deliveryKrw": 3000,
+     "totalKrw": 46850,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 43860,
+     "deliveryKrw": 0,
+     "totalKrw": 43860,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 46170,
+     "deliveryKrw": 0,
+     "totalKrw": 46170,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 63440,
+     "deliveryKrw": 3000,
+     "totalKrw": 66440,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 43850,
+    "visibleLowest": 43850,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 43850,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "truen-supercritical-rtg-omega3",
+   "group": "unit-price",
+   "category": "omega-3",
+   "url": "https://prod.danawa.com/info/?pcode=20139737",
+   "fetchedAt": "2026-10-04T08:04:54.536+09:00",
+   "httpStatus": 200,
+   "rawSha256": "3fafd054d86d0ba8e56f7f11eb8ad5e7fcf7557d6cdc615f75036601aacec742",
+   "pageTitle": "트루엔 초임계 알티지 오메가3 100캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 86180,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 89180
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 86180,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 89180
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 86180,
+     "deliveryKrw": 3000,
+     "totalKrw": 89180,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 86180,
+     "deliveryKrw": 3000,
+     "totalKrw": 89180,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 87160,
+     "deliveryKrw": 3000,
+     "totalKrw": 90160,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 87850,
+     "deliveryKrw": 3000,
+     "totalKrw": 90850,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 92000,
+     "deliveryKrw": 0,
+     "totalKrw": 92000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 97000,
+     "deliveryKrw": 0,
+     "totalKrw": 97000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 98248,
+     "deliveryKrw": 0,
+     "totalKrw": 98248,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 98248,
+     "deliveryKrw": 0,
+     "totalKrw": 98248,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 100370,
+     "deliveryKrw": 6000,
+     "totalKrw": 106370,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "쇼핑엔티",
+     "basePriceKrw": 102410,
+     "deliveryKrw": 0,
+     "totalKrw": 102410,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 86180,
+    "visibleLowest": 86180,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 82870,
+    "mandatoryShippingKrw": 3000,
+    "seller": "롯데ON",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "gnm-rtg-omega3-dha",
+   "group": "unit-price",
+   "category": "omega-3",
+   "url": "https://prod.danawa.com/info/?pcode=17625611",
+   "fetchedAt": "2026-10-04T08:05:02.014+09:00",
+   "httpStatus": 200,
+   "rawSha256": "315100fc05b180381e05bd54bbfd2722679193f85deb7f7c231a3930acc6c5e0",
+   "pageTitle": "GNM자연의품격 알티지 오메가3 DHA 1050mg 30캡슐 (2개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "현대Hmall",
+    "listedPriceKrw": 20230,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 20230
+   },
+   "headline": {
+    "seller": "현대Hmall",
+    "listedPriceKrw": 20230,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 20230
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 20230,
+     "deliveryKrw": 0,
+     "totalKrw": 20230,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 20320,
+     "deliveryKrw": 0,
+     "totalKrw": 20320,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 20320,
+     "deliveryKrw": 0,
+     "totalKrw": 20320,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 20824,
+     "deliveryKrw": 0,
+     "totalKrw": 20824,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 20830,
+     "deliveryKrw": 0,
+     "totalKrw": 20830,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 21510,
+     "deliveryKrw": 0,
+     "totalKrw": 21510,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 21680,
+     "deliveryKrw": 0,
+     "totalKrw": 21680,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 21920,
+     "deliveryKrw": 0,
+     "totalKrw": 21920,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 21920,
+     "deliveryKrw": 0,
+     "totalKrw": 21920,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 22230,
+     "deliveryKrw": 0,
+     "totalKrw": 22230,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 20230,
+    "visibleLowest": 20230,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 20230,
+    "mandatoryShippingKrw": 0,
+    "seller": "현대Hmall",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "megarex-rtg-omega3-gold",
+   "group": "unit-price",
+   "category": "omega-3",
+   "url": "https://prod.danawa.com/info/?pcode=121009603",
+   "fetchedAt": "2026-10-04T08:05:10.077+09:00",
+   "httpStatus": 200,
+   "rawSha256": "82f714fcfbb24ed1d334a5dd41d1d0c8e7ef698a30e7130b314d75d6bc78f2b1",
+   "pageTitle": "뉴트리디데이 메가렉스 rTG 알티지 오메가3 골드 90캡슐 : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "CJ온스타일",
+    "listedPriceKrw": 24390,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 24390
+   },
+   "headline": {
+    "seller": "CJ온스타일",
+    "listedPriceKrw": 24390,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 24390
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "CJ온스타일",
+     "basePriceKrw": 24390,
+     "deliveryKrw": 0,
+     "totalKrw": 24390,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 24930,
+     "deliveryKrw": 0,
+     "totalKrw": 24930,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 26270,
+     "deliveryKrw": 0,
+     "totalKrw": 26270,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 28270,
+     "deliveryKrw": 0,
+     "totalKrw": 28270,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 24390,
+    "visibleLowest": 24390,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 24390,
+    "mandatoryShippingKrw": 0,
+    "seller": "CJ온스타일",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "promega-rtg-omega3-dual",
+   "group": "unit-price",
+   "category": "omega-3",
+   "url": "https://prod.danawa.com/info/?pcode=12762557",
+   "fetchedAt": "2026-10-04T08:05:16.731+09:00",
+   "httpStatus": 200,
+   "rawSha256": "2cc81aaa26757ccf5ee1d4edc33f33864c902d7858758bc3f81efa9da5381f38",
+   "pageTitle": "종근당건강 프로메가 알티지 오메가3 듀얼S 420mg 60캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "GS SHOP",
+    "listedPriceKrw": 10710,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 10710
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 9680,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 12680
+   },
+   "ruleEffectKrw": 1970,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 9680,
+     "deliveryKrw": 3000,
+     "totalKrw": 12680,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "코스앤매직 네이버페이",
+     "basePriceKrw": 9980,
+     "deliveryKrw": 3000,
+     "totalKrw": 12980,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 10200,
+     "deliveryKrw": 2900,
+     "totalKrw": 13100,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 10230,
+     "deliveryKrw": 3000,
+     "totalKrw": 13230,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 10710,
+     "deliveryKrw": 0,
+     "totalKrw": 10710,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 10870,
+     "deliveryKrw": 3000,
+     "totalKrw": 13870,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 10884,
+     "deliveryKrw": 3000,
+     "totalKrw": 13884,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 11030,
+     "deliveryKrw": 3000,
+     "totalKrw": 14030,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 11480,
+     "deliveryKrw": 3000,
+     "totalKrw": 14480,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 11624,
+     "deliveryKrw": 3000,
+     "totalKrw": 14624,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 9680,
+    "visibleLowest": 9680,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 9680,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "gnm-magnesium-05",
+   "group": "unit-price",
+   "category": "magnesium",
+   "url": "https://prod.danawa.com/info/?pcode=5980195",
+   "fetchedAt": "2026-10-04T08:05:25.022+09:00",
+   "httpStatus": 200,
+   "rawSha256": "17b3103e75435beccf37a1bd98a37d73c54dc9d9f3f8a000887af17020bd356f",
+   "pageTitle": "GNM자연의품격 마그네슘 05 120정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 11560,
+    "mandatoryShippingKrw": 2500,
+    "totalKrw": 14060
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 11560,
+    "mandatoryShippingKrw": 2500,
+    "totalKrw": 14060
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 11560,
+     "deliveryKrw": 2500,
+     "totalKrw": 14060,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 11560,
+     "deliveryKrw": 2500,
+     "totalKrw": 14060,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 11690,
+     "deliveryKrw": 2500,
+     "totalKrw": 14190,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 12100,
+     "deliveryKrw": 2500,
+     "totalKrw": 14600,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 12238,
+     "deliveryKrw": 2500,
+     "totalKrw": 14738,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 12238,
+     "deliveryKrw": 2500,
+     "totalKrw": 14738,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 12238,
+     "deliveryKrw": 2500,
+     "totalKrw": 14738,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "W쇼핑",
+     "basePriceKrw": 14630,
+     "deliveryKrw": 0,
+     "totalKrw": 14630,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 16000,
+     "deliveryKrw": 0,
+     "totalKrw": 16000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 17010,
+     "deliveryKrw": 0,
+     "totalKrw": 17010,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 11560,
+    "visibleLowest": 11560,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 11560,
+    "mandatoryShippingKrw": 2500,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "hanmi-premium-magnesium-400",
+   "group": "unit-price",
+   "category": "magnesium",
+   "url": "https://prod.danawa.com/info/?pcode=73295138",
+   "fetchedAt": "2026-10-04T08:05:32.057+09:00",
+   "httpStatus": 200,
+   "rawSha256": "ffb3c32e61782b3e48d46b1efc7401dabafb2d003c760e72d1a84423c501b5da",
+   "pageTitle": "한미양행 프리미엄 마그네슘400 90정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 15190,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 15190
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 15190,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 15190
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 15190,
+     "deliveryKrw": 0,
+     "totalKrw": 15190,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 15200,
+     "deliveryKrw": 3000,
+     "totalKrw": 18200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 15200,
+     "deliveryKrw": 3000,
+     "totalKrw": 18200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "Well-Looking 네이버페이",
+     "basePriceKrw": 16800,
+     "deliveryKrw": 3000,
+     "totalKrw": 19800,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 23710,
+     "deliveryKrw": 0,
+     "totalKrw": 23710,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 49128,
+     "deliveryKrw": 3000,
+     "totalKrw": 52128,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 49128,
+     "deliveryKrw": 3000,
+     "totalKrw": 52128,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 49128,
+     "deliveryKrw": 3000,
+     "totalKrw": 52128,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 15190,
+    "visibleLowest": 15190,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 15190,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "nutrigarden-magnesium-max-400",
+   "group": "unit-price",
+   "category": "magnesium",
+   "url": "https://prod.danawa.com/info/?pcode=120443495",
+   "fetchedAt": "2026-10-04T08:05:39.715+09:00",
+   "httpStatus": 200,
+   "rawSha256": "4a132412fe5a590ed23ba1d3dba378fe58fe6c5ce5afe589f8e0684079fb2c3d",
+   "pageTitle": "뉴트리가든 마그네슘 맥스 400 120정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 19620,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 19620
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 19620,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 19620
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 19620,
+     "deliveryKrw": 0,
+     "totalKrw": 19620,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 19620,
+     "deliveryKrw": 0,
+     "totalKrw": 19620,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 19620,
+    "visibleLowest": 19620,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 19620,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "yuhanmedica-magnesium-ntop-400",
+   "group": "unit-price",
+   "category": "magnesium",
+   "url": "https://prod.danawa.com/info/?pcode=93566840",
+   "fetchedAt": "2026-10-04T08:05:46.518+09:00",
+   "httpStatus": 200,
+   "rawSha256": "e4723d65bfef56e7e39e623d83b45f0b05f7f4575dd4bc358e3fbd7166261d69",
+   "pageTitle": "유한메디카 마그네슘 엔 탑 400 맥스 1200mg 90정 (2개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 16640,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 16640
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 16640,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 16640
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 16640,
+     "deliveryKrw": 0,
+     "totalKrw": 16640,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 17950,
+     "deliveryKrw": 0,
+     "totalKrw": 17950,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 17960,
+     "deliveryKrw": 0,
+     "totalKrw": 17960,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 18090,
+     "deliveryKrw": 0,
+     "totalKrw": 18090,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 18900,
+     "deliveryKrw": 0,
+     "totalKrw": 18900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "쇼핑엔티",
+     "basePriceKrw": 18900,
+     "deliveryKrw": 0,
+     "totalKrw": 18900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 18900,
+     "deliveryKrw": 0,
+     "totalKrw": 18900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 18900,
+     "deliveryKrw": 0,
+     "totalKrw": 18900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 18910,
+     "deliveryKrw": 0,
+     "totalKrw": 18910,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 19110,
+     "deliveryKrw": 0,
+     "totalKrw": 19110,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 16640,
+    "visibleLowest": 16640,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 16640,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "meditree-calcium-magnesium-zinc-d",
+   "group": "unit-price",
+   "category": "calcium",
+   "url": "https://prod.danawa.com/info/?pcode=79703120",
+   "fetchedAt": "2026-10-04T08:05:52.465+09:00",
+   "httpStatus": 200,
+   "rawSha256": "c93012eab76501021ee864476377744c909710e77509742a84fe12e116ce3cdb",
+   "pageTitle": "메디트리 칼슘마그네슘 아연 플러스 비타민D 180정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 20470,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 20470
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 20470,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 20470
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 20470,
+     "deliveryKrw": 0,
+     "totalKrw": 20470,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 20480,
+     "deliveryKrw": 0,
+     "totalKrw": 20480,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 20482,
+     "deliveryKrw": 0,
+     "totalKrw": 20482,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 20490,
+     "deliveryKrw": 0,
+     "totalKrw": 20490,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 21150,
+     "deliveryKrw": 0,
+     "totalKrw": 21150,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 21390,
+     "deliveryKrw": 0,
+     "totalKrw": 21390,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 21560,
+     "deliveryKrw": 0,
+     "totalKrw": 21560,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 21850,
+     "deliveryKrw": 0,
+     "totalKrw": 21850,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 21850,
+     "deliveryKrw": 0,
+     "totalKrw": 21850,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 22050,
+     "deliveryKrw": 0,
+     "totalKrw": 22050,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 20470,
+    "visibleLowest": 20470,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 20480,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "extreme-cockle-calcium",
+   "group": "unit-price",
+   "category": "calcium",
+   "url": "https://prod.danawa.com/info/?pcode=20545400",
+   "fetchedAt": "2026-10-04T08:05:59.307+09:00",
+   "httpStatus": 200,
+   "rawSha256": "a634a2f20faf7ed7e2a830d6033ef94a78a013c3a2e3c56c28b004c3c7ef3f4c",
+   "pageTitle": "익스트림 꼬막칼슘 마그네슘 비타민D&K 60정 (2개) : 다나와 가격비교",
+   "verified": false,
+   "chosen": null,
+   "headline": null,
+   "ruleEffectKrw": 0,
+   "rows": [],
+   "checks": {
+    "http200": true,
+    "rowsParsed": false,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": false,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": null,
+    "visibleLowest": null,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": null,
+    "mandatoryShippingKrw": null,
+    "seller": null,
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "healthiamin-calcium-mg-d3",
+   "group": "unit-price",
+   "category": "calcium",
+   "url": "https://prod.danawa.com/info/?pcode=101374766",
+   "fetchedAt": "2026-10-04T08:06:05.273+09:00",
+   "httpStatus": 200,
+   "rawSha256": "a0e51903387688bda342fc590f9939b937a9a05f09018325a3a3bc7923577fee",
+   "pageTitle": "종근당 헬시아민 칼슘 앤 마그네슘 비타민d 아연 망간초임계 비타민k2 60정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 14620,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 17620
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 14620,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 17620
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 14620,
+     "deliveryKrw": 3000,
+     "totalKrw": 17620,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 14630,
+     "deliveryKrw": 3000,
+     "totalKrw": 17630,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 14630,
+     "deliveryKrw": 3000,
+     "totalKrw": 17630,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 14910,
+     "deliveryKrw": 3000,
+     "totalKrw": 17910,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 14980,
+     "deliveryKrw": 3000,
+     "totalKrw": 17980,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 14987,
+     "deliveryKrw": 3000,
+     "totalKrw": 17987,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 15360,
+     "deliveryKrw": 3000,
+     "totalKrw": 18360,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 16012,
+     "deliveryKrw": 3000,
+     "totalKrw": 19012,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 16012,
+     "deliveryKrw": 3000,
+     "totalKrw": 19012,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 16070,
+     "deliveryKrw": 5000,
+     "totalKrw": 21070,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 14620,
+    "visibleLowest": 14620,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 14620,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "nutriday-premium-calcium",
+   "group": "unit-price",
+   "category": "calcium",
+   "url": "https://prod.danawa.com/info/?pcode=5834252",
+   "fetchedAt": "2026-10-04T08:06:12.159+09:00",
+   "httpStatus": 200,
+   "rawSha256": "5ccc682306b7164ec83b4e941690bbb5f02d0b07763ca64437439b8181f1325b",
+   "pageTitle": "뉴트리디데이 프리미엄 칼슘 마그네슘 아연 비타민D 90정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 12500,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 12500
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 12500,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 12500
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 12500,
+     "deliveryKrw": 0,
+     "totalKrw": 12500,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 12520,
+     "deliveryKrw": 0,
+     "totalKrw": 12520,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 14530,
+     "deliveryKrw": 0,
+     "totalKrw": 14530,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 14790,
+     "deliveryKrw": 0,
+     "totalKrw": 14790,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 14952,
+     "deliveryKrw": 0,
+     "totalKrw": 14952,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 15120,
+     "deliveryKrw": 0,
+     "totalKrw": 15120,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 15130,
+     "deliveryKrw": 0,
+     "totalKrw": 15130,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "CJ온스타일",
+     "basePriceKrw": 15290,
+     "deliveryKrw": 0,
+     "totalKrw": 15290,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 16800,
+     "deliveryKrw": 0,
+     "totalKrw": 16800,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 16800,
+     "deliveryKrw": 0,
+     "totalKrw": 16800,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 12500,
+    "visibleLowest": 12500,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 12500,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "ckd-calcium-mg-d-zinc",
+   "group": "unit-price",
+   "category": "calcium",
+   "url": "https://prod.danawa.com/info/?pcode=5985606",
+   "fetchedAt": "2026-10-04T08:06:18.981+09:00",
+   "httpStatus": 200,
+   "rawSha256": "bdb62dfdc563d91618cbae97d07218ae35571ca238d4e8bbc4e05eb15739530b",
+   "pageTitle": "종근당 칼슘 앤 마그네슘 비타민D 아연 1000mg 180정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "동원몰",
+    "listedPriceKrw": 15210,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 15210
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 12400,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 15400
+   },
+   "ruleEffectKrw": 190,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 12400,
+     "deliveryKrw": 3000,
+     "totalKrw": 15400,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 12410,
+     "deliveryKrw": 3000,
+     "totalKrw": 15410,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 12410,
+     "deliveryKrw": 3000,
+     "totalKrw": 15410,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "에쓰디몰 네이버페이",
+     "basePriceKrw": 13290,
+     "deliveryKrw": 3900,
+     "totalKrw": 17190,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 13780,
+     "deliveryKrw": 3000,
+     "totalKrw": 16780,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 15100,
+     "deliveryKrw": 3000,
+     "totalKrw": 18100,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 15180,
+     "deliveryKrw": 3000,
+     "totalKrw": 18180,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "동원몰",
+     "basePriceKrw": 15210,
+     "deliveryKrw": 0,
+     "totalKrw": 15210,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 15380,
+     "deliveryKrw": 0,
+     "totalKrw": 15380,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데백화점",
+     "basePriceKrw": 15740,
+     "deliveryKrw": 0,
+     "totalKrw": 15740,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 12400,
+    "visibleLowest": 12400,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 12400,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "gnm-joint-msm",
+   "group": "unit-price",
+   "category": "msm",
+   "url": "https://prod.danawa.com/info/?pcode=117176274",
+   "fetchedAt": "2026-10-04T08:06:26.048+09:00",
+   "httpStatus": 200,
+   "rawSha256": "dbdce4860fb71744b0166c02676e0abfc196f620427f5aa9891be4630c6d299e",
+   "pageTitle": "GNM자연의품격 관절 연골 뼈건강엔 MSM 글루코사민 비타민D 비타민K2 60정 (4개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "현대Hmall",
+    "listedPriceKrw": 38850,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 38850
+   },
+   "headline": {
+    "seller": "현대Hmall",
+    "listedPriceKrw": 38850,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 38850
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 38850,
+     "deliveryKrw": 0,
+     "totalKrw": 38850,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 39020,
+     "deliveryKrw": 0,
+     "totalKrw": 39020,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 39020,
+     "deliveryKrw": 0,
+     "totalKrw": 39020,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 40560,
+     "deliveryKrw": 0,
+     "totalKrw": 40560,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 41310,
+     "deliveryKrw": 0,
+     "totalKrw": 41310,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 41630,
+     "deliveryKrw": 0,
+     "totalKrw": 41630,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 42690,
+     "deliveryKrw": 0,
+     "totalKrw": 42690,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 44070,
+     "deliveryKrw": 0,
+     "totalKrw": 44070,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "홈&쇼핑",
+     "basePriceKrw": 48690,
+     "deliveryKrw": 0,
+     "totalKrw": 48690,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 57418,
+     "deliveryKrw": 0,
+     "totalKrw": 57418,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 38850,
+    "visibleLowest": 38850,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 38850,
+    "mandatoryShippingKrw": 0,
+    "seller": "현대Hmall",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "wellers-msm-premium",
+   "group": "unit-price",
+   "category": "msm",
+   "url": "https://catalog.11st.co.kr/pc/506782091?poc=pc&sortCds=DLV_INCLUDE",
+   "fetchedAt": "2026-10-04T08:06:32.555+09:00",
+   "httpStatus": 200,
+   "rawSha256": "4973dd23e8b795d989d6fcb7bf39b31fdb1e35b2bfffc3adbf9132462c8b0085",
+   "pageTitle": "웰러스 관절 연골엔 MSM 프리미엄 1026mg 300정 1개 - 가격비교-11번가 PC",
+   "verified": true,
+   "chosen": {
+    "seller": "자연의숲속",
+    "listedPriceKrw": 28490,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 28490
+   },
+   "headline": null,
+   "ruleEffectKrw": 0,
+   "rows": null,
+   "checks": {
+    "http200": true,
+    "catalogHeadParsed": true,
+    "headIsMinTotal": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": null,
+   "previous": {
+    "listedPriceKrw": 28490,
+    "mandatoryShippingKrw": 0,
+    "seller": "자연의숲속",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "megarex-joint-msm-2000",
+   "group": "unit-price",
+   "category": "msm",
+   "url": "https://prod.danawa.com/info/?pcode=17046437",
+   "fetchedAt": "2026-10-04T08:06:40.401+09:00",
+   "httpStatus": 200,
+   "rawSha256": "b2eaf1d630e7abaef87cbca5681b3b5a2aa148b9c749667232e6feafcc72383e",
+   "pageTitle": "뉴트리디데이 메가 렉스 관절 MSM 2000 90정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 11150,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 11150
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 11150,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 11150
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 11150,
+     "deliveryKrw": 0,
+     "totalKrw": 11150,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 11150,
+     "deliveryKrw": 0,
+     "totalKrw": 11150,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 11270,
+     "deliveryKrw": 0,
+     "totalKrw": 11270,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 11450,
+     "deliveryKrw": 0,
+     "totalKrw": 11450,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 11520,
+     "deliveryKrw": 0,
+     "totalKrw": 11520,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "CJ온스타일",
+     "basePriceKrw": 11650,
+     "deliveryKrw": 0,
+     "totalKrw": 11650,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 11650,
+     "deliveryKrw": 0,
+     "totalKrw": 11650,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 11776,
+     "deliveryKrw": 0,
+     "totalKrw": 11776,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 11875,
+     "deliveryKrw": 0,
+     "totalKrw": 11875,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 11875,
+     "deliveryKrw": 0,
+     "totalKrw": 11875,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 11150,
+    "visibleLowest": 11150,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 11150,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "daewoongls-joint-msm-2000",
+   "group": "unit-price",
+   "category": "msm",
+   "url": "https://prod.danawa.com/info/?pcode=20668148",
+   "fetchedAt": "2026-10-04T08:06:47.786+09:00",
+   "httpStatus": 200,
+   "rawSha256": "bde3d3a8ea87e746e826f4c959672b2483f7ad43fa14b5fca1976278ed4e5d43",
+   "pageTitle": "대웅생명과학 관절연골엔 엠에스엠 2000 1011mg 120정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 11020,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 11020
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 11020,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 11020
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 11020,
+     "deliveryKrw": 0,
+     "totalKrw": 11020,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 11030,
+     "deliveryKrw": 3000,
+     "totalKrw": 14030,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 11340,
+     "deliveryKrw": 0,
+     "totalKrw": 11340,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 11490,
+     "deliveryKrw": 0,
+     "totalKrw": 11490,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 11610,
+     "deliveryKrw": 0,
+     "totalKrw": 11610,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데백화점",
+     "basePriceKrw": 11790,
+     "deliveryKrw": 0,
+     "totalKrw": 11790,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 11868,
+     "deliveryKrw": 0,
+     "totalKrw": 11868,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 11870,
+     "deliveryKrw": 0,
+     "totalKrw": 11870,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 12260,
+     "deliveryKrw": 0,
+     "totalKrw": 12260,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 12390,
+     "deliveryKrw": 0,
+     "totalKrw": 12390,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 11020,
+    "visibleLowest": 11020,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 11020,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "gnm-coq10-11",
+   "group": "unit-price",
+   "category": "coenzyme-q10",
+   "url": "https://prod.danawa.com/info/?pcode=4399261",
+   "fetchedAt": "2026-10-04T08:06:54.773+09:00",
+   "httpStatus": 200,
+   "rawSha256": "f3293892dc656a6b29dafcf37652854952b61a95023343812f72f36aa4265232",
+   "pageTitle": "GNM자연의품격 코큐텐11 500mg 30캡슐 (4개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "SSG.COM",
+    "listedPriceKrw": 27364,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 27364
+   },
+   "headline": {
+    "seller": "SSG.COM",
+    "listedPriceKrw": 27364,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 27364
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 27364,
+     "deliveryKrw": 0,
+     "totalKrw": 27364,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 28804,
+     "deliveryKrw": 0,
+     "totalKrw": 28804,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 28804,
+     "deliveryKrw": 0,
+     "totalKrw": 28804,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 35250,
+     "deliveryKrw": 0,
+     "totalKrw": 35250,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 35620,
+     "deliveryKrw": 0,
+     "totalKrw": 35620,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "와이유 스토어 네이버페이",
+     "basePriceKrw": 40000,
+     "deliveryKrw": 3000,
+     "totalKrw": 43000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 42670,
+     "deliveryKrw": 0,
+     "totalKrw": 42670,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 27364,
+    "visibleLowest": 27364,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 27364,
+    "mandatoryShippingKrw": 0,
+    "seller": "SSG.COM",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "jangdaewon-coq10-plus",
+   "group": "unit-price",
+   "category": "coenzyme-q10",
+   "url": "https://prod.danawa.com/info/?pcode=17143079",
+   "fetchedAt": "2026-10-04T08:07:01.461+09:00",
+   "httpStatus": 200,
+   "rawSha256": "07181e55a2bd12f9a8f83eb3936fd03fd37bcc1e56d9e7adc68588358972d98c",
+   "pageTitle": "장대원 코엔자임Q10 항산화 플러스 30캡슐 (3개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 32000,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 32000
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 32000,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 32000
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 32000,
+     "deliveryKrw": 0,
+     "totalKrw": 32000,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 32000,
+     "deliveryKrw": 0,
+     "totalKrw": 32000,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 32000,
+    "visibleLowest": 32000,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 32000,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "meditree-coq10",
+   "group": "unit-price",
+   "category": "coenzyme-q10",
+   "url": "https://prod.danawa.com/info/?pcode=108352028",
+   "fetchedAt": "2026-10-04T08:07:07.948+09:00",
+   "httpStatus": 200,
+   "rawSha256": "5989e18b35d990de7d374ae3ff117696cda02fd2afb4ac3f1c9e7c05355577f2",
+   "pageTitle": "메디트리 코큐텐 코엔자임 Q10 600mg 30정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "롯데ON",
+    "listedPriceKrw": 8930,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 8930
+   },
+   "headline": {
+    "seller": "GS SHOP",
+    "listedPriceKrw": 7650,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 10650
+   },
+   "ruleEffectKrw": 1720,
+   "rows": [
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 7650,
+     "deliveryKrw": 3000,
+     "totalKrw": 10650,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "쇼핑엔티",
+     "basePriceKrw": 8500,
+     "deliveryKrw": 3000,
+     "totalKrw": 11500,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 8930,
+     "deliveryKrw": 0,
+     "totalKrw": 8930,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 9035,
+     "deliveryKrw": 0,
+     "totalKrw": 9035,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 9090,
+     "deliveryKrw": 0,
+     "totalKrw": 9090,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 9345,
+     "deliveryKrw": 0,
+     "totalKrw": 9345,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 9345,
+     "deliveryKrw": 0,
+     "totalKrw": 9345,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 9390,
+     "deliveryKrw": 0,
+     "totalKrw": 9390,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 9960,
+     "deliveryKrw": 0,
+     "totalKrw": 9960,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 9960,
+     "deliveryKrw": 0,
+     "totalKrw": 9960,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 7650,
+    "visibleLowest": 7650,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 7650,
+    "mandatoryShippingKrw": 3000,
+    "seller": "GS SHOP",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "koreaeundan-coq10",
+   "group": "unit-price",
+   "category": "coenzyme-q10",
+   "url": "https://prod.danawa.com/info/?pcode=98185871",
+   "fetchedAt": "2026-10-04T08:07:14.098+09:00",
+   "httpStatus": 200,
+   "rawSha256": "0bb703066b57a4ad55287c65aeb23880dcc1eaba013231e3824f883783e50dc1",
+   "pageTitle": "고려은단 코엔자임Q10 90캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "고려은단몰 네이버페이",
+    "listedPriceKrw": 17900,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 17900
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 16190,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 19190
+   },
+   "ruleEffectKrw": 1290,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 16190,
+     "deliveryKrw": 3000,
+     "totalKrw": 19190,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 16200,
+     "deliveryKrw": 3000,
+     "totalKrw": 19200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 16200,
+     "deliveryKrw": 3000,
+     "totalKrw": 19200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "고려은단몰 네이버페이",
+     "basePriceKrw": 17900,
+     "deliveryKrw": 0,
+     "totalKrw": 17900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 18670,
+     "deliveryKrw": 0,
+     "totalKrw": 18670,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 18770,
+     "deliveryKrw": 0,
+     "totalKrw": 18770,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 18810,
+     "deliveryKrw": 0,
+     "totalKrw": 18810,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 21580,
+     "deliveryKrw": 6000,
+     "totalKrw": 27580,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 22020,
+     "deliveryKrw": 0,
+     "totalKrw": 22020,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 23709,
+     "deliveryKrw": 0,
+     "totalKrw": 23709,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 16190,
+    "visibleLowest": 16190,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 16200,
+    "mandatoryShippingKrw": 3000,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "ckd-vital-coq10-plus",
+   "group": "unit-price",
+   "category": "coenzyme-q10",
+   "url": "https://prod.danawa.com/info/?pcode=66492299",
+   "fetchedAt": "2026-10-04T08:07:21.429+09:00",
+   "httpStatus": 200,
+   "rawSha256": "d7710ec5d9fc5966966d7bbee9ab89cc36ce24e58326babdaaef8e01fb5deea5",
+   "pageTitle": "종근당 활력 코엔자임Q10 플러스 30캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "롯데ON",
+    "listedPriceKrw": 11820,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 11820
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 10700,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 13700
+   },
+   "ruleEffectKrw": 1880,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 10700,
+     "deliveryKrw": 3000,
+     "totalKrw": 13700,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 10710,
+     "deliveryKrw": 3000,
+     "totalKrw": 13710,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 11820,
+     "deliveryKrw": 0,
+     "totalKrw": 11820,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 11820,
+     "deliveryKrw": 0,
+     "totalKrw": 11820,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 12510,
+     "deliveryKrw": 0,
+     "totalKrw": 12510,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데백화점",
+     "basePriceKrw": 12580,
+     "deliveryKrw": 0,
+     "totalKrw": 12580,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 12650,
+     "deliveryKrw": 0,
+     "totalKrw": 12650,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 12788,
+     "deliveryKrw": 0,
+     "totalKrw": 12788,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 12790,
+     "deliveryKrw": 0,
+     "totalKrw": 12790,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 13350,
+     "deliveryKrw": 0,
+     "totalKrw": 13350,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 10700,
+    "visibleLowest": 10700,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 10700,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "gnm-healthy-liver-milk-thistle",
+   "group": "unit-price",
+   "category": "milk-thistle",
+   "url": "https://prod.danawa.com/info/?pcode=115681233",
+   "fetchedAt": "2026-10-04T08:07:27.914+09:00",
+   "httpStatus": 200,
+   "rawSha256": "4e871ba475fa43450c0b0fbed8775894dfcd7f7925845fa62c6a94ebacdcb1c3",
+   "pageTitle": "GNM자연의품격 건강한 간 밀크씨슬 500mg 30정 (4개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "SSG.COM",
+    "listedPriceKrw": 17978,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 17978
+   },
+   "headline": {
+    "seller": "SSG.COM",
+    "listedPriceKrw": 17978,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 17978
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 17978,
+     "deliveryKrw": 0,
+     "totalKrw": 17978,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 18520,
+     "deliveryKrw": 0,
+     "totalKrw": 18520,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 18530,
+     "deliveryKrw": 0,
+     "totalKrw": 18530,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 18530,
+     "deliveryKrw": 0,
+     "totalKrw": 18530,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 18924,
+     "deliveryKrw": 0,
+     "totalKrw": 18924,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 18924,
+     "deliveryKrw": 0,
+     "totalKrw": 18924,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "CJ온스타일",
+     "basePriceKrw": 18930,
+     "deliveryKrw": 0,
+     "totalKrw": 18930,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "써니플로우 네이버페이",
+     "basePriceKrw": 19150,
+     "deliveryKrw": 3000,
+     "totalKrw": 22150,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 19530,
+     "deliveryKrw": 0,
+     "totalKrw": 19530,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 21080,
+     "deliveryKrw": 0,
+     "totalKrw": 21080,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 17978,
+    "visibleLowest": 17978,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 17978,
+    "mandatoryShippingKrw": 0,
+    "seller": "SSG.COM",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "ckd-healthykan",
+   "group": "unit-price",
+   "category": "milk-thistle",
+   "url": "https://prod.danawa.com/info/?pcode=90622835",
+   "fetchedAt": "2026-10-04T08:07:35.677+09:00",
+   "httpStatus": 200,
+   "rawSha256": "7ccdcb6ae6afdcb112defe68f092837a188bcac7aee869425cd8682d9033b79b",
+   "pageTitle": "종근당건강 헬씨칸 30캡슐 (10개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 100440,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 100440
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 100440,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 100440
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 100440,
+     "deliveryKrw": 0,
+     "totalKrw": 100440,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 100440,
+     "deliveryKrw": 0,
+     "totalKrw": 100440,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "건강 EST 네이버페이",
+     "basePriceKrw": 101600,
+     "deliveryKrw": 0,
+     "totalKrw": 101600,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 100440,
+    "visibleLowest": 100440,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 100440,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "dailycore-milk-thistle",
+   "group": "unit-price",
+   "category": "milk-thistle",
+   "url": "https://prod.danawa.com/info/?pcode=9786186",
+   "fetchedAt": "2026-10-04T08:07:42.810+09:00",
+   "httpStatus": 200,
+   "rawSha256": "65c9e49978943e1c730a4f3f31400c34efee74c93c2056ca9419241bb8f47f35",
+   "pageTitle": "데일리코어 밀크씨슬 30정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 8650,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 8650
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 8650,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 8650
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 8650,
+     "deliveryKrw": 0,
+     "totalKrw": 8650,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 9400,
+     "deliveryKrw": 0,
+     "totalKrw": 9400,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 9400,
+     "deliveryKrw": 0,
+     "totalKrw": 9400,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "천호엔케어 네이버페이",
+     "basePriceKrw": 11900,
+     "deliveryKrw": 0,
+     "totalKrw": 11900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 13510,
+     "deliveryKrw": 0,
+     "totalKrw": 13510,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "CJ온스타일",
+     "basePriceKrw": 13930,
+     "deliveryKrw": 0,
+     "totalKrw": 13930,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 14230,
+     "deliveryKrw": 0,
+     "totalKrw": 14230,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 14710,
+     "deliveryKrw": 0,
+     "totalKrw": 14710,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 14710,
+     "deliveryKrw": 0,
+     "totalKrw": 14710,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 8650,
+    "visibleLowest": 8650,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 8650,
+    "mandatoryShippingKrw": 0,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "nutriday-milk-thistle-gold",
+   "group": "unit-price",
+   "category": "milk-thistle",
+   "url": "https://prod.danawa.com/info/?pcode=8894012",
+   "fetchedAt": "2026-10-04T08:07:50.998+09:00",
+   "httpStatus": 200,
+   "rawSha256": "4e4debfcb3437c025f6bcd87c71f59174ed3a76df5e40d9f416e9f0f267fc6ee",
+   "pageTitle": "뉴트리디데이 프리미엄 밀크씨슬 골드 500mg 90정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 14300,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 14300
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 14300,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 14300
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 14300,
+     "deliveryKrw": 0,
+     "totalKrw": 14300,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 14320,
+     "deliveryKrw": 0,
+     "totalKrw": 14320,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 16550,
+     "deliveryKrw": 0,
+     "totalKrw": 16550,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 16732,
+     "deliveryKrw": 0,
+     "totalKrw": 16732,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "홈&쇼핑",
+     "basePriceKrw": 16800,
+     "deliveryKrw": 0,
+     "totalKrw": 16800,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 16840,
+     "deliveryKrw": 0,
+     "totalKrw": 16840,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 16920,
+     "deliveryKrw": 0,
+     "totalKrw": 16920,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 17110,
+     "deliveryKrw": 0,
+     "totalKrw": 17110,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 17385,
+     "deliveryKrw": 0,
+     "totalKrw": 17385,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 17385,
+     "deliveryKrw": 0,
+     "totalKrw": 17385,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 14300,
+    "visibleLowest": 14300,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 14300,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "daewoong-energcisl-milk-thistle",
+   "group": "unit-price",
+   "category": "milk-thistle",
+   "url": "https://prod.danawa.com/info/?pcode=14465942",
+   "fetchedAt": "2026-10-04T08:07:59.757+09:00",
+   "httpStatus": 200,
+   "rawSha256": "1f7eaba76f1e886103bee5ef0db39511f97a3480d39f5776059d0d42448bd696",
+   "pageTitle": "대웅제약 에너씨슬 700mg 30캡슐 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 16430,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 16430
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 16430,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 16430
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 16430,
+     "deliveryKrw": 0,
+     "totalKrw": 16430,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 17060,
+     "deliveryKrw": 0,
+     "totalKrw": 17060,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 17140,
+     "deliveryKrw": 0,
+     "totalKrw": 17140,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 17250,
+     "deliveryKrw": 0,
+     "totalKrw": 17250,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 18340,
+     "deliveryKrw": 0,
+     "totalKrw": 18340,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "위드와이엘 네이버페이",
+     "basePriceKrw": 22300,
+     "deliveryKrw": 0,
+     "totalKrw": 22300,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 17060,
+    "visibleLowest": 16430,
+    "jsonLdMatchesVisible": false
+   },
+   "previous": {
+    "listedPriceKrw": 17060,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "centrum-men-50",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=5824834",
+   "fetchedAt": "2026-10-04T08:08:06.853+09:00",
+   "httpStatus": 200,
+   "rawSha256": "712fbc819b2037dbaeee1f857bed9a813c2f8423b2bd8214f91c0dbc600a5185",
+   "pageTitle": "센트룸 멀티비타민 포 맨 50정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 26250,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 26250
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 26250,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 26250
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 26250,
+     "deliveryKrw": 0,
+     "totalKrw": 26250,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 0,
+     "totalKrw": 27000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "홈&쇼핑",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 0,
+     "totalKrw": 27000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 28480,
+     "deliveryKrw": 0,
+     "totalKrw": 28480,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 39660,
+     "deliveryKrw": 0,
+     "totalKrw": 39660,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 44750,
+     "deliveryKrw": 0,
+     "totalKrw": 44750,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 58400,
+     "deliveryKrw": 6000,
+     "totalKrw": 64400,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 61050,
+     "deliveryKrw": 0,
+     "totalKrw": 61050,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 61050,
+     "deliveryKrw": 0,
+     "totalKrw": 61050,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 61050,
+     "deliveryKrw": 0,
+     "totalKrw": 61050,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 26250,
+    "visibleLowest": 26250,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 26250,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "centrum-women-112",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=109990749",
+   "fetchedAt": "2026-10-04T08:08:14.467+09:00",
+   "httpStatus": 200,
+   "rawSha256": "350ea65647d15a77cbd9c02fdee3e09797b88a84337f90d9e0d3fe6708922250",
+   "pageTitle": "센트룸 멀티비타민 미네랄 포 우먼 112정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 43690,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 43690
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 43690,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 43690
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 43690,
+     "deliveryKrw": 0,
+     "totalKrw": 43690,
+     "headline": true,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 43690,
+    "visibleLowest": 43690,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 43690,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "centrum-silver-men-112",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=5979054",
+   "fetchedAt": "2026-10-04T08:08:22.785+09:00",
+   "httpStatus": 200,
+   "rawSha256": "f23cff17dee595b2f880c338e1932fe940269ef0049498265a43bb6adcc5c47b",
+   "pageTitle": "센트룸 멀티비타민 미네랄 실버 포 맨 112정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 30700,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 33700
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 30700,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 33700
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 30700,
+     "deliveryKrw": 3000,
+     "totalKrw": 33700,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 30710,
+     "deliveryKrw": 3000,
+     "totalKrw": 33710,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 31410,
+     "deliveryKrw": 3000,
+     "totalKrw": 34410,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 31410,
+     "deliveryKrw": 3000,
+     "totalKrw": 34410,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 31410,
+     "deliveryKrw": 3000,
+     "totalKrw": 34410,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 32020,
+     "deliveryKrw": 3000,
+     "totalKrw": 35020,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 32260,
+     "deliveryKrw": 3500,
+     "totalKrw": 35760,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "티에스shop 네이버페이",
+     "basePriceKrw": 33990,
+     "deliveryKrw": 3000,
+     "totalKrw": 36990,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "W쇼핑",
+     "basePriceKrw": 37620,
+     "deliveryKrw": 0,
+     "totalKrw": 37620,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SK스토아",
+     "basePriceKrw": 42400,
+     "deliveryKrw": 0,
+     "totalKrw": 42400,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 30700,
+    "visibleLowest": 30700,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 30700,
+    "mandatoryShippingKrw": 3000,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "centrum-silver-women-50",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=5825000",
+   "fetchedAt": "2026-10-04T08:08:29.009+09:00",
+   "httpStatus": 200,
+   "rawSha256": "f89338d294393b2f89244c557af618ac4e26ec0e030e885b8672511720df0c4b",
+   "pageTitle": "센트룸 멀티비타민 미네랄 실버 포 우먼 50정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 23930,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 23930
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 23930,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 23930
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 23930,
+     "deliveryKrw": 0,
+     "totalKrw": 23930,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 24570,
+     "deliveryKrw": 0,
+     "totalKrw": 24570,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 24840,
+     "deliveryKrw": 0,
+     "totalKrw": 24840,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 25650,
+     "deliveryKrw": 0,
+     "totalKrw": 25650,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 3000,
+     "totalKrw": 30000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 0,
+     "totalKrw": 27000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 3000,
+     "totalKrw": 30000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "홈&쇼핑",
+     "basePriceKrw": 27000,
+     "deliveryKrw": 0,
+     "totalKrw": 27000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "호연생활건강 네이버페이",
+     "basePriceKrw": 27400,
+     "deliveryKrw": 2900,
+     "totalKrw": 30300,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 27850,
+     "deliveryKrw": 0,
+     "totalKrw": 27850,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 23930,
+    "visibleLowest": 23930,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 23930,
+    "mandatoryShippingKrw": 0,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "alive-men-60",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=5323240",
+   "fetchedAt": "2026-10-04T08:08:37.045+09:00",
+   "httpStatus": 200,
+   "rawSha256": "a7c01583db30cf6753c2e64c7535938afb185a3434e9b635a8af62520192df54",
+   "pageTitle": "얼라이브 원스 데일리 포 맨 1632mg 60정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 23740,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 23740
+   },
+   "headline": {
+    "seller": "G마켓",
+    "listedPriceKrw": 23740,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 23740
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 23740,
+     "deliveryKrw": 0,
+     "totalKrw": 23740,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 23740,
+     "deliveryKrw": 0,
+     "totalKrw": 23740,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "11번가",
+     "basePriceKrw": 24000,
+     "deliveryKrw": 0,
+     "totalKrw": 24000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 25380,
+     "deliveryKrw": 0,
+     "totalKrw": 25380,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 26300,
+     "deliveryKrw": 0,
+     "totalKrw": 26300,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "주식회사 신세계라이브쇼핑",
+     "basePriceKrw": 27550,
+     "deliveryKrw": 0,
+     "totalKrw": 27550,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 28428,
+     "deliveryKrw": 0,
+     "totalKrw": 28428,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 29090,
+     "deliveryKrw": 0,
+     "totalKrw": 29090,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 30000,
+     "deliveryKrw": 0,
+     "totalKrw": 30000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 30367,
+     "deliveryKrw": 0,
+     "totalKrw": 30367,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 23740,
+    "visibleLowest": 23740,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 23740,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "alive-women-80",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=29239046",
+   "fetchedAt": "2026-10-04T08:08:45.039+09:00",
+   "httpStatus": 200,
+   "rawSha256": "da105a616b2218f2b6c3295b454a1c4b825eebd5b377997a5324b54423748095",
+   "pageTitle": "얼라이브 원스 데일리 멀티비타민 포 우먼 80정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "11번가",
+    "listedPriceKrw": 19120,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 22120
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 19120,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 22120
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 19120,
+     "deliveryKrw": 3000,
+     "totalKrw": 22120,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 19470,
+     "deliveryKrw": 3000,
+     "totalKrw": 22470,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 19470,
+     "deliveryKrw": 3000,
+     "totalKrw": 22470,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 19504,
+     "deliveryKrw": 3000,
+     "totalKrw": 22504,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 19770,
+     "deliveryKrw": 3000,
+     "totalKrw": 22770,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 21200,
+     "deliveryKrw": 3000,
+     "totalKrw": 24200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 21200,
+     "deliveryKrw": 3000,
+     "totalKrw": 24200,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "쇼핑엔티",
+     "basePriceKrw": 21720,
+     "deliveryKrw": 3000,
+     "totalKrw": 24720,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 21720,
+     "deliveryKrw": 3000,
+     "totalKrw": 24720,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "티피앤유통 네이버페이",
+     "basePriceKrw": 25180,
+     "deliveryKrw": 0,
+     "totalKrw": 25180,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 19470,
+    "visibleLowest": 19120,
+    "jsonLdMatchesVisible": false
+   },
+   "previous": {
+    "listedPriceKrw": 19470,
+    "mandatoryShippingKrw": 3000,
+    "seller": "G마켓",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "alive-50-plus-60",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=15515066",
+   "fetchedAt": "2026-10-04T08:08:52.324+09:00",
+   "httpStatus": 200,
+   "rawSha256": "d523ab4b128b36e6f52d46bbf2e7eb442a72d6bc9c77d3d5ff4558f561a35ed1",
+   "pageTitle": "얼라이브 원스데일리 멀티비타민 50+ 60정 (2개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "까사비나 네이버페이",
+    "listedPriceKrw": 56450,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 56450
+   },
+   "headline": {
+    "seller": "까사비나 네이버페이",
+    "listedPriceKrw": 56450,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 56450
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "까사비나 네이버페이",
+     "basePriceKrw": 56450,
+     "deliveryKrw": 0,
+     "totalKrw": 56450,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 70840,
+     "deliveryKrw": 0,
+     "totalKrw": 70840,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 71730,
+     "deliveryKrw": 0,
+     "totalKrw": 71730,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 73150,
+     "deliveryKrw": 0,
+     "totalKrw": 73150,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 74130,
+     "deliveryKrw": 0,
+     "totalKrw": 74130,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 77000,
+     "deliveryKrw": 0,
+     "totalKrw": 77000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 77000,
+     "deliveryKrw": 0,
+     "totalKrw": 77000,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "하프클럽",
+     "basePriceKrw": 78860,
+     "deliveryKrw": 0,
+     "totalKrw": 78860,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 56450,
+    "visibleLowest": 56450,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 56450,
+    "mandatoryShippingKrw": 0,
+    "seller": "까사비나",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "alive-milk-thistle-60",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=14844986",
+   "fetchedAt": "2026-10-04T08:08:58.701+09:00",
+   "httpStatus": 200,
+   "rawSha256": "a3b2cca06edf94dd8cd32e6b415812ac11053cb8e0d3e9c2ee2258081c4d1150",
+   "pageTitle": "얼라이브 원스데일리 밀크씨슬 60정 (2개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 51050,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 51050
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 51050,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 51050
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 51050,
+     "deliveryKrw": 0,
+     "totalKrw": 51050,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 51060,
+     "deliveryKrw": 0,
+     "totalKrw": 51060,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "CJ온스타일",
+     "basePriceKrw": 52160,
+     "deliveryKrw": 0,
+     "totalKrw": 52160,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 51050,
+    "visibleLowest": 51050,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 51050,
+    "mandatoryShippingKrw": 0,
+    "seller": "옥션",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "berocca-30",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=119684681",
+   "fetchedAt": "2026-10-04T08:09:05.268+09:00",
+   "httpStatus": 200,
+   "rawSha256": "1d55add03409ee78e66febabb5021d60d094b15ddf1c2cece2c6dcc3c730f851",
+   "pageTitle": "바이엘 베로카 멀티비타민 30정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "G마켓",
+    "listedPriceKrw": 13010,
+    "mandatoryShippingKrw": 2000,
+    "totalKrw": 15010
+   },
+   "headline": {
+    "seller": "11번가",
+    "listedPriceKrw": 12530,
+    "mandatoryShippingKrw": 3000,
+    "totalKrw": 15530
+   },
+   "ruleEffectKrw": 520,
+   "rows": [
+    {
+     "mall": "11번가",
+     "basePriceKrw": 12530,
+     "deliveryKrw": 3000,
+     "totalKrw": 15530,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 13010,
+     "deliveryKrw": 2000,
+     "totalKrw": 15010,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "옥션",
+     "basePriceKrw": 13010,
+     "deliveryKrw": 2000,
+     "totalKrw": 15010,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "마이몰 카페 스토어 네이버페이",
+     "basePriceKrw": 15900,
+     "deliveryKrw": 0,
+     "totalKrw": 15900,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데ON",
+     "basePriceKrw": 18680,
+     "deliveryKrw": 0,
+     "totalKrw": 18680,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "SSG.COM",
+     "basePriceKrw": 20542,
+     "deliveryKrw": 0,
+     "totalKrw": 20542,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "이마트몰",
+     "basePriceKrw": 20542,
+     "deliveryKrw": 0,
+     "totalKrw": 20542,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "신세계몰",
+     "basePriceKrw": 20542,
+     "deliveryKrw": 0,
+     "totalKrw": 20542,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "롯데홈쇼핑",
+     "basePriceKrw": 21620,
+     "deliveryKrw": 0,
+     "totalKrw": 21620,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "GS SHOP",
+     "basePriceKrw": 23500,
+     "deliveryKrw": 0,
+     "totalKrw": 23500,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 12530,
+    "visibleLowest": 12530,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 12530,
+    "mandatoryShippingKrw": 3000,
+    "seller": "11번가",
+    "capturedAt": "2026-10-03"
+   }
+  },
+  {
+   "productId": "acebiome-multivitamin-60",
+   "group": "multivitamin",
+   "category": "multivitamin",
+   "url": "https://prod.danawa.com/info/?pcode=79073921",
+   "fetchedAt": "2026-10-04T08:09:12.557+09:00",
+   "httpStatus": 200,
+   "rawSha256": "6ff07de33071cd43d05a75b947fb47d9c17b50f7233c4926a6c590dae6666aa4",
+   "pageTitle": "에이스바이옴 멀티비타민 1500mg 60정 (1개) : 다나와 가격비교",
+   "verified": true,
+   "chosen": {
+    "seller": "옥션",
+    "listedPriceKrw": 23190,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 23190
+   },
+   "headline": {
+    "seller": "옥션",
+    "listedPriceKrw": 23190,
+    "mandatoryShippingKrw": 0,
+    "totalKrw": 23190
+   },
+   "ruleEffectKrw": 0,
+   "rows": [
+    {
+     "mall": "옥션",
+     "basePriceKrw": 23190,
+     "deliveryKrw": 0,
+     "totalKrw": 23190,
+     "headline": true,
+     "soldOut": false
+    },
+    {
+     "mall": "현대Hmall",
+     "basePriceKrw": 23780,
+     "deliveryKrw": 0,
+     "totalKrw": 23780,
+     "headline": false,
+     "soldOut": false
+    },
+    {
+     "mall": "G마켓",
+     "basePriceKrw": 55100,
+     "deliveryKrw": 0,
+     "totalKrw": 55100,
+     "headline": false,
+     "soldOut": false
+    }
+   ],
+   "checks": {
+    "http200": true,
+    "rowsParsed": true,
+    "noUnknownDelivery": true,
+    "headlineEqualsVisibleLowest": true,
+    "sameTitleAsPrevious": true
+   },
+   "staleIndicators": {
+    "jsonLdLowPrice": 23190,
+    "visibleLowest": 23190,
+    "jsonLdMatchesVisible": true
+   },
+   "previous": {
+    "listedPriceKrw": 23780,
+    "mandatoryShippingKrw": 0,
+    "seller": "현대Hmall",
+    "capturedAt": "2026-10-03"
+   }
+  }
+ ]
+}

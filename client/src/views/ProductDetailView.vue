@@ -89,7 +89,7 @@ function trackOfferClick(): void {
       </nav>
 
       <section v-if="pageError" class="surface-panel mt-6 px-5 py-12 text-center" role="alert">
-        <h1 class="font-brand text-2xl">제품을 찾을 수 없습니다</h1>
+        <h1 class="font-brand text-h1">제품을 찾을 수 없습니다</h1>
         <p class="mt-2 text-sm text-muted-foreground">{{ pageError }}</p>
         <a class="touch-target mt-5 inline-flex items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" href="/nutri#ranking">
           검증 제품 보기
@@ -97,14 +97,15 @@ function trackOfferClick(): void {
       </section>
 
       <template v-else-if="detail">
-        <header class="mt-5 grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+        <!-- v8c: items-end면 짧아진 왼쪽(제목)이 오른쪽 금액 카드 바닥에 붙어 제목이 카드보다 아래로 보였다 → 위 정렬 -->
+        <header class="mt-5 grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
           <div>
             <div class="flex flex-wrap items-center gap-2">
               <span class="confidence-badge">신뢰도 {{ detail.item.product.confidence }}</span>
               <span class="text-xs font-semibold text-primary">가격효율 {{ detail.item.overallRank }}위</span>
             </div>
             <p class="mt-5 text-sm font-semibold text-primary">{{ detail.item.product.brand }}</p>
-            <h1 class="mt-2 break-keep font-brand text-3xl leading-tight sm:text-4xl">{{ detail.item.product.officialName }}</h1>
+            <h1 class="mt-2 break-keep font-brand text-h1">{{ detail.item.product.officialName }}</h1>
             <p class="mt-4 break-keep text-sm leading-6 text-muted-foreground">
               식약처 신고번호 {{ detail.item.product.reportNo }} · {{ detail.item.product.manufacturer }} 제조
             </p>
