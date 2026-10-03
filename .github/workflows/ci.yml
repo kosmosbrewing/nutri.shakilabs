@@ -35,4 +35,6 @@ jobs:
       # 네트워크·npm 재실행 없이 신원만 대조하는 결정적 검사. 커밋된 산출물이 없으면 no-op.
       - name: Verify vendored artifacts
         run: npm run verify:supply-chain
-      - run: npm audit --audit-level=high
+      # 프로덕션 산출물은 정적 파일이라 devDependencies(tailwind 3 빌드 체인의 braces/chokidar)는 런타임에 없다.
+      # 2026-10-03 braces GHSA-vfj7-8cjw-p6xm는 모든 버전이 대상이라 패치가 없고 tailwind 4로만 사라진다 → 런타임 의존성만 감사한다.
+      - run: npm audit --audit-level=high --omit=dev
