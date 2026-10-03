@@ -30,7 +30,7 @@ const actionLabel = {
       <div class="flex items-start justify-between gap-3">
         <span class="font-brand text-sm text-primary">{{ String(index + 1).padStart(2, "0") }}</span>
         <span
-          class="rounded-full px-2.5 py-1 text-[10px] font-semibold"
+          class="rounded-full px-2.5 py-1 text-xs font-semibold"
           :class="category.status === 'ranking' ? 'bg-primary text-primary-foreground' : category.status === 'unit_price' ? 'bg-accent text-accent-foreground' : 'bg-muted text-muted-foreground'"
         >
           {{ statusLabel[category.status] }}

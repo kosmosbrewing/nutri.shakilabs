@@ -45,6 +45,12 @@ export default {
           info: "hsl(var(--status-info))",
         },
       },
+      // v8c(2026-10-04, 사용자 결정 ④): text-xs 12px → 13px(2,821곳). 기본값(0.75rem)을 덮어 함대 하한 13px을 지킨다.
+      fontSize: {
+        xs: ["0.8125rem", { lineHeight: "1.125rem" }],
+        // 함대 도구·내용 화면 h1 표준(20px/700) — 옛 nutri 내용 h1은 30~36px였다(v8 점검)
+        h1: ["1.25rem", { lineHeight: "1.3", fontWeight: "700" }],
+      },
       fontFamily: {
         sans: ["Pretendard", ...fontFamily.sans],
         // 제목·히어로 수치 공용 브랜드 스택. 서브셋이 "제목+숫자"라 한글 제목과

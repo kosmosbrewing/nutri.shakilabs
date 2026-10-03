@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
         <div class="flex min-w-0 flex-wrap items-center gap-x-2">
           <h2 id="analytics-consent-title" class="text-xs font-semibold sm:text-sm">선택적 이용 분석</h2>
           <button
-            class="inline-flex min-h-6 items-center text-[11px] font-semibold text-background underline underline-offset-4 sm:text-xs"
+            class="inline-flex min-h-6 items-center text-xs font-semibold text-background underline underline-offset-4 sm:text-xs"
             type="button"
             aria-controls="analytics-consent-detail"
             :aria-expanded="expanded"

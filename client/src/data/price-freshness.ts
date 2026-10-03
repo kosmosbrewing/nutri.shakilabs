@@ -81,7 +81,7 @@ export function priceFreshnessNoticeBody(
       + " 기준을 넘긴 가격은 순위 계산에서 빠집니다.";
   }
   return `가격 확인일로부터 ${ageDays}일 지나 ${OVERDUE_AFTER_DAYS}일 기준을 넘겼습니다.`
-    + " 이 값은 순위에서 자동으로 빠지지 않습니다. 사람이 판매 페이지를 다시 확인할 때까지"
+    + " 이 값은 순위에서 자동으로 빠지지 않습니다. 운영자가 판매 페이지를 다시 확인할 때까지"
     + " 한시적으로 유예하며, 유예 중이라는 사실을 지금 이 자리에 그대로 적습니다."
     + " 재확인이 끝나면 확인일이 갱신되어 이 표시는 사라집니다.";
 }
@@ -106,7 +106,7 @@ export const priceFreshnessRules: readonly { id: string; term: string; detail: s
     detail: OVERDUE_BEHAVIOR === "exclude"
       ? "가격이 오래된 제품은 순위 계산에서 제외합니다."
       : "순위에서 자동으로 빼지 않습니다. 대신 기준일 경과 경고를 순위 위에 함께 표시하고,"
-        + " 사람이 가격을 다시 확인할 때까지 한시적으로 유예합니다."
+        + " 운영자가 가격을 다시 확인할 때까지 한시적으로 유예합니다."
         + ` 재확인이 끝나면 확인일이 갱신되어 0~${REFRESH_REQUIRED_AFTER_DAYS}일 상태로 돌아갑니다.`,
   },
   {

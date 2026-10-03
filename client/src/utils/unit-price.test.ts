@@ -10,7 +10,7 @@ import {
   validateUnitPriceDataset,
 } from "./unit-price";
 
-// 기준일 = 2026-10-03 전량 재확인일(freshness.json capturedAt). 이 파일의 날짜·순서·금액은 그날 가격으로 다시 고정했다.
+// 기준일 = 2026-10-04 전량 재확인일(freshness.json capturedAt, 총액 규칙 적용). 이 파일의 날짜·순서·금액은 그날 가격으로 다시 고정했다.
 // 칼슘 5→4: extreme-cockle-calcium이 같은 판매처(다나와 pcode 20545400)에서 일시 품절이라
 // 스펙("품절 오퍼는 즉시 제외")대로 뺐다 — 근거 data/evidence/price-recheck-2026-10-03.json.
 describe("unit-price-v1 dataset", () => {
@@ -44,7 +44,7 @@ describe("unit-price-v1 dataset", () => {
 
   it("marks only pools of four or more as ranking-eligible", () => {
     const eligible = unitPriceDataset.categories
-      .map(({ slug }) => resolveUnitPriceRanking(slug, "2026-10-03"))
+      .map(({ slug }) => resolveUnitPriceRanking(slug, "2026-10-04"))
       .filter((ranking): ranking is NonNullable<typeof ranking> => ranking !== null)
       .filter((ranking) => isRankingEligible(ranking))
       .map(({ category }) => category.slug);
@@ -70,7 +70,7 @@ describe("unit-price-v1 dataset", () => {
 
 describe("unit-price-v1 scoring", () => {
   it("includes set quantity and compares vitamin D per 10 ug", () => {
-    const ranking = resolveUnitPriceRanking("vitamin-d", "2026-10-03");
+    const ranking = resolveUnitPriceRanking("vitamin-d", "2026-10-04");
     expect(ranking?.scores.map(({ product }) => product.id)).toEqual([
       "nutri-sun-d3-5000",
       "nutri-sun-d3-2000",
@@ -87,7 +87,7 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("includes mandatory shipping and units per day", () => {
-    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-10-03");
+    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-10-04");
     const product = ranking?.scores.find(({ product }) => product.id === "korea-eundan-c-easy-d");
     expect(product?.totalDays).toBe(60);
     expect(product?.dailyCostKrw).toBeCloseTo(200, 2);
@@ -95,11 +95,11 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("ranks the expanded vitamin C pool by unit price", () => {
-    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-10-03");
+    const ranking = resolveUnitPriceRanking("vitamin-c", "2026-10-04");
     expect(ranking?.scores.map(({ product }) => product.id)).toEqual([
       "newmate-vitamin-c-1000",
-      "vitamin-village-mega-c-1000",
       "ckd-vitamin-c-1000",
+      "vitamin-village-mega-c-1000",
       "korea-eundan-c-1000",
       "korea-eundan-c-neutral",
       "korea-eundan-c-gold-powerup",
@@ -109,7 +109,7 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("compares probiotics per one billion CFU", () => {
-    const ranking = resolveUnitPriceRanking("probiotics", "2026-10-03");
+    const ranking = resolveUnitPriceRanking("probiotics", "2026-10-04");
     expect(ranking?.category.basisAmount).toBe(1_000_000_000);
     expect(ranking?.scores.every(({ product }) => product.activeUnit === "cfu")).toBe(true);
     expect(ranking?.scores.every(({ priceEfficiencyIndex }) => (
@@ -120,7 +120,7 @@ describe("unit-price-v1 scoring", () => {
 
   it("normalizes the best current offer to 100 within every category", () => {
     for (const category of unitPriceDataset.categories) {
-      const ranking = resolveUnitPriceRanking(category.slug, "2026-10-03");
+      const ranking = resolveUnitPriceRanking(category.slug, "2026-10-04");
       expect(ranking?.scores).toHaveLength(category.products.length);
       expect(ranking?.scores[0].priceEfficiencyIndex).toBe(100);
       for (const score of ranking!.scores) {
@@ -133,20 +133,20 @@ describe("unit-price-v1 scoring", () => {
   });
 
   it("does not compare products across categories", () => {
-    expect(resolveUnitPriceRanking("multivitamin", "2026-10-03")).toBeNull();
-    expect(resolveUnitPriceRanking("../calcium", "2026-10-03")).toBeNull();
+    expect(resolveUnitPriceRanking("multivitamin", "2026-10-04")).toBeNull();
+    expect(resolveUnitPriceRanking("../calcium", "2026-10-04")).toBeNull();
   });
 
   it("keeps prices past the 30-day window ranked and flags them instead", () => {
     // The published rule used to say these drop out, but the freshness clock compared the
     // dataset against its own capture date so the branch was unreachable. The rule now
     // grants an explicit grace period, and every card must carry the overdue state.
-    const ranking = resolveUnitPriceRanking("calcium", "2026-11-03");
+    const ranking = resolveUnitPriceRanking("calcium", "2026-11-04");
     expect(ranking?.scores).toHaveLength(4);
     expect(ranking?.freshness).toBe("overdue");
     expect(ranking?.ageDays).toBe(31);
     expect(ranking?.scores.every((score) => score.freshness === "overdue")).toBe(true);
-    expect(ranking?.asOf).toBe("2026-11-03");
+    expect(ranking?.asOf).toBe("2026-11-04");
   });
 
   it("evaluates freshness against the injected build date, not the dataset's own date", () => {
@@ -161,11 +161,11 @@ describe("unit-price-v1 scoring", () => {
 
   it("moves every card through the published boundaries as the build date advances", () => {
     const boundaries = [
-      { asOf: "2026-10-03", expected: "fresh" },
-      { asOf: "2026-10-17", expected: "fresh" },
-      { asOf: "2026-10-18", expected: "refresh_required" },
-      { asOf: "2026-11-02", expected: "refresh_required" },
-      { asOf: "2026-11-03", expected: "overdue" },
+      { asOf: "2026-10-04", expected: "fresh" },
+      { asOf: "2026-10-18", expected: "fresh" },
+      { asOf: "2026-10-19", expected: "refresh_required" },
+      { asOf: "2026-11-03", expected: "refresh_required" },
+      { asOf: "2026-11-04", expected: "overdue" },
     ] as const;
     for (const { asOf, expected } of boundaries) {
       const ranking = resolveUnitPriceRanking("calcium", asOf);

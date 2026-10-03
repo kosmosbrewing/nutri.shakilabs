@@ -90,12 +90,14 @@ onMounted(() => {
 
     <main id="main-content" tabindex="-1">
       <section class="hero-field overflow-hidden border-b border-border/60">
-        <div class="sh-container sh-container--page grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-16">
+        <!-- v8c: 제목이 줄어든 만큼 위아래 여백도 줄여 순위(#ranking) 시작을 첫 화면 안으로 -->
+        <div class="sh-container sh-container--page grid gap-8 py-8 sm:py-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-12">
           <div class="relative z-10 max-w-2xl">
             <p class="eyebrow">공공데이터 + 판매가 근거 · {{ updatedAtLabel }}</p>
             <!-- ShText forces --sh-font-sans, which overrides font-brand; use the raw heading idiom shared by other views -->
-            <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">
-              영양제 종류부터<br class="hidden lg:block" /> 비교 기준까지<br class="hidden lg:block" /> 나눴습니다.
+            <!-- v8c: 허브 제목은 패키지 display 토큰(28px·640px 미만 24px) — 옛 48px/400 히어로 폐기 -->
+            <h1 class="sh-text sh-text--display mt-4 break-keep">
+              영양제 종류부터 비교 기준까지 나눴습니다.
             </h1>
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               식약처 5,556건 데이터로 10개 제품군을 나누고, 종류마다 가격효율 순위를 제공합니다.
@@ -105,7 +107,7 @@ onMounted(() => {
               <span class="trust-chip">가격 확인일 공개</span>
               <span class="trust-chip">제휴 무관 동일 산식</span>
             </div>
-            <a class="mt-7 inline-flex min-h-12 items-center rounded-lg bg-primary px-5 font-semibold text-primary-foreground hover:brightness-95" href="#categories">
+            <a class="sh-button sh-button--primary sh-button--md mt-6 no-underline" href="#categories">
               영양제 종류부터 보기
             </a>
           </div>
@@ -122,15 +124,15 @@ onMounted(() => {
               </h2>
               <div class="home-top-metrics mt-6 grid grid-cols-3 divide-x divide-border rounded-xl border border-border bg-background/80 py-4 text-center">
                 <div class="px-2">
-                  <p class="text-[11px] text-muted-foreground">하루</p>
+                  <p class="text-xs text-muted-foreground">하루</p>
                   <p class="mt-1 font-semibold tabular-nums">{{ formatWon(topItem.score.dailyCostKrw) }}</p>
                 </div>
                 <div class="px-2">
-                  <p class="text-[11px] text-muted-foreground">충족도</p>
+                  <p class="text-xs text-muted-foreground">충족도</p>
                   <p class="mt-1 font-semibold tabular-nums">{{ formatScore(topItem.score.coverageScore) }}%</p>
                 </div>
                 <div class="px-2">
-                  <p class="text-[11px] text-muted-foreground">효율지수</p>
+                  <p class="text-xs text-muted-foreground">효율지수</p>
                   <p class="mt-1 font-semibold tabular-nums text-primary">{{ formatScore(topItem.score.valueIndex) }}</p>
                 </div>
               </div>
@@ -153,7 +155,7 @@ onMounted(() => {
         :data-price-ranking-age-days="scoredFreshness.ageDays"
       >
         <div v-if="recentItems.length" class="mb-6 rounded-xl border border-border bg-card px-4 py-3">
-          <p class="text-[11px] font-semibold text-muted-foreground">최근 확인한 제품</p>
+          <p class="text-xs font-semibold text-muted-foreground">최근 확인한 제품</p>
           <div class="mt-2 flex flex-wrap gap-2">
             <a
               v-for="item in recentItems"

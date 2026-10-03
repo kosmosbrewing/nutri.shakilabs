@@ -47,7 +47,7 @@ function trackDetailOpen(productId: string): void {
               class="mt-1 block break-keep leading-5 underline decoration-primary/30 underline-offset-4 hover:text-primary hover:decoration-primary"
               @click="trackDetailOpen(entry.item.product.id)"
             >{{ displayProductName(entry.item.product.brand, entry.item.product.officialName) }}</a>
-            <span class="mt-2 block text-[11px] font-normal text-muted-foreground">효율 {{ entry.item.overallRank }}위 · 신뢰도 {{ entry.item.product.confidence }}</span>
+            <span class="mt-2 block text-xs font-normal text-muted-foreground">효율 {{ entry.item.overallRank }}위 · 신뢰도 {{ entry.item.product.confidence }}</span>
           </ShTableHead>
         </ShTableRow>
       </ShTableHeader>
