@@ -1,4 +1,5 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import freshnessPolicy from "./freshness.json";
 import {
   OVERDUE_AFTER_DAYS,
   OVERDUE_BEHAVIOR,
@@ -25,11 +26,25 @@ describe("published price freshness policy", () => {
     }
   });
 
-  it("evaluates freshness against a date that can actually move", () => {
+  it("evaluates freshness against a date that can actually move", async () => {
     // The defect being fixed: asOf was the dataset's own updatedAt, so the age was
     // structurally pinned at 0 and no published boundary could ever be crossed.
+    // 예전 검사(asOf ≠ capturedAt)는 값으로 구조를 추정해, 같은 날 전량 재확인한 정상 상태
+    // (2026-10-03: capturedAt = asOf)를 결함으로 오판한다. 그래서 날짜가 실제로 움직이는지를 잰다:
+    // 커밋 기본값은 freshness.json의 asOf, capturedAt 이후 빌드 주입일이면 그 날짜로 옮겨 가고,
+    // capturedAt 이전 주입일은 무시된다.
     expect(PRICE_AS_OF >= PRICE_CAPTURED_AT).toBe(true);
-    expect(PRICE_AS_OF).not.toBe(PRICE_CAPTURED_AT);
+    try {
+      vi.stubEnv("VITE_NUTRI_PRICE_AS_OF", "2099-01-01");
+      vi.resetModules();
+      expect((await import("./price-freshness")).PRICE_AS_OF).toBe("2099-01-01");
+      vi.stubEnv("VITE_NUTRI_PRICE_AS_OF", "2000-01-01");
+      vi.resetModules();
+      expect((await import("./price-freshness")).PRICE_AS_OF).toBe(freshnessPolicy.asOf);
+    } finally {
+      vi.unstubAllEnvs();
+      vi.resetModules();
+    }
   });
 
   it("publishes boundaries that match the thresholds the ranking code uses", () => {
