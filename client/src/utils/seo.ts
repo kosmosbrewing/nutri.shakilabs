@@ -1,18 +1,18 @@
 import { z } from "zod";
+import { nutrientReferences } from "@/data/nutrients";
 import { PRICE_CAPTURED_AT } from "@/data/price-freshness";
 import { seoProducts } from "@/data/seo-products";
 import { seoStaticPages } from "@/data/seo-static-pages";
 import { categoryCards } from "./category-catalog";
 import { resolveCategorySeoPage } from "./category-seo";
 import { parseProductSlug } from "./product-detail";
+import { brandTitle, siteTitle } from "./seo-title";
 
 const SITE_BASE = "https://shakilabs.com/nutri";
 const OG_IMAGE = `${SITE_BASE}/og-image.png`;
 const UPDATED_AT = PRICE_CAPTURED_AT;
-// 정본 title 레시피(§11.1): {페이지} | {카테고리} | ShakiLabs.
-// "영양만점"은 상품명이라 카테고리 자리에 단독으로 쓰지 않는다(금지 패턴).
-const TITLE_CATEGORY = "영양제 가격 비교";
-const TITLE_BRAND_SUFFIX = ` | ${TITLE_CATEGORY} | ShakiLabs`;
+// 제품 상세가 보여 주는 영양소 행 수. 손으로 적지 않고 기준치 표에서 센다(verify-static이 23행을 따로 검사).
+const NUTRIENT_COUNT = nutrientReferences.length;
 const routeInputSchema = z.object({
   name: z.string(),
   slug: z.unknown().optional(),
@@ -58,9 +58,11 @@ function article(headline: string, path: string): StructuredData {
 const validSlugs = seoProducts.map((product) => product.slug);
 
 function homePage(): SeoPage {
+  // 홈은 "{앱 이름} | ShakiLabs" 자리다. 앱 이름 "영양제 가격 비교"에 홈이 실제로 싣는 두 범위(종류 탐색·
+  // 멀티비타민 순위)를 붙인 형태를 유지한다 — "멀티비타민 비교" 의도의 도착 페이지가 홈이다(SEO_TRUST_SPEC).
   const description = "식약처 제공 데이터로 10개 영양제 종류를 탐색하고, 9개 종류의 가격효율·단위가격과 멀티비타민 10개의 배송비 포함 영양효율을 비교합니다.";
   return {
-    title: "영양제 종류·멀티비타민 가격 비교 | ShakiLabs",
+    title: brandTitle("영양제 종류·멀티비타민 가격 비교"),
     description,
     canonical: canonical("/"),
     robots: "index,follow",
@@ -106,9 +108,10 @@ function productPage(slugInput: unknown): SeoPage | null {
   const product = seoProducts.find((candidate) => candidate.slug === slugResult.slug);
   if (!product) return null;
   const path = `/products/${product.slug}`;
-  const description = `${product.name}의 배송비 포함 1일 비용 ${product.dailyCostLabel}, 23개 영양소 충족도 ${product.coverageLabel}와 신고번호·라벨·가격 출처를 확인하세요.`;
+  // 검색 구절(제품명 + 가격)을 맨 앞에 둔다. "최저가"는 쓰지 않는다 — 판매처 한 곳의 확인 시점 가격일 뿐이다.
+  const description = `${product.name}의 판매가·배송비로 계산한 1일 비용 ${product.dailyCostLabel}, ${NUTRIENT_COUNT}개 영양소 1일 함량과 영양충족도 ${product.coverageLabel}, 신고번호·라벨·가격 출처를 보여 줍니다.`;
   return {
-    title: `${product.name} 성분·1일 가격${TITLE_BRAND_SUFFIX}`,
+    title: brandTitle(`${product.name} 가격·1일 비용 · ${NUTRIENT_COUNT}개 영양소 함량`),
     description,
     canonical: canonical(path),
     robots: "index,follow",
@@ -138,7 +141,8 @@ export function resolveSeoPage(input: unknown): SeoPage {
   if (name === "CategoryDetail") return resolveCategorySeoPage(slug) ?? notFoundPage();
   const staticPage = seoStaticPages.find((page) => page.name === name);
   if (staticPage) return contentPage(
-    staticPage.title,
+    staticPage.pageTitle,
+    staticPage.titleKind,
     staticPage.description,
     staticPage.path,
     staticPage.type,
@@ -147,16 +151,17 @@ export function resolveSeoPage(input: unknown): SeoPage {
 }
 
 function contentPage(
-  title: string,
+  pageTitle: string,
+  titleKind: "tool" | "site",
   description: string,
   path: string,
   type: "Article" | "WebPage",
 ): SeoPage {
   const main = type === "Article"
-    ? article(title.split(" | ")[0]!, path)
-    : { "@type": "WebPage", name: title.split(" | ")[0], url: canonical(path), description };
+    ? article(pageTitle, path)
+    : { "@type": "WebPage", name: pageTitle, url: canonical(path), description };
   return {
-    title,
+    title: titleKind === "tool" ? brandTitle(pageTitle) : siteTitle(pageTitle),
     description,
     canonical: canonical(path),
     robots: "index,follow",
@@ -164,7 +169,7 @@ function contentPage(
       main,
       breadcrumb([
         { name: "영양만점", path: "/" },
-        { name: title.split(" | ")[0]!, path },
+        { name: pageTitle, path },
       ]),
     ],
   };
@@ -172,7 +177,7 @@ function contentPage(
 
 function notFoundPage(): SeoPage {
   return {
-    title: `페이지를 찾을 수 없습니다${TITLE_BRAND_SUFFIX}`,
+    title: siteTitle("페이지를 찾을 수 없습니다"),
     description: "요청한 영양만점 페이지를 찾을 수 없습니다.",
     canonical: null,
     robots: "noindex,nofollow",
