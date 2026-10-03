@@ -1,8 +1,12 @@
+/* v8 실측(2026-10-03): 뱃지·캡션·표 헤더에 쓰이던 10~11px 보조 글자가 13px 미만이라
+   WCAG 가독성 기준(차트 범례 12px 제외)에 못 미쳤다. 네 선택자 전부가 이 규칙 하나로만
+   크기를 받으므로(소스의 text-[10px]/text-[11px]/@apply 값은 여기서 전부 덮인다),
+   13px로 한 번만 올리면 전체 발생 지점이 동시에 고쳐진다 (Why). */
 .text-\[10px\],
 .text-\[11px\],
 .confidence-badge,
 .metric-label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   line-height: 1.4;
 }
 
@@ -51,6 +55,12 @@
     word-break: keep-all;
   }
 
+  /* v8 실측(2026-10-03): 여기 있던 `.break-keep { word-break: normal; }`을 지웠다.
+     클래스 선택자(.break-keep, 특이도 0,1,0)가 위 태그 선택자(:is(h1..h4), 특이도 0,0,1)보다
+     항상 이겨서, break-keep이 붙은 제목·카드 제품명이 390px에서 음절 중간에 끊겼다
+     ("얼라이브 원스데일리" → "원스데"/"일리"로 분리, Playwright 실측 rectCount:2).
+     table/tr/a에는 이미 overflow-x-auto 래퍼나 md:hidden이 있어 넘침 위험이 없다 (Why). */
+
   :is(p, li, dt, dd, code) {
     min-width: 0;
     overflow-wrap: anywhere;
@@ -59,10 +69,6 @@
 
   a[href^="mailto:"] {
     overflow-wrap: anywhere;
-  }
-
-  .break-keep {
-    word-break: normal;
   }
 
   .truncate {
