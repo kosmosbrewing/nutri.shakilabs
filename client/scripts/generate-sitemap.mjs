@@ -17,7 +17,9 @@ const excludedFiles = new Set(["404.html"]);
 function resolveBuildDate() {
   const candidate = process.env.BUILD_DATE?.trim();
   if (candidate && /^\d{4}-\d{2}-\d{2}$/.test(candidate)) return candidate;
-  return new Date().toISOString().slice(0, 10);
+  // KST 기준 — toISOString()(UTC)이면 오전 9시 전 빌드가 전날로 찍혀, 내용이 바뀐 날보다 lastmod가 하루 이르다
+  // (2026-10-04 08:20 KST 가격 재확인 빌드가 28개 페이지를 2026-10-03으로 기록했다).
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
 }
 
 function listHtmlFiles(directory) {
