@@ -41,7 +41,7 @@ const offerUrls = [
 
       <header class="mt-5 max-w-3xl">
         <p class="eyebrow">출처 카탈로그</p>
-        <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">숫자마다 원문과 확인일을 연결합니다</h1>
+        <h1 class="mt-3 break-keep font-brand text-h1">숫자마다 원문과 확인일을 연결합니다</h1>
         <p class="mt-5 break-keep text-base leading-7 text-muted-foreground">공공데이터는 제품 식별의 기준축으로, 제조사·판매 페이지는 전체 라벨과 가격의 보강 근거로 사용합니다. 원문 이미지 대신 구조화 값과 링크, 검증 해시를 보관합니다.</p>
       </header>
 
@@ -80,7 +80,7 @@ const offerUrls = [
             <div class="grid gap-3 border-t border-border bg-muted/25 p-4 sm:grid-cols-2 lg:grid-cols-3">
               <article v-for="product in group.products" :key="product.id" class="rounded-xl border border-border bg-card p-5" data-unit-price-evidence-card>
                 <div class="flex items-center justify-between gap-3">
-                  <span class="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold text-accent-foreground">{{ group.category.name }}</span>
+                  <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground">{{ group.category.name }}</span>
                   <span class="confidence-badge">신뢰도 {{ product.confidence }}</span>
                 </div>
                 <h3 class="mt-4 break-keep text-sm font-semibold leading-6">{{ product.displayName }}</h3>
@@ -112,7 +112,7 @@ const offerUrls = [
             <summary class="source-summary touch-target flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
               <span class="min-w-0">
                 <span class="block truncate text-sm font-semibold">{{ group.product.officialName }}</span>
-                <span class="source-summary__meta mt-1 block text-[11px] text-muted-foreground">신고번호 <span class="break-all">{{ group.product.reportNo }}</span> · 출처 {{ group.sources.length }}개</span>
+                <span class="source-summary__meta mt-1 block text-xs text-muted-foreground">신고번호 <span class="break-all">{{ group.product.reportNo }}</span> · 출처 {{ group.sources.length }}개</span>
               </span>
               <span class="shrink-0 text-primary group-open:rotate-45" aria-hidden="true">＋</span>
             </summary>

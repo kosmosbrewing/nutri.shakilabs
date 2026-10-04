@@ -24,7 +24,7 @@
 
 @media (max-width: 400px) {
   .brand-mark {
-    font-size: 12px;
+    font-size: 13px; /* v8c: 12px → 13px 하한(28px 칸에 한 글자) */
   }
 
   main input[type="range"] {

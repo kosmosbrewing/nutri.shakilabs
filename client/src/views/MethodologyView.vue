@@ -16,7 +16,7 @@ import { unitPriceDataset } from "@/utils/unit-price";
 
       <header class="mt-5 max-w-3xl">
         <p class="eyebrow">가격효율 산정 방식</p>
-        <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">가격당 영양효율은 이렇게 계산합니다</h1>
+        <h1 class="mt-3 break-keep font-brand text-h1">가격당 영양효율은 이렇게 계산합니다</h1>
         <p class="mt-5 break-keep text-base leading-7 text-muted-foreground">
           함량이 많을수록 무조건 높은 점수를 받지 않도록 영양소별 충족률을 100%에서 멈춘 뒤, 배송비를 포함한 하루 비용으로 나눕니다.
         </p>

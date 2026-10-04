@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { validateBuiltFontSizes } from "./validate-built-font-sizes.mjs";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -327,3 +328,7 @@ await import("./verify-price-freshness.mjs");
 await import("./verify-utility-emission.mjs");
 await import("./verify-word-break.mjs");
 await import("./verify-text-size.mjs");
+
+// v8c(2026-10-04): 배포되는 CSS·HTML의 글자 크기를 직접 잰다 — 13px 미만은 차트 축 눈금(__scale)·차트 전용 text-[12px]만.
+const builtFontDeclarations = validateBuiltFontSizes({ distRoot: distRoot });
+console.log(`Validated built font sizes — ${builtFontDeclarations} declarations, 0 under 13px outside the chart-axis allowance.`);

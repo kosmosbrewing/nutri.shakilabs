@@ -24,16 +24,16 @@ const officialRecordCount = categoryCatalog.categories.reduce(
       <section class="hero-field border-b border-border/60">
         <div class="sh-container sh-container--page py-10 sm:py-14">
           <p class="eyebrow">종류별 가격효율 순위</p>
-          <h1 class="mt-4 max-w-3xl break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">
+          <h1 class="sh-text sh-text--display mt-4 max-w-3xl break-keep">
             영양제는 목적이 다르면<br />점수표도 달라야 합니다.
           </h1>
           <p class="mt-5 max-w-2xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             {{ publicDataSnapshot.rowCount.toLocaleString("ko-KR") }}건의 식약처 제공 표준데이터에서 자주 찾는 제품군을 분리했습니다. 서로 다른 종류를 한 순위에 섞지 않습니다.
           </p>
           <div class="category-summary-grid mt-7 grid max-w-2xl grid-cols-3 divide-x divide-border rounded-xl border border-border bg-card py-4 text-center">
-            <div class="px-2"><p class="text-[11px] text-muted-foreground">탐색 범위</p><p class="mt-1 font-semibold">10개 종류</p></div>
-            <div class="px-2"><p class="text-[11px] text-muted-foreground">카테고리 레코드</p><p class="mt-1 font-semibold tabular-nums">{{ officialRecordCount.toLocaleString("ko-KR") }}건</p></div>
-            <div class="px-2"><p class="text-[11px] text-muted-foreground">기준일</p><p class="mt-1 font-semibold">{{ categoryCatalog.source.dataReferenceDate.replaceAll("-", ".") }}</p></div>
+            <div class="px-2"><p class="text-xs text-muted-foreground">탐색 범위</p><p class="mt-1 font-semibold">10개 종류</p></div>
+            <div class="px-2"><p class="text-xs text-muted-foreground">카테고리 레코드</p><p class="mt-1 font-semibold tabular-nums">{{ officialRecordCount.toLocaleString("ko-KR") }}건</p></div>
+            <div class="px-2"><p class="text-xs text-muted-foreground">기준일</p><p class="mt-1 font-semibold">{{ categoryCatalog.source.dataReferenceDate.replaceAll("-", ".") }}</p></div>
           </div>
         </div>
       </section>
@@ -70,7 +70,7 @@ const officialRecordCount = categoryCatalog.categories.reduce(
             :data-category-status-guide="guide.status"
           >
             <span
-              class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold"
+              class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
               :class="guide.status === 'ranking' ? 'bg-primary text-primary-foreground' : guide.status === 'unit_price' ? 'bg-accent text-accent-foreground' : 'bg-muted text-muted-foreground'"
             >{{ guide.label }}</span>
             <h3 class="mt-3 break-keep font-semibold">{{ guide.title }}</h3>

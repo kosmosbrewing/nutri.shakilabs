@@ -18,7 +18,7 @@ defineProps<{
       </nav>
       <header class="mt-5">
         <p class="eyebrow">{{ eyebrow }}</p>
-        <h1 class="mt-3 break-keep font-brand text-3xl leading-tight sm:text-4xl">{{ title }}</h1>
+        <h1 class="mt-3 break-keep font-brand text-h1">{{ title }}</h1>
         <p class="mt-5 break-keep text-base leading-7 text-muted-foreground">{{ description }}</p>
         <p class="mt-3 text-xs text-muted-foreground">시행·최종 갱신: 2026-08-05</p>
       </header>

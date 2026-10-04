@@ -43,15 +43,15 @@ function trackQuicklink(toSlug: string): void {
           <div class="mt-6 grid gap-7 lg:grid-cols-[1fr_20rem] lg:items-end">
             <div>
               <div class="flex flex-wrap items-center gap-2">
-                <span class="rounded-full bg-muted px-2.5 py-1 text-[10px] font-semibold text-muted-foreground">{{ ranked ? "가격효율 순위" : unitPriceRanking ? "가격효율 비교" : "공식 목록" }}</span>
-                <span class="rounded-full border border-status-warning/30 px-2.5 py-1 text-[10px] font-semibold text-status-warning">{{ unitPriceRanking ? "동일 성분 내 정량 비교 · 효능 순위 아님" : "순위가 아닙니다" }}</span>
+                <span class="rounded-full bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground">{{ ranked ? "가격효율 순위" : unitPriceRanking ? "가격효율 비교" : "공식 목록" }}</span>
+                <span class="rounded-full border border-status-warning/30 px-2.5 py-1 text-xs font-semibold text-status-warning">{{ unitPriceRanking ? "동일 성분 내 정량 비교 · 효능 순위 아님" : "순위가 아닙니다" }}</span>
               </div>
-              <h1 class="mt-4 break-keep font-brand text-[2.15rem] leading-tight tracking-[-0.035em] sm:text-5xl">{{ category.name }} 영양제<br />{{ ranked ? `가격효율 순위 TOP ${unitPriceRanking!.scores.length}` : unitPriceRanking ? "가격효율·단위가격 비교" : "공식 등록 제품 찾기" }}</h1>
+              <h1 class="sh-text sh-text--display mt-4 break-keep">{{ category.name }} 영양제<br />{{ ranked ? `가격효율 순위 TOP ${unitPriceRanking!.scores.length}` : unitPriceRanking ? "가격효율·단위가격 비교" : "공식 등록 제품 찾기" }}</h1>
               <p class="mt-5 max-w-2xl break-keep text-base leading-7 text-muted-foreground">{{ unitPriceRanking ? unitPriceRanking.category.summary : `${category.summary}을 보여줍니다. 아래 제품은 최근 생성일과 제조사 다양성을 기준으로 추린 예시입니다.` }}</p>
             </div>
             <dl class="grid grid-cols-2 divide-x divide-border rounded-xl border border-border bg-card py-4 text-center">
-              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "검증 제품" : "공식 레코드" }}</dt><dd class="mt-1 font-brand text-[1.625rem] leading-tight text-primary">{{ unitPriceRanking ? unitPriceRanking.scores.length : category.recordCount.toLocaleString("ko-KR") }}</dd></div>
-              <div class="px-3"><dt class="text-[11px] text-muted-foreground">{{ unitPriceRanking ? "가격 기준일" : "표시 예시" }}</dt><dd class="mt-1 font-brand" :class="unitPriceRanking ? 'text-base' : 'text-[1.625rem] leading-tight'">{{ unitPriceRanking ? unitPriceRanking.updatedAt.replaceAll("-", ".") : category.records.length }}</dd></div>
+              <div class="px-3"><dt class="text-xs text-muted-foreground">{{ unitPriceRanking ? "검증 제품" : "공식 레코드" }}</dt><dd class="mt-1 font-brand text-[1.625rem] leading-tight text-primary">{{ unitPriceRanking ? unitPriceRanking.scores.length : category.recordCount.toLocaleString("ko-KR") }}</dd></div>
+              <div class="px-3"><dt class="text-xs text-muted-foreground">{{ unitPriceRanking ? "가격 기준일" : "표시 예시" }}</dt><dd class="mt-1 font-brand" :class="unitPriceRanking ? 'text-base' : 'text-[1.625rem] leading-tight'">{{ unitPriceRanking ? unitPriceRanking.updatedAt.replaceAll("-", ".") : category.records.length }}</dd></div>
             </dl>
           </div>
         </div>
@@ -72,7 +72,7 @@ function trackQuicklink(toSlug: string): void {
             <div class="overflow-x-auto rounded-xl border border-border bg-card">
               <table class="w-full min-w-[36rem] text-sm">
                 <thead>
-                  <tr class="border-b border-border bg-muted/40 text-left text-[11px] font-semibold text-muted-foreground">
+                  <tr class="border-b border-border bg-muted/40 text-left text-xs font-semibold text-muted-foreground">
                     <th v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5" scope="col">순위</th>
                     <th class="px-3 py-2.5" scope="col">제품명</th>
                     <th class="px-3 py-2.5" scope="col">제조사</th>
@@ -90,7 +90,7 @@ function trackQuicklink(toSlug: string): void {
                     <td v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5 text-xs font-semibold tabular-nums" :class="rank !== null && rank <= 3 ? 'text-primary' : 'text-muted-foreground'">
                       {{ rank !== null ? `${rank}위` : "—" }}
                     </td>
-                    <td class="break-keep px-3 py-2.5">{{ record.name }}<span class="mt-0.5 block text-[11px] text-muted-foreground">신고번호 {{ record.reportNo }}</span></td>
+                    <td class="break-keep px-3 py-2.5">{{ record.name }}<span class="mt-0.5 block text-xs text-muted-foreground">신고번호 {{ record.reportNo }}</span></td>
                     <td class="break-keep px-3 py-2.5 text-xs text-muted-foreground">{{ record.manufacturer }}</td>
                     <td class="whitespace-nowrap px-3 py-2.5 text-xs text-muted-foreground">{{ record.servingSize }} × {{ record.dailyFrequency }}</td>
                     <td v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5 text-right font-semibold tabular-nums">
@@ -127,14 +127,14 @@ function trackQuicklink(toSlug: string): void {
               @click="trackQuicklink(card.slug)"
             >
               <span class="break-keep font-semibold group-hover:text-primary">{{ card.name }}</span>
-              <span class="mt-1.5 text-[11px] text-muted-foreground">{{ card.countLabel }} {{ card.count.toLocaleString("ko-KR") }}</span>
+              <span class="mt-1.5 text-xs text-muted-foreground">{{ card.countLabel }} {{ card.count.toLocaleString("ko-KR") }}</span>
             </a>
           </div>
         </div>
       </section>
     </main>
     <main id="main-content" tabindex="-1" v-else class="page-shell">
-      <h1 class="font-brand text-3xl">카테고리를 찾을 수 없습니다</h1>
+      <h1 class="font-brand text-h1">카테고리를 찾을 수 없습니다</h1>
       <a class="touch-target mt-5 inline-flex items-center font-semibold text-primary" href="/nutri/categories">전체 종류로 돌아가기</a>
     </main>
   </div>
