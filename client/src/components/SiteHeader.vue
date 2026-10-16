@@ -21,7 +21,6 @@ const route = useRoute();
 // 각 순위 화면이, 제휴 고지는 AffiliateNotice·푸터가 이미 싣는다. 산정 기준은 탭·☰에 있다.
 // 사이트 링크 — 블로그는 포털 소유라 href, 소개는 이 앱 라우트라 RouterLink(to). 모바일에서는 ☰ 안으로 들어간다.
 const headerLinks: GlobalHeaderLink[] = [
-  { href: "/blog", label: "블로그" },
   { to: "/about", label: "소개" },
 ];
 
