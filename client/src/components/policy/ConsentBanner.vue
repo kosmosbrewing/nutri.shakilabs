@@ -93,14 +93,14 @@ onBeforeUnmount(() => {
   >
     <div class="container py-2">
       <p v-show="expanded" id="analytics-consent-detail" class="pb-2 text-xs leading-5 text-background/80">
-        동의한 경우에만 페이지·필터·비교 이용 이벤트를 수집합니다. 건강정보, 검색어 원문, 예산 원값과 개인 식별정보는 전송하지 않습니다.
+        페이지·필터·비교 이용 이벤트를 수집합니다. 거부하면 즉시 중단되고 다시 로드하지 않습니다. 건강정보, 검색어 원문, 예산 원값과 개인 식별정보는 전송하지 않습니다.
         <RouterLink class="ml-1 inline-flex min-h-6 items-center font-semibold text-background underline underline-offset-4" to="/privacy">
           개인정보 처리 안내
         </RouterLink>
       </p>
       <div class="flex items-center justify-between gap-2 sm:gap-3">
         <div class="flex min-w-0 flex-wrap items-center gap-x-2">
-          <h2 id="analytics-consent-title" class="text-xs font-semibold sm:text-sm">선택적 이용 분석</h2>
+          <h2 id="analytics-consent-title" class="text-xs font-semibold sm:text-sm">이용 분석 안내</h2>
           <button
             class="inline-flex min-h-6 items-center text-xs font-semibold text-background underline underline-offset-4 sm:text-xs"
             type="button"
@@ -116,7 +116,7 @@ onBeforeUnmount(() => {
             거부
           </button>
           <button class="touch-target rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground" type="button" @click="decide('accepted')">
-            동의
+            확인
           </button>
         </div>
       </div>
