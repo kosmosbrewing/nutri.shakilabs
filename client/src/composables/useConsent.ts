@@ -19,7 +19,9 @@ export function useConsent() {
     if (ready.value) return;
     decision.value = readAnalyticsConsent();
     ready.value = true;
-    if (decision.value === "accepted") {
+    // 2026-11-01 옵트아웃으로 전환: 수락 전에는 로드하지 않던 탓에 네이버 기준 월 100클릭 이상인 nutri가 GA4에는
+    // 1조회로 잡혔다(다른 11개 앱은 동의 없이 로드). 거부를 고르면 즉시 끄고 이후 로드하지 않는 것은 그대로다.
+    if (decision.value !== "rejected") {
       initializeAnalytics(import.meta.env.VITE_GA_MEASUREMENT_ID);
     }
   });
