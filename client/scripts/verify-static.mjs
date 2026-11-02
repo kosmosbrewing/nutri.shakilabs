@@ -203,11 +203,9 @@ for (const page of pages) {
   assert(ogImage === ogImageUrl, `${page.route}: invalid OG image`);
   assert(h1Count === 1, `${page.route}: expected one H1, received ${h1Count}`);
   assert(html.includes('id="app" data-server-rendered="true"'), `${page.route}: missing SSR body`);
-  // v8 실측(2026-10-03) 회귀 고정: 고정 동의 바(61px)가 스크롤 끝에서 본문을 가렸다.
-  // App.vue가 바 높이를 --consent-bar-height로 셸의 padding-bottom에 예약해 두는
-  // 인라인 스타일 배선이 지워지면(하드코딩 복귀 등) 모든 색인 페이지에서 바로 걸린다.
-  assert(html.includes('style="padding-bottom:var(--consent-bar-height);'),
-    `${page.route}: shell must reserve the consent bar's height via padding-bottom (BL-UX-008)`);
+  // 하단 고정 동의 바(BL-UX-008)는 2026-11-02에 뗐다 — 분석이 옵트아웃이라 바의 역할이 없어졌고 첫 화면을 가렸다.
+  // 되살아나면 모든 페이지 첫 화면을 다시 가리므로 역방향으로 막는다.
+  assert(!html.includes("analytics-consent-title"), `${page.route}: fixed consent bar must not come back`);
   // 404에서 로더를 떼는 변환이 색인 페이지까지 건드리지 않았는지 역방향으로 검증한다.
   // noindex 제품 상세는 /disclosure("noindex 화면에는 광고를 두지 않습니다")대로 로더가 없어야 한다(vite.config AD_FREE_ROUTES).
   assert(countAdsenseLoaders(html) === (isNoindexProduct ? 0 : 1),
