@@ -2,76 +2,76 @@
   "schemaVersion": "sitemap-lastmod-v1",
   "routes": {
     "/": {
-      "contentHash": "2101c3dd310afd81",
-      "lastmod": "2026-10-16"
+      "contentHash": "847a130e67a6f4e7",
+      "lastmod": "2026-11-02"
     },
     "/about": {
-      "contentHash": "edd6261ae6f19837",
-      "lastmod": "2026-10-16"
+      "contentHash": "3eb3fca922731370",
+      "lastmod": "2026-11-02"
     },
     "/categories": {
-      "contentHash": "917cadd934efff43",
-      "lastmod": "2026-10-16"
+      "contentHash": "38947864accc2242",
+      "lastmod": "2026-11-02"
     },
     "/categories/calcium": {
-      "contentHash": "00a70c81d55d7f86",
-      "lastmod": "2026-10-16"
+      "contentHash": "f3df6743b68036c7",
+      "lastmod": "2026-11-02"
     },
     "/categories/coenzyme-q10": {
-      "contentHash": "006f16b73081986c",
-      "lastmod": "2026-10-16"
+      "contentHash": "40b52656ea5b7228",
+      "lastmod": "2026-11-02"
     },
     "/categories/magnesium": {
-      "contentHash": "9c09b251a9c9a7b4",
-      "lastmod": "2026-10-16"
+      "contentHash": "180436aa9fc4e651",
+      "lastmod": "2026-11-02"
     },
     "/categories/milk-thistle": {
-      "contentHash": "56fbf3f8a562d8cc",
-      "lastmod": "2026-10-16"
+      "contentHash": "67210f73b4d0c4ad",
+      "lastmod": "2026-11-02"
     },
     "/categories/msm": {
-      "contentHash": "bc52e858e1a3744a",
-      "lastmod": "2026-10-16"
+      "contentHash": "c7b4ab4049856816",
+      "lastmod": "2026-11-02"
     },
     "/categories/omega-3": {
-      "contentHash": "911bdf7726b8770b",
-      "lastmod": "2026-10-16"
+      "contentHash": "c23b2925580cd2b5",
+      "lastmod": "2026-11-02"
     },
     "/categories/probiotics": {
-      "contentHash": "dc6fe67b874b86ff",
-      "lastmod": "2026-10-16"
+      "contentHash": "b1939e5e3a9f25d4",
+      "lastmod": "2026-11-02"
     },
     "/categories/vitamin-c": {
-      "contentHash": "63fc56e58ea844bc",
-      "lastmod": "2026-10-16"
+      "contentHash": "f4246fd83be49a1f",
+      "lastmod": "2026-11-02"
     },
     "/categories/vitamin-d": {
-      "contentHash": "e8e954e5596941f6",
-      "lastmod": "2026-10-16"
+      "contentHash": "a3436a5147a10291",
+      "lastmod": "2026-11-02"
     },
     "/compare": {
-      "contentHash": "a448e7e00e6c5e70",
-      "lastmod": "2026-10-16"
+      "contentHash": "d731572c9b390023",
+      "lastmod": "2026-11-02"
     },
     "/disclosure": {
-      "contentHash": "8249b90e66107fb6",
-      "lastmod": "2026-10-16"
+      "contentHash": "b5dabae2e55788fe",
+      "lastmod": "2026-11-02"
     },
     "/methodology": {
-      "contentHash": "e8ef4c93c0c91158",
-      "lastmod": "2026-10-16"
+      "contentHash": "32dd541cdc9be618",
+      "lastmod": "2026-11-02"
     },
     "/privacy": {
-      "contentHash": "2b43c5f7ffd42665",
-      "lastmod": "2026-11-01"
+      "contentHash": "b5ed6cc51c5fcd39",
+      "lastmod": "2026-11-02"
     },
     "/sources": {
-      "contentHash": "f468c502fb9c7634",
-      "lastmod": "2026-10-16"
+      "contentHash": "1a5b037681ed6a97",
+      "lastmod": "2026-11-02"
     },
     "/terms": {
-      "contentHash": "e394fb5dc020f10a",
-      "lastmod": "2026-10-16"
+      "contentHash": "2d5047e9e6a93f34",
+      "lastmod": "2026-11-02"
     }
   }
 }

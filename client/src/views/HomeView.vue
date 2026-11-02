@@ -11,7 +11,6 @@ import RankingFilters from "@/components/ranking/RankingFilters.vue";
 import { useComparison } from "@/composables/useComparison";
 import { usePriceFreshness } from "@/composables/usePriceFreshness";
 import { useRanking } from "@/composables/useRanking";
-import { useRecentProducts } from "@/composables/useRecentProducts";
 import { nutriDataset } from "@/data/dataset";
 import { trackAnalytics } from "@/utils/analytics";
 import { formatScore, formatWon } from "@/utils/ranking";
@@ -53,11 +52,6 @@ const rankingFreshness = computed(() =>
 // What the scoring pass itself measured, published for the build gate. If this ever
 // disagrees with the badges, the ranking is grading prices against the wrong clock.
 const scoredFreshness = worstFreshness(allItems.map((item) => item.score));
-// Client-only strip; empty on SSR so the server HTML is identical for every visitor.
-const { recentIds } = useRecentProducts(allItems.map((item) => item.product.id));
-const recentItems = computed(() => recentIds.value
-  .map((id) => allItems.find((item) => item.product.id === id))
-  .filter((item): item is (typeof allItems)[number] => item !== undefined));
 const {
   canCompare,
   clearSelection,
@@ -102,11 +96,6 @@ onMounted(() => {
             <p class="mt-5 max-w-xl break-keep text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               식약처 5,556건 데이터로 10개 제품군을 나누고, 종류마다 가격효율 순위를 제공합니다.
             </p>
-            <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
-              <span class="trust-chip">10개 영양제 종류</span>
-              <span class="trust-chip">가격 확인일 공개</span>
-              <span class="trust-chip">제휴 무관 동일 산식</span>
-            </div>
             <a class="sh-button sh-button--primary sh-button--md mt-6 no-underline" href="#categories">
               영양제 종류부터 보기
             </a>
@@ -154,21 +143,6 @@ onMounted(() => {
         :data-price-ranking-freshness="scoredFreshness.freshness"
         :data-price-ranking-age-days="scoredFreshness.ageDays"
       >
-        <div v-if="recentItems.length" class="mb-6 rounded-xl border border-border bg-card px-4 py-3">
-          <p class="text-xs font-semibold text-muted-foreground">최근 확인한 제품</p>
-          <div class="mt-2 flex flex-wrap gap-2">
-            <a
-              v-for="item in recentItems"
-              :key="item.product.id"
-              :href="`/nutri/products/${item.product.slug}`"
-              class="touch-target inline-flex items-center gap-1.5 rounded-full border border-border px-3 text-xs font-semibold hover:border-primary/40 hover:text-primary"
-            >
-              <span class="text-primary">{{ item.overallRank }}위</span>
-              <span class="break-keep">{{ item.product.brand }}</span>
-            </a>
-          </div>
-        </div>
-
         <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p class="eyebrow">가격효율 순위</p>

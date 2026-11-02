@@ -38,12 +38,6 @@
     flex-shrink: 0;
   }
 
-  [aria-labelledby="analytics-consent-title"] a {
-    display: inline-flex;
-    min-height: 24px;
-    align-items: center;
-  }
-
   .container {
     padding-inline: 12px;
   }
