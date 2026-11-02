@@ -24,7 +24,8 @@ const categoryRoutes = categoryRouteResult.data.categories.map(
 // /disclosure에 적어 둔 "오류·404·noindex 화면에는 광고를 두지 않습니다"와도 어긋난다.
 // 셸을 고치면 모든 페이지에서 광고가 사라지므로, 렌더된 404 산출물에서만 로더를 뗀다.
 const ADSENSE_LOADER = /\s*<script\b[^>]*pagead2\.googlesyndication\.com[^>]*>\s*<\/script>/gi;
-const AD_FREE_ROUTES = new Set(["/404"]);
+// 2026-11-02: 제품 상세 10개도 noindex,follow(utils/seo.ts productPage)라 같은 원칙으로 로더를 뗀다.
+const AD_FREE_ROUTES = new Set(["/404", ...productRoutes]);
 
 export default defineConfig({
   base: "/nutri/",

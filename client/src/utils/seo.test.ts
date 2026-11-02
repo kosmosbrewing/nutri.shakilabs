@@ -34,7 +34,8 @@ describe("route SEO metadata", () => {
     expect(new Set(pages.map((page) => page.canonical)).size).toBe(pages.length);
     expect(pages.every((page) => page.title.length <= 60)).toBe(true);
     expect(pages.every((page) => page.description.length <= 155)).toBe(true);
-    expect(pages.every((page) => page.robots === "index,follow")).toBe(true);
+    // 제품 상세만 noindex,follow(2026-11-02) — 나머지는 전부 색인
+    expect(pages.every((page) => page.robots === (page.canonical?.includes("/products/") ? "noindex,follow" : "index,follow"))).toBe(true);
   });
 
   it("keeps comparison canonical free of query state", () => {
