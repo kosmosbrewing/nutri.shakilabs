@@ -194,7 +194,10 @@ for (const page of pages) {
   assert(title && title.length <= 60, `${page.route}: invalid title`);
   assertTitleRecipe(page.route, html, { siteRoute: SITE_TITLE_ROUTES.has(page.route) });
   assert(description && description.length <= 155, `${page.route}: invalid description`);
-  assert(robots === "index,follow", `${page.route}: must be index,follow`);
+  // 제품 상세는 2026-11-02부터 noindex,follow(utils/seo.ts) — 색인 페이지와 같은 틀이라 분리했다.
+  const isNoindexProduct = page.route.startsWith("/products/");
+  assert(robots === (isNoindexProduct ? "noindex,follow" : "index,follow"),
+    `${page.route}: must be ${isNoindexProduct ? "noindex,follow" : "index,follow"}`);
   assert(canonical === expectedCanonical(page.route), `${page.route}: invalid canonical`);
   assert(ogUrl === canonical, `${page.route}: OG URL must match canonical`);
   assert(ogImage === ogImageUrl, `${page.route}: invalid OG image`);
@@ -206,8 +209,9 @@ for (const page of pages) {
   assert(html.includes('style="padding-bottom:var(--consent-bar-height);'),
     `${page.route}: shell must reserve the consent bar's height via padding-bottom (BL-UX-008)`);
   // 404에서 로더를 떼는 변환이 색인 페이지까지 건드리지 않았는지 역방향으로 검증한다.
-  assert(countAdsenseLoaders(html) === 1,
-    `${page.route}: indexable page must carry exactly one AdSense loader`);
+  // noindex 제품 상세는 /disclosure("noindex 화면에는 광고를 두지 않습니다")대로 로더가 없어야 한다(vite.config AD_FREE_ROUTES).
+  assert(countAdsenseLoaders(html) === (isNoindexProduct ? 0 : 1),
+    `${page.route}: ${isNoindexProduct ? "noindex product must not load AdSense" : "indexable page must carry exactly one AdSense loader"}`);
   // 얇은 콘텐츠 바닥선. 게시자 콘텐츠가 얇으면 "가치가 별로 없는 콘텐츠"로 거절된다.
   const textLength = mainTextLength(html);
   assert(textLength >= 1_500,
@@ -292,9 +296,12 @@ assert(!/adsbygoogle|googlesyndication/i.test(notFoundHtml),
 
 const sitemap = read(resolve(distRoot, "sitemap.xml"));
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-const expectedUrls = pages.map((page) => expectedCanonical(page.route)).sort();
+const expectedUrls = pages
+  .filter((page) => !page.route.startsWith("/products/"))
+  .map((page) => expectedCanonical(page.route))
+  .sort();
 assert(JSON.stringify([...sitemapUrls].sort()) === JSON.stringify(expectedUrls),
-  "Sitemap URLs must exactly match indexable static pages");
+  "Sitemap URLs must exactly match indexable static pages (noindex products excluded)");
 
 verifyDeployment({ distRoot, repositoryRoot, siteBase });
 
@@ -320,7 +327,7 @@ const affiliate = verifyAffiliateHonesty({
   partnerIdInput: process.env.VITE_COUPANG_PARTNER_ID,
 });
 
-console.log(`Validated ${pages.length} indexable pages, 10 products, 9 categories, sitemap, noindex 404, and ${contrastChecks} color-contrast pairs.`);
+console.log(`Validated ${pages.length - productFiles.length} indexable pages + ${productFiles.length} noindex products, 9 categories, sitemap, noindex 404, and ${contrastChecks} color-contrast pairs.`);
 console.log(`Affiliate honesty: ${affiliate.mode} build (partner ${affiliate.partnerId ?? "unset"}), ${affiliate.affiliateAnchors} affiliate anchors, ${affiliate.disclosurePages} pages carrying the disclosure.`);
 console.log(`Router/sitemap cross-check: ${routerSitemap.staticChecked} static routes vs ${routerSitemap.sitemapUrls} sitemap URLs, both directions.`);
 await import("./verify-unit-price-pages.mjs");

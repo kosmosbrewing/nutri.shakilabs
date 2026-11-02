@@ -13,6 +13,11 @@ const ledgerVersion = "sitemap-lastmod-v1";
 const outputPaths = [resolve(distRoot, "sitemap.xml"), resolve(clientRoot, "public", "sitemap.xml")];
 // 색인 대상이 아닌 페이지는 사이트맵에서 뺀다 (404는 noindex)
 const excludedFiles = new Set(["404.html"]);
+// robots noindex를 단 페이지(2026-11-02부터 제품 상세 10개)도 뺀다 — verify-router-sitemap·verify-static이 "noindex ⇔ 사이트맵 밖"을 대조한다.
+function isNoindexHtml(html) {
+  const robots = html.match(/<meta\b[^>]*name="robots"[^>]*>/i)?.[0] ?? "";
+  return /content="[^"]*noindex/i.test(robots);
+}
 
 function resolveBuildDate() {
   const candidate = process.env.BUILD_DATE?.trim();
@@ -35,6 +40,7 @@ function listHtmlFiles(directory) {
 function collectPages() {
   return listHtmlFiles(distRoot)
     .filter((path) => !excludedFiles.has(relative(distRoot, path).split(sep).join("/")))
+    .filter((path) => !isNoindexHtml(readFileSync(path, "utf8")))
     .map((path) => {
       const route = `/${relative(distRoot, path).split(sep).join("/").replace(/\.html$/, "")}`;
       return { route: route === "/index" ? "/" : route, path };

@@ -23,7 +23,7 @@ export interface SeoPage {
   title: string;
   description: string;
   canonical: string | null;
-  robots: "index,follow" | "noindex,nofollow";
+  robots: "index,follow" | "noindex,follow" | "noindex,nofollow";
   structuredData: StructuredData[];
 }
 
@@ -114,7 +114,11 @@ function productPage(slugInput: unknown): SeoPage | null {
     title: brandTitle(`${product.name} 가격·1일 비용 · ${NUTRIENT_COUNT}개 영양소 함량`),
     description,
     canonical: canonical(path),
-    robots: "index,follow",
+    // 2026-11-02 제품 상세 noindex,follow: 전수조사에서 제품 쌍 본문 자카드 0.57~0.74(한 틀에 수치만 다름)로 사이트
+    // 최상위 중복군이었고 고유 한글도 600~780자로 최하위였다. 네이버 유입은 카테고리 페이지로 오므로 카테고리는
+    // 그대로 색인하고 제품 상세는 링크만 따라가게 둔다. 사이트맵 제외(generate-sitemap)·광고 로더 제거(vite.config
+    // AD_FREE_ROUTES)와 한 묶음 — /disclosure의 "noindex 화면에는 광고를 두지 않습니다"를 지키기 위해서다.
+    robots: "noindex,follow",
     structuredData: [
       {
         "@type": "WebPage",
