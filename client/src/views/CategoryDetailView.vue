@@ -70,13 +70,14 @@ function trackQuicklink(toSlug: string): void {
               <p class="mt-3 break-keep text-xs leading-5 text-muted-foreground">{{ registryCaveatSentence(category) }} {{ category.activeUnit ? "함량이 높은 순 순위이며 동일 함량은 동일 순위입니다. 효능·품질 순위가 아닙니다." : "" }}</p>
             </div>
             <div class="overflow-x-auto rounded-xl border border-border bg-card">
-              <table class="w-full min-w-[36rem] text-sm">
+              <!-- 390px에서 36rem 하한이 +253px 가로 스크롤이었다(2026-11 UI 감사). 48rem 미만은 제조사·1회 섭취 열을 접고(.sh-col-secondary) 하한 없이 둔다. -->
+              <table class="w-full text-sm md:min-w-[36rem]">
                 <thead>
                   <tr class="border-b border-border bg-muted/40 text-left text-xs font-semibold text-muted-foreground">
                     <th v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5" scope="col">순위</th>
                     <th class="px-3 py-2.5" scope="col">제품명</th>
-                    <th class="px-3 py-2.5" scope="col">제조사</th>
-                    <th class="whitespace-nowrap px-3 py-2.5" scope="col">1회 섭취</th>
+                    <th class="sh-col-secondary px-3 py-2.5" scope="col">제조사</th>
+                    <th class="sh-col-secondary whitespace-nowrap px-3 py-2.5" scope="col">1회 섭취</th>
                     <th v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5 text-right" scope="col">1일 함량</th>
                   </tr>
                 </thead>
@@ -91,8 +92,8 @@ function trackQuicklink(toSlug: string): void {
                       {{ rank !== null ? `${rank}위` : "—" }}
                     </td>
                     <td class="break-keep px-3 py-2.5">{{ record.name }}<span class="mt-0.5 block text-xs text-muted-foreground">신고번호 {{ record.reportNo }}</span></td>
-                    <td class="break-keep px-3 py-2.5 text-xs text-muted-foreground">{{ record.manufacturer }}</td>
-                    <td class="whitespace-nowrap px-3 py-2.5 text-xs text-muted-foreground">{{ record.servingSize }} × {{ record.dailyFrequency }}</td>
+                    <td class="sh-col-secondary break-keep px-3 py-2.5 text-xs text-muted-foreground">{{ record.manufacturer }}</td>
+                    <td class="sh-col-secondary whitespace-nowrap px-3 py-2.5 text-xs text-muted-foreground">{{ record.servingSize }} × {{ record.dailyFrequency }}</td>
                     <td v-if="category.activeUnit" class="whitespace-nowrap px-3 py-2.5 text-right font-semibold tabular-nums">
                       {{ record.activeAmount !== null ? formatActiveAmount(record.activeAmount, category.activeUnit) : "미기재" }}
                     </td>
